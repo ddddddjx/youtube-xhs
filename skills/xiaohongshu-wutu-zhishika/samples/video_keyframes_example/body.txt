@@ -1,0 +1,15 @@
+斯坦福 2026 春季 MS&E435《Economics of the AI Supercycle》第一课，Altimeter 合伙人 Apoorv Agrawal 把 AI 产业链拆成 Semis / Infra / Apps 三层来算账。
+
+AI 年化收入两年从约 900 亿美元涨到约 4350 亿美元，新增部分大约三分之二流向芯片层。按毛利算更集中：芯片层仍拿走约 79%，应用层只有 7%。云软件正好相反，应用层占约 70%。
+
+根子在边际成本：AI 应用每多一个用户，就要多烧一份 GPU。
+三角什么时候翻过来，看两个信号：大厂自研 ASIC 能否跑出来，云厂商会不会停止上调 CapEx 指引。
+
+消费端，ChatGPT 约 10 亿用户、每人每年约 10 美元，离谷歌、Meta 的量级还差一个数量级。讲者押注下一步是 AI 广告。
+
+你愿意在和 AI 的对话里看到广告吗？
+
+课程视频：YouTube 搜 Stanford MS&E435（Stanford Online 官方频道）
+图中课件截图版权归 Stanford Online / Altimeter，仅作引用说明。
+
+#AI #人工智能 #大模型 #英伟达 #ChatGPT #斯坦福公开课 #科技投资 #AI产业链 #商业分析 #财经

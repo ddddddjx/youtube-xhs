@@ -1,0 +1,60 @@
+{
+  "account": {"name": "Krypto说AI", "avatar_image": "avatar.png", "date": "09/19"},
+  "pages": [
+    {
+      "tag": "斯坦福公开课 · MS&E435",
+      "title": "AI 收入两年涨 5 倍<br>钱还堆在芯片层",
+      "blocks": [
+        {"p": "斯坦福 2026 春季新课《Economics of the AI Supercycle》第一课，主讲 Apoorv Agrawal 是 Altimeter Capital 合伙人。整堂课只追一个问题：AI 的钱，到底在哪里？"},
+        {"p": "他把产业链拆成 Semis、Infra、Apps 三层，拿云计算做对照。==云计算是应用层最大的正三角，AI 却是芯片层最大的倒三角。=="}
+      ],
+      "evidence": {"image": "ev_01.png", "caption": "课件截图｜Stanford Online · MS&E435 Lecture 1（数据：Altimeter 估算年收入）"}
+    },
+    {
+      "title": "规模涨了 5 倍<br>形状几乎没变",
+      "blocks": [
+        {"p": "Q1 2024 到 Q1 2026，AI 年化收入从约 900 亿美元涨到约 4350 亿美元。芯片 750 亿 → 3000 亿，基础设施 100 亿 → 750 亿，应用 50 亿 → 600 亿。"},
+        {"p": "应用层涨了 12 倍，依然是最小的一块。==新增的约 3450 亿美元里，大约三分之二被芯片层拿走。=="}
+      ],
+      "evidence": {"image": "ev_02.png", "caption": "课件截图｜AI Revenue ($B), 2024 vs 2026 · Stanford Online / Altimeter"}
+    },
+    {
+      "title": "按利润算<br>集中得更厉害",
+      "blocks": [
+        {"p": "毛利口径下，芯片层 2024 年拿走 AI 全行业 87% 的毛利，2026 年仍有 79%；应用层只从 3% 升到 7%。云软件正好相反：应用层约 70%，芯片仅 6%。"},
+        {"p": "差别在边际成本。传统软件多一个用户几乎零成本，AI 应用多一个用户就要多烧一份 GPU。==英伟达数据中心毛利约 75%，AI 应用层只有 0–30%。=="}
+      ],
+      "evidence": {"image": "ev_03.png", "caption": "课件截图｜% Share of Gross Profit · Stanford Online / Altimeter"}
+    },
+    {
+      "title": "三角会翻过来吗？<br>看两个信号",
+      "blocks": [
+        {"p": "历史参照是 AWS：2004 年起步，2010 年迎来 Netflix，2012 年亚马逊整体迁上去。==从第一笔资本开支到跑通，花了 8 年。=="},
+        {"p": "另一个观察点是推理占比。英伟达的算力目前约 40% 用于推理、60% 用于训练。==推理需求越大，应用层越有机会把钱赚回来。=="},
+        {"p": "中间的推理 / Infra 层最卷：新公司最多，被收购的也最多。每家都要回答一个问题：==你是一个功能，还是一个平台？=="},
+        {"hr": true},
+        {"h": "翻转信号"},
+        {"p": "① 大厂自研 ASIC（Google TPU、Meta MTIA 等）真正跑出来，芯片层被重新定价。<br>② 云厂商不再上调 CapEx 指引，说明现在的均衡撑不住了。"}
+      ]
+    },
+    {
+      "title": "ChatGPT 刚越过<br>「小众应用」线",
+      "blocks": [
+        {"p": "AI 应用周活里 ChatGPT 遥遥领先，Gemini 第二。放进消费级应用坐标：它刚超过 Spotify、Amazon 这一档，离 WhatsApp、YouTube 这类刚需应用还远。"},
+        {"p": "讲者的解释：==ChatGPT 需要你主动提问，而会主动向技术提问的人，并不是全部网民。=="}
+      ],
+      "evidence": {"image": "ev_04.png", "caption": "课件截图｜AI Apps - Weekly Active Users（Sensor Tower）· Stanford Online / Altimeter"}
+    },
+    {
+      "title": "下一个大新闻<br>可能是 AI 广告",
+      "blocks": [
+        {"p": "讲者给的粗账（用户数 × 每人每年收入）："},
+        {"table": [["Alphabet", "约 40 亿", "× 约 $100"], ["Meta", "约 35 亿", "× 约 $70"], ["ChatGPT", "约 10 亿", "× 约 $10"]]},
+        {"p": "两道题：用户怎么从 10 亿到 40 亿？单用户价值怎么从 10 美元到 100 美元？==他的判断是订阅不够，AI 迟早要做广告：懂意图、有登录、归因准。=="},
+        {"p": "十年前 Facebook 上市时，也有人说手机屏幕太小放不下广告。"},
+        {"hr": true},
+        {"p": "==你愿意在和 AI 的对话里看到广告吗？=="}
+      ]
+    }
+  ]
+}
