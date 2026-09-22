@@ -3,7 +3,7 @@
 不能有 Markdown 符号、占位提示、站外链接 / 导流用语；标题不超过 20 字；
 极限词、投资用语给 ⚠ 提醒（不算失败）；「仅供学习」的视频版不能带发布文案。
 
-用法: python3 check_paste.py <目录>   # 检查目录下所有 标题.txt / 正文.txt
+用法: python3 check_paste.py <目录>   # 检查目录下所有 标题.txt / 标题备选.txt / 正文.txt / 开头卡.txt / 置顶评论.txt
 有问题时退出码 1 并列出行号。
 """
 import os
@@ -30,7 +30,7 @@ WARNS = [
     (r"稳赚|必涨|暴涨|翻倍|抄底|上车|梭哈|财富自由|荐股|喊单|带单|买入|建仓|百倍币|空投", "投资 / 荐币用语"),
     (r"比特币|BTC|以太坊|ETH|币圈|加密货币|炒币|山寨币", "加密货币话题（小红书严管，确认不是行情 / 荐币内容）"),
 ]
-TEXT_FILES = ("标题.txt", "正文.txt", "标题备选.txt")
+TEXT_FILES = ("标题.txt", "正文.txt", "标题备选.txt", "开头卡.txt", "置顶评论.txt")
 STUDY_ONLY = "仅供学习_勿上传.txt"
 
 
@@ -51,6 +51,10 @@ def check(path):
             problems.append("  标题.txt 应该只有一行")
         if len(text) > 20:
             problems.append(f"  标题 {len(text)} 字，超过 20 字：{text}")
+    if os.path.basename(path) == "开头卡.txt":
+        for i, l in enumerate(lines, 1):
+            if len(l.strip()) > 16:
+                warns.append(f"  ⚠ 第 {i} 行开头卡 {len(l.strip())} 字，超过 16 字（大字卡读不完）：{l.strip()}")
     if os.path.basename(path) == "标题备选.txt":
         for i, l in enumerate(lines, 1):
             if len(l.strip()) > 20:
@@ -61,8 +65,8 @@ def check(path):
 def main(root):
     bad = False
     for dirpath, _, files in os.walk(root):
-        if STUDY_ONLY in files and ("标题.txt" in files or "正文.txt" in files):
-            print(f"✗ {os.path.relpath(dirpath, root)}: 标了「仅供学习」却带发布文案，删掉 标题.txt / 正文.txt")
+        if STUDY_ONLY in files and any(f in files for f in TEXT_FILES):
+            print(f"✗ {os.path.relpath(dirpath, root)}: 标了「仅供学习」却带发布文案，删掉 标题.txt / 正文.txt / 开头卡.txt / 置顶评论.txt")
             bad = True
         for f in sorted(files):
             if f in TEXT_FILES:

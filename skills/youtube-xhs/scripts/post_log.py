@@ -3,7 +3,8 @@
 
 用法:
   post_log.py add    --dir <输出目录> --series 栏目 --no 12 --topic 人物访谈 --title-type 冲突 --score 8 --title "标题"
-  post_log.py fill   --dir <输出目录> --impr 12000 --ctr 8.5 --saves 300 --follows 45 [--likes 500 --comments 30]
+  post_log.py fill   --dir <输出目录> --impr 12000 --ctr 8.5 --saves 300 --follows 45 [--likes 500 --comments 30 --views 900 --shares 10 --watch 15.5]
+                     watch = 平均观看时长（秒）
   post_log.py report
 日志默认在 ~/Documents/Krypto说AI/log.csv，可用 --log 指定。
 """
@@ -14,7 +15,7 @@ import os
 from collections import defaultdict
 
 FIELDS = ["date", "dir", "series", "no", "topic", "title_type", "score", "title",
-          "impr", "ctr", "likes", "saves", "comments", "follows"]
+          "impr", "ctr", "likes", "saves", "comments", "follows", "views", "shares", "watch"]
 DEFAULT = os.path.expanduser("~/Documents/Krypto说AI/log.csv")
 
 
@@ -77,7 +78,7 @@ def main():
     ap.add_argument("--log", default=DEFAULT)
     ap.add_argument("--dir")
     for k in ("series", "no", "topic", "title-type", "score", "title",
-              "impr", "ctr", "likes", "saves", "comments", "follows"):
+              "impr", "ctr", "likes", "saves", "comments", "follows", "views", "shares", "watch"):
         ap.add_argument("--" + k)
     a = ap.parse_args()
     rows = load(a.log)
