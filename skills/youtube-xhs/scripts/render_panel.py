@@ -91,7 +91,8 @@ def panel_html(spec, w, h):
 <div class="body">{''.join(blocks)}</div>{foot}</div></body></html>"""
 
 
-def shoot(htm, png, w, h):
+def shoot(htm, png, w, h, transparent=False):
+    """transparent=True 时出透明底 PNG（render_frame.py 的竖版信息框要叠在视频上）"""
     chrome = find_chrome()
     if not chrome:
         try:
@@ -103,7 +104,7 @@ def shoot(htm, png, w, h):
             page = browser.new_page(viewport={"width": w, "height": h}, device_scale_factor=1)
             page.goto("file://" + htm)
             page.wait_for_timeout(500)
-            page.screenshot(path=png)
+            page.screenshot(path=png, omit_background=transparent)
             browser.close()
         return
     profile = tempfile.mkdtemp(prefix="xhs-panel-")
@@ -111,7 +112,9 @@ def shoot(htm, png, w, h):
         [chrome, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--no-sandbox",
          "--allow-file-access-from-files", f"--user-data-dir={profile}",
          "--force-device-scale-factor=1", f"--window-size={w},{h}",
-         "--virtual-time-budget=2000", f"--screenshot={png}", "file://" + htm],
+         "--virtual-time-budget=2000", f"--screenshot={png}"]
+        + (["--default-background-color=00000000"] if transparent else [])
+        + ["file://" + htm],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     # macOS 无头 Chrome 截完图有时不退出：PNG 写完且大小稳定后主动结束
     last, deadline = -1, time.time() + 60

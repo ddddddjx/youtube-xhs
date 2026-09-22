@@ -2,7 +2,8 @@
   zh.srt        纯中文字幕
   bilingual.srt 中英双语字幕（中文在上，英文在下）
   bilingual.ass 压制用的双语样式字幕（中文大字，英文小字，半透明黑底）
-  bilingual_box.ass 账号黄底字幕（中英同一块黄底，分屏成片默认用它）
+  bilingual_box.ass 账号黄底字幕（中英同一块黄底，老的分屏版式 compose_split.sh 用它）
+竖版成片的字幕不在这里出：compose_frame.py 自己按 1080x1920 的版面生成 frame.ass。
 用法: python3 merge_subs.py <英文srt> <中文srt> <输出目录>
 """
 import os

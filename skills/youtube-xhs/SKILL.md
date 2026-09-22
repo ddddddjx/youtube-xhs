@@ -36,12 +36,12 @@ description: >-
 ```
 <日期>_<短标题>/
   视频版/
-    <短标题>_分屏.mp4          ← 上半屏原视频+黄底字幕，下半屏补充知识卡（发布用）
-    <短标题>_中英字幕.mp4      ← 只带字幕的全屏版（存档 / 自己看）
+    <短标题>_竖版.mp4          ← 1080×1920：顶部主题+标题钩子+讲者卡，中间原视频，底部中英字幕（发布用）
+    <短标题>_中英字幕.mp4      ← 只带字幕的横屏版（存档 / 自己看）
     标题.txt  正文.txt       ← 可直接粘贴进小红书
     cover_candidate.png
     中文字幕.srt  中英双语字幕.srt  英文字幕.srt
-    编辑用/ panel.json  panel.png
+    编辑用/ frame.json  frame.png  preview.png
   图文版/
     01.png … NN.png   overview.jpg   标题.txt  正文.txt
     编辑用/ cards.json  avatar.png  ev_XX.png
@@ -103,22 +103,26 @@ python3 $Y/scripts/sub_translate.py build en.srt tr zh.srt   # 讲中文时: bui
 片头片尾的「All rights reserved」「Copyright ©」、机构 logo 版权页**一律保留**：删除权利管理信息在法律上比搬运本身更严重，CC BY 也要求保留署名。
 `trim.py` / `scan_edges.sh` 只用来剪用户点名要去掉的片段（赞助商口播、长时间静场），不能用来剪版权页；用了就在交付时写明剪了哪几段。
 
-### 2. 字幕合并 + 分屏成片（后台，75 分钟视频约 10 分钟）
+### 2. 字幕合并 + 竖版成片（后台，18 分钟视频约 6 分钟）
 
-成片一律是**上下分屏**：上半屏原视频 + 账号黄底中英字幕，下半屏一张固定的补充知识卡（讲者 / 课程背景 / 关键概念 / 我的思考）。细则见 `templates/video_panel.md`。
+成片一律是 **1080×1920 竖版**：顶部信息框（主题 → 来路 → 两行标题钩子 → 讲者卡），中间原视频，底部中文大字幕 + 英文小字，背景是原视频模糊压暗。上下各留出小红书界面会盖住的一条。细则和钩子写法见 `templates/video_frame.md`。
 
 ```bash
-cd "<输出目录>/_work" && python3 $Y/scripts/merge_subs.py en.srt zh.srt .   # 出 bilingual.ass + bilingual_box.ass
-# 写 视频版/编辑用/panel.json（讲者 / 课程背景 / 关键概念 / 一条判断；小标题不写「我的思考」这类标签词）
-python3 $Y/scripts/render_panel.py "<输出目录>/视频版/编辑用/panel.json" "<输出目录>/视频版/编辑用/panel.png"
-bash $Y/scripts/compose_split.sh "<输出目录>/_work" "<输出目录>/视频版/编辑用/panel.png" \
-     "<输出目录>/视频版/<短标题>_分屏.mp4"
+cd "<输出目录>/_work" && python3 $Y/scripts/merge_subs.py en.srt zh.srt .   # 出 zh.srt / bilingual.srt（交付用）和横屏用的 ass
+# 写 视频版/编辑用/frame.json：tag 主题、source 来路、title 两行钩子、speaker 讲者
+python3 $Y/scripts/render_frame.py "<输出目录>/视频版/编辑用/frame.json" "<输出目录>/视频版/编辑用/frame.png"
+python3 $Y/scripts/compose_frame.py "<输出目录>/_work" "<输出目录>/视频版/编辑用/frame.png" \
+     "<输出目录>/视频版/编辑用/preview.png" --preview <有字幕的秒数>
+python3 $Y/scripts/compose_frame.py "<输出目录>/_work" "<输出目录>/视频版/编辑用/frame.png" \
+     "<输出目录>/视频版/<短标题>_竖版.mp4"
 ```
 
-- **Read 一眼 panel.png**：最后一行碰到页脚线就删内容，别改字号
-- 压完用 grab_frame 抽 2 帧（挑有字幕的秒数）看：黄底字幕清不清楚、上下分界有没有压到人脸
-- 只要全屏带字幕版（存档、或者原片本身就是竖屏）时用：
+- 标题钩子要等步骤 3 读完字幕、定了立场再写：先后台下载 / 合并字幕，钩子定了再压片
+- **先 Read preview.png 再压整片**：标题超两行、讲者卡压到视频、字幕落到 1600 以下，都回去改 frame.json / zh.srt
+- compose_frame.py 会列出太长的字幕句：把 `zh.srt` 里那几句压短后重跑
+- 原片本身是竖屏，或者只要横屏带字幕的存档版：
   `bash $Y/scripts/burn.sh "<输出目录>/_work" "<输出目录>/视频版/<短标题>_中英字幕.mp4"`（只要中文加参数 zh）
+- 用户点名要「下半屏知识卡」的老分屏版式时：按 `templates/video_panel.md` 用 render_panel.py + compose_split.sh
 - 复制 `zh.srt / bilingual.srt / en.srt` 为 `中文字幕.srt / 中英双语字幕.srt / 英文字幕.srt` 到 `视频版/`
 
 ### 3. 读字幕，提炼内容（压制期间做）
@@ -170,7 +174,7 @@ Read `contact_N.jpg`，挑 3–4 张 PPT / 图表帧（规则见 `$X/templates/v
 ### 7. 交付
 - 先跑 `python3 $Y/scripts/check_paste.py "<输出目录>"`，有 ✗ 就改到全部 ✓；⚠（极限词、投资用语）逐条看，能换说法就换
 - 记一行发布日志：`python3 $Y/scripts/post_log.py add --dir "<输出目录>" --series "<栏目名>" --no <期数> --topic <选题类型> --title-type <数字|冲突|人物> --score <选题分> --title "<标题>"`
-- SendUserFile：`视频版/编辑用/panel.png`（可发布状态）、`图文版/overview.jpg`、`图文版/封面备选/overview.jpg`、`标题.txt` + `标题备选.txt` + `正文.txt`（可发布状态再加视频版两份）
+- SendUserFile：`视频版/编辑用/preview.png`（竖版成片的预览帧）、`图文版/overview.jpg`、`图文版/封面备选/overview.jpg`、`标题.txt` + `标题备选.txt` + `正文.txt`（可发布状态再加视频版两份）
 - 汇报：选题分、发布状态（可发布 / 仅供学习）及原因、产物路径、视频时长 / 大小、字幕来源、三个标题和封面里你推荐哪个、需要用户补的地方（立场、校对字幕）
 - 提醒：发布 48 小时后把数据告诉我（曝光、点击率、收藏、涨粉），我来回填 log
 - 不自动登录小红书、不代发
