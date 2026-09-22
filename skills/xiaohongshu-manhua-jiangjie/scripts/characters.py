@@ -20,8 +20,18 @@ POSES = {  # 左臂, 右臂, 左腿, 右腿, 手里东西的位置
     "think": ("M-12,70 L-32,108 L-4,112", "M12,72 L38,96 L22,50", None, None, None),
     "hold":  ("M-12,70 L-30,112", "M12,70 L50,84", None, None, (58, 80)),
     "walk":  ("M-12,70 L-40,100", "M12,70 L42,96", "M-10,128 L-34,188", "M10,128 L34,186", None),
+    # 封面用的大动作：让人物真的在「干一件事」，而不是站着摆 pose
+    "carry": ("M-12,72 L48,96 L74,80", "M12,72 L60,104 L86,88", "M-10,128 L-40,188", "M10,128 L36,186", (96, 84)),   # 抱着 / 端着一个大东西往前走
+    "push":  ("M-12,74 L54,66 L90,72", "M12,78 L58,84 L92,90", "M-10,128 L-52,186", "M10,128 L28,188", (104, 78)),  # 身子前倾推东西
+    "kneel": ("M-12,72 L24,112 L66,126", "M12,72 L40,116 L80,132", "M-10,126 L-74,130", "M10,126 L-46,136", (84, 130)),   # 跪在地上摆弄东西（整个人下沉，见 POSE_DY）
+    "headache": ("M-12,70 L-56,22 L-34,-30", "M12,70 L56,22 L34,-30", None, None, None),   # 双手抱头
+    "run":   ("M-12,70 L-52,44", "M12,70 L52,100", "M-10,128 L-62,168 L-84,150", "M10,128 L40,170 L60,190", None),
+    "sit":   ("M-12,72 L-8,124", "M12,72 L60,110", "M-12,126 L56,130", "M12,126 L74,136", (64, 100)),   # 坐在地上，腿伸向前（整个人下沉）
+    "lean":  ("M-12,70 L-40,120", "M12,68 L-6,120", "M-12,128 L-70,150 L-92,190", "M12,128 L-20,168 L-30,190", None),   # 靠着 / 往后仰
 }
 LEGS = ("M-12,128 L-14,190", "M12,128 L16,190")
+POSE_DY = {"kneel": 62, "sit": 62}   # 这些姿势整个人往下沉多少（局部坐标），让膝盖 / 屁股落在地面上
+ARMS_ON_TOP = {"carry", "push", "kneel"}   # 抱着大道具时，手臂要再画一遍盖在道具上
 
 EIN_FACES = {
     "tongue":   ('<circle cx="-16" cy="-8" r="5.5"/><circle cx="16" cy="-8" r="5.5"/>',
@@ -61,10 +71,10 @@ XB_FACES = {
 def _limbs(pose):
     la, ra, ll, rl, hand = POSES.get(pose, POSES["stand"])
     ll, rl = ll or LEGS[0], rl or LEGS[1]
-    fx1, fx2 = float(ll.split("L")[1].split(",")[0]), float(rl.split("L")[1].split(",")[0])
+    (fx1, fy1), (fx2, fy2) = (tuple(map(float, l.split("L")[-1].split(","))) for l in (ll, rl))
     return (f'<path d="{la} {ra}" fill="none" stroke="#000" stroke-width="9"/>'
             f'<path d="{ll} {rl}" fill="none" stroke="#000" stroke-width="10"/>'
-            f'<ellipse cx="{fx1 - 6}" cy="191" rx="12" ry="7"/><ellipse cx="{fx2 + 6}" cy="191" rx="12" ry="7"/>'), hand
+            f'<ellipse cx="{fx1 - 6}" cy="{fy1 + 1}" rx="12" ry="7"/><ellipse cx="{fx2 + 6}" cy="{fy2 + 1}" rx="12" ry="7"/>'), hand
 
 
 def einstein(pose="wave", face="tongue"):
@@ -181,4 +191,36 @@ PROPS = {
                 f'C62,50 -10,70 -40,45" fill="none" stroke="#000" stroke-width="7"/>',
     "arrow":    f'<path d="M-90,0 H70" fill="none" stroke="{YELLOW}" stroke-width="22"/>'
                 f'<path d="M-90,0 H78 M78,0 L40,-34 M78,0 L40,34" {_S}/>',
+    # 封面用的大道具：一件东西就能把这期讲的事演出来
+    "basket":   f'<path d="M-40,-30 L-44,-120 M-10,-40 L-6,-140 M24,-36 L36,-128" fill="none" stroke="#000" stroke-width="9"/>'   # 一筐卷宗，纸从筐里冒出来
+                f'<path d="M-60,-40 L-50,-125 L-20,-118 L-16,-40 Z M-24,-42 L-18,-138 L14,-132 L10,-42 Z M12,-40 L24,-124 L54,-114 L44,-40 Z" fill="#FFF" stroke="#000" stroke-width="7"/>'
+                f'<path d="M-95,-40 H95 L78,90 H-78 Z" fill="{YELLOW}" stroke="#000" stroke-width="9"/>'
+                f'<path d="M-95,-40 H95 M-70,-5 H70 M-62,35 H62" fill="none" stroke="#000" stroke-width="5"/>',
+    "stack":    "".join(f'<path d="M{-62 + i * 3},{60 - i * 40} H{58 + i * 3} V{95 - i * 40} H{-62 + i * 3} Z" fill="#FFF" stroke="#000" stroke-width="8"/>'
+                        f'<path d="M{-40 + i * 3},{78 - i * 40} H{20 + i * 3}" fill="none" stroke="#000" stroke-width="5"/>' for i in range(5)),   # 一摞越堆越高的纸
+    "timeline": f'<path d="M-160,0 H160" fill="none" stroke="#000" stroke-width="10"/>'
+                f'<circle cx="-120" cy="0" r="22" fill="#FFF" stroke="#000" stroke-width="9"/>'
+                f'<circle cx="0" cy="0" r="22" fill="{YELLOW}" stroke="#000" stroke-width="9"/>'
+                f'<circle cx="120" cy="0" r="22" fill="#FFF" stroke="#000" stroke-width="9"/>',
+    "bill":     f'<path d="M-60,-95 H60 V70 L40,90 L20,70 L0,90 L-20,70 L-40,90 L-60,70 Z" fill="#FFF" stroke="#000" stroke-width="8"/>'   # 账单，底边锯齿
+                f'<path d="M-36,-60 H36 M-36,-30 H36 M-36,0 H10 M-36,30 H36" fill="none" stroke="#000" stroke-width="6"/>'
+                f'<path d="M14,20 H38 M26,8 V44" fill="none" stroke="{YELLOW}" stroke-width="10"/>',
+    "brick":    f'<path d="M-90,-30 H90 V30 H-90 Z" fill="{YELLOW}" stroke="#000" stroke-width="8"/>',   # 一块砖，摞起来就是墙 / 台阶
 }
+
+# 封面背景（scene.backdrop）：铺在人物后面的一整片景，让画面有地面 / 有远近
+def backdrop(kind, y, w=1080, h=760):
+    if kind == "ground":     # 一条灰色地面
+        return f'<rect x="0" y="{y}" width="{w}" height="{h - y}" fill="{SHADOW}"/>'
+    if kind == "waves":      # 几道起伏的波浪线（数据在涨 / 情绪起伏）
+        out = [f'<rect x="0" y="{y}" width="{w}" height="{h - y}" fill="{SHADOW}"/>']
+        for i in range(4):
+            yy = y + 30 + i * 60
+            out.append(f'<path d="M0,{yy} C180,{yy - 50} 320,{yy + 50} 540,{yy} S900,{yy - 50} {w},{yy + 10}" fill="none" stroke="#FFF" stroke-width="6"/>')
+        return "".join(out)
+    if kind == "hill":       # 一个鼓起来的坡
+        return f'<path d="M0,{h} V{y + 120} Q{w // 2},{y - 140} {w},{y + 120} V{h} Z" fill="{SHADOW}"/>'
+    if kind == "road":       # 地面 + 一条向远处收窄的路
+        return (f'<rect x="0" y="{y}" width="{w}" height="{h - y}" fill="{SHADOW}"/>'
+                f'<path d="M{w * 0.42},{y} L{w * 0.58},{y} L{w * 0.95},{h} H{w * 0.05} Z" fill="#FFF" stroke="#000" stroke-width="6"/>')
+    return ""

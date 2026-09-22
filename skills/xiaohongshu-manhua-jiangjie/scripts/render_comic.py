@@ -43,9 +43,11 @@ x / y 是 1080x760 画面里的坐标（地面 y=720）；都可以省略，脚�
     "divider": true            # 中间一条虚线，左右对比
   actor 额外字段: "hat": "chefhat"（头顶戴道具） "meter": 0.8（头顶进度条） "label": "脚下小字" "accent": true（bot 黄领带）
 who: ein（K 老师） xiaobai（小白） bot（方头机器人 = AI / Agent / 模型）
-pose: stand wave point shrug cheer think hold walk
+pose: stand wave point shrug cheer think hold walk ｜ 封面大动作: carry（抱着大东西走）push（推）kneel（蹲着摆弄）headache（抱头）run sit lean
+  actor 的 hold_scale（默认 0.38）：封面让人抱一个大道具时调到 0.8–1.2，配 pose=carry / push / kneel
+  scene.backdrop: {"kind": "ground|waves|hill|road", "y": 480}   # 铺在人物后面的一片地面 / 波浪 / 坡 / 路，封面用
 face: ein → tongue happy smug surprise think sad meh；xiaobai → neutral happy confused surprise sad smug meh
-prop: 见 characters.py 的 PROPS
+prop: 见 characters.py 的 PROPS（封面大道具: basket 一筐纸、stack 一摞纸、timeline 时间线、bill 账单、brick 砖）
 """
 import html
 import json
@@ -55,7 +57,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from characters import ACTORS, PROPS, SHADOW, YELLOW  # noqa: E402
+from characters import ACTORS, ARMS_ON_TOP, POSE_DY, POSES, PROPS, SHADOW, YELLOW, backdrop  # noqa: E402
 
 
 def load_shooter():
@@ -186,11 +188,15 @@ def actor_svg(a, scale, flip=False):
     """单个人物的 SVG（局部坐标，脚底 y=195*scale 由调用方摆放）。返回 (svg, 头顶的 y 偏移)。"""
     who = a.get("who", "ein")
     fn = ACTORS[who]
-    pose = "hold" if a.get("hold") else a.get("pose", "stand")
+    pose = a.get("pose", "hold" if a.get("hold") else "stand")   # 指定了 pose 就按 pose（carry / push / kneel 自带手的位置）
     face = a.get("face", "tongue" if who == "ein" else "neutral")
     body, hand = fn(pose, face, accent=True) if (who == "bot" and a.get("accent")) else fn(pose, face)
     if a.get("hold") and hand:
-        body += f'<g transform="translate({hand[0]},{hand[1]}) scale(0.38)">{PROPS[a["hold"]]}</g>'
+        hs = a.get("hold_scale", 0.38)   # 封面想让人抱一个大东西时把它调到 0.8–1.2
+        body += f'<g transform="translate({hand[0]},{hand[1]}) scale({hs})">{PROPS[a["hold"]]}</g>'
+        if pose in ARMS_ON_TOP:   # 手臂盖在大道具上，看起来是抱着 / 推着，不是道具飘在身前
+            la, ra = POSES[pose][:2]
+            body += f'<path d="{la} {ra}" fill="none" stroke="#000" stroke-width="9"/>'
     top = 92
     if a.get("hat"):
         body += f'<g transform="translate(0,-74) scale(0.62)">{PROPS[a["hat"]]}</g>'
@@ -215,6 +221,9 @@ def scene_svg(scene, sh=SH, small=False):
         auto_x = [int(SW * (i + 0.5) / max(len(actors), 1)) for i in range(len(actors))]
     free = [x for x in (780, 560) if all(abs(x - ax) > 200 for ax in auto_x[:len(actors)])] or [780]
     drawn, texts = [], []
+    bd = scene.get("backdrop")           # 背景景片：{"kind": "ground|waves|hill|road", "y": 480}
+    if bd:
+        drawn.append(backdrop(bd.get("kind", "ground"), bd.get("y", int(sh * 0.62)), SW, sh))
     if scene.get("divider"):
         drawn.append(f'<path d="M{SW // 2},20 V{sh - 20}" fill="none" stroke="#000" stroke-width="5" stroke-dasharray="4 22"/>')
     for i, a in enumerate(actors):
@@ -233,9 +242,10 @@ def scene_svg(scene, sh=SH, small=False):
                          f'scale({sx},{scale}) translate(0,-60)">{body}</g>')
             top = ground - 150 * scale
         else:
+            dy = POSE_DY.get(a.get("pose"), 0) * scale   # 跪 / 坐：整个人下沉
             drawn.append(f'<ellipse cx="{x}" cy="{ground}" rx="{52 * scale}" ry="{9 * scale}" fill="{SHADOW}"/>'
-                         f'<g transform="translate({x},{ground - 195 * scale}) scale({sx},{scale})">{body}</g>')
-            top = ground - (195 + top_off) * scale
+                         f'<g transform="translate({x},{ground - 195 * scale + dy}) scale({sx},{scale})">{body}</g>')
+            top = ground - (195 + top_off) * scale + dy
         if a.get("meter") is not None:   # 头顶进度条：0–1
             w, h = 200 * max(scale, 0.9), 30
             my = top - 34
