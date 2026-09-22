@@ -21,7 +21,11 @@ comic.json:
         {"lead": "小字引入一句"}, {"h": "大标题\\n可两行"}, {"p": "段落"}, {"ul": ["要点 1", "要点 2"]},
         {"fig": {...scene...}, "height": 460},            # 图解，高度 360–560；人物默认小一号
         {"rows": [{"icon": {"who": "bot", "hold": "checklist"}, "title": "Choice", "desc": "一句解释"}]},
-        {"quote": "关键句"}, {"space": true}]},            # space = 把后面的块推到页底
+        {"quote": "关键句"}, {"space": true},               # space = 把后面的块推到页底
+        {"big": "一句加粗结论，居中大字"}, {"note": "一行小字说明，居中"},
+        {"code": ["状态：「我的卡被扣了两次款」", "问题1：该转给哪个部门？（财务 / 技术）"]},   # 深色框：真实输入 / 输出，「键：」自动高亮
+        {"compare": [{"icon": {"who": "bot"}, "title": "LLM 会这样回", "box": "这位客户遇到了…", "note": "系统还得从这段话里抠字段"},
+                     {"icon": {"who": "bot", "accent": true}, "title": "Jev 会这样回", "box": "财务 ==0.94==\n退款 ==0.97==", "note": "程序拿到就能走下一步"}]}]},
     {"type": "end", "lines": ["收束金句第一行", "第二行"], "next": "下一期：XX", "cta": "关注看下一期 · 评论区扣 1 领本期模板", "sign": "漫画学AI，我是 K 老师～"}
   ]
 }
@@ -46,6 +50,8 @@ who: ein（K 老师） xiaobai（小白） bot（方头机器人 = AI / Agent / 
 pose: stand wave point shrug cheer think hold walk ｜ 封面大动作: carry（抱着大东西走）push（推）kneel（蹲着摆弄）headache（抱头）run sit lean
   actor 的 hold_scale（默认 0.38）：封面让人抱一个大道具时调到 0.8–1.2，配 pose=carry / push / kneel
   scene.backdrop: {"kind": "ground|waves|hill|road", "y": 480}   # 铺在人物后面的一片地面 / 波浪 / 坡 / 路，封面用
+  scene.svg: "<path d=…/>"        # 自定义插图（1080x760 坐标）：火车、岔路、曲线，道具库没有的就直接画
+  actor.motion: true              # 人物身后画三道速度线（跑 / 快）
 face: ein → tongue happy smug surprise think sad meh；xiaobai → neutral happy confused surprise sad smug meh
 prop: 见 characters.py 的 PROPS（封面大道具: basket 一筐纸、stack 一摞纸、timeline 时间线、bill 账单、brick 砖）
 """
@@ -115,6 +121,22 @@ h1 { font-size: 118px; line-height: 1.22; letter-spacing: -1px }
 .panel .row .rd { font-size: 35px; line-height: 1.48; margin-top: 6px }
 .panel .quote { font-size: 39px; margin: 8px 0 20px }
 .panel .sp { flex: 1 }
+.panel .big { font-size: 46px; line-height: 1.45; font-weight: 700; text-align: center; margin: 10px 0 16px; white-space: pre-wrap }
+.panel .big mark { padding: 0 4px }
+.panel .note { font-size: 32px; line-height: 1.5; color: #444; text-align: center; margin: 0 0 16px; white-space: pre-wrap }
+.panel .code { background: #2E3440; color: #ECEFF4; border-radius: 22px; padding: 26px 34px; margin: 6px 0 22px;
+               font-size: 33px; line-height: 1.55; white-space: pre-wrap }
+.panel .code b { color: #FFE600; font-weight: 700 }
+.panel .code mark, .panel .cb mark { background: none; color: #FFE600; font-weight: 700; padding: 0 }
+.panel .cmp { display: flex; gap: 30px; margin: 4px 0 18px }
+.panel .cmp > div { flex: 1; min-width: 0 }
+.panel .cmp .ct { font-size: 38px; font-weight: 700; text-align: center; margin-bottom: 12px }
+.panel .cmp .cb { background: #2E3440; color: #ECEFF4; border-radius: 22px; padding: 22px 26px; font-size: 31px;
+                  line-height: 1.5; min-height: 190px; white-space: pre-wrap }
+.panel .cmp .cb b { color: #FFE600 }
+.panel .cmp .cn { font-size: 30px; line-height: 1.45; color: #333; margin-top: 12px; white-space: pre-wrap }
+.panel .cmp .ci { text-align: center; height: 120px }
+.panel .cmp .ci svg { width: 120px; height: 120px }
 .promise { text-align: center; font-size: 32px; color: #555; margin-top: 18px }
 .quote { font-size: 37px; line-height: 1.5; font-weight: 700; border-left: 12px solid #FFE600;
          padding: 4px 0 4px 24px; margin-bottom: 18px; white-space: pre-wrap }
@@ -224,6 +246,8 @@ def scene_svg(scene, sh=SH, small=False):
     bd = scene.get("backdrop")           # 背景景片：{"kind": "ground|waves|hill|road", "y": 480}
     if bd:
         drawn.append(backdrop(bd.get("kind", "ground"), bd.get("y", int(sh * 0.62)), SW, sh))
+    if scene.get("svg"):                 # 自定义插图：直接写 SVG 片段（1080x760 坐标），画火车、曲线、岔路都行；压在背景上、人物下
+        drawn.append(scene["svg"])
     if scene.get("divider"):
         drawn.append(f'<path d="M{SW // 2},20 V{sh - 20}" fill="none" stroke="#000" stroke-width="5" stroke-dasharray="4 22"/>')
     for i, a in enumerate(actors):
@@ -246,6 +270,12 @@ def scene_svg(scene, sh=SH, small=False):
             drawn.append(f'<ellipse cx="{x}" cy="{ground}" rx="{52 * scale}" ry="{9 * scale}" fill="{SHADOW}"/>'
                          f'<g transform="translate({x},{ground - 195 * scale + dy}) scale({sx},{scale})">{body}</g>')
             top = ground - (195 + top_off) * scale + dy
+        if a.get("motion"):              # 速度线：人在跑 / 在动
+            mx = x + (60 if flip else -60) * scale
+            for k, (dy0, ln) in enumerate(((-40, 70), (0, 95), (40, 70))):
+                yy = ground - 110 * scale + dy0 * scale
+                x1, x2 = (mx, mx + ln * scale) if flip else (mx - ln * scale, mx)
+                drawn.append(f'<path d="M{x1:.0f},{yy:.0f} H{x2:.0f}" stroke="#000" stroke-width="7" stroke-linecap="round"/>')
         if a.get("meter") is not None:   # 头顶进度条：0–1
             w, h = 200 * max(scale, 0.9), 30
             my = top - 34
@@ -418,6 +448,25 @@ def page_html(page, idx, total, spec, base):
                 parts.append(f'<div class="rows">{rows}</div>')
             elif "quote" in b:
                 parts.append(f'<div class="quote">{inline(b["quote"])}</div>')
+            elif "big" in b:      # 一句加粗结论，居中，大字
+                parts.append(f'<div class="big">{inline(b["big"])}</div>')
+            elif "note" in b:     # 一行小字说明，居中
+                parts.append(f'<div class="note">{inline(b["note"])}</div>')
+            elif "code" in b:     # 深色框：真实的输入 / 输出例子。每行「键：值」，键自动高亮
+                lines = b["code"] if isinstance(b["code"], list) else str(b["code"]).split("\n")
+                out = []
+                for ln in lines:
+                    m = re.match(r"^([^：:]{1,8})([：:])(.*)$", ln)
+                    out.append(f"<b>{html.escape(m.group(1))}{m.group(2)}</b>{inline(m.group(3))}" if m else inline(ln))
+                parts.append('<div class="code">' + "<br>".join(out) + "</div>")
+            elif "compare" in b:  # 左右两栏对比：[{"icon": {...}, "title": "LLM 会这样回", "box": "…", "note": "…"}, {...}]
+                cols = []
+                for c in b["compare"]:
+                    ic = f'<div class="ci">{icon_svg(c["icon"])}</div>' if c.get("icon") else ""
+                    box = f'<div class="cb">{inline(c["box"])}</div>' if c.get("box") else ""
+                    note = f'<div class="cn">{inline(c["note"])}</div>' if c.get("note") else ""
+                    cols.append(f'<div>{ic}<div class="ct round">{inline(c.get("title", ""))}</div>{box}{note}</div>')
+                parts.append('<div class="cmp">' + "".join(cols) + "</div>")
             elif b.get("space"):
                 parts.append('<div class="sp"></div>')
         inner = "".join(parts)
@@ -457,8 +506,8 @@ def lint(spec):
         actors = cover.get("scene", {}).get("actors", [])
         if not cover.get("kicker"):
             bad.append("  封面没有 kicker：顶部要一行黄底小字引子（场景 / 情绪），如「开了 10 个 Agent 之后…」")
-        if not re.search(r"[？?]|如何|怎么|为什么", title):
-            bad.append("  封面 title 不是问句：写成「为什么你的… / 如何…？」这类读者自己的问题")
+        if not re.search(r"[？?…]|如何|怎么|为什么|\.\.\.$", title.strip()):
+            bad.append("  封面 title 不是问句也没留悬念：写成「为什么你的… / 什么是 X？」，或陈述句结尾用「…」留半句")
         if len(actors) != 1:
             bad.append(f"  封面有 {len(actors)} 个人：只放一个人（默认 K 老师）+ 道具，把这件事演出来")
         if any(a.get("say") for a in actors):
@@ -479,8 +528,12 @@ def lint(spec):
                     if k in ("lead", "h", "p", "quote"))
         chars += sum(len(x) for b in blocks for x in b.get("ul", []))
         chars += sum(len(r.get("title", "")) + len(r.get("desc", "")) for b in blocks for r in b.get("rows", []))
-        if chars < 90:
-            bad.append(f"  第 {i} 页只有 {chars} 字：内页是文字主导，至少 90 字（标题 + 段落 + 要点 / 图标行）")
+        chars += sum(len(re.sub(r"[=*\s]", "", str(b.get(k, "")))) for b in blocks for k in ("big", "note"))
+        chars += sum(len(str(b["code"])) for b in blocks if "code" in b)
+        chars += sum(len(c.get("title", "")) + len(c.get("box", "")) + len(c.get("note", ""))
+                     for b in blocks for c in b.get("compare", []))
+        if chars < 40:
+            bad.append(f"  第 {i} 页只有 {chars} 字：至少一句标题 + 一句结论（40 字）")
         if chars > 300:
             bad.append(f"  第 {i} 页 {chars} 字，超过 300：拆成两页")
         figs = [b["fig"] for b in blocks if "fig" in b]
@@ -488,8 +541,8 @@ def lint(spec):
             for a in f.get("actors", []):
                 if a.get("scale", 1.0) > 1.7:
                     bad.append(f"  第 {i} 页人物 scale={a['scale']}：内页人物是图解的配角，scale ≤ 1.7（只有封面用大人物）")
-        kinds = tuple(k for b in blocks for k in ("ul", "fig", "rows", "quote") if k in b)
-        fig_kind = tuple(sorted(k for f in figs for k in ("bars", "flow", "arrows", "tags", "props", "divider") if f.get(k)))
+        kinds = tuple(k for b in blocks for k in ("ul", "fig", "rows", "quote", "big", "code", "compare") if k in b)
+        fig_kind = tuple(sorted(k for f in figs for k in ("bars", "flow", "arrows", "tags", "props", "divider", "svg", "backdrop") if f.get(k)))
         n_act = tuple(len(f.get("actors", [])) for f in figs)
         who = tuple(sorted(a.get("who", "ein") for f in figs for a in f.get("actors", [])))
         sigs.append((kinds, fig_kind, n_act, who))
