@@ -50,6 +50,15 @@ def report(rows):
     print(f"共 {len(rows)} 篇，已回填 {len(done)} 篇")
     if not done:
         return
+    print("\n目标：封面点击率 ≥20%；转关注率（涨粉÷观看）第一周 ≥5%、第二周 ≥15%、之后 50%")
+    print(f"{'日期':<10} {'点击率%':>7} {'转关注%':>7} {'评论':>4}  标题")
+    for r in sorted(done, key=lambda r: r["date"]):
+        ctr = num(r["ctr"]); v = num(r["views"]); f = num(r["follows"])
+        fr = f / v * 100 if (v and f is not None) else None
+        flag = "" if (ctr or 0) >= 20 else " ←封面"
+        flag += "" if (fr or 0) >= 5 else " ←转粉"
+        print(f"{r['date']:<10} {ctr if ctr is not None else 0:>7.1f} {fr if fr is not None else 0:>7.1f} "
+              f"{r['comments'] or 0:>4}  {r['title'][:24]}{flag}")
     for col, label in (("topic", "选题类型"), ("title_type", "标题类型")):
         groups = defaultdict(list)
         for r in done:

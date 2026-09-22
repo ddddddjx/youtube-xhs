@@ -22,7 +22,7 @@ comic.json:
         {"fig": {...scene...}, "height": 460},            # 图解，高度 360–560；人物默认小一号
         {"rows": [{"icon": {"who": "bot", "hold": "checklist"}, "title": "Choice", "desc": "一句解释"}]},
         {"quote": "关键句"}, {"space": true}]},            # space = 把后面的块推到页底
-    {"type": "end", "lines": ["收束金句第一行", "第二行"], "sign": "漫画学AI，我是 K 老师～"}
+    {"type": "end", "lines": ["收束金句第一行", "第二行"], "next": "下一期：XX", "cta": "关注看下一期 · 评论区扣 1 领本期模板", "sign": "漫画学AI，我是 K 老师～"}
   ]
 }
 文字里 **加粗**、==黄色马克笔高亮==；title / text / note 里用 \\n 换行。
@@ -122,10 +122,13 @@ h2 { font-size: 58px; line-height: 1.3 }
 .scene { flex: 1; min-height: 0; margin: 10px -80px; display: flex; align-items: center }
 .scene svg { width: 1080px; height: 100%; display: block }
 .series { text-align: center; font-size: 40px }
+.next { text-align: center; font-size: 40px; margin-top: 28px }
+.next span { background: #FFE600; border-radius: 40px; padding: 8px 34px }
+.cta { text-align: center; font-size: 36px; color: #444; margin-top: 18px }
 .series span { background: #FFE600; border-radius: 40px; padding: 8px 34px }
 .end { align-items: center; justify-content: center; text-align: center; padding-top: 60px }
 .end .lines { font-size: 50px; line-height: 1.55; margin-top: 40px; white-space: pre-wrap }
-.end .sign { font-size: 38px; margin-top: 110px; display: flex; align-items: center; gap: 18px }
+.end .sign { font-size: 38px; margin-top: 60px; display: flex; align-items: center; gap: 18px }
 .end .sign img { width: 64px; height: 64px; border-radius: 50% }
 .pg { position: absolute; right: 60px; bottom: 36px; font-size: 26px; color: #9A9A9A }
 b { font-weight: 700 }
@@ -376,7 +379,10 @@ def page_html(page, idx, total, spec, base):
         acc = spec.get("account", {})
         av = acc.get("avatar_image")
         img = f'<img src="file://{os.path.join(base, av)}">' if av and os.path.exists(os.path.join(base, av)) else ""
+        nxt = f'<div class="next round"><span>{inline(page["next"])}</span></div>' if page.get("next") else ""
+        cta = f'<div class="cta">{inline(page["cta"])}</div>' if page.get("cta") else ""
         inner = (f'{end_scene()}<div class="lines round">{inline(chr(10).join(page.get("lines", [])))}</div>'
+                 f'{nxt}{cta}'
                  f'<div class="sign">{img}<span>{inline(page.get("sign", ""))}</span></div>')
         cls = "page end"
     elif kind == "panel":

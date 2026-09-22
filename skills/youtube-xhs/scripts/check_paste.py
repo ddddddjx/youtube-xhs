@@ -33,6 +33,26 @@ WARNS = [
 TEXT_FILES = ("标题.txt", "正文.txt", "标题备选.txt", "开头卡.txt", "置顶评论.txt")
 STUDY_ONLY = "仅供学习_勿上传.txt"
 
+TERMS = r"skills?|Agents?|harness|tokens?|prompt|RAG|LLM|MCP|workflow|pipeline"
+
+
+def title_check(text, problems, warns, tag="标题"):
+    """dbs-xhs-title 五条铁律里能机器查的部分。"""
+    if re.match(r"\s*[A-Za-z]", text):
+        problems.append(f"  {tag}以英文开头（前 8 字要有人名 / 机构 / 数字，不用 How to）：{text}")
+    if re.search(r"how\s*to", text, re.I):
+        problems.append(f"  {tag}含 How to：改成人话痛点或「为什么…」：{text}")
+    if re.search(r"教你|干货|必看|震惊|保姆级|收藏", text):
+        warns.append(f"  ⚠ {tag}有「教你 / 干货 / 必看」类词（dbs-content：所有让你讲干货的都是不专业的）：{text}")
+    head = text[:8]
+    if not re.search(r"\d|[A-Z][a-z]+|[A-Z]{2,}", head) and not re.search(r"斯坦福|哈佛|MIT|CMU|谷歌|微软|苹果|英伟达|OpenAI|教授|博主", head):
+        warns.append(f"  ⚠ {tag}前 8 字没有人名 / 机构 / 数字（搜索入口）：{head}")
+    terms = re.findall(TERMS, text)
+    if len(terms) > 1:
+        warns.append(f"  ⚠ {tag}术语 {len(terms)} 个（{', '.join(terms)}）：最多 1 个，其余翻成人话")
+    if re.search(r"[！!]$", text.strip()):
+        warns.append(f"  ⚠ {tag}以感叹号结尾")
+
 
 def check(path):
     problems, warns = [], []
@@ -51,6 +71,23 @@ def check(path):
             problems.append("  标题.txt 应该只有一行")
         if len(text) > 20:
             problems.append(f"  标题 {len(text)} 字，超过 20 字：{text}")
+        title_check(text, problems, warns)
+    if os.path.basename(path) == "正文.txt":
+        body = "\n".join(lines)
+        head = "\n".join(l for l in lines if l.strip()[:6])
+        if not re.search(r"打\s*A\s*或\s*B|A\s*还是\s*B", body):
+            problems.append("  正文没有二选一互动问题（「你是 A 还是 B，评论区打 A 或 B」）")
+        if "下一期" not in body:
+            problems.append("  正文没有「下一期：…」预告")
+        if not re.search(r"扣\s*1|扣 ?一", body):
+            problems.append("  正文没有可领取物提示（「评论区扣 1 发你」）")
+        first = [l for l in lines if l.strip()][:8]
+        if not any(re.search(r"精读\s*#|第\s*\d+\s*期", l) for l in first):
+            warns.append("  ⚠ 正文前 8 行没有栏目期数（海外精读 #N / K老师讲AI｜第 N 期）")
+        if not any(re.search(r"我的看法|我不同意|我试了|会失败", l) for l in first):
+            warns.append("  ⚠ 正文前 8 行没看到你的判断：「我的看法」要前置到第一屏")
+        if re.search(r"你怎么看|大家怎么看|欢迎讨论|你觉得呢", body):
+            warns.append("  ⚠ 有开放式提问（你怎么看）：改成二选一")
     if os.path.basename(path) == "开头卡.txt":
         for i, l in enumerate(lines, 1):
             if len(l.strip()) > 16:
@@ -59,6 +96,8 @@ def check(path):
         for i, l in enumerate(lines, 1):
             if len(l.strip()) > 20:
                 problems.append(f"  第 {i} 行标题 {len(l.strip())} 字，超过 20 字：{l.strip()}")
+            if l.strip():
+                title_check(l.strip(), problems, warns, f"第 {i} 行")
     return problems, warns
 
 
