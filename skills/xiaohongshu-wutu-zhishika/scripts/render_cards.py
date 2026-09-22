@@ -11,6 +11,7 @@ cards.json 结构（图片路径相对 json 所在目录）:
   "pages": [
     {
       "tag": "斯坦福公开课",                 # 可选，封面左上黄底信源角标
+      "cover": true,                        # 封面页：title 按最长一行放大到接近满宽（8–12 字结论）
       "title": "第一行<br>第二行",            # 藏青大衬线，一页一个论点
       "blocks": [
         {"p": "普通段落，==这里是藏青完整判断句==。"},
@@ -135,14 +136,21 @@ def page_html(page, idx, total, account, base):
         ev = f'<div class="evidence"><div class="card"><img src="{src}">{cap}</div></div>'
     tag = f'<div class="tag">{html.escape(page["tag"])}</div>' if page.get("tag") else ""
     # 标题允许 <br> 手动断行，其余转义
-    title = "<br>".join(html.escape(t) for t in page.get("title", "").split("<br>"))
+    lines = page.get("title", "").split("<br>")
+    title = "<br>".join(html.escape(t) for t in lines)
+    # 封面页（"cover": true）：结论大字按最长一行放大到接近满宽（汉字算 1，英文数字算 0.56）
+    h1_style = ""
+    if page.get("cover"):
+        units = max((sum(1 if ord(c) > 0x2E7F else 0.56 for c in t) for t in lines), default=1)
+        fs = int(min(150, (W - 144) / max(units, 1) * 0.98))
+        h1_style = f' style="font-size:{fs}px;line-height:1.2;margin:10px 0 40px;letter-spacing:0"'
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>{CSS % {'w': W, 'h': H}}</style></head>
 <body><div class="page{'' if ev else ' text'}">
 <div class="top">{avatar_html(account, base)}
 <div class="who"><div class="name">{html.escape(account.get('name', ''))}</div>
 <div class="date">{html.escape(account.get('date', ''))}</div></div>
 <div class="pill">{idx}/{total}</div></div>
-{tag}<h1>{title}</h1>
+{tag}<h1{h1_style}>{title}</h1>
 <div class="body">{''.join(blocks)}</div>
 {ev}
 </div></body></html>"""
