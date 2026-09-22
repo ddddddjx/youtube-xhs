@@ -68,8 +68,27 @@ def wrap_zh(text, limit):
     return lines
 
 
-def build_ass(work, sub_y, zh_only):
+def first_speech(work, ff):
+    """第一句话的时间：先取字幕第一条的开始，再用 silencedetect 找它附近真正开口的那一刻，往前留 0.1 秒。
+    YouTube 自动字幕的时间轴常常比声音早零点几秒，只看字幕会多出一小段没人说话的画面。"""
+    ts = [read_srt(os.path.join(work, n))[0][0] for n in ("en.srt", "zh.srt")
+          if os.path.exists(os.path.join(work, n))]
+    if not ts:
+        return 0.0
+    cue = min(ts)
+    err = subprocess.run([ff, "-hide_banner", "-t", str(cue + 2), "-i", os.path.join(work, "video.mp4"),
+                          "-af", "silencedetect=n=-35dB:d=0.4", "-f", "null", "-"],
+                         capture_output=True, text=True).stderr
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", err)]
+    onset = max([e for e in ends if e <= cue + 1.0], default=cue)   # 字幕开始前最后一次静音结束 = 开口
+    return max(0.0, onset - 0.1)
+
+
+def build_ass(work, sub_y, zh_only, offset=0.0):
     en, zh = read_srt(os.path.join(work, "en.srt")), read_srt(os.path.join(work, "zh.srt"))
+    if offset:   # 成片从 offset 秒开始：时间轴整体前移，之前的字幕丢掉
+        en = [(max(0.0, s - offset), e - offset, t) for s, e, t in en if e > offset]
+        zh = [(max(0.0, s - offset), e - offset, t) for s, e, t in zh if e > offset]
     if zh_only:
         cues = [(s, e, z, "") for s, e, z in zh]
     else:   # 和 merge_subs.py 的双语 srt 一样：每条英文配重叠最长的那条中文
@@ -132,6 +151,8 @@ def main():
     ap.add_argument("--bg", choices=["blur", "solid"], default="blur", help="solid = 纯深色底，压得快一些")
     ap.add_argument("--zh-only", action="store_true", help="只要中文字幕")
     ap.add_argument("--preview", type=float, metavar="秒", help="只出这一秒的画面（PNG），用来检查版面")
+    ap.add_argument("--start", default="auto", metavar="秒|auto",
+                    help="成片从第几秒开始。默认 auto = 第一句话前 0.15 秒，跳过片头动画 / 赞助商页；0 = 不跳")
     a = ap.parse_args()
 
     work, frame, out = (os.path.abspath(p) for p in (a.work, a.frame, a.out))
@@ -146,13 +167,18 @@ def main():
     if fh > MAX_VH:
         fw, fh = round(MAX_VH * vw / vh / 2) * 2, MAX_VH
     sub_y = TOP_H + fh + 30
-    build_ass(work, sub_y, a.zh_only)
+    start = first_speech(work, ff) if a.start == "auto" else float(a.start)
+    if start:
+        print(f"成片从 {start:.2f} 秒开始（跳过片头 {start:.1f} 秒；要保留就加 --start 0）")
+    build_ass(work, sub_y, a.zh_only, start)
 
     # 50 / 60 帧的原片降到 30 帧：小红书反正会转码，压制时间和体积都省一半
     probe = subprocess.run([ff, "-hide_banner", "-i", os.path.join(work, "video.mp4")],
                            capture_output=True, text=True).stderr
     m = re.search(r"([\d.]+) fps", probe)
     src = "[0:v]fps=30," if m and float(m.group(1)) > 33 else "[0:v]"
+    if a.preview is not None:   # 预览用 -ss 直接跳到那一秒，时间戳会归零，补回去字幕才对得上
+        src = src.replace("[0:v]", f"[0:v]setpts=PTS+{a.preview}/TB,")
 
     if a.bg == "blur":   # 缩到很小再模糊、压暗，最后放大：几乎不占压制时间
         bg = (f"{src}split=2[b0][f0];[b0]scale={W // 4}:{H // 4}:force_original_aspect_ratio=increase,"
@@ -167,13 +193,13 @@ def main():
 
     cmd = [ff, "-hide_banner", "-loglevel", "error", "-y"]
     if a.preview is not None:
-        cmd += ["-ss", str(a.preview), "-copyts", "-i", "video.mp4", "-i", frame,
+        cmd += ["-ss", str(start + a.preview), "-i", "video.mp4", "-i", frame,
                 "-filter_complex", graph, "-map", "[v]", "-frames:v", "1", out]
     else:
         enc = subprocess.run([ff, "-hide_banner", "-encoders"], capture_output=True, text=True).stdout
         venc = (["-c:v", "h264_videotoolbox", "-b:v", "6M", "-maxrate", "8M", "-bufsize", "12M"]
                 if "h264_videotoolbox" in enc else ["-c:v", "libx264", "-preset", "veryfast", "-crf", "21"])
-        cmd += ["-stats", "-i", "video.mp4", "-i", frame, "-filter_complex", graph,
+        cmd += ["-stats", "-ss", str(start), "-i", "video.mp4", "-i", frame, "-filter_complex", graph,
                 "-map", "[v]", "-map", "0:a?", *venc, "-pix_fmt", "yuv420p",
                 "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", out]
     os.makedirs(os.path.dirname(out), exist_ok=True)

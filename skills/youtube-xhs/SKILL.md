@@ -118,6 +118,7 @@ python3 $Y/scripts/compose_frame.py "<输出目录>/_work" "<输出目录>/视�
 ```
 
 - 标题钩子要等步骤 3 读完字幕、定了立场再写：先后台下载 / 合并字幕，钩子定了再压片
+- **成片从第一句话开始**：compose_frame.py 默认（`--start auto`）跳过片头的大会动画、赞助商页、静场，用字幕第一条 + 声音起点定位，第一帧就是讲者在说话。压片前跑 `bash $Y/scripts/scan_edges.sh _work/video.mp4 _work/probe <跳过秒数+3>`，**Read head.jpg 确认跳过的那段里没有版权声明 / 署名页**（有就 `--start 0` 保留，见 1.5）；汇报时写明跳过了前几秒
 - **先 Read preview.png 再压整片**：标题超两行、讲者卡压到视频、字幕落到 1600 以下，都回去改 frame.json / zh.srt
 - compose_frame.py 会列出太长的字幕句：把 `zh.srt` 里那几句压短后重跑
 - 原片本身是竖屏，或者只要横屏带字幕的存档版：
