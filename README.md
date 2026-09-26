@@ -1,6 +1,6 @@
 # yt2red：YouTube / X → 小红书工作流（Krypto说AI）
 
-四个 skill：`youtube-xhs`（主流程）、`xiaohongshu-wutu-zhishika`（五图知识卡）、`xiaohongshu-manhua-jiangjie`（K 老师漫画讲解）、`blogger-kb-distiller`（跨平台博主知识蒸馏：把一个博主的几十篇视频/文章熔合成带溯源的精读长文）。`tools/` 放辅助脚本。
+五个 skill：`youtube-xhs`（主流程）、`xiaohongshu-wutu-zhishika`（五图知识卡）、`xiaohongshu-manhua-jiangjie`（K 老师漫画讲解）、`blogger-kb-distiller`（跨平台博主知识蒸馏：把一个博主的几十篇视频/文章熔合成带溯源的精读长文）、`article-to-xhs`（文章 → 小红书图文：elsewhere 文风的标题和正文，套用 Krypto说AI 的卡片版式）。`tools/` 放辅助脚本。
 
 ## 安装与使用
 
@@ -18,6 +18,7 @@ bash build.sh
 | `dist/xiaohongshu-wutu-zhishika.zip` | claude.ai 网页 / 桌面 Chat |
 | `dist/xiaohongshu-manhua-jiangjie.zip` | claude.ai 网页 / 桌面 Chat |
 | `dist/blogger-kb-distiller.zip` | claude.ai 网页 / 桌面 Chat |
+| `dist/article-to-xhs.zip` | claude.ai 网页 / 桌面 Chat（需同时上传 xiaohongshu-wutu-zhishika 和 youtube-xhs，它复用这两个的出图和检查脚本） |
 | `dist/krypto-xhs.plugin` | Cowork（全部 skill 打成一个插件） |
 
 ## 各端安装
