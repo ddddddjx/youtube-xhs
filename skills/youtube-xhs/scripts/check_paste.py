@@ -86,15 +86,20 @@ def check(path):
         head = "\n".join(l for l in lines if l.strip()[:6])
         if not re.search(r"打\s*A\s*或\s*B|A\s*还是\s*B", body):
             problems.append("  正文没有二选一互动问题（「你是 A 还是 B，评论区打 A 或 B」）")
-        if "下一期" not in body:
-            problems.append("  正文没有「下一期：…」预告")
+        if re.search(r"下一期[：:]", body):
+            problems.append("  正文里有「下一期：…」，这行只放图文末页名片卡，正文里删掉")
+        if re.search(r"(我的看法|我的观点|我的判断)[：:]", body):
+            problems.append("  正文里有「我的看法：」这类标签，AI 味；把立场揉进叙事句里，去掉标签")
+        n_body = len(re.sub(r"#\S+", "", body).strip())
+        if n_body > 1000:
+            problems.append(f"  正文 {n_body} 字（不含标签），超过小红书 1000 字上限")
         if not re.search(r"扣\s*1|扣 ?一", body):
             problems.append("  正文没有可领取物提示（「评论区扣 1 发你」）")
         first = [l for l in lines if l.strip()][:8]
         if not any(re.search(r"精读\s*#|第\s*\d+\s*期", l) for l in first):
             warns.append("  ⚠ 正文前 8 行没有栏目期数（海外精读 #N / K老师讲AI｜第 N 期）")
-        if not any(re.search(r"我的看法|我不同意|我试了|会失败", l) for l in first):
-            warns.append("  ⚠ 正文前 8 行没看到你的判断：「我的看法」要前置到第一屏")
+        if not any(re.search(r"我不同意|我试了|我照着|会失败|我只想|越.{0,6}越觉得|我更想|我顺着", l) for l in first):
+            warns.append("  ⚠ 正文前 8 行没看到你的判断：立场要前置到第一屏（不带标签）")
         if re.search(r"你怎么看|大家怎么看|欢迎讨论|你觉得呢", body):
             warns.append("  ⚠ 有开放式提问（你怎么看）：改成二选一")
     if os.path.basename(path) == "开头卡.txt":
