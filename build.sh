@@ -8,7 +8,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 SRC="$ROOT/skills"; DIST="$ROOT/dist"
-SKILLS=(youtube-xhs xiaohongshu-wutu-zhishika xiaohongshu-manhua-jiangjie)
+SKILLS=(youtube-xhs xiaohongshu-wutu-zhishika xiaohongshu-manhua-jiangjie blogger-kb-distiller)
 VERSION="$(date +%Y.%m.%d)"
 
 # 1. 校验：frontmatter name 与目录同名、只含小写字母数字连字符、description ≤1024 字符
