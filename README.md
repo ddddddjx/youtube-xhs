@@ -1,6 +1,6 @@
 # yt2red：YouTube / X → 小红书工作流（Krypto说AI）
 
-三个 skill：`youtube-xhs`（主流程）、`xiaohongshu-wutu-zhishika`（五图知识卡）、`xiaohongshu-manhua-jiangjie`（K 老师漫画讲解）。`tools/` 放辅助脚本。
+四个 skill：`youtube-xhs`（主流程）、`xiaohongshu-wutu-zhishika`（五图知识卡）、`xiaohongshu-manhua-jiangjie`（K 老师漫画讲解）、`blogger-kb-distiller`（跨平台博主知识蒸馏：把一个博主的几十篇视频/文章熔合成带溯源的精读长文）。`tools/` 放辅助脚本。
 
 ## 安装与使用
 
@@ -16,7 +16,9 @@ bash build.sh
 |---|---|
 | `dist/youtube-xhs.zip` | claude.ai 网页 / 桌面 Chat |
 | `dist/xiaohongshu-wutu-zhishika.zip` | claude.ai 网页 / 桌面 Chat |
-| `dist/krypto-xhs.plugin` | Cowork（两个 skill 打成一个插件） |
+| `dist/xiaohongshu-manhua-jiangjie.zip` | claude.ai 网页 / 桌面 Chat |
+| `dist/blogger-kb-distiller.zip` | claude.ai 网页 / 桌面 Chat |
+| `dist/krypto-xhs.plugin` | Cowork（全部 skill 打成一个插件） |
 
 ## 各端安装
 
@@ -24,7 +26,7 @@ bash build.sh
 
 **claude.ai 网页 / 桌面 Chat**
 1. 设置 → 功能（Capabilities）里打开「代码执行与文件创建」
-2. 设置 → Customize → Skills → 点 + → 上传 skill，**两个 zip 各传一次**
+2. 设置 → Customize → Skills → 点 + → 上传 skill，**每个 zip 各传一次**
 3. 新开对话，说「用 youtube-xhs 处理 <链接>」即可
 
 **Cowork**
