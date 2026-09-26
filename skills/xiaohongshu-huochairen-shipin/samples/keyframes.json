@@ -1,0 +1,14 @@
+{
+  "ratio": "9:16",
+  "clips": [
+    {"start": {"actors": [{"who": "ein", "pose": "headache", "face": "meh", "scale": 2.6}],
+               "props": [{"prop": "tangle", "x": 780, "y": 700, "scale": 2.2}],
+               "backdrop": {"kind": "ground", "y": 1060}},
+     "end":   {"actors": [{"who": "ein", "pose": "point", "face": "smug", "scale": 2.4, "x": 300},
+                          {"who": "bot", "pose": "shrug", "face": "confused", "scale": 2.0, "x": 800, "say": "测试台词会被去掉"}],
+               "backdrop": {"kind": "ground", "y": 1060}}},
+    {"start": {"actors": [{"who": "ein", "pose": "point", "face": "smug", "scale": 2.4, "x": 300},
+                          {"who": "bot", "pose": "shrug", "face": "confused", "scale": 2.0, "x": 800}],
+               "backdrop": {"kind": "ground", "y": 1060}}}
+  ]
+}

@@ -11,7 +11,7 @@ cards.json 结构（图片路径相对 json 所在目录）:
   "pages": [
     {
       "tag": "斯坦福公开课",                 # 可选，封面左上黄底信源角标
-      "cover": true,                        # 封面页：title 按最长一行放大到接近满宽（8–12 字结论）
+      "cover": true,                        # 封面页：title 按最长一行放大到接近满宽；不给 evidence 就是「字为主」封面（黑字、175px、==高亮== 打黄底）
       "title": "第一行<br>第二行",            # 藏青大衬线，一页一个论点
       "blocks": [
         {"p": "普通段落，==这里是藏青完整判断句==。"},
@@ -69,6 +69,7 @@ body { font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Seri
        padding: 6px 16px; margin-bottom: 18px; flex: none }
 h1 { color: #2B4B7C; font-size: 66px; line-height: 1.22; font-weight: 900; letter-spacing: 1px;
      margin-bottom: 30px; flex: none }
+h1 mark { background: #F2D54A; color: #141414; padding: 0 10px; border-radius: 6px }
 .body { flex: none }
 .body p { font-size: 33px; line-height: 1.62; margin-bottom: 22px; text-align: justify }
 .body p b { color: #2B4B7C; font-weight: 900 }
@@ -137,13 +138,18 @@ def page_html(page, idx, total, account, base):
     tag = f'<div class="tag">{html.escape(page["tag"])}</div>' if page.get("tag") else ""
     # 标题允许 <br> 手动断行，其余转义
     lines = page.get("title", "").split("<br>")
-    title = "<br>".join(html.escape(t) for t in lines)
-    # 封面页（"cover": true）：结论大字按最长一行放大到接近满宽（汉字算 1，英文数字算 0.56）
+    # 标题里 ==关键词== → 黄底高亮（封面用）
+    title = "<br>".join(re.sub(r"==(.+?)==", r"<mark>\1</mark>", html.escape(t)) for t in lines)
+    # 封面页（"cover": true）：大字按最长一行放大到接近满宽（汉字算 1，英文数字算 0.56，高亮标记不计）
     h1_style = ""
     if page.get("cover"):
-        units = max((sum(1 if ord(c) > 0x2E7F else 0.56 for c in t) for t in lines), default=1)
-        fs = int(min(150, (W - 144) / max(units, 1) * 0.98))
-        h1_style = f' style="font-size:{fs}px;line-height:1.2;margin:10px 0 40px;letter-spacing:0"'
+        plain = [t.replace("==", "") for t in lines]
+        units = max((sum(1 if ord(c) > 0x2E7F else 0.56 for c in t) for t in plain), default=1)
+        cap = 150 if ev else 175          # 没有配图的「字为主」封面：字更大、黑字、上下留白
+        fs = int(min(cap, (W - 144) / max(units, 1) * 0.98))
+        color = "#141414"                  # 封面大字一律黑字（09-24），藏青留给内页
+        top = 10 if ev else 90
+        h1_style = f' style="font-size:{fs}px;line-height:1.18;margin:{top}px 0 40px;letter-spacing:0;color:{color}"'
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>{CSS % {'w': W, 'h': H}}</style></head>
 <body><div class="page{'' if ev else ' text'}">
 <div class="top">{avatar_html(account, base)}

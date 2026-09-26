@@ -8,7 +8,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 SRC="$ROOT/skills"; DIST="$ROOT/dist"
-SKILLS=(youtube-xhs xiaohongshu-wutu-zhishika xiaohongshu-manhua-jiangjie blogger-kb-distiller article-to-xhs)
+SKILLS=(youtube-xhs xiaohongshu-wutu-zhishika xiaohongshu-manhua-jiangjie xiaohongshu-huochairen-shipin blogger-kb-distiller article-to-xhs)
 VERSION="$(date +%Y.%m.%d)"
 
 # 1. 校验：frontmatter name 与目录同名、只含小写字母数字连字符、description ≤1024 字符
@@ -54,7 +54,7 @@ cat > "$STAGE/.claude-plugin/plugin.json" <<EOF
 {
   "name": "krypto-xhs",
   "version": "$VERSION",
-  "description": "Krypto说AI：YouTube 链接 → 小红书视频版 + 图文知识卡两件套",
+  "description": "Krypto说AI：YouTube 链接 → 小红书视频版 + 图文知识卡 + K 老师漫画 / 火柴人视频",
   "author": {"name": "Krypto说AI"}
 }
 EOF

@@ -38,15 +38,24 @@ TERMS = r"skills?|Agents?|harness|tokens?|prompt|RAG|LLM|MCP|workflow|pipeline"
 
 def title_check(text, problems, warns, tag="标题"):
     """dbs-xhs-title 五条铁律里能机器查的部分。"""
-    if re.match(r"\s*[A-Za-z]", text):
-        problems.append(f"  {tag}以英文开头（前 8 字要有人名 / 机构 / 数字，不用 How to）：{text}")
+    if re.match(r"\s*[A-Za-z]+\s+[A-Za-z]+", text) and not re.match(r"\s*[A-Z][a-z]+\s+[A-Z][a-z]+", text) or re.match(r"\s*[a-z]", text):
+        problems.append(f"  {tag}以英文句子开头（产品名 + 中文可以，How to / 英文短语不行）：{text}")
     if re.search(r"how\s*to", text, re.I):
         problems.append(f"  {tag}含 How to：改成人话痛点或「为什么…」：{text}")
-    if re.search(r"教你|干货|必看|震惊|保姆级|收藏", text):
+    if re.search(r"教你|干货|必看|震惊|保姆级|求收藏|收藏起来|建议收藏", text):
         warns.append(f"  ⚠ {tag}有「教你 / 干货 / 必看」类词（dbs-content：所有让你讲干货的都是不专业的）：{text}")
-    head = text[:8]
-    if not re.search(r"\d|[A-Z][a-z]+|[A-Z]{2,}", head) and not re.search(r"斯坦福|哈佛|MIT|CMU|谷歌|微软|苹果|英伟达|OpenAI|教授|博主", head):
-        warns.append(f"  ⚠ {tag}前 8 字没有人名 / 机构 / 数字（搜索入口）：{head}")
+    head = re.sub(r"^[A-Za-z][A-Za-z0-9 .]*?(?=[\u4e00-\u9fff])", "", text)[:8]  # 去掉开头的英文产品名再数 8 字
+    ORG = r"斯坦福|哈佛|MIT|CMU|谷歌|微软|苹果|英伟达|OpenAI|教授|博主|公开课|网课|长文"
+    if re.search(ORG, head) or re.match(r"\s*[A-Z][a-z]+\s+[A-Z][a-z]+", text):
+        warns.append(f"  ⚠ {tag}以人名 / 机构开头（09-24 复盘：这类开头 4.9–8.2%，数字开头 12.3%）：人名机构挪到后半句做背书：{text}")
+    if not re.search(r"\d|你|总是|越.*越|又.*了", head):
+        warns.append(f"  ⚠ {tag}前 8 字没有数字，也没有读者处境（你的 / 总是 / 越用越）：{head}")
+    if not re.search(r"[？?]|不是.*[是而]|反而|为什么|凭什么|怎么|如何|不.*(也能|就能|砍|反)", text):
+        warns.append(f"  ⚠ {tag}没有问句、「不是 X 是 Y」或「反而」：可能把答案写进了标题，念一遍看读者还要不要点：{text}")
+    if re.search(r"优雅|爆涨|暴涨|震惊|最根本原因，", text):
+        warns.append(f"  ⚠ {tag}有自嗨词 / 新闻腔（优雅、爆涨）：换成读者的处境：{text}")
+    if re.search(r"^(额度|模型|上下文|窗口|成本|token)", text.strip()):
+        problems.append(f"  {tag}主语路人看不懂（「额度」是什么额度？）：前面补产品名，如「Claude 额度」：{text}")
     terms = re.findall(TERMS, text)
     if len(terms) > 1:
         warns.append(f"  ⚠ {tag}术语 {len(terms)} 个（{', '.join(terms)}）：最多 1 个，其余翻成人话")
