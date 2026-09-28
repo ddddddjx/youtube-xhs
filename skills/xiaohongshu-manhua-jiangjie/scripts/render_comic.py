@@ -26,7 +26,7 @@ comic.json:
         {"code": ["状态：「我的卡被扣了两次款」", "问题1：该转给哪个部门？（财务 / 技术）"]},   # 深色框：真实输入 / 输出，「键：」自动高亮
         {"compare": [{"icon": {"who": "bot"}, "title": "LLM 会这样回", "box": "这位客户遇到了…", "note": "系统还得从这段话里抠字段"},
                      {"icon": {"who": "bot", "accent": true}, "title": "Jev 会这样回", "box": "财务 ==0.94==\n退款 ==0.97==", "note": "程序拿到就能走下一步"}]}]},
-    {"type": "end", "lines": ["收束金句第一行", "第二行"], "next": "下一期：XX", "cta": "关注看下一期 · 评论区扣 1 领本期模板", "sign": "漫画学AI，我是 K 老师～"}
+    {"type": "end", "lines": ["收束金句第一行", "第二行"], "cta": "关注 K 老师 · 评论区扣 1 领本期模板", "sign": "漫画学AI，我是 K 老师～"}
   ]
 }
 文字里 **加粗**、==黄色马克笔高亮==；title / text / note 里用 \\n 换行。
@@ -419,7 +419,9 @@ def page_html(page, idx, total, spec, base):
         acc = spec.get("account", {})
         av = acc.get("avatar_image")
         img = f'<img src="file://{os.path.join(base, av)}">' if av and os.path.exists(os.path.join(base, av)) else ""
-        nxt = f'<div class="next round"><span>{inline(page["next"])}</span></div>' if page.get("next") else ""
+        nxt = ""   # 2026-09-28 起不预告下一期，end 页的 next 字段不再上图
+        if page.get("next"):
+            print("⚠ end 页有 next：已停用下一期预告，不会上图，删掉这个字段")
         cta = f'<div class="cta">{inline(page["cta"])}</div>' if page.get("cta") else ""
         inner = (f'{end_scene()}<div class="lines round">{inline(chr(10).join(page.get("lines", [])))}</div>'
                  f'{nxt}{cta}'

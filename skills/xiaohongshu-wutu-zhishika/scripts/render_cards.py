@@ -13,7 +13,8 @@ cards.json 结构（图片路径相对 json 所在目录）:
       "tag": "斯坦福公开课",                 # 可选，封面左上黄底信源角标
       "dense": true,                        # 密排页：正文 31px，一页 320–450 字（长文精读用）
       "cover": true,                        # 封面页：title 按最长一行放大到接近满宽；不给 evidence 就是「字为主」封面（黑字、175px、==高亮== 打黄底）
-      "title": "第一行<br>第二行",            # 藏青大衬线，一页一个论点
+      "title": "第一行<br>第二行",            # 藏青大衬线，一页一个论点；续页可以不给 title
+      "kicker": "新房子",                   # 可选，页眉下的小字节名（长文精读的续页用：一节跨多页时只有首页放大标题）
       "blocks": [
         {"p": "普通段落，==这里是藏青完整判断句==。"},
         {"h": "小标题"},
@@ -71,6 +72,8 @@ body { font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Seri
 h1 { color: #2B4B7C; font-size: 66px; line-height: 1.22; font-weight: 900; letter-spacing: 1px;
      margin-bottom: 30px; flex: none }
 h1 mark { background: #F2D54A; color: #141414; padding: 0 10px; border-radius: 6px }
+.kicker { color: #8A8478; font-size: 26px; letter-spacing: 3px; padding-bottom: 14px; margin-bottom: 26px;
+          border-bottom: 1.5px solid #D9D1C1; flex: none }
 .body { flex: none }
 .body p { font-size: 33px; line-height: 1.62; margin-bottom: 22px; text-align: justify }
 .body p b { color: #2B4B7C; font-weight: 900 }
@@ -142,6 +145,7 @@ def page_html(page, idx, total, account, base):
         cap = f'<div class="cap">{html.escape(e.get("caption", ""))}</div>' if e.get("caption") else ""
         ev = f'<div class="evidence"><div class="card"><img src="{src}">{cap}</div></div>'
     tag = f'<div class="tag">{html.escape(page["tag"])}</div>' if page.get("tag") else ""
+    kicker = f'<div class="kicker">{html.escape(page["kicker"])}</div>' if page.get("kicker") else ""
     # 标题允许 <br> 手动断行，其余转义
     lines = page.get("title", "").split("<br>")
     # 标题里 ==关键词== → 黄底高亮（封面用）
@@ -156,13 +160,14 @@ def page_html(page, idx, total, account, base):
         color = "#141414"                  # 封面大字一律黑字（09-24），藏青留给内页
         top = 10 if ev else 90
         h1_style = f' style="font-size:{fs}px;line-height:1.18;margin:{top}px 0 40px;letter-spacing:0;color:{color}"'
+    h1 = f"<h1{h1_style}>{title}</h1>" if page.get("title") else ""
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>{CSS % {'w': W, 'h': H}}</style></head>
 <body><div class="page{'' if ev else ' text'}{' dense' if page.get('dense') else ''}">
 <div class="top">{avatar_html(account, base)}
 <div class="who"><div class="name">{html.escape(account.get('name', ''))}</div>
 <div class="date">{html.escape(account.get('date', ''))}</div></div>
 <div class="pill">{idx}/{total}</div></div>
-{tag}<h1{h1_style}>{title}</h1>
+{tag}{kicker}{h1}
 <div class="body">{''.join(blocks)}</div>
 {ev}
 </div></body></html>"""
