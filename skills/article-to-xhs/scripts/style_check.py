@@ -227,6 +227,25 @@ def check_sources(folder, plain):
         add("⚠", f"{len(lost)} 句引语在资料里找不到原文（翻译过的引语，把中文译文也记进场景卡）：" + "；".join(lost[:5]))
 
 
+def check_topic(md, heads, sections):
+    """素材的主题（front matter 的 topic，比如 AI）要从封面和第一屏就看得见，每一节都要接回来。
+    类比故事再好看，读者翻了五页还不知道这篇讲 AI，就会划走。"""
+    m = re.search(r"^topic:\s*(.+)$", md, re.M)
+    if not m:
+        add("⚠", "front matter 没写 topic（比如 topic: AI）：写上，脚本才能检查主题是否从第一屏就露出来")
+        return
+    words = [w.strip() for w in re.split(r"[,，/|]", m.group(1)) if w.strip()]
+    hit = lambda t: any(w.lower() in t.lower() for w in words)
+    cover = re.search(r"^cover:\s*(.+)$", md, re.M)
+    if cover and not hit(cover.group(1)):
+        add("✗", f"封面大字里没有「{'/'.join(words)}」：读者在信息流里看不出这篇讲什么，点击率会掉")
+    if sections and not hit(" ".join(sections[0][:3]) + heads[0]):
+        add("✗", f"开场页前三段没出现「{'/'.join(words)}」：第一屏就要让读者知道这是讲 {words[0]} 的，类比故事往后放")
+    for h, sec in zip(heads[1:-1], sections[1:-1]):
+        if not hit(h + " ".join(sec)):
+            add("⚠", f"「{h.replace('<br>', '')}」这一节一次都没提到「{'/'.join(words)}」：讲完类比，用一句话接回主题")
+
+
 def main(arg):
     folder = None
     if os.path.isdir(arg):
@@ -240,6 +259,7 @@ def main(arg):
     if not paras:
         sys.exit("draft.md 是空的")
     plain = check_style(heads, paras, sections)
+    check_topic(load(draft), heads, sections)
     if folder:
         check_sources(folder, plain)
     for level in ("✗", "⚠", "✓"):
