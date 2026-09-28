@@ -11,6 +11,7 @@ cards.json 结构（图片路径相对 json 所在目录）:
   "pages": [
     {
       "tag": "斯坦福公开课",                 # 可选，封面左上黄底信源角标
+      "dense": true,                        # 密排页：正文 31px，一页 320–450 字（长文精读用）
       "cover": true,                        # 封面页：title 按最长一行放大到接近满宽；不给 evidence 就是「字为主」封面（黑字、175px、==高亮== 打黄底）
       "title": "第一行<br>第二行",            # 藏青大衬线，一页一个论点
       "blocks": [
@@ -86,6 +87,11 @@ h1 mark { background: #F2D54A; color: #141414; padding: 0 10px; border-radius: 6
 .text .body p { margin-bottom: 30px }
 .text .body h3 { font-size: 40px }
 .text h1 { margin-bottom: 44px }
+/* 密排页（"dense": true）：长文精读用，一页放 320–450 字 */
+.dense h1 { font-size: 58px; line-height: 1.2; margin-bottom: 30px }
+.dense .body p, .dense .body table { font-size: 31px; line-height: 1.6 }
+.dense .body p { margin-bottom: 20px }
+.dense .body hr { margin: 10px 0 18px }
 .card { background: #fff; border-radius: 22px; padding: 18px 18px 14px;
         box-shadow: 0 10px 34px rgba(60, 45, 20, .16); display: flex; flex-direction: column;
         min-height: 0; max-height: 100%% }
@@ -151,7 +157,7 @@ def page_html(page, idx, total, account, base):
         top = 10 if ev else 90
         h1_style = f' style="font-size:{fs}px;line-height:1.18;margin:{top}px 0 40px;letter-spacing:0;color:{color}"'
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>{CSS % {'w': W, 'h': H}}</style></head>
-<body><div class="page{'' if ev else ' text'}">
+<body><div class="page{'' if ev else ' text'}{' dense' if page.get('dense') else ''}">
 <div class="top">{avatar_html(account, base)}
 <div class="who"><div class="name">{html.escape(account.get('name', ''))}</div>
 <div class="date">{html.escape(account.get('date', ''))}</div></div>
