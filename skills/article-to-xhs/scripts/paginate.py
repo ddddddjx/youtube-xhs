@@ -13,6 +13,8 @@ draft.md 格式:
   no: 2
   source: 查马斯 / Social Capital        # 封面角标里「·」后面的部分
   cover: AI无处不在<br>除了在财报里        # 封面大字，两行，每行 5 到 6 字
+  cover_image: cover_menzel.jpg          # 可选：封面大字下面的配图（公有领域油画 / 有授权的照片），放在 编辑用/
+  cover_credit: 门采尔《轧铁厂》，1875    # 可选：封面来源，写进正文末尾，不上封面
   date: 09/28                            # 不写就用今天
   ab: 你是 A 先上 AI 边用边改，还是 B 先删流程再上 AI？
   slogan: 每周精读 2 篇好文章
@@ -196,7 +198,10 @@ def build(meta, sections):
         tag += f" · {meta['source']}"
     if not meta.get("cover"):
         sys.exit("front matter 里缺 cover（封面大字）")
-    pages.append({"cover": True, "tag": tag, "title": meta["cover"]})
+    cover = {"cover": True, "tag": tag, "title": meta["cover"]}
+    if meta.get("cover_image"):
+        cover["evidence"] = {"image": meta["cover_image"]}      # 不加图注：封面只有角标、大字和图
+    pages.append(cover)
     report.append(("封面", meta["cover"].replace("<br>", " / "), None))
 
     for sec in sections:
