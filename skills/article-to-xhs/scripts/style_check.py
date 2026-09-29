@@ -27,6 +27,7 @@ BAD_OPEN = r"^(随着|近年来|在当今|当今|在这个|在[^，。]{0,12}(�
 BAD_HEAD = r"(背景|分析|总结|启示|原因|意义|影响|概述|介绍|结论|思考|展望|小结)"
 TIME_OPEN = r"^(\d{4}\s*年|\d{1,2}\s*月|[一二三四五六七八九十两半\d]+\s*(年|个月|天|周|小时|分钟)(后|前|过去)|那年|那时|当时|后来|直到|此后|时间回到|再往前)"
 HEDGE = r"可能|大概|似乎|或许|也许|某种程度|未必|不必然|恐怕|多半"
+CONTRAST = r"但|却|可是|然而|没想到|反而|不过|偏偏|结果|直到"
 
 results = {"✗": [], "⚠": [], "✓": []}
 
@@ -139,6 +140,9 @@ def check_style(heads, paras, sections):
 
     if body and (re.match(BAD_OPEN, body[0]) or len(body[0]) > 70):
         add("✗", f"第一段要是一个具体的时间、人或事，70 字以内：{body[0][:30]}…")
+    # 开场靠反差留人：MemeInformation 成熟期 64% 在前 5 段、77% 在首页内出现转折
+    if sections and len(sections[0]) >= 2 and not re.search(CONTRAST, strip_quotes(" ".join(sections[0][1:6]))):
+        add("⚠", "开场第 2 到 6 段没有反差（但、却、没想到、反而、可是……）：第一段写现场，紧接着给一个和它相反的事实")
     for h in heads[1:-1] if len(heads) > 2 else heads[1:]:      # 最后一节是看法页，标题是一句判断，不查
         flat = re.sub(r"^[一二三四五六七八九十\d]+[、.．]\s*", "", h.replace("<br>", ""))
         if re.match(BAD_HEAD, flat) or (len(flat) <= 6 and re.search(BAD_HEAD, flat)):

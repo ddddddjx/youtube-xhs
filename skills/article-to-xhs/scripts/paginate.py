@@ -190,6 +190,34 @@ def split_pages(blocks, caps):
     return [(blocks[a:b], sum(hs[a:b]) / caps(i)) for i, (a, b) in enumerate(cuts)]
 
 
+HOOK_END = ("？", "?", "…", "：", ":", "——")
+
+
+def is_hook(text):
+    """页末钩子：一句 25 字以内的短句，或者停在问号、省略号、冒号上。
+    对标 MemeInformation 180 篇：成熟期 40% 的页末是钩子短句或半句，逼读者翻页。"""
+    t = text.replace("==", "").strip()
+    return units(t) <= 25 or t.endswith(HOOK_END)
+
+
+def hook_tips(pages):
+    """统计正文页（开场、正文，不含看法页、证据页、名片卡）的最后一段是不是钩子。"""
+    body = [(i, pg) for i, pg in enumerate(pages, 1)
+            if pg.get("dense") and pg["blocks"] and not any(b.get("hr") for b in pg["blocks"])]
+    if len(body) < 3:
+        return []
+    miss = [(i, pg["blocks"][-1].get("p", "")) for i, pg in body[:-1]
+            if "p" in pg["blocks"][-1] and not is_hook(pg["blocks"][-1]["p"])]
+    hooked = len(body) - 1 - len(miss)
+    ok = hooked * 2 >= len(body) - 1
+    tips = [("✓ " if ok else "") + f"页末钩子 {hooked}/{len(body) - 1} 页（至少一半）" + ("" if ok else
+            "：下面几页停在一段长叙述上，在页末放一句 20 字以内的短句把下一页提起来"
+            "（「问题出在第三步。」「但他没算到一件事。」），揭晓放到下一页第一句")]
+    if not ok:
+        tips += [f"  第 {i:02} 页末尾：…{p.replace('==', '')[-18:]}" for i, p in miss]
+    return tips
+
+
 def build(meta, sections):
     pages, report, tips = [], [], []
     series = meta.get("series", "长文精读")
@@ -268,6 +296,7 @@ def build(meta, sections):
                 tips.append(tip)
             first = False
 
+    tips += hook_tips(pages)
     if meta.get("next"):
         print("⚠ front matter 里有 next：已停用下一期预告，名片卡不会放它，删掉这一行")
     card = [{"p": meta.get("slogan", "每周精读 2 篇好文章")}]
@@ -296,7 +325,7 @@ def main(src, dst):
             extra = f"  {chars} 字，填充 {fill:.0%}"
         print(f"{i:02} {kind}  {name}{extra}")
     for t in tips:
-        print("⚠ " + t)
+        print(t if t.startswith(("✓", "  ")) else "⚠ " + t)
     n = len(pages)
     print(f"共 {n} 页" + ("  ✗ 超过小红书 18 张上限，删一节或合并" if n > 18 else ""))
     if n > 18:
