@@ -29,6 +29,10 @@ description: >-
 
 用户给素材，你交付一套小红书图文：卡片图、标题、正文、置顶评论、可领取物，外加一份完整的研究底稿。
 
+## 写稿前先加载账号记忆（2026-09-30 起）
+
+按 `skills/xhs-cold-start/references/voice_tuning.md` 第 0 节的顺序：读根目录 `CLAUDE.md` → `账号/档案.md`（定位卡、观点库）→ `账号/经历库.md` → `账号/范本/` 里一篇自己的同文体稿子 + README 索引的一篇对标稿 → 才读素材。稿子里的「我」只能来自经历库和这次的真实操作；stance 优先从观点库里长出来；写完跑 `skills/xhs-cold-start/scripts/ai_tone.py`。
+
 ## 文件和目录
 
 - `$A` = 本 SKILL.md 所在目录。里面有：

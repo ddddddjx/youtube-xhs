@@ -10,6 +10,10 @@ description: >-
 
 本包为可移植完整版：Skill 正文 + 依赖模板 + 样张。细则见 `templates/`，样张见 `samples/`。
 
+## 写稿前先加载账号记忆（2026-09-30 起）
+
+按 `skills/xhs-cold-start/references/voice_tuning.md` 第 0 节的顺序：读根目录 `CLAUDE.md` → `账号/档案.md`（定位卡、观点库）→ `账号/经历库.md` → `账号/范本/` 里一篇自己的同文体稿子 + README 索引的一篇对标稿 → 才读素材。稿子里的「我」只能来自经历库和这次的真实操作；stance 优先从观点库里长出来；写完跑 `skills/xhs-cold-start/scripts/ai_tone.py`。
+
 ## 风格轨（先定轨再出图）
 
 **默认轨：五图知识卡（Dankoe）**
