@@ -1,6 +1,6 @@
 # yt2red：YouTube / X → 小红书工作流（Krypto说AI）
 
-五个 skill：`youtube-xhs`（主流程）、`xiaohongshu-wutu-zhishika`（五图知识卡）、`xiaohongshu-manhua-jiangjie`（K 老师漫画讲解）、`blogger-kb-distiller`（跨平台博主知识蒸馏：把一个博主的几十篇视频/文章熔合成带溯源的精读长文）、`article-to-xhs`（文章或任意素材 → 小红书长图文：先自动查找并核对信源，再按 elsewhere 文风写成完整长稿，脚本分页出图并检查文风和出处）。`tools/` 放辅助脚本。
+八个 skill（另有 `xiaohongshu-huochairen-shipin`、`meme-xhs`，见各自 SKILL.md）：`youtube-xhs`（主流程）、`xiaohongshu-wutu-zhishika`（五图知识卡）、`xiaohongshu-manhua-jiangjie`（K 老师漫画讲解）、`blogger-kb-distiller`（跨平台博主知识蒸馏：把一个博主的几十篇视频/文章熔合成带溯源的精读长文）、`article-to-xhs`（文章或任意素材 → 小红书长图文：先自动查找并核对信源，再按 elsewhere 文风写成完整长稿，脚本分页出图并检查文风和出处）、`xhs-cold-start`（小红书新号冷启动七步：变现 → 拆爆款骨架 → 账号档案 → 七类选题库 → 写稿 → 去 AI 腔与合规 → 排期复盘；移植自 WorkBuddy 流程，记忆放在账号工作区的 CLAUDE.md）。`tools/` 放辅助脚本。
 
 ## 安装与使用
 
@@ -18,6 +18,7 @@ bash build.sh
 | `dist/xiaohongshu-wutu-zhishika.zip` | claude.ai 网页 / 桌面 Chat |
 | `dist/xiaohongshu-manhua-jiangjie.zip` | claude.ai 网页 / 桌面 Chat |
 | `dist/blogger-kb-distiller.zip` | claude.ai 网页 / 桌面 Chat |
+| `dist/xhs-cold-start.zip` | claude.ai 网页 / 桌面 Chat（需同时上传 youtube-xhs，复用 check_paste / post_log） |
 | `dist/article-to-xhs.zip` | claude.ai 网页 / 桌面 Chat（需同时上传 xiaohongshu-wutu-zhishika 和 youtube-xhs，它复用这两个的出图和检查脚本） |
 | `dist/krypto-xhs.plugin` | Cowork（全部 skill 打成一个插件） |
 
