@@ -1,0 +1,39 @@
+<!-- 封面插图模板：浅底 + 一个黄色圆 + 一个黑描边的物件。画布 970x680，主体放中间，四周留 60px（封面会按版面裁边）。
+     配色只用这几个：底 #FFF1B8，黄 #FFE03D，黑 #171717，白 #fff，橙 #EE9632（只点一处）。描边统一 9px。 -->
+<html><head><meta charset="utf-8"><style>
+html,body{margin:0;width:970px;height:680px;background:#FFF1B8;overflow:hidden}
+text{font-family:"PingFang SC";font-weight:700}
+</style></head><body>
+<svg width="970" height="680" viewBox="-50 0 970 680" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="485" cy="350" r="285" fill="#FFE03D"/>
+  <!-- 机械臂 -->
+  <g stroke="#171717" stroke-width="9" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="720" y="-40" width="92" height="210" rx="26" fill="#fff" transform="rotate(24 766 65)"/>
+    
+    <rect x="560" y="150" width="170" height="64" rx="28" fill="#fff" transform="rotate(-14 645 182)"/>
+    <circle cx="722" cy="162" r="34" fill="#EE9632"/>
+    <!-- 两根夹爪 -->
+    <path d="M585 196 L520 214 L500 300" fill="none" stroke-width="30" stroke="#171717"/>
+    <path d="M585 196 L520 214 L500 300" fill="none" stroke-width="13" stroke="#fff"/>
+    <path d="M600 240 L590 300 L625 345" fill="none" stroke-width="30" stroke="#171717"/>
+    <path d="M600 240 L590 300 L625 345" fill="none" stroke-width="13" stroke="#fff"/>
+  </g>
+  <!-- 银行卡 -->
+  <g transform="rotate(-9 470 430)" stroke="#171717" stroke-width="9" stroke-linejoin="round">
+    <rect x="215" y="285" width="520" height="320" rx="34" fill="#fff"/>
+    <rect x="215" y="345" width="520" height="62" fill="#171717" stroke="none"/>
+    <rect x="265" y="450" width="92" height="68" rx="12" fill="#FFE03D"/>
+    <g stroke="none" fill="#171717">
+      <circle cx="420" cy="486" r="9"/><circle cx="450" cy="486" r="9"/><circle cx="480" cy="486" r="9"/><circle cx="510" cy="486" r="9"/>
+      <circle cx="560" cy="486" r="9"/><circle cx="590" cy="486" r="9"/><circle cx="620" cy="486" r="9"/><circle cx="650" cy="486" r="9"/>
+    </g>
+    <rect x="268" y="548" width="200" height="16" rx="8" fill="#171717" stroke="none"/>
+  </g>
+  <!-- 吊牌 -->
+  <g transform="translate(-60 28) rotate(10 250 560)">
+    <path d="M330 450 Q 270 480 322 585" fill="none" stroke="#171717" stroke-width="6"/>
+    <path d="M150 540 h170 l40 45 l-40 45 h-170 z" fill="#EE9632" stroke="#171717" stroke-width="9" stroke-linejoin="round"/>
+    <circle cx="322" cy="585" r="9" fill="#fff" stroke="#171717" stroke-width="5"/>
+    <text x="172" y="602" font-size="46" fill="#171717">推广</text>
+  </g>
+</svg></body></html>

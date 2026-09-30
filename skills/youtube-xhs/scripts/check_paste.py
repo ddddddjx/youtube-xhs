@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """检查小红书文案是否可以直接复制粘贴、会不会踩平台规则：
-不能有 Markdown 符号、占位提示、站外链接 / 导流用语；标题不超过 20 字；
+不能有 Markdown 符号、占位提示、站外链接 / 导流用语；标题不超过 20 字，且不和封面大字说同一句话；
 极限词、投资用语给 ⚠ 提醒（不算失败）；「仅供学习」的视频版不能带发布文案。
 
 用法: python3 check_paste.py <目录>   # 检查目录下所有 标题.txt / 标题备选.txt / 正文.txt / 开头卡.txt / 置顶评论.txt
@@ -63,6 +63,32 @@ def title_check(text, problems, warns, tag="标题"):
         warns.append(f"  ⚠ {tag}以感叹号结尾")
 
 
+def cover_text(folder):
+    """从 编辑用/ 里找封面大字：cards.json 的封面页、comic.json 的封面页、draft.md 的 cover。"""
+    import json
+    ed = os.path.join(folder, "编辑用")
+    for name in ("cards.json", "comic.json"):
+        p = os.path.join(ed, name)
+        if os.path.exists(p):
+            try:
+                pages = json.load(open(p, encoding="utf-8")).get("pages", [])
+            except ValueError:
+                continue
+            if pages and pages[0].get("title"):
+                return pages[0]["title"]
+    p = os.path.join(ed, "draft.md")
+    if os.path.exists(p):
+        m = re.search(r"^cover:\s*(.+)$", open(p, encoding="utf-8").read(), re.M)
+        if m:
+            return re.sub(r"\s+#\s.*$", "", m.group(1))
+    return ""
+
+
+def bigrams(t):
+    t = re.sub(r"==|<br\s*/?>|\\n|[^0-9A-Za-z\u4e00-\u9fff]", "", t)
+    return {t[i:i + 2] for i in range(len(t) - 1)}
+
+
 def check(path):
     problems, warns = [], []
     lines = open(path, encoding="utf-8").read().splitlines()
@@ -81,27 +107,55 @@ def check(path):
         if len(text) > 20:
             problems.append(f"  标题 {len(text)} 字，超过 20 字：{text}")
         title_check(text, problems, warns)
+        cov = bigrams(cover_text(os.path.dirname(path)))
+        if cov:
+            share = len(cov & bigrams(text)) / len(cov)
+            if share >= 0.5:
+                problems.append(f"  标题和封面大字说的是同一句话（重合 {share:.0%}），浪费了一个钩子位："
+                                "封面讲画面或反差，标题讲读者的问题并带上可搜的词")
     if os.path.basename(path) == "正文.txt":
         body = "\n".join(lines)
+        # meme版（meme-xhs）忠实还原 MemeInformation：原号没有二选一和领取物，缺了只提醒不拦
+        meme = os.path.basename(os.path.dirname(path)).startswith("meme版")
+        cta = warns if meme else problems
+        pre = "  ⚠ " if meme else "  "
         head = "\n".join(l for l in lines if l.strip()[:6])
         if not re.search(r"打\s*A\s*或\s*B|A\s*还是\s*B", body):
-            problems.append("  正文没有二选一互动问题（「你是 A 还是 B，评论区打 A 或 B」）")
+            cta.append(pre + "正文没有二选一互动问题（「你是 A 还是 B，评论区打 A 或 B」）")
         if re.search(r"下一期[：:]", body):
             problems.append("  正文里有「下一期：…」，这行只放图文末页名片卡，正文里删掉")
-        if re.search(r"(我的看法|我的观点|我的判断)[：:]", body):
-            problems.append("  正文里有「我的看法：」这类标签，AI 味；把立场揉进叙事句里，去掉标签")
+        if re.search(r"我的(看法|观点|想法|判断|做法)(是|[：:，])", body):
+            problems.append("  正文里有「我的看法是 / 我的看法：」这类领起语；直接把判断说出来（09-30 用户要求）")
+        if re.search(r"扣\s*1|扣一|后台数据每周公开|AI ?全权运营", body):
+            problems.append("  正文里有「评论区扣 1 领」或「AI 全权运营 / 后台数据公开」：09-30 起不写（领取物想给就在评论里直接给）")
         n_body = len(re.sub(r"#\S+", "", body).strip())
         if n_body > 1000:
             problems.append(f"  正文 {n_body} 字（不含标签），超过小红书 1000 字上限")
-        if not re.search(r"扣\s*1|扣 ?一", body):
-            problems.append("  正文没有可领取物提示（「评论区扣 1 发你」）")
         first = [l for l in lines if l.strip()][:8]
-        if not any(re.search(r"精读\s*#|第\s*\d+\s*期", l) for l in first):
-            warns.append("  ⚠ 正文前 8 行没有栏目期数（海外精读 #N / K老师讲AI｜第 N 期）")
-        if not any(re.search(r"我不同意|我试了|我照着|会失败|我只想|越.{0,6}越觉得|我更想|我顺着", l) for l in first):
+        if meme:
+            first = None
+        if any(re.search(r"^\s*\S{2,8}\s*(#\s*\d+|[｜|·]\s*第\s*\d+\s*期)\s*$", l) for l in lines[:3]):
+            problems.append("  正文开头有栏目期数（海外精读 #N / K老师讲AI｜第 N 期）：09-29 起期数只记在 log 里，第一行留给钩子")
+        if first is not None and not any(re.search(r"我不同意|我试了|我照着|会失败|我只想|越.{0,6}越觉得|我更想|我顺着", l) for l in first):
             warns.append("  ⚠ 正文前 8 行没看到你的判断：立场要前置到第一屏（不带标签）")
+        tags = re.findall(r"#(\S+)", body)
+        kw_file = os.path.join(os.path.dirname(path), "编辑用", "draft.md")
+        if os.path.exists(kw_file):
+            m = re.search(r"^keyword:\s*(.+)$", open(kw_file, encoding="utf-8").read(), re.M)
+            if m:
+                core = [w for w in re.split(r"[\s，,、]+", m.group(1).strip()) if w]
+                main = max(core, key=len).lower() if core else ""
+                first = next((l for l in lines if l.strip()), "")
+                if main and main not in first.lower():
+                    warns.append(f"  ⚠ 正文第一句没有主关键词「{main}」（搜索权重最高的位置之一）")
+                if main and not any(main in t.lower() for t in tags):
+                    warns.append(f"  ⚠ 标签里没有主关键词「{main}」：原样加一个 #{main}")
+        if meme and not re.search(r"这个号|每天一篇|每周|AI 全权运营|AI全权运营|扣\s*1", body):
+            warns.append("  ⚠ 正文里没有关注理由（一句这个号持续给什么，或者领取物）：读者在图下文字里也要看到一次")
         if re.search(r"你怎么看|大家怎么看|欢迎讨论|你觉得呢", body):
             warns.append("  ⚠ 有开放式提问（你怎么看）：改成二选一")
+    if os.path.basename(path) == "置顶评论.txt" and re.search(r"扣\s*1|扣一", "\n".join(lines)):
+        problems.append("  置顶评论里有「扣 1」：09-30 起不写，想给的东西直接写进评论")
     if os.path.basename(path) == "开头卡.txt":
         for i, l in enumerate(lines, 1):
             if len(l.strip()) > 16:

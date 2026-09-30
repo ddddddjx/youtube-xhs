@@ -11,14 +11,13 @@ draft.md 格式:
   ---
   series: 长文精读
   no: 2
-  source: 查马斯 / Social Capital        # 封面角标里「·」后面的部分
+  source: 查马斯 / Social Capital        # 信源，只进 log 和正文来源行，不上封面
   cover: AI无处不在<br>除了在财报里        # 封面大字，两行，每行 5 到 6 字
   cover_image: cover_menzel.jpg          # 可选：封面大字下面的配图（公有领域油画 / 有授权的照片），放在 编辑用/
   cover_credit: 门采尔《轧铁厂》，1875    # 可选：封面来源，写进正文末尾，不上封面
   date: 09/28                            # 不写就用今天
   ab: 你是 A 先上 AI 边用边改，还是 B 先删流程再上 AI？
   slogan: 每周精读 2 篇好文章
-  gift: 评论区扣 1 领本期「AI 提效五步自查表」
   ---
 
   # 开场页标题<br>可以两行
@@ -39,7 +38,7 @@ draft.md 格式:
   ## 看法页的标题<br>一句可以被反对的判断 {看法}
   理由……（这一节的最后会自动接一条分隔线和 ab 问题）
 
-名片卡（末页）由 slogan / gift 自动生成。不预告下一期（2026-09-28 起），写了 next 也不会上图。
+名片卡（末页）由 slogan 生成（gift 已停用）。不预告下一期（2026-09-28 起），写了 next 也不会上图。
 """
 import datetime
 import json
@@ -220,15 +219,11 @@ def hook_tips(pages):
 
 def build(meta, sections):
     pages, report, tips = [], [], []
-    series = meta.get("series", "长文精读")
-    tag = f"{series} #{meta.get('no', '1')}"
-    if meta.get("source"):
-        tag += f" · {meta['source']}"
     if not meta.get("cover"):
         sys.exit("front matter 里缺 cover（封面大字）")
-    cover = {"cover": True, "tag": tag, "title": meta["cover"]}
+    cover = {"cover": True, "title": meta["cover"]}             # 09-29 起封面不放栏目期数角标
     if meta.get("cover_image"):
-        cover["evidence"] = {"image": meta["cover_image"]}      # 不加图注：封面只有角标、大字和图
+        cover["evidence"] = {"image": meta["cover_image"]}      # 不加图注：封面只有大字和图
     pages.append(cover)
     report.append(("封面", meta["cover"].replace("<br>", " / "), None))
 
@@ -301,7 +296,7 @@ def build(meta, sections):
         print("⚠ front matter 里有 next：已停用下一期预告，名片卡不会放它，删掉这一行")
     card = [{"p": meta.get("slogan", "每周精读 2 篇好文章")}]
     if meta.get("gift"):
-        card.append({"p": meta["gift"]})
+        print("⚠ front matter 里有 gift：09-30 起名片卡不写「扣 1 领」，已忽略；领取物想给就在评论里直接给")
     pages.append({"title": "关注 Krypto说AI", "blocks": card})
     report.append(("名片卡", "关注 Krypto说AI", None))
     return pages, report, tips

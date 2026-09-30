@@ -6,7 +6,7 @@
 comic.json:
 {
   "account": {"name": "Krypto说AI", "avatar_image": "avatar.png"},
-  "series": "K老师讲AI｜第 3 期",
+  "series": "K老师讲AI",                 # 封面底部的栏目名，不带期数（写了「｜第 N 期」会被去掉）
   "pages": [
     {"type": "cover", "kicker": "开了 10 个 Agent 之后…", "title": "为什么你的 Agent\\n越多越乱？",
      "scene": {"actors": [{"who": "ein", "face": "meh", ...}], "props": [...], "strings": [...]}},
@@ -400,7 +400,7 @@ def hook_size(title, max_px=118, box=936):
 
 def page_html(page, idx, total, spec, base):
     kind = page.get("type", "story")
-    series = spec.get("series", "")
+    series = re.sub(r"\s*[｜|·:：\-]?\s*(第\s*\d+\s*期|#\s*\d+)\s*$", "", spec.get("series", ""))   # 09-29：封面只留栏目名
     if kind == "cover":
         kw = ""
         if page.get("keyword"):

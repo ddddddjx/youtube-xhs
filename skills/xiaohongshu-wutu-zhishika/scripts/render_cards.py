@@ -10,7 +10,7 @@ cards.json 结构（图片路径相对 json 所在目录）:
                                           # 没有头像图时用 "avatar": "字" 显示文字圆标
   "pages": [
     {
-      "tag": "斯坦福公开课",                 # 可选，封面左上黄底信源角标
+      "tag": "斯坦福公开课",                 # 可选，内页左上黄底小标签；封面页不出（09-29：栏目期数对陌生读者没有信息量）
       "dense": true,                        # 密排页：正文 31px，一页 320–450 字（长文精读用）
       "cover": true,                        # 封面页：title 按最长一行放大到接近满宽；不给 evidence 就是「字为主」封面（黑字、175px、==高亮== 打黄底）
       "title": "第一行<br>第二行",            # 藏青大衬线，一页一个论点；续页可以不给 title
@@ -144,7 +144,7 @@ def page_html(page, idx, total, account, base):
         src = "file://" + os.path.abspath(os.path.join(base, e["image"]))
         cap = f'<div class="cap">{html.escape(e.get("caption", ""))}</div>' if e.get("caption") else ""
         ev = f'<div class="evidence"><div class="card"><img src="{src}">{cap}</div></div>'
-    tag = f'<div class="tag">{html.escape(page["tag"])}</div>' if page.get("tag") else ""
+    tag = f'<div class="tag">{html.escape(page["tag"])}</div>' if page.get("tag") and not page.get("cover") else ""
     kicker = f'<div class="kicker">{html.escape(page["kicker"])}</div>' if page.get("kicker") else ""
     # 标题允许 <br> 手动断行，其余转义
     lines = page.get("title", "").split("<br>")
@@ -192,11 +192,33 @@ def shoot_playwright(jobs):
         browser.close()
 
 
+def cover_checks(pages, base):
+    """封面页：角标不出；配图太暗就报出来（信息流缩略图里是一块黑）。"""
+    for i, page in enumerate(pages, 1):
+        if not page.get("cover"):
+            continue
+        if page.get("tag"):
+            print(f"· 第 {i} 页是封面，tag「{page['tag']}」不上图（栏目期数只记在 log 里）")
+        img = (page.get("evidence") or {}).get("image")
+        if not img:
+            continue
+        try:
+            from PIL import Image
+            px = list(Image.open(os.path.join(base, img)).convert("L").resize((160, 120)).getdata())
+        except (ImportError, OSError):
+            continue
+        mean, dark = sum(px) / len(px), sum(v < 70 for v in px) / len(px)
+        if mean < 70 or dark > 0.70:
+            print(f"✗ 第 {i} 页封面配图太暗（{img}：平均亮度 {mean:.0f}，深色像素 {dark:.0%}）。"
+                  "代码 / 文档 / 界面截图和暗色油画不上封面，换成单主体、明暗分明的图")
+
+
 def main(spec_path, out_dir):
     spec = json.load(open(spec_path, encoding="utf-8"))
     base = os.path.dirname(os.path.abspath(spec_path))
     os.makedirs(out_dir, exist_ok=True)
     pages = spec["pages"]
+    cover_checks(pages, base)
     jobs = []
     for i, page in enumerate(pages, 1):
         htm = os.path.abspath(os.path.join(out_dir, f"{i:02}.html"))
