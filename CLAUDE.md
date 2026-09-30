@@ -33,7 +33,7 @@
 - `账号/档案.md`：定位卡、账号四件套、观点库、四轮访谈记录
 - `账号/经历库.md`：用户的真实经历，稿子里的「我」只能从这里取
 - `账号/范本/`：自己账号里表现最好的稿子（学语气）+ 对标 MemeInformation 9 篇索引（只学结构），写稿前各读一篇；对标全文在 `对标/MemeInformation/文字稿/`
-- `skills/`：各栏目的 skill。选题、写稿、去 AI 腔、复盘的流程见 `skills/xhs-cold-start/SKILL.md`
+- `skills/`：各栏目的 skill，已链接到 `.claude/skills/`，新会话里可直接 `/xhs-cold-start`、`/article-to-xhs`、`/meme-xhs`、`/youtube-xhs` 调用。选题、写稿、去 AI 腔、复盘的流程见 `skills/xhs-cold-start/SKILL.md`
 - `发布/排期.md`、`发布/每日清单.md`、`复盘/`：排期和周复盘
 - 日志：`账号/日志.csv`（post_log.py 自动定位，不用传 --log）
 - 成品：`发布/<YYYY-MM-DD>_<英文短标题>/`，随仓库提交
