@@ -42,7 +42,7 @@ description: >-
 - `$X` = 同级的 `xiaohongshu-wutu-zhishika`，里面有 `scripts/render_cards.py` 和 `assets/avatar.png`。
 - `$Y` = 同级的 `youtube-xhs`，里面有 `scripts/check_paste.py`、`scripts/post_log.py`、`scripts/fetch.py`。
 - 同级目录里找不到时：`find / -type d -name <目录名> 2>/dev/null | head -1`。
-- 输出目录：本地（Mac）是 `~/Documents/Krypto说AI/<YYYY-MM-DD>_<英文短标题>/图文版/`；云端输出到当前环境能下载给用户的位置，比如 `/mnt/user-data/outputs/`。
+- 输出目录：仓库的 `发布/<YYYY-MM-DD>_<英文短标题>/图文版/`（云端和 Mac 共用，成品随仓库提交）。
 
 ```
 <日期>_<短标题>/图文版/
@@ -278,7 +278,7 @@ python3 $X/scripts/render_cards.py "<输出目录>/图文版/编辑用/cards.jso
 
 ### 10. 栏目与期数
 
-- 栏目名固定为「长文精读」，期数只记在 log 里，不上封面、不进正文。期数取 `~/Documents/Krypto说AI/log.csv` 里同栏目的最大期数加 1；没有这个栏目时从 #1 开始。不用问用户。
+- 栏目名固定为「长文精读」，期数只记在 log 里，不上封面、不进正文。期数取 `账号/日志.csv` 里同栏目的最大期数加 1；没有这个栏目时从 #1 开始。不用问用户。
 - 名片卡定位句固定为「每周精读 2 篇好文章」。
 - **不预告下一期**（2026-09-28 起）：选题每次现找，预告很难按期兑现。名片卡只放定位句和可领取物。`排期.md` 只做内部排期，不对外。
 

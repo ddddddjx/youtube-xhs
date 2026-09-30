@@ -28,7 +28,7 @@ MemeInformation 是一个 AI 科技小红书号，我们蒸馏了它 2025-07 到
   - `assets/avatar.png`：Krypto说AI 头像。
 - `$Y` = 同级的 `youtube-xhs`（`scripts/check_paste.py`、`scripts/post_log.py`、`scripts/fetch.py`）。找不到时 `find / -type d -name youtube-xhs 2>/dev/null | head -1`；还是没有就跳过这两步，在交付时说明。
 - 原文库（本地才有）：`~/Downloads/MemeInformation_文字_精校版/`（成熟期 78 篇），`~/Downloads/MemeInformation_文字稿.zip`（早期 102 篇）。
-- 输出目录：本地是 `~/Documents/Krypto说AI/<YYYY-MM-DD>_<英文短标题>/meme版/`；云端输出到能下载给用户的位置，比如 `/mnt/user-data/outputs/`。日常运营时，成品另复制一份到 `yt2red/发布/<同名目录>/`。
+- 输出目录：仓库的 `发布/<YYYY-MM-DD>_<英文短标题>/meme版/`（云端和 Mac 共用，成品随仓库提交）。旧说明：本地曾是 `~/Documents/Krypto说AI/…/meme版/`；云端输出到能下载给用户的位置，比如 `/mnt/user-data/outputs/`。日常运营时，成品另复制一份到 `yt2red/发布/<同名目录>/`。
 
 ```
 meme版/
@@ -158,7 +158,7 @@ python3 $Y/scripts/check_paste.py "<输出目录>"
 python3 $Y/scripts/post_log.py add --dir "<输出目录>" --series meme --no <N> --topic <文体> --title-type <句式> --title "<标题>"
 ```
 
-期数取 `~/Documents/Krypto说AI/log.csv` 里 `meme` 栏目的最大期数加 1，没有就从 1 开始。原号不写期数，所以期数只进 log，不上图也不进正文。
+期数取 `账号/日志.csv` 里 `meme` 栏目的最大期数加 1，没有就从 1 开始。原号不写期数，所以期数只进 log，不上图也不进正文。
 
 check_paste 的 ✗ 要改到 ✓。放在 `meme版/` 目录里的正文.txt，缺二选一问题、缺领取物提示只报 ⚠，不查期数和立场前置：原号这几样都没有，meme 版默认不加。用户要加的时候，二选一问题放在正文.txt 最后一行，不上图。
 

@@ -35,4 +35,8 @@
 - `账号/范本/`：自己账号里表现最好的稿子（学语气）+ 对标 MemeInformation 9 篇索引（只学结构），写稿前各读一篇；对标全文在 `对标/MemeInformation/文字稿/`
 - `skills/`：各栏目的 skill。选题、写稿、去 AI 腔、复盘的流程见 `skills/xhs-cold-start/SKILL.md`
 - `发布/排期.md`、`发布/每日清单.md`、`复盘/`：排期和周复盘
-- 日志：`~/Documents/Krypto说AI/log.csv`（post_log.py）
+- 日志：`账号/日志.csv`（post_log.py 自动定位，不用传 --log）
+- 成品：`发布/<YYYY-MM-DD>_<英文短标题>/`，随仓库提交
+
+## 在哪里工作
+本地 Claude Code CLI 在用户的网络下连不上（2026-09-30 测过，api 403），所以**日常在 claude.ai/code 的云端会话里做**：新开会话选这个仓库即可，本页自动加载。云端每次从 main 新克隆，所以每篇做完都要 commit + push 到 main，否则下一个会话看不到；Mac 上 `git pull` 拿成品。出图前把预装 Chromium 放进 PATH：`ln -sf /opt/pw-browsers/chromium-*/chrome-linux/chrome /tmp/claude-0/bin/chromium`（目录不存在就先 mkdir）。

@@ -6,7 +6,7 @@
   post_log.py fill   --dir <输出目录> --impr 12000 --ctr 8.5 --saves 300 --follows 45 [--likes 500 --comments 30 --views 900 --shares 10 --watch 15.5]
                      watch = 平均观看时长（秒）
   post_log.py report
-日志默认在 ~/Documents/Krypto说AI/log.csv，可用 --log 指定。
+日志默认在仓库的 账号/日志.csv（从脚本位置向上找到含 CLAUDE.md 的目录），可用 --log 指定。
 """
 import argparse
 import csv
@@ -16,7 +16,16 @@ from collections import defaultdict
 
 FIELDS = ["date", "dir", "series", "no", "topic", "title_type", "score", "title",
           "impr", "ctr", "likes", "saves", "comments", "follows", "views", "shares", "watch"]
-DEFAULT = os.path.expanduser("~/Documents/Krypto说AI/log.csv")
+def _repo_root():
+    d = os.path.dirname(os.path.abspath(__file__))
+    while d != os.path.dirname(d):
+        if os.path.exists(os.path.join(d, "CLAUDE.md")):
+            return d
+        d = os.path.dirname(d)
+    return os.getcwd()
+
+
+DEFAULT = os.path.join(_repo_root(), "账号", "日志.csv")
 
 
 def load(path):
