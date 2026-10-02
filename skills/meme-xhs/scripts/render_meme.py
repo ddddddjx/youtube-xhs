@@ -65,7 +65,12 @@ def font(size, weight="Regular"):
     try:
         return ImageFont.truetype(FONT, size, index=idx)
     except OSError:
+        pass
+    try:
         return ImageFont.truetype("/System/Library/Fonts/Hiragino Sans GB.ttc", size)
+    except OSError:   # 云端 Linux：apt-get install -y fonts-noto-cjk，ttc 里 index 2 是简体中文
+        noto = "/usr/share/fonts/opentype/noto/NotoSansCJK-%s.ttc" % ("Regular" if weight == "Regular" else "Bold")
+        return ImageFont.truetype(noto, size, index=2)
 
 
 F_BODY, F_BOLD = font(FS), font(FS, "Semibold")
