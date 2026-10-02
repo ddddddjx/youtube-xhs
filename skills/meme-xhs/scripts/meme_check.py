@@ -240,7 +240,7 @@ def check_body(meta, paras, allow_gh):
     if not re.search(CONTRAST, "".join(paras[1:5])):
         add("⚠", "前 5 段没有反差（但 / 却 / 其实 / 没想到……，原号 64% 在前 5 段转折）：第一段写场景，紧接着给一个相反的事实")
     if not re.search(r"当然|不过|还没|还不|未必|也有问题|短板|局限|翻车|不完美|代价", text):
-        add("⚠", "全文没有让步或局限（当然 / 不过 / 短板……）：原号成熟期至少写一处翻车，夸奖才可信")
+        add("⚠", "全文没有局限或翻车：写一处具体的局限（中文没有官方版本 / 要 API key），夸奖才可信。别写成单独一段「当然，有个坑。」")
     zz = text.count("真正")
     if zz == 0:
         add("⚠", "一次「真正」都没有：这是原号第一口头禅（真正的门槛、真正难的是），留一两处")
@@ -286,6 +286,92 @@ def check_body(meta, paras, allow_gh):
             add("⚠", "结尾三段没有回扣标题里的任何一个词：原号至少 25 篇在结尾逐字回扣标题")
 
 
+# ---- 中文 AI 腔句式黑名单（10-02 Karpathy 稿被评论区骂「AI 味溢出屏幕」后加）----
+# 中文的 AI 腔不是词难、句长，是套路句式：结构词单独成段、单句总结段、先让步再转折、一是二是。
+STRUCT = [
+    r"^(先说|再说|说回|回到|接着说|下面说|然后说)[^，。！？]{0,10}[。：:]$",          # 先说这份手册。
+    r"^(最后|下面|接下来)(给|说|再|补|看|是)[^。]{0,10}[。：:]$",                      # 最后给一个选法：
+    r"(有|就)(两|三|四|几)(个|点|条|处)(原因|理由|问题|区别|好处|坑|变化|办法)?[。：:]$",  # 理由有两个。
+    r"^(原因|理由|区别|答案|关键|重点|问题)(很简单|有[两三几]|是什么|在哪)",
+    r"有(个|一个|几个)(坑|问题|前提|代价|bug)[。：:]$",                                  # 当然，这招有个坑。
+    r"没(这么|那么)简单|问题来了|重点来了|关键来了|有意思的是|印象挺深|值得一说|值得说说|话说回来",
+]
+SUMMARY = r"一般是|本质上|说到底|归根结底|这就是|这才是|才是关键|就够了|还挺合身|说白了|得先立|一句话[，:：]|换句话说"
+CONCEDE = r"(可能|也许|或许|确实|当然|诚然|固然|的确)[^。]{0,16}(是对的|没错|有道理|是这样|成立|说得对)"
+TURN = r"^(但|不过|可是|然而|只是)"
+MODAL = r"必须|务必|一定要|禁止|不得|严禁|不要|别|不许|确保|需要|应该|要|得"
+
+
+def check_ai_tone(meta, paras, draft_dir):
+    """中文 AI 腔：结构词孤段、单句总结段、先让步再转折、一是二是、立场稻草人、改写丢语气。"""
+    n_hit, flagged = 0, set()
+    for i, p in enumerate(paras):
+        short = len(p) <= 18
+        if short and any(re.search(r, p) for r in STRUCT):
+            add("✗", f"结构词单独成段：「{p}」 这是写给自己看的路标，读者读到的是 AI 在列提纲。删掉，直接写下一段的内容")
+            n_hit += 1
+            flagged.add(p)
+            continue
+        if len(p) <= 24 and re.search(SUMMARY, p) and not re.search(r"[「“\"]", p):
+            add("✗", f"单句总结段：「{p}」 一句抽象结论单独成段、像金句，是最典型的 AI 腔。并进上一段，或者换成一个具体的事实 / 数字")
+            n_hit += 1
+            flagged.add(p)
+            continue
+        # 先让步再转折：同一段「确实……但」，或者这一段让步、后两段内「但」起头
+        if re.search(CONCEDE, p):
+            nxt = paras[i + 1:i + 3]
+            if re.search(CONCEDE + r"[^。]*[，,；;]\s*(但|不过|可是)", p) or any(re.search(TURN, q) for q in nxt):
+                add("✗", f"先让步再转折：「{p[:24]}」→「但……」 这是 AI 最爱的稳妥句式。判断直接下，局限写成具体的事")
+                n_hit += 1
+        if re.search(r"(固然|诚然)[^。]*(但|不过|可是)", p):
+            add("✗", f"先让步再转折（固然 / 诚然……但）：{p[:24]}…")
+            n_hit += 1
+        if re.search(r"至少(现在|目前|眼下)", p):
+            add("⚠", f"「至少现在」式留后路：{p[:24]}… 立场要么下，要么不下，别一边下一边退")
+    text = "\n".join(paras)
+    m = re.search(r"(一是|一来|其一|首先)[^\n]{0,4}.{0,120}?(二是|二来|其二|其次)", text, re.S)
+    if m:
+        add("✗", f"「一是……二是……」/「首先……其次」：{m.group(0)[:30]}… 公文腔。两个理由就写两段，各用自己的事开头")
+        n_hit += 1
+    # 短段里有多少是没有事实的空句：没数字、没引号、没英文、没「我 / 你」、不是问句
+    empty = [p for p in paras if len(p) <= 22 and p not in flagged and not re.search(r"\d|[「“\"]|[A-Za-z]|我|你|[？?]", p)]
+    if len(empty) >= 3:
+        add("⚠", f"没有事实的短段 {len(empty)} 个：" + " / ".join(f"「{p}」" for p in empty[:6]) +
+                 " 钩子短段要带信息（一个数字、一个具体的物件、半句话），不要带态度")
+    add("✓" if n_hit == 0 else "⚠", f"中文 AI 腔黑名单命中 {n_hit} 处" + ("" if n_hit == 0 else "（见上面的 ✗）"))
+
+    # 立场不许反对原文没说过的观点（10-02：Karpathy 只说「最看好视频」，稿子却「不同意先用视频」）
+    st = meta.get("stance", "")
+    if re.search(r"不同意|反对|不认同|不赞同|我不信|说错了", st):
+        q = meta.get("stance_quote", "").strip().strip("「」\"“”")
+        if not q:
+            add("✗", "stance 是「不同意原文」，但 front matter 没有 stance_quote：把你反对的那句原文原样贴进来。"
+                     "贴不出来，说明你在反对一个原文没说过的观点，换一个 stance")
+        else:
+            src = os.path.join(draft_dir, "source.md")
+            norm = lambda t: re.sub(r"[\s\"“”「」'‘’]", "", t).lower()
+            if os.path.exists(src) and norm(q) not in norm(open(src, encoding="utf-8").read()):
+                add("✗", f"stance_quote「{q[:30]}」在 source.md 里找不到原句：要逐字贴原文，不是你的转述")
+            else:
+                add("✓", "stance 反对的观点在原文里找得到原句")
+
+    # 改写示例要保住语气强度（10-02：「请务必确保」改成「先把油箱加满」，把「必须」删了）
+    for i, p in enumerate(paras):
+        if not re.search(r"原句|原文|改前|原来的", p):
+            continue
+        before = re.findall(r"「([^」]+)」", p)
+        if not before or not re.search(MODAL, "".join(before)):
+            continue
+        for q in paras[i + 1:i + 4]:
+            after = re.findall(r"「([^」]+)」", q)
+            if after and re.search(r"改完|改成|改后|改写|简化后", q):
+                if not re.search(MODAL, "".join(after)):
+                    lost = "、".join(dict.fromkeys(re.findall(MODAL, "".join(before))))
+                    add("✗", f"改写丢了语气强度：原句有「{lost}」，改后的「{after[0][:20]}」里没有。"
+                             "简化只删套话，不删必须 / 禁止 / 可能这些分量；对照英文原例逐词核一遍")
+                break
+
+
 def main(argv):
     args = [a for a in argv if not a.startswith("--")]
     allow_cn, allow_gh = "--allow-cn-brand-title" in argv, "--allow-ganghao" in argv
@@ -310,6 +396,7 @@ def main(argv):
     main_title = titles[1] if len(titles) > 1 and titles[1] else titles[0]   # 标题.txt 优先，其次 front matter
     check_cover(meta, [main_title], os.path.dirname(os.path.abspath(draft)))
     check_body(meta, paras, allow_gh)
+    check_ai_tone(meta, paras, os.path.dirname(os.path.abspath(draft)))
     for level in ("✗", "⚠", "✓"):
         for msg in results[level]:
             print(f"{level} {msg}")
