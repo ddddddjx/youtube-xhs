@@ -32,6 +32,9 @@ EMO_TITLE = r"笑鼠|炸裂|救命|特么|啊[？?]|哇，|凉凉|懵了|崩了"
 CONTRAST = r"但|却|可是|然而|没想到|反而|不过|偏偏|其实|谁能想到|原来|居然|竟然|结果|本来以为|以为"
 ATTR = r"他说|她说|他写|她写|作者|原文|文章里|报告显示|报告里|研究显示|他认为|她认为|他的办法|他提到|她提到|据.{0,6}报道|他在.{0,10}里|公告里|博客里"
 BACKSTAGE = r"读到第[二三四五]遍|读了[两三四]遍|看了[两三四]遍|数了一遍|从头读到尾|从头到尾读|翻了一遍|一项项|一页页|把.{0,12}(读|看|翻|数|捋|梳理)了一遍|全文翻完|顺手翻完"
+SPEAK = r"^我(展开|举个|截个|先说|说下|再说|补一句)[^。]{0,8}[。：:]$"   # 说话人的动作孤段，全篇最多 1 处
+SOURCE_FIRST = r"(写了|发了|发表了|更了|出了)(一)?(篇|期|条)|在 ?X 上|推特上|播客里|的一篇|这篇(长文|文章)|看完觉得"
+OBJECTION = r"有人(可能|也许)?(会|要)?(说|问|觉得|反驳)|有人说|大家应该都|你可能会(说|问|觉得)|很多人(会|第一反应)"
 TIME = r"[一二两三四五六七八九十\d]+\s*(天|周|个月|年)前|最近|昨天|今天|前几天|前段时间|这两天|这两年|上周|上个月|去年|前阵子|刚|今年|这几天|那天|\d{1,4}\s*[年月日号点]"
 
 results = {"✗": [], "⚠": [], "✓": []}
@@ -170,8 +173,25 @@ def check_body(meta, paras, allow_gh):
         if len(p) > 150:
             add("✗", f"这一段 {len(p)} 字，手机上要七八行，拆开：{p[:24]}…")
     lone = [p for p in paras if len(p) <= 22 and not re.match(r"\d+[.、]|[「“\"]", p)]
-    add("✓" if len(lone) <= 3 else "⚠", f"单独成段的短句 {len(lone)} 处（10-04 起最多 3 处，不算列表和引语）" +
-        ("" if len(lone) <= 3 else "：" + " / ".join(f"「{p}」" for p in lone[:6]) + " 并进上一段或下一段，一段写两三句"))
+    cap = max(3, n // 300)   # 10-03 起每 300 字 1 处（小盖 Kimi 稿 1400 字有七八处，但全是三种允许的类型）
+    add("✓" if len(lone) <= cap else "⚠", f"单独成段的短句 {len(lone)} 处（上限 {cap}，每 300 字 1 处；只许三种：带态度的判断 / 说话人动作 / 给上文起名）" +
+        ("" if len(lone) <= cap else "：" + " / ".join(f"「{p}」" for p in lone[:6]) + " 并进上一段或下一段"))
+    speak = [p for p in paras if re.match(SPEAK, p)]
+    if len(speak) > 1:
+        add("⚠", f"说话人动作的孤段 {len(speak)} 处（「我展开说下。」这类全篇最多 1 处）：" + " / ".join(f"「{p}」" for p in speak))
+    # 10-03 起（小盖第二批）：编号笔记体的编号句要是完整判断，不是提纲
+    for p in paras:
+        m_ = re.match(r"^(\d+)[、.]\s*(.*)", p)
+        if not m_:
+            continue
+        lead = re.split(r"[。！？]", m_.group(2))[0]
+        if len(lead) < 10 or re.match(r"^(第?[一二三四五六七八九]|原因|理由|问题|好处|坑|关键|重点|最后|下面)[：:，]?$", lead):
+            add("⚠", f"编号句「{p[:20]}」像提纲：编号开头那句要自己就是一个判断（「5、理解了这个训练逻辑，就会知道 X 根本不是小模型。」），读者只读编号句就能拿走结论")
+    # 10-03 起：换一群读者再讲一遍、回指已发稿（都是 ⚠，有就记，没有看情况）
+    if not re.search(r"程序员|不写代码|非技术|换成.{0,6}(人|同学|读者)|换个说法|伪代码", text):
+        add("⚠", "全篇没有「换一群读者再讲一遍」的痕迹（程序员版给伪代码 / 不写代码的人给工作场景）：两群读者只碰到了一群")
+    if not re.search(r"上[周次一]那篇|上一篇|之前那篇|前几篇|前两篇|我写过|写过一篇|上周我|那篇.{0,6}我(写|讲)过", text):
+        add("⚠", "没有回指已经发过的稿子（「上周那篇 X 我写过……」）：有可回指的才加，一个「再」字就是关注理由；没有就忽略这条")
     for m_ in re.finditer(r"[^。]*(早就[^。]{0,8}(看明白|玩明白|看透|想明白)|我研究[^。]{0,8}(很多年|多年)|作为[^。]{0,6}(老|资深)[^。]{0,4}(粉|玩家|用户))[^。]*", text):
         add("⚠", f"自称内行：「{m_.group(0)[:30]}」（用户 10-04：不写「XX 我早就看明白了」）。爱好和经历只写事实，不写自己有多懂")
     if re.search(r"F1|高尔夫|赛车|球童|扩散器", text):
@@ -212,6 +232,9 @@ def check_body(meta, paras, allow_gh):
         add("⚠", "首屏开头是「我读了 / 我刷到」但前 80 字没有一个具体数字或画面：原号的第一段是一个人在做一件具体的事，不是交代信源")
     if not re.search(r"朋友|同事|老板|客户|吃饭|会上|办公室|家里|地铁|排队|群里|后台|截图|照片|会议|饭桌|车上|门口", st) and not re.search(r"\d", st):
         add("⚠", "首屏既没有具体场景也没有数字：读者 5 秒内要看到一个画面")
+    p0 = paras[0]
+    if re.search(SOURCE_FIRST, p0) and not re.search(r"^.{0,30}(觉得|认为|其实|根本|没必要|很难|不是|想|打算|最在意|不同意|才是)", p0):
+        add("⚠", f"第一段先交代信源：「{p0[:30]}…」 10-03 起第一句是判断或意图（「越来越觉得 X 很难垄断」「想言简意赅写写我对 X 的理解」），信源压成半句放第二段以后")
     # 搜索关键词（writing_guide 8.5）：标题、首页、正文前 150 字都要有主关键词
     kw = meta.get("keyword", "").strip()
     if not kw:
@@ -327,7 +350,10 @@ def check_ai_tone(meta, paras, draft_dir):
         # 先让步再转折：同一段「确实……但」，或者这一段让步、后两段内「但」起头
         if re.search(CONCEDE, p):
             nxt = paras[i + 1:i + 3]
-            if re.search(CONCEDE + r"[^。]*[，,；;]\s*(但|不过|可是)", p) or any(re.search(TURN, q) for q in nxt):
+            prev = paras[i - 1] if i else ""
+            if re.search(OBJECTION, p) or re.search(OBJECTION, prev):
+                add("✓", f"替读者问出的反驳后让步：「{p[:20]}…」（10-03 起放行，让步句要带事实）")
+            elif re.search(CONCEDE + r"[^。]*[，,；;]\s*(但|不过|可是)", p) or any(re.search(TURN, q) for q in nxt):
                 add("✗", f"先让步再转折：「{p[:24]}」→「但……」 这是 AI 最爱的稳妥句式。判断直接下，局限写成具体的事")
                 n_hit += 1
         if re.search(r"(固然|诚然)[^。]*(但|不过|可是)", p):
@@ -400,6 +426,8 @@ def main(argv):
                 titles += [l for l in open(p, encoding="utf-8").read().splitlines() if l.strip()]
     for t in dict.fromkeys(titles):
         check_title(t, allow_cn)
+    if folder and not any(re.search(r"和|跟|与|比|不一样|不是一回事|完全|路子|反过来|另一条路", t) for t in titles if t):
+        add("⚠", "三条标题备选里没有对比站队句（「X 的路子，和 Y 完全不一样。」）：素材有两边可站时补一条，评论靠它（小盖站队稿评论是知识稿的 14 倍）")
     main_title = titles[1] if len(titles) > 1 and titles[1] else titles[0]   # 标题.txt 优先，其次 front matter
     check_cover(meta, [main_title], os.path.dirname(os.path.abspath(draft)))
     check_body(meta, paras, allow_gh)

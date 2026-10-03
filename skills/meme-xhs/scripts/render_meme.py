@@ -16,6 +16,7 @@ draft.md 格式:
   headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内
   hero: quote.png                        # 可选：首页的一张素材图（原文截图、原文配图、后台截图），不用自己画的
   hero_after: 3                          # 素材图放在第几段之后（默认 3：先铺垫几句再放图，读者才知道图在讲什么）
+  font: serif                            # 可选（10-03 起，对标小盖）：正文用宋体，信息流里像一个人认真写的长文；headline 和名片卡仍是黑体
   extra_pages: summary.png               # 可选：整页图（1080×1440，比如结构化总结表），插在名片卡前面，多张用 || 隔开
   cover: 它替你订的酒店<br>是==谁出的价==   # 仅用户要求时：单独封面页的大字，2 到 3 行，每行 7 字以内，==词== 打黄底
   cover_kicker: 把钱包交给 AI 之前          # 可选：大字上面的一行小字引子，20 字以内
@@ -74,6 +75,31 @@ def font(size, weight="Regular"):
 
 
 F_BODY, F_BOLD = font(FS), font(FS, "Semibold")
+
+SERIF = [  # 10-03 起可选的正文宋体：Mac 的 Songti，云端的 NotoSerifCJK（apt-get install -y fonts-noto-cjk）
+    ("/System/Library/Fonts/Supplemental/Songti.ttc", {"Regular": 0, "Semibold": 1}),
+    ("/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc", {"Regular": 2}),
+]
+
+
+def serif_font(size, weight="Regular"):
+    for path, idx in SERIF:
+        if not os.path.exists(path):
+            continue
+        if weight == "Semibold" and "NotoSerifCJK-Regular" in path:
+            path = path.replace("-Regular", "-Bold")
+        try:
+            return ImageFont.truetype(path, size, index=idx.get(weight, idx["Regular"]))
+        except OSError:
+            continue
+    print("⚠ 找不到宋体（Mac: Songti.ttc；云端: apt-get install -y fonts-noto-cjk），正文仍用黑体")
+    return font(size, weight)
+
+
+def set_body_font(kind):
+    global F_BODY, F_BOLD
+    if kind == "serif":
+        F_BODY, F_BOLD = serif_font(FS), serif_font(FS, "Semibold")
 
 
 def parse(md):
@@ -194,7 +220,8 @@ class Pager:
         if not self.fresh:
             self.y += px
 
-    def line(self, text, f=F_BODY):
+    def line(self, text, f=None):
+        f = f or F_BODY
         if self.y + LH > BOTTOM:
             self.new_page()
         self.d.text((L, self.y + (LH - FS) // 2 - 4), text, font=f, fill=BLACK)
@@ -202,7 +229,8 @@ class Pager:
         self.fresh = False
         self.last_line = text
 
-    def para(self, text, f=F_BODY):
+    def para(self, text, f=None):
+        f = f or F_BODY
         self.gap(PGAP)
         lines = wrap(text, f)
         for k, ln in enumerate(lines):
@@ -399,6 +427,8 @@ def overview(pages, path):
 def main(src, out):
     meta, blocks = parse(open(src, encoding="utf-8").read())
     base = os.path.dirname(os.path.abspath(src))
+    if meta.get("font") == "serif":
+        set_body_font("serif")
     now = datetime.datetime.now()
     meta.setdefault("time", f"{now.year % 100}-{now.month}-{now.day} {now:%H:%M}")
     av = os.path.join(base, meta.get("avatar", "avatar.png"))
