@@ -7,7 +7,6 @@ keywords: Uber, Code Mode, Claude Code
 headline: Uber：5000 个 MCP 工具，默认走命令行
 hero: registry.png
 hero_after: 2
-font: serif
 time: 26-10-5 21:00
 account: Krypto说AI
 ---

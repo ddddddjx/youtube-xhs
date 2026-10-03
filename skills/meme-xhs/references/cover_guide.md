@@ -32,5 +32,5 @@
 
 ## 10-03 补：宋体和红框（对标小盖第二批）
 
-- **字体**：小盖两篇正文都是宋体，信息流里一眼就是「一个人认真写的长文」，和满屏黑体的营销卡区分开。draft.md front matter 写 `font: serif`，render_meme 用宋体排正文（Mac 用 Songti，云端用 NotoSerifCJK，`apt-get install -y fonts-noto-cjk` 装）；headline 和名片卡仍用黑体。先试一周看点击率，没涨再改回。
+- **字体**：保持黑体。小盖两篇是宋体，10-03 Uber 稿试排了宋体版，用户看后定回黑体。`font: serif` 开关还在 render_meme 里，只在用户当次明确要求时用。
 - **红框**：证据截图上把关键的那一句框出来，图前面的正文先说结论（「但 Kimi 这次完全反其道而行。」），图只负责证明。用 `python3 $M/scripts/box.py 截图.png x1,y1,x2,y2 [x1,y1,x2,y2 …]` 画框，输出 `截图_box.png`；坐标用 Read 看图估，画完再 Read 一次确认框住了那句。
