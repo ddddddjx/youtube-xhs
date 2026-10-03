@@ -1,0 +1,7 @@
+今天刷到一篇讲 Agent harness、loop、graph 的长文，三层拆得挺清楚。但对比表最后一格写着 reward hacking，这个词全文只出现了这一次。
+
+我觉得它才是三层里最难的坑：检查器量错了东西，agent 就朝着「通过检查」干活，循环跑得越勤，交错活交得越理直气壮。我自己的稿子前两天就栽在上面，检查脚本一条没拦，评论区第一条照样说 AI 味。
+
+文末有四问诊断，和一段能直接贴进 Claude、Codex 的停止条件提示词。每天一篇海外一手，提示词都放在图里。
+
+#AgentHarness #AI #Claude #AI智能体 #LoopEngineering
