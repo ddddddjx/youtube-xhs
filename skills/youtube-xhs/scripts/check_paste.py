@@ -48,9 +48,10 @@ def title_check(text, problems, warns, tag="标题"):
     ORG = r"斯坦福|哈佛|MIT|CMU|谷歌|微软|苹果|英伟达|OpenAI|教授|博主|公开课|网课|长文"
     if re.search(ORG, head) or re.match(r"\s*[A-Z][a-z]+\s+[A-Z][a-z]+", text):
         warns.append(f"  ⚠ {tag}以人名 / 机构开头（09-24 复盘：这类开头 4.9–8.2%，数字开头 12.3%）：人名机构挪到后半句做背书：{text}")
-    if not re.search(r"\d|你|总是|越.*越|又.*了", head):
+    plain = bool(re.search(r"。$", text.strip()) and re.match(r"\s*(我|感觉|头一回|第一次|终于|这次|今年|最近)", text))  # 10-04 起：平常话 + 句号（对标小盖）
+    if not plain and not re.search(r"\d|你|总是|越.*越|又.*了", head):
         warns.append(f"  ⚠ {tag}前 8 字没有数字，也没有读者处境（你的 / 总是 / 越用越）：{head}")
-    if not re.search(r"[？?]|不是.*[是而]|反而|为什么|凭什么|怎么|如何|不.*(也能|就能|砍|反)", text):
+    if not plain and not re.search(r"[？?]|不是.*[是而]|反而|为什么|凭什么|怎么|如何|不.*(也能|就能|砍|反)", text):
         warns.append(f"  ⚠ {tag}没有问句、「不是 X 是 Y」或「反而」：可能把答案写进了标题，念一遍看读者还要不要点：{text}")
     if re.search(r"优雅|爆涨|暴涨|震惊|最根本原因，", text):
         warns.append(f"  ⚠ {tag}有自嗨词 / 新闻腔（优雅、爆涨）：换成读者的处境：{text}")

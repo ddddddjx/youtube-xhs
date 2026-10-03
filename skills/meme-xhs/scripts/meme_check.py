@@ -162,14 +162,19 @@ def check_body(meta, paras, allow_gh):
 
     lens = [len(p) for p in paras]
     med = statistics.median(lens)
-    add("✓" if 22 <= med <= 49 else "⚠", f"段落中位 {med:.0f} 字（原号 {BASE['para_median']:.0f}，四分位 {BASE['para_q'][0]} 到 {BASE['para_q'][2]}）")
-    long_share = sum(x > 80 for x in lens) / len(lens)
-    add("✓" if long_share <= 0.12 else "⚠", f"超过 80 字的段落占 {long_share:.0%}（原号 {BASE['long_gt80']:.0%}）：长段拆开，一段一两句")
+    # 10-04 起往小盖靠：一段两三句、40 到 80 字；原号「一句一段」被读者认成 AI 腔
+    add("✓" if 30 <= med <= 85 else "⚠", f"段落中位 {med:.0f} 字（10-04 起目标 30 到 85，一段两三句；原号 {BASE['para_median']:.0f}）")
+    long_share = sum(x > 110 for x in lens) / len(lens)
+    add("✓" if long_share <= 0.15 else "⚠", f"超过 110 字的段落占 {long_share:.0%}：手机上超过五行，拆一下")
     for p in paras:
-        if len(p) > 130:
-            add("✗", f"这一段 {len(p)} 字，原号几乎没有这么长的段：{p[:24]}…")
-    short = sum(x <= 20 for x in lens) / len(lens)
-    add("✓" if 0.12 <= short <= 0.4 else "⚠", f"20 字以内的短段占 {short:.0%}（原号 {BASE['short_le20']:.0%}）：短段是节拍和钩子，太少读着闷，太多像口号")
+        if len(p) > 150:
+            add("✗", f"这一段 {len(p)} 字，手机上要七八行，拆开：{p[:24]}…")
+    lone = [p for p in paras if len(p) <= 22 and not re.match(r"\d+[.、]|[「“\"]", p)]
+    add("✓" if len(lone) <= 3 else "⚠", f"单独成段的短句 {len(lone)} 处（10-04 起最多 3 处，不算列表和引语）" +
+        ("" if len(lone) <= 3 else "：" + " / ".join(f"「{p}」" for p in lone[:6]) + " 并进上一段或下一段，一段写两三句"))
+    bridge = re.findall(r"说人话就是|最硬的一句|最狠的一句|的日常版|一把[^，。]{0,4}尺子|长成了[^，。]{0,8}的形状", text)
+    if bridge:
+        add("⚠", f"写出来的修辞 / 搭桥句：{'、'.join(dict.fromkeys(bridge))}（10-04 对标小盖）：比喻从生活里随手拿（F1、高尔夫、买菜、通勤），技术解释用「可以很粗略地理解成」")
 
     # 观点和产出：不做解读号。原号转述词每千字中位 0
     att = len(re.findall(ATTR, text)) / k
@@ -233,8 +238,8 @@ def check_body(meta, paras, allow_gh):
         print("  " + p)
     print("——")
     first = paras[0] if paras else ""
-    if not re.search(TIME, first[:20]):
-        add("⚠", f"第一段没有时间锚（最近 / 昨天 / 刚 / 这两天……，原号 {BASE['first_para_time']:.0%} 有）：{first[:24]}…")
+    if not re.search(TIME, first[:20]) and not re.search(r"\d", first[:40]):
+        add("⚠", f"第一段既没有时间锚也没有数字（10-04 起可以直接讲事实 + 数字，或时间锚 + 我；原号 {BASE['first_para_time']:.0%} 有时间锚）：{first[:24]}…")
     if not any("我" in p for p in paras[:3]):
         add("⚠", f"开头三段没有「我」（原号成熟期 {BASE['first3_has_wo']:.0%} 有）：用一个真实的「我」的动作起笔")
     if not re.search(CONTRAST, "".join(paras[1:5])):
@@ -242,9 +247,7 @@ def check_body(meta, paras, allow_gh):
     if not re.search(r"当然|不过|还没|还不|未必|也有问题|短板|局限|翻车|不完美|代价", text):
         add("⚠", "全文没有局限或翻车：写一处具体的局限（中文没有官方版本 / 要 API key），夸奖才可信。别写成单独一段「当然，有个坑。」")
     zz = text.count("真正")
-    if zz == 0:
-        add("⚠", "一次「真正」都没有：这是原号第一口头禅（真正的门槛、真正难的是），留一两处")
-    elif zz / k > 4:
+    if zz / k > 4:
         add("⚠", f"「真正」{zz} 次，每千字 {zz / k:.1f}（原号中位 {BASE['per1k']['真正'][0]}）：多了就成了模仿腔")
     ex = text.count("！") + text.count("!")
     if ex > 1:
@@ -283,7 +286,7 @@ def check_body(meta, paras, allow_gh):
         key = re.findall(r"\d+(?:\.\d+)?", t) + re.findall(r"[A-Za-z]{3,}", t) + \
             [t[i:i + 2] for i in range(len(t) - 1) if re.fullmatch(r"[一-龥]{2}", t[i:i + 2]) and t[i:i + 2] not in stop]
         if key and not any(w in tail3 for w in key if len(w) >= 2):
-            add("⚠", "结尾三段没有回扣标题里的任何一个词：原号至少 25 篇在结尾逐字回扣标题")
+            add("✓", "结尾没有回扣标题里的词（10-04 起往下收也可以：一句平常的评价就停）")
 
 
 # ---- 中文 AI 腔句式黑名单（10-02 Karpathy 稿被评论区骂「AI 味溢出屏幕」后加）----
