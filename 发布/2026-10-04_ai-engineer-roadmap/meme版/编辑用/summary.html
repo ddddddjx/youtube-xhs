@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;width:540px;height:720px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:34px 26px}
+h1{font-size:25px;margin:0 0 4px;font-weight:700}
+.sub{font-size:12.5px;color:#888;margin-bottom:18px;line-height:1.5}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{padding:11px 7px;border-top:1px solid #e6e6e6;vertical-align:top;line-height:1.5}
+td.m{width:54px;font-weight:700;color:#e8963a;white-space:nowrap}
+td.g{width:122px;font-weight:600}
+td.r{color:#444}
+tr.hi td{background:#fff7d6}
+.foot{font-size:12.5px;color:#777;margin-top:18px;line-height:1.6}
+</style></head><body><div class="wrap">
+<h1>6 个月 AI 工程师路线，压成一张表</h1>
+<div class="sub">来源：Ronin（@DeRonin_）与 Andy 合写的 X 长文，2026-03-16；资源链接全在原文，这里只列名字</div>
+<table>
+<tr><td class="m">第 1 月</td><td class="g">能写会跑的 Python</td><td class="r">Python（CS50P / Python for Everybody）、Git、终端、HTTP 和 JSON、SQL + pandas、FastAPI。练习：记账 CLI、天气脚本</td></tr>
+<tr class="hi"><td class="m">第 2 月</td><td class="g">把模型当 API 用</td><td class="r">提示词、结构化输出（Instructor）、tool calling、流式、多轮状态、token 成本、429 重试和兜底、提示注入（OWASP）。练习：发票解析、三个工具的助手</td></tr>
+<tr><td class="m">第 3 月</td><td class="g">RAG 做对</td><td class="r">embedding、切块（500 字 / 重叠 50）、向量库（本地 Chroma）、metadata 过滤、rerank、检索失败四种、引用。框架先 LlamaIndex</td></tr>
+<tr class="hi"><td class="m">第 4 月</td><td class="g">agent 和评测</td><td class="r">先不用框架写一个 while 循环 agent（3 个工具）、工具描述、状态、循环内重试、什么时候不该用 agent、工作流四种、eval（Promptfoo / Ragas）</td></tr>
+<tr><td class="m">第 5 月</td><td class="g">上线和稳定</td><td class="r">FastAPI 生产、Docker、队列（Celery）、鉴权、日志（Langfuse / LangSmith）、prompt 版本、成本监控、缓存。练习：把第 3 月的 RAG 容器化</td></tr>
+<tr><td class="m">第 6 月</td><td class="g">三选一做作品集</td><td class="r">① 产品工程师：LLM 应用 + 部署 + UX　② 应用 LLM 工程师：微调、推理优化、开源模型　③ 自动化工程师：CRM / 文档 / 邮件流程。目标：2 到 3 个能点开的成品</td></tr>
+</table>
+<div class="foot">黄底两行是不写代码的人也用得上的部分。作者的雇佣标准：六个月结束时手里有几个能点开的产品，不是学完理论。作者履历是本人自述，没核实；链接是官方文档，核实了。</div>
+</div></body></html>
