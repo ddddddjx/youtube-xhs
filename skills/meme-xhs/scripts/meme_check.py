@@ -8,6 +8,9 @@
   --allow-ganghao         用户明确指示过，本篇可以用「刚好 / 正好」把品牌引进来
 两个开关只在用户当次明确说了才加；英文品牌名开头的标题（MiniMax、Qwen、Claude）不用开关。
 
+front matter 写 `mode: retell`（转述荐读，10-06 起，范本 对标/华一说AI/）时：不查转述词密度、stance、假设场景、
+押注、开头的「我」，改查「我」不超过 6 次、篇幅 1300 到 2200 字。
+
 ✗ 必须改到没有；⚠ 逐条看，能说出理由的可以留。基线见 references/baseline.json。
 """
 import json
@@ -39,6 +42,12 @@ BET = r"我相信|我感觉[^。]{0,16}(会|应该)|以后[^。]{0,20}会|未来
 GRADE = r"这条我|这一条我|整篇我就认|我很认|这句我|我不同意|我同意|这篇我|文里这"                      # 给文章打分
 SOURCE_FIRST = r"(写了|发了|发表了|更了|出了)(一)?(篇|期|条)|在 ?X 上|推特上|播客里|的一篇|这篇(长文|文章)|看完觉得"
 OBJECTION = r"有人(可能|也许)?(会|要)?(说|问|觉得|反驳)|有人说|大家应该都|你可能会(说|问|觉得)|很多人(会|第一反应)"
+# 10-06 起（对标华一说AI）：「不是 X 是 Y / 能 X 不能 Y / 一个说 A 一个说 B」对仗是中文 AI 腔最重的标记
+DUILIAN = (r"不是[^。，；？]{1,20}[，,]\s*(而)?是[^。，；]{1,20}"
+           r"|能[^。，；]{1,12}[，,]\s*不能[^。，；]{1,12}"
+           r"|[^。，；]{1,10}的是[^。，；]{1,14}[，,]\s*[^。，；]{1,10}的是[^。，；]{1,14}"
+           r"|一个说[^。，；]{1,14}[，,]\s*一个说"
+           r"|与其[^。]{1,20}[，,]\s*不如")
 TIME = r"[一二两三四五六七八九十\d]+\s*(天|周|个月|年)前|最近|昨天|今天|前几天|前段时间|这两天|这两年|上周|上个月|去年|前阵子|刚|今年|这几天|那天|\d{1,4}\s*[年月日号点]"
 
 results = {"✗": [], "⚠": [], "✓": []}
@@ -160,12 +169,23 @@ def check_cover(meta, titles, base):
             pass
 
 
+def is_retell(meta):
+    return str(meta.get("mode", "")).strip().lower() in ("retell", "转述", "转述荐读")
+
+
 def check_body(meta, paras, allow_gh):
     text = "".join(paras)
     n = len(re.sub(r"\s", "", text))
     k = max(n / 1000, 0.001)
     lo, _, hi = BASE["chars_q"]
-    add("✓" if 1000 <= n <= 3400 else "⚠", f"正文 {n} 字（原号中位 {BASE['chars_median']:.0f}，四分位 {lo} 到 {hi}）")
+    retell = is_retell(meta)
+    if retell:
+        add("✓" if 1300 <= n <= 2200 else "⚠", f"正文 {n} 字（转述荐读 1300 到 2200，范本华一 Peter Deng 稿约 2000）")
+        wo = text.count("我")
+        add("✓" if wo <= 6 else "⚠", f"「我」{wo} 次（转述荐读最多 6 次；范本 2000 字里 3 次：推荐、挑三点、一句认同）" +
+            ("" if wo <= 6 else "：主语换回原文里那个人，「我」只留开头推荐和结尾一句"))
+    else:
+        add("✓" if 1000 <= n <= 3400 else "⚠", f"正文 {n} 字（原号中位 {BASE['chars_median']:.0f}，四分位 {lo} 到 {hi}）")
 
     lens = [len(p) for p in paras]
     med = statistics.median(lens)
@@ -190,19 +210,19 @@ def check_body(meta, paras, allow_gh):
             continue
         lead = re.split(r"[。！？]", m_.group(2))[0]
         if len(lead) < 10 or re.match(r"^(第?[一二三四五六七八九]|原因|理由|问题|好处|坑|关键|重点|最后|下面)[：:，]?$", lead):
-            add("⚠", f"编号句「{p[:20]}」像提纲：编号开头那句要自己就是一个判断（「5、理解了这个训练逻辑，就会知道 X 根本不是小模型。」），读者只读编号句就能拿走结论")
-    # 10-03 起：换一群读者再讲一遍、回指已发稿（都是 ⚠，有就记，没有看情况）
-    if not re.search(r"程序员|写代码的人|不写代码|非技术|换成.{0,6}(人|同学|读者)|换个说法|伪代码", text):
-        add("⚠", "全篇没有「换一群读者再讲一遍」的痕迹（程序员版给伪代码 / 不写代码的人给工作场景）：两群读者只碰到了一群")
+            add("⚠", f"编号句「{p[:20]}」像提纲：编号开头那句写一件事加一种感受（「一个预约功能，解决的是半夜睡不踏实这件事」），或者一个判断，读者只读编号句就知道这段讲什么")
+    # 10-06 起（对标华一说AI）：换读者、回指、假设、押注都从「至少」改成「最多」。按模板凑齐这些槽位本身就是 AI 味
     sc = len(re.findall(SCENE, text))
-    add("✓" if sc >= 2 else "⚠", f"「假设我 / 比如我」日常场景 {sc} 处（10-05 起至少 2 处，带具体时间地点，不算编）")
-    if not re.search(BET, text):
-        add("⚠", "全篇没有对未来 / 行业的押注（我相信 / 以后会 / 应该都会）：判断要对着世界下，不只对着文章")
+    cap_sc = 0 if retell else 1
+    add("✓" if sc <= cap_sc else "⚠", f"「假设我 / 比如我」推演 {sc} 处（10-06 起最多 {cap_sc} 处，默认不写；原文里有真场景就用原文的）" +
+        ("" if sc <= cap_sc else "：编出来的场景配整齐的数字，读者一眼看出是为论证搭的"))
+    bets = [m_.group(0) for m_ in re.finditer(r"[^。]*(?:" + BET + r")[^。]*", text)]
+    if len(bets) > 1:
+        add("⚠", f"对行业的预言 {len(bets)} 处：一篇最多 1 处，两位数粉丝的号每篇都下大结论，读者觉得是机器在下结论：" +
+            " / ".join(f"「{b.strip()[:24]}」" for b in bets[:4]))
     gr = len(re.findall(GRADE, text))
     if gr > 2:
-        add("⚠", f"给文章打分的句子 {gr} 处（这条我认 / 这条我不同意）：一篇最多一两句，判断对着世界下，不对着原文")
-    if not re.search(r"上[周次一]那篇|上一篇|之前那篇|前几篇|前两篇|我写过|写过一篇|上周我|前[两几]天(写|发)的|那篇.{0,6}我(写|讲)过", text):
-        add("⚠", "没有回指已经发过的稿子（「上周那篇 X 我写过……」）：有可回指的才加，一个「再」字就是关注理由；没有就忽略这条")
+        add("⚠", f"给文章打分的句子 {gr} 处（这条我认 / 这条我不同意）：一篇最多一两句")
     for m_ in re.finditer(r"[^。]*(早就[^。]{0,8}(看明白|玩明白|看透|想明白)|我研究[^。]{0,8}(很多年|多年)|作为[^。]{0,6}(老|资深)[^。]{0,4}(粉|玩家|用户))[^。]*", text):
         add("⚠", f"自称内行：「{m_.group(0)[:30]}」（用户 10-04：不写「XX 我早就看明白了」）。爱好和经历只写事实，不写自己有多懂")
     if re.search(r"F1|高尔夫|赛车|球童|扩散器", text):
@@ -213,19 +233,21 @@ def check_body(meta, paras, allow_gh):
 
     # 观点和产出：不做解读号。原号转述词每千字中位 0
     att = len(re.findall(ATTR, text)) / k
-    if att > 3:
+    if retell:
+        add("✓", "转述荐读：不查转述词密度（范本每千字约 4 次：他回忆 / 在他看来 / 访谈里他还有一层补充），主语就是原文里那个人")
+    elif att > 3:
         add("✗", f"转述词（作者说 / 他写 / 原文 / 研究显示……）每千字 {att:.1f} 次，读起来是一篇解读（原号中位 0）："
                  "事实用自己的话直接讲，出处首页点一次")
     elif att > 1.5:
         add("⚠", f"转述词每千字 {att:.1f} 次（原号中位 0，四分之三的稿子低于 0.5）：再删几处「作者说」")
-    if not meta.get("stance"):
-        add("✗", "front matter 缺 stance：一句原文没说过的判断。没有它就是解读号，不利于涨粉")
+    if not meta.get("stance") and not retell:
+        add("⚠", "front matter 没有 stance（10-06 起可选）：有一句自己的判断就写，没有就别硬造；原文故事多的素材考虑 mode: retell")
     if not meta.get("output"):
         add("✓", "front matter 没有 output：10-05 起领取物默认写进置顶评论.txt，不进正文")
     st_ = re.sub(r"\s", "", meta.get("stance", ""))
     grams = {st_[i:i + 2] for i in range(len(st_) - 1) if re.fullmatch(r"[一-龥]{2}", st_[i:i + 2])}
     head = re.sub(r"\s", "", "".join(paras[:6]))
-    if grams and sum(g in head for g in grams) < 3:
+    if grams and sum(g in head for g in grams) < 3 and not retell:
         add("⚠", "首页（前 6 段）看不到 stance 里的说法：原文结论一两段带过，第三四段就亮出你自己的判断")
     if meta.get("output") and not re.search(r"我会|我先|我建议|可以这样|这么改|三条|几条|清单|自测|算一笔|分成三类", text):
         add("✓", "正文里没有清单式产出：10-05 起领取物默认进置顶评论，正文停在判断上")
@@ -238,11 +260,13 @@ def check_body(meta, paras, allow_gh):
         if acc >= 200:
             break
     st = "".join(screen)
-    miss = [name for name, pat in (("我", r"我"), ("时间锚", TIME), ("数字", r"\d|[一二两三四五六七八九十百千万]+\s*[个次版轮天页条家篇年月倍万亿]"), ("反差词", CONTRAST)) if not re.search(pat, st)]
-    add("✓" if not miss else "⚠", "首屏（前 200 字）" + ("四样都有：我、时间锚、数字、反差" if not miss else f"缺 {'、'.join(miss)}（原号首屏 83% 有我、81% 有时间锚、82% 有数字、61% 有反差）"))
+    miss = [name for name, pat in ((("我", r"我"),) if not retell else ()) + (("时间锚", TIME), ("数字", r"\d|[一二两三四五六七八九十百千万]+\s*[个次版轮天页条家篇年月倍万亿]"), ("反差词", CONTRAST)) if not re.search(pat, st)]
+    if retell:   # 转述荐读的首屏：推荐 + 这个人是谁（范本：「Facebook早期第四名产品经理，之后先后在 Instagram、Uber……」）
+        miss = [] if re.search(r"[A-Za-z]{2,}|[一-龥]{2,4}(说|讲|聊|回忆)", st) else ["原文里的那个人"]
+    add("✓" if not miss else "⚠", "首屏（前 200 字）" + (("有原文里那个人的名字和身份" if retell else "四样都有：我、时间锚、数字、反差") if not miss else f"缺 {'、'.join(miss)}（原号首屏 83% 有我、81% 有时间锚、82% 有数字、61% 有反差）"))
     if re.search(r"这两天我读了|昨天我看到|最近我在|我刷到", st[:40]) and not re.search(r"\d", st[:80]):
         add("⚠", "首屏开头是「我读了 / 我刷到」但前 80 字没有一个具体数字或画面：原号的第一段是一个人在做一件具体的事，不是交代信源")
-    if not re.search(r"朋友|同事|老板|客户|吃饭|会上|办公室|家里|地铁|排队|群里|后台|截图|照片|会议|饭桌|车上|门口", st) and not re.search(r"\d", st):
+    if not retell and not re.search(r"朋友|同事|老板|客户|吃饭|会上|办公室|家里|地铁|排队|群里|后台|截图|照片|会议|饭桌|车上|门口", st) and not re.search(r"\d", st):
         add("⚠", "首屏既没有具体场景也没有数字：读者 5 秒内要看到一个画面")
     p0 = paras[0]
     if re.search(SOURCE_FIRST, p0) and not re.search(r"^.{0,30}(觉得|认为|其实|根本|没必要|很难|不是|想|打算|最在意|不同意|才是)", p0):
@@ -269,21 +293,22 @@ def check_body(meta, paras, allow_gh):
         if not re.search(r"今天就能|现在就能|已经上线|已经开放|今天起|现在就可以|马上能|只有.{0,6}天|几周内|限时|先到先得|今天就开", st):
             add("⚠", "热点稿首屏没有「现在就能怎样」的紧迫感（有一半今天就能用 / 现在就能开 / 几周后才有）：给读者一个今天就点进来的理由")
     # 个人观点密度：活人感靠判断，不靠转述
-    op = len(re.findall(r"我觉得|我不会|我会|我最|我反而|我不太|我更|我倒|我自己|我不|我宁", text))
-    if op < 3:
-        add("⚠", f"全文只有 {op} 处第一人称判断（我觉得 / 我的看法 / 我不会 / 我最……）：至少 3 处，读者要听到这个人怎么看，不只是他读到什么")
+    # 10-06 起从「至少 3 处」改成「最多 4 处」（对标华一说AI：2000 字里只有一句「这点我也认同」）
+    op = len(re.findall(r"我觉得|我感觉|我不会|我会|我最|我反而|我不太|我更|我倒|我自己|我不|我宁", text))
+    if op > 4:
+        add("⚠", f"第一人称判断 {op} 处（10-06 起最多 4 处）：每段都在表态就是在表演，删到最想说的那一两句")
     print("—— 首屏（读者在信息流里点进来先看到的）——")
     for p in screen:
         print("  " + p)
     print("——")
     first = paras[0] if paras else ""
-    if not re.search(TIME, first[:20]) and not re.search(r"\d", first[:40]):
+    if not retell and not re.search(TIME, first[:20]) and not re.search(r"\d", first[:40]):
         add("⚠", f"第一段既没有时间锚也没有数字（10-04 起可以直接讲事实 + 数字，或时间锚 + 我；原号 {BASE['first_para_time']:.0%} 有时间锚）：{first[:24]}…")
-    if not any("我" in p for p in paras[:3]):
+    if not retell and not any("我" in p for p in paras[:3]):
         add("⚠", f"开头三段没有「我」（原号成熟期 {BASE['first3_has_wo']:.0%} 有）：用一个真实的「我」的动作起笔")
-    if not re.search(CONTRAST, "".join(paras[1:5])):
+    if not retell and not re.search(CONTRAST, "".join(paras[1:5])):
         add("⚠", "前 5 段没有反差（但 / 却 / 其实 / 没想到……，原号 64% 在前 5 段转折）：第一段写场景，紧接着给一个相反的事实")
-    if not re.search(r"当然|不过|还没|还不|未必|也有问题|短板|局限|翻车|不完美|代价", text):
+    if not retell and not re.search(r"当然|不过|还没|还不|未必|也有问题|短板|局限|翻车|不完美|代价", text):
         add("⚠", "全文没有局限或翻车：写一处具体的局限（中文没有官方版本 / 要 API key），夸奖才可信。别写成单独一段「当然，有个坑。」")
     zz = text.count("真正")
     if zz / k > 4:
@@ -382,13 +407,26 @@ def check_ai_tone(meta, paras, draft_dir):
             n_hit += 1
         if re.search(r"至少(现在|目前|眼下)", p):
             add("⚠", f"「至少现在」式留后路：{p[:24]}… 立场要么下，要么不下，别一边下一边退")
+    # 对仗（10-06 起）：编号句 / 小标题里 ✗，全篇超过 2 处 ⚠，最后一段 ⚠
+    pairs = []
+    for i, p in enumerate(paras):
+        for m_ in re.finditer(DUILIAN, p):
+            pairs.append(m_.group(0))
+            if re.match(r"^(\d+|[一二三四五六七八九十]+)[、.]", p) and m_.start() < len(re.split(r"[。！？]", p)[0]):
+                add("✗", f"编号句是对仗金句：「{p[:30]}」 改成一件事加一种感受（「一个预约功能，解决的是半夜睡不踏实这件事」）")
+                n_hit += 1
+            elif i == len(paras) - 1:
+                add("⚠", f"结尾停在对仗上：「{m_.group(0)[:30]}」 这是金句收尾；停在原文的一个细节或一句平常的评价上")
+    if len(pairs) > 2:
+        add("⚠", f"「不是 X 是 Y / 能 X 不能 Y」对仗 {len(pairs)} 处（最多 2 处，范本 0 处）：" +
+            " / ".join(f"「{x[:22]}」" for x in pairs[:5]) + " 改成平铺直叙，把原因用「因为」讲出来")
     text = "\n".join(paras)
     m = re.search(r"(一是|一来|其一|首先)[^\n]{0,4}.{0,120}?(二是|二来|其二|其次)", text, re.S)
     if m:
         add("✗", f"「一是……二是……」/「首先……其次」：{m.group(0)[:30]}… 公文腔。两个理由就写两段，各用自己的事开头")
         n_hit += 1
     # 短段里有多少是没有事实的空句：没数字、没引号、没英文、没「我 / 你」、不是问句
-    empty = [p for p in paras if len(p) <= 22 and p not in flagged and not re.search(r"\d|[「“\"]|[A-Za-z]|我|你|[？?]", p)]
+    empty = [p for p in paras if len(p) <= 22 and p not in flagged and not re.match(r"(\d+|[一二三四五六七八九十]+)[、.]", p) and not re.search(r"\d|[「“\"]|[A-Za-z]|我|你|[？?]", p)]
     if len(empty) >= 3:
         add("⚠", f"没有事实的短段 {len(empty)} 个：" + " / ".join(f"「{p}」" for p in empty[:6]) +
                  " 钩子短段要带信息（一个数字、一个具体的物件、半句话），不要带态度")
