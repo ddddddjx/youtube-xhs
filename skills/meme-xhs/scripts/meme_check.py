@@ -485,10 +485,14 @@ def main(argv):
                 titles += [l for l in open(p, encoding="utf-8").read().splitlines() if l.strip()]
     for t in dict.fromkeys(titles):
         check_title(t, allow_cn)
+    if folder and not any(re.search(r"\d|[一二两三四五六七八九十百千万]+\s*[万千百个人篇条]", t) for t in titles if t):
+        add("⚠", "三条标题备选里没有一条带数字（10-07 起公式：数字 + 社会证明 + 痛点动词 + 可搜词；Karpathy 稿点击率 20.4% 靠的是「1.3万人收藏」）")
     if folder and not any(re.search(r"和|跟|与|比|不一样|不是一回事|完全|路子|反过来|另一条路", t) for t in titles if t):
         add("⚠", "三条标题备选里没有对比站队句（「X 的路子，和 Y 完全不一样。」）：素材有两边可站时补一条，评论靠它（小盖站队稿评论是知识稿的 14 倍）")
     main_title = titles[1] if len(titles) > 1 and titles[1] else titles[0]   # 标题.txt 优先，其次 front matter
     check_cover(meta, [main_title], os.path.dirname(os.path.abspath(draft)))
+    n_img = len(re.findall(r"!\[[^\]]*\]\(", open(draft, encoding="utf-8").read())) + (1 if meta.get("hero") else 0) + (1 if meta.get("extra_pages") else 0)
+    add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（10-07 起每篇至少两张：一张原文证据截图，一张总结 / 对照；Karpathy 稿 8 页纯文字，丰富度 3.0「待提升」）")
     check_body(meta, paras, allow_gh)
     check_ai_tone(meta, paras, os.path.dirname(os.path.abspath(draft)))
     for level in ("✗", "⚠", "✓"):
