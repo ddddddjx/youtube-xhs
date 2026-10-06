@@ -1,0 +1,9 @@
+十年后回头看，稀缺的不是智能，是愿景和野心。
+
+讲者 Alexandr Wang，19 岁创办 Scale AI，现在负责 Meta 的超级智能实验室。这是他在 YC Startup School 的对谈，我剪掉了寒暄和广告，只留观点。
+
+一、先于共识的信念。Scale 做数据的头几年投资人都看衰，因为没人训练过模型。
+二、瓶颈不在模型，在扩散。就算模型不再进步，世界也要花几十年去适应。
+三、系统思维不会过时。以前是写代码再组织人，以后是编排一个 agent，再编排百万个。
+
+来源：Y Combinator · Alexandr Wang: Once-in-a-Civilization Opportunity
