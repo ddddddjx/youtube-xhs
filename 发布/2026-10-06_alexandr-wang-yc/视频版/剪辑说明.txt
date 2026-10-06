@@ -25,3 +25,10 @@
 
 状态（2026-10-06）：视频文件没下下来。这个云端出口 IP 被 YouTube 判定为异常流量（网页 429 + 「Sign in to confirm you're not a bot」），yt-dlp 的 tv / ios / android_vr / mweb 四种客户端各试了一次都被挡；字幕是在限流前拿到的。
 字幕三份（中文 / 中英双语 / 英文）已经按上面的剪辑点裁好、时间轴已平移到成片时间。拿到 video.mp4 后按 编辑用/剪辑命令.txt 跑 trim.py 和压片即可；trim 命令参数在 编辑用/cuts.txt。
+
+状态补充（2026-10-06 第二次会话）：换了四条路径仍没拿到视频，都是 YouTube 那边挡的，不是仓库脚本的问题。
+- Invidious：api.invidious.io 列出的 5 个实例里，只有 f5.si 开 API，但 /api/v1/videos 报 500、/latest_version 返回 Anubis 人机验证页；其余实例 API 关闭或 403。
+- Piped：kavin.rocks 526，能回话的实例（ducks.party、private.coffee）都报 YouTube「Sign in to confirm you're not a bot」，其它实例被这边的出口代理拒绝连接。
+- cobalt：api.cobalt.tools 和 capi.3kh0.net 都要 JWT（error.api.auth.jwt.missing），instances.cobalt.best 证书不对、DNS 也解析不到。
+- yt-dlp 2026.08.19 + yt-dlp-ejs 0.8.0 + node：web_embedded 客户端能列出全部格式（18 / 136+140 / 137 …），但真下载时 googlevideo 对 18 和 136+140 都回 403，是这个出口 IP 缺 PO token。web_safari 被强制 SABR，没有可下的 URL。
+下一步最省事的是在能正常看 YouTube 的机器上（比如 Mac）用 yt-dlp 下 720p mp4，放到 _work/video.mp4 后按 编辑用/剪辑命令.txt 跑；或者给云端配一个 PO token provider（bgutil-ytdlp-pot-provider）。
