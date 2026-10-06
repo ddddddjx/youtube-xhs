@@ -1,0 +1,10 @@
+# 视频下载后，在仓库根目录依次跑。前提：_work/video.mp4 已存在，_work/en.srt 用未剪辑原始时间轴那份，_work 里不要有 zh.srt
+D=发布/2026-10-06_alexandr-wang-yc
+cp "$D/视频版/编辑用/英文字幕_未剪辑原始时间轴.srt" "$D/_work/en.srt" && rm -f "$D/_work/zh.srt"
+python3 .claude/skills/youtube-xhs/scripts/trim.py "$D/_work" --cut 7.3-33.08 --cut 181.22-200.84 --cut 383.38-409.48 --cut 473.9-507.36 --cut 545.94-571.4 --cut 790.58-797.36 --cut 802.46-813.48 --cut 936.02-996.24 --cut 1089.86-1180.08 --cut 1752.1-1765.48 --cut 1887.38-end
+# 剪完把已翻译好的中文字幕放回去（时间轴已经是剪后的）：
+cp "$D/视频版/中文字幕.srt" "$D/_work/zh.srt"
+cd "$D/_work" && python3 ../../../.claude/skills/youtube-xhs/scripts/merge_subs.py en.srt zh.srt . && cd -
+python3 .claude/skills/youtube-xhs/scripts/compose_frame.py "$D/_work" "$D/视频版/编辑用/frame.png" "$D/视频版/编辑用/preview.png" --preview 120 --start 0
+python3 .claude/skills/youtube-xhs/scripts/compose_frame.py "$D/_work" "$D/视频版/编辑用/frame.png" "$D/视频版/alexandr-wang-yc_竖版.mp4" --start 0
+bash .claude/skills/youtube-xhs/scripts/burn.sh "$D/_work" "$D/视频版/alexandr-wang-yc_中英字幕.mp4"

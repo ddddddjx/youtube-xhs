@@ -1,0 +1,3004 @@
+1
+00:00:07,300 --> 00:00:09,330
+Let's jump to your story. I mean, you
+
+2
+00:00:09,340 --> 00:00:11,850
+got it came up always really smart like
+
+3
+00:00:11,860 --> 00:00:15,330
+math olympiad like jump us to, you know,
+
+4
+00:00:15,340 --> 00:00:16,850
+the Alex of that time. Like, what were
+
+5
+00:00:16,860 --> 00:00:18,850
+you feeling? What were you thinking? And
+
+6
+00:00:18,860 --> 00:00:21,450
+what drove you down this road?
+
+7
+00:00:21,460 --> 00:00:23,050
+Yeah, I am
+
+8
+00:00:23,060 --> 00:00:24,250
+uh
+
+9
+00:00:24,260 --> 00:00:25,930
+Well, I grew up in New Mexico, Los
+
+10
+00:00:25,940 --> 00:00:28,770
+Alamos, New Mexico, um which now
+
+11
+00:00:28,780 --> 00:00:31,490
+Oppenheimer famous, but um
+
+12
+00:00:31,500 --> 00:00:33,970
+it really was the middle of nowhere and
+
+13
+00:00:33,980 --> 00:00:34,610
+uh
+
+14
+00:00:34,620 --> 00:00:36,330
+I remember I did all these math
+
+15
+00:00:36,340 --> 00:00:37,970
+competitions, all these um computer
+
+16
+00:00:37,980 --> 00:00:41,130
+science competitions, but then um
+
+17
+00:00:41,140 --> 00:00:43,570
+I knew I wanted to do really big things
+
+18
+00:00:43,580 --> 00:00:46,730
+and it was like not exactly clear how or
+
+19
+00:00:46,740 --> 00:00:49,090
+what the exact path to do that would be.
+
+20
+00:00:49,100 --> 00:00:49,810
+Um
+
+21
+00:00:49,820 --> 00:00:52,170
+and I had a friend who was really into
+
+22
+00:00:52,180 --> 00:00:55,250
+programming um and, you know, after high
+
+23
+00:00:55,260 --> 00:00:57,490
+school got an internship in the valley.
+
+24
+00:00:57,500 --> 00:00:58,730
+I think his first internship was at
+
+25
+00:00:58,740 --> 00:01:01,770
+Palantir. And um and he, you know, he
+
+26
+00:01:01,780 --> 00:01:04,650
+was kind of this um influence for me and
+
+27
+00:01:04,660 --> 00:01:06,890
+so after I finished uh high school, I
+
+28
+00:01:06,900 --> 00:01:09,010
+ended up working at Quora um here in
+
+29
+00:01:09,020 --> 00:01:12,450
+Silicon Valley. And then um
+
+30
+00:01:12,460 --> 00:01:14,770
+I worked there for a year. I took a gap
+
+31
+00:01:14,780 --> 00:01:17,690
+year to work there um and then I went to
+
+32
+00:01:17,700 --> 00:01:18,810
+MIT.
+
+33
+00:01:18,820 --> 00:01:20,690
+Um and this is I was 19 when I worked at
+
+34
+00:01:20,700 --> 00:01:22,770
+Quora, I was 18 when I went to MIT and I
+
+35
+00:01:22,780 --> 00:01:25,410
+was 19 when I started um Scale. And I
+
+36
+00:01:25,420 --> 00:01:28,970
+remember this period from like 17 to 19
+
+37
+00:01:28,980 --> 00:01:30,770
+it was um
+
+38
+00:01:30,780 --> 00:01:31,810
+uh
+
+39
+00:01:31,820 --> 00:01:34,090
+I felt like I was constantly changing
+
+40
+00:01:34,100 --> 00:01:35,130
+like
+
+41
+00:01:35,140 --> 00:01:36,370
+you know exactly what I want to do was
+
+42
+00:01:36,380 --> 00:01:38,370
+constantly changing. You know, I was
+
+43
+00:01:38,380 --> 00:01:39,970
+learning so much just from the people
+
+44
+00:01:39,980 --> 00:01:41,850
+around me and it was just like I felt
+
+45
+00:01:41,860 --> 00:01:43,570
+like I was drinking from the firehose
+
+46
+00:01:43,580 --> 00:01:46,370
+pretty constantly during that time. Um
+
+47
+00:01:46,380 --> 00:01:49,210
+and um I would definitely recommend you
+
+48
+00:01:49,220 --> 00:01:50,130
+know the two things that were really
+
+49
+00:01:50,140 --> 00:01:52,090
+important. One is I think working at a
+
+50
+00:01:52,100 --> 00:01:55,010
+company was really valuable because like
+
+51
+00:01:55,020 --> 00:01:56,530
+I think from the outside in you have no
+
+52
+00:01:56,540 --> 00:01:57,810
+idea how companies work. You have no
+
+53
+00:01:57,820 --> 00:01:59,210
+idea what it looks like to actually
+
+54
+00:01:59,220 --> 00:02:00,330
+build something. You have no idea what
+
+55
+00:02:00,340 --> 00:02:01,730
+it looks like to iterate on something.
+
+56
+00:02:01,740 --> 00:02:02,730
+You have no idea what it looks like for
+
+57
+00:02:02,740 --> 00:02:04,410
+groups of people to make decisions. And
+
+58
+00:02:04,420 --> 00:02:05,810
+so I thought that was really important.
+
+59
+00:02:05,820 --> 00:02:08,490
+And then going to school at MIT was
+
+60
+00:02:08,500 --> 00:02:10,290
+actually really important because it
+
+61
+00:02:10,300 --> 00:02:13,490
+just gave me a lot of um opportunity to
+
+62
+00:02:13,500 --> 00:02:16,290
+explore what was interesting. And so it
+
+63
+00:02:16,300 --> 00:02:18,850
+was at MIT that I started training my
+
+64
+00:02:18,860 --> 00:02:21,690
+first models and um that I like played
+
+65
+00:02:21,700 --> 00:02:23,130
+around with TensorFlow which had just
+
+66
+00:02:23,140 --> 00:02:25,090
+come out that year at MIT and where I
+
+67
+00:02:25,100 --> 00:02:26,650
+like ultimately came up with the idea of
+
+68
+00:02:26,660 --> 00:02:29,690
+Scale. And then after one year at MIT I
+
+69
+00:02:29,700 --> 00:02:31,410
+applied to YC.
+
+70
+00:02:31,420 --> 00:02:32,370
+You know, it felt like kind of like a
+
+71
+00:02:32,380 --> 00:02:35,440
+miracle to get in at that time. And uh
+
+72
+00:02:35,440 --> 00:02:37,430
+um yeah, that was I think the story till
+
+73
+00:02:37,440 --> 00:02:39,150
+then I was 19 started Scale and uh the
+
+74
+00:02:39,160 --> 00:02:40,230
+rest is history.
+
+75
+00:02:40,240 --> 00:02:42,070
+I guess with uh you work with Jared
+
+76
+00:02:42,080 --> 00:02:45,230
+Friedman at the time and um you came in
+
+77
+00:02:45,240 --> 00:02:47,270
+with actually a very different idea than
+
+78
+00:02:47,280 --> 00:02:49,630
+what ended up becoming Scale.
+
+79
+00:02:49,640 --> 00:02:52,630
+Yeah, so we wanted to build um like an
+
+80
+00:02:52,640 --> 00:02:54,910
+AI agent funnily enough for uh for doc
+
+81
+00:02:54,920 --> 00:02:56,470
+for to help people like get medical
+
+82
+00:02:56,480 --> 00:02:59,870
+care. Um and it was like the right it
+
+83
+00:02:59,880 --> 00:03:02,710
+was a great example of an idea that I
+
+84
+00:03:02,720 --> 00:03:04,710
+think will ultimately exist. Like I
+
+85
+00:03:04,720 --> 00:03:05,990
+think we're even seeing it now. Like AI
+
+86
+00:03:06,000 --> 00:03:07,710
+agents to help people get medical care
+
+87
+00:03:07,720 --> 00:03:09,470
+are very real. But it was the wrong
+
+88
+00:03:09,480 --> 00:03:10,470
+timing.
+
+89
+00:03:10,480 --> 00:03:13,390
+Um and uh and we worked on it for about
+
+90
+00:03:13,400 --> 00:03:16,390
+a month or two before Jared pulled us
+
+91
+00:03:16,400 --> 00:03:18,790
+aside and were like, "Guys, this is I
+
+92
+00:03:18,800 --> 00:03:19,510
+don't know if this is going to go
+
+93
+00:03:19,520 --> 00:03:20,872
+anywhere."
+
+94
+00:03:20,960 --> 00:03:23,030
+Um and uh and that's exactly what we
+
+95
+00:03:23,040 --> 00:03:25,190
+needed to hear. And it was at that time
+
+96
+00:03:25,200 --> 00:03:27,750
+when like, you know, where I had studied
+
+97
+00:03:27,760 --> 00:03:29,790
+AI to my T. I had like trained models
+
+98
+00:03:29,800 --> 00:03:31,470
+and we thought we sort of went back to
+
+99
+00:03:31,480 --> 00:03:33,230
+the drawing board, thought deeply about
+
+100
+00:03:33,240 --> 00:03:34,630
+where the opportunity was, and
+
+101
+00:03:34,640 --> 00:03:35,750
+came up with Scale.
+
+102
+00:03:35,760 --> 00:03:38,630
+I guess selling data at the time, you
+
+103
+00:03:38,640 --> 00:03:40,030
+know, large language models were not
+
+104
+00:03:40,040 --> 00:03:41,950
+even had had not really come to the fore
+
+105
+00:03:41,960 --> 00:03:45,350
+yet. Um but self-driving cars were sort
+
+106
+00:03:45,360 --> 00:03:47,230
+of coming up and and computer vision
+
+107
+00:03:47,240 --> 00:03:48,990
+suddenly became So that was sort of the
+
+108
+00:03:49,000 --> 00:03:50,509
+first market. Is that right?
+
+109
+00:03:50,519 --> 00:03:52,070
+Yeah, so
+
+110
+00:03:52,080 --> 00:03:54,509
+the the story here is that like I was
+
+111
+00:03:54,519 --> 00:03:56,430
+when I was at MIT, I did a bunch of
+
+112
+00:03:56,440 --> 00:03:58,350
+projects like train train models of
+
+113
+00:03:58,360 --> 00:03:59,750
+various forms. And these were like, you
+
+114
+00:03:59,760 --> 00:04:01,110
+know, by comparison today, they're like
+
+115
+00:04:01,120 --> 00:04:04,509
+little toy models. And um and I remember
+
+116
+00:04:04,519 --> 00:04:06,630
+to train a model, uh I needed three
+
+117
+00:04:06,640 --> 00:04:09,590
+things. I needed a
+
+118
+00:04:09,600 --> 00:04:11,390
+uh GCP account, like I needed an account
+
+119
+00:04:11,400 --> 00:04:13,590
+on some cloud service to get compute. I
+
+120
+00:04:13,600 --> 00:04:16,590
+needed um the code to run to actually
+
+121
+00:04:16,600 --> 00:04:18,870
+train the model. And I needed data. I
+
+122
+00:04:18,880 --> 00:04:22,110
+needed a data set. And uh for two out of
+
+123
+00:04:22,120 --> 00:04:24,430
+these three things, you could just press
+
+124
+00:04:24,440 --> 00:04:26,950
+a button online and get them. And then
+
+125
+00:04:26,960 --> 00:04:28,870
+for the last one, for data, there was
+
+126
+00:04:28,880 --> 00:04:31,710
+like no effective way to get data for
+
+127
+00:04:31,720 --> 00:04:34,190
+training these training these models. Um
+
+128
+00:04:34,200 --> 00:04:37,270
+and so it felt incredibly obvious that
+
+129
+00:04:37,280 --> 00:04:38,590
+this was going to be the future, that
+
+130
+00:04:38,600 --> 00:04:41,150
+there was going to be a way to um
+
+131
+00:04:41,160 --> 00:04:43,310
+you know, press a button so to speak and
+
+132
+00:04:43,320 --> 00:04:46,110
+get data. And uh it was very funny
+
+133
+00:04:46,120 --> 00:04:47,390
+because
+
+134
+00:04:47,400 --> 00:04:49,230
+in the years that followed, like in the
+
+135
+00:04:49,240 --> 00:04:52,070
+first many years of Scale, data was very
+
+136
+00:04:52,080 --> 00:04:54,550
+unsexy still. Um every time we would go
+
+137
+00:04:54,560 --> 00:04:55,870
+out to fundraise, even though our
+
+138
+00:04:55,880 --> 00:04:57,350
+numbers were great and we had great
+
+139
+00:04:57,360 --> 00:05:00,190
+revenue, you know, VCs and investors
+
+140
+00:05:00,200 --> 00:05:01,470
+would always be very skeptical. They'd
+
+141
+00:05:01,480 --> 00:05:02,670
+be like, "Oh, I don't know if this is a
+
+142
+00:05:02,680 --> 00:05:04,510
+good business. Does it have longevity?
+
+143
+00:05:04,520 --> 00:05:06,590
+Is it durable?" Um
+
+144
+00:05:06,600 --> 00:05:08,790
+and uh it was really weird to me, but
+
+145
+00:05:08,800 --> 00:05:10,150
+you know, none of the investors had ever
+
+146
+00:05:10,160 --> 00:05:12,550
+trained a model. So, I guess they didn't
+
+147
+00:05:12,560 --> 00:05:14,150
+really get it. Um
+
+148
+00:05:14,160 --> 00:05:16,510
+and uh fast forward to today, you know,
+
+149
+00:05:16,520 --> 00:05:17,990
+we we managed to raise money, we managed
+
+150
+00:05:18,000 --> 00:05:19,070
+to keep going, managed to keep growing
+
+151
+00:05:19,080 --> 00:05:21,390
+the business, but um the very same
+
+152
+00:05:21,400 --> 00:05:25,030
+investors who passed on us and were um
+
+153
+00:05:25,040 --> 00:05:27,870
+were very dour on the potential of AI
+
+154
+00:05:27,880 --> 00:05:30,430
+are writing think pieces today about how
+
+155
+00:05:30,440 --> 00:05:32,030
+data is so critical and is one of the
+
+156
+00:05:32,040 --> 00:05:34,270
+biggest business opportunities um in AI.
+
+157
+00:05:34,280 --> 00:05:36,670
+So, uh it's very funny to see that whole
+
+158
+00:05:36,680 --> 00:05:37,980
+whole thing come full circle.
+
+159
+00:05:37,980 --> 00:05:39,530
+Yeah, I think the the key thing is you
+
+160
+00:05:39,540 --> 00:05:42,450
+need to develop conviction in a set of
+
+161
+00:05:42,460 --> 00:05:45,409
+beliefs that nobody else um agrees with.
+
+162
+00:05:45,419 --> 00:05:47,170
+Like, I think if you look at all the
+
+163
+00:05:47,180 --> 00:05:49,250
+most successful companies in the world,
+
+164
+00:05:49,260 --> 00:05:49,890
+um
+
+165
+00:05:49,900 --> 00:05:54,530
+they were started at a time long before
+
+166
+00:05:54,540 --> 00:05:56,810
+the sort of like core idea was popular.
+
+167
+00:05:56,820 --> 00:05:58,409
+And they work on that. They toil in
+
+168
+00:05:58,419 --> 00:06:01,450
+obscurity for years and years before,
+
+169
+00:06:01,460 --> 00:06:04,050
+you know, the the idea or the space or
+
+170
+00:06:04,060 --> 00:06:05,610
+the concept of the business, you know,
+
+171
+00:06:05,620 --> 00:06:08,170
+becomes consensus. And the only way
+
+172
+00:06:08,180 --> 00:06:09,770
+you're going to be successful is if
+
+173
+00:06:09,780 --> 00:06:11,690
+you're able to identify these truths
+
+174
+00:06:11,700 --> 00:06:13,690
+about the world early, long before
+
+175
+00:06:13,700 --> 00:06:16,450
+everyone else. And I think the like
+
+176
+00:06:16,460 --> 00:06:17,690
+I mean, one of the most surprising
+
+177
+00:06:17,700 --> 00:06:19,010
+things like, you know, Scale, we've been
+
+178
+00:06:19,020 --> 00:06:21,970
+working on AI for a decade. You know,
+
+179
+00:06:21,980 --> 00:06:24,370
+you just you can't base your business
+
+180
+00:06:24,380 --> 00:06:26,810
+decisions based on what everyone else is
+
+181
+00:06:26,820 --> 00:06:29,650
+saying around you. Like, if you go too
+
+182
+00:06:29,660 --> 00:06:30,930
+much with the herd, you will get
+
+183
+00:06:30,940 --> 00:06:33,930
+immensely confused and you will end up
+
+184
+00:06:33,940 --> 00:06:36,450
+nowhere. And so you have to develop your
+
+185
+00:06:36,460 --> 00:06:38,050
+own compass of what you think the future
+
+186
+00:06:38,060 --> 00:06:39,570
+is going to look like
+
+187
+00:06:39,580 --> 00:06:41,650
+because everyone else will just confuse
+
+188
+00:06:41,660 --> 00:06:42,400
+you.
+
+189
+00:06:42,400 --> 00:06:44,790
+nobody is good at starting a company
+
+190
+00:06:44,800 --> 00:06:46,870
+when they start a company.
+
+191
+00:06:46,880 --> 00:06:47,949
+And
+
+192
+00:06:47,959 --> 00:06:50,390
+I remember talking to a lot of the
+
+193
+00:06:50,400 --> 00:06:52,030
+investors who I met very early on and
+
+194
+00:06:52,040 --> 00:06:53,350
+they you know, a lot of them would say
+
+195
+00:06:53,360 --> 00:06:56,270
+like oh, like you know, you just grew so
+
+196
+00:06:56,280 --> 00:06:57,670
+quickly and you changed so quickly and
+
+197
+00:06:57,680 --> 00:06:58,910
+like I didn't you know, I didn't see it
+
+198
+00:06:58,920 --> 00:07:00,430
+at the time. And I think that's probably
+
+199
+00:07:00,440 --> 00:07:02,910
+true for literally everyone who starts a
+
+200
+00:07:02,920 --> 00:07:05,070
+company like nobody is
+
+201
+00:07:05,080 --> 00:07:06,310
+nobody is good at something they've
+
+202
+00:07:06,320 --> 00:07:08,990
+never done before, right? And so
+
+203
+00:07:09,000 --> 00:07:11,830
+I think for all entrepreneurs, you start
+
+204
+00:07:11,840 --> 00:07:15,230
+out pretty shitty at everything and
+
+205
+00:07:15,240 --> 00:07:17,470
+the whole game is how do you develop
+
+206
+00:07:17,480 --> 00:07:19,310
+yourself to continuously improve to get
+
+207
+00:07:19,320 --> 00:07:20,980
+better and learn quickly.
+
+208
+00:07:20,980 --> 00:07:22,250
+What do you think it's like to start a
+
+209
+00:07:22,260 --> 00:07:24,930
+company today with with AI in the age of
+
+210
+00:07:24,940 --> 00:07:25,770
+AI?
+
+211
+00:07:25,780 --> 00:07:27,370
+Yeah.
+
+212
+00:07:27,380 --> 00:07:29,410
+I mean I really think I think we're at
+
+213
+00:07:29,420 --> 00:07:32,610
+this like in amazing moment in the world
+
+214
+00:07:32,620 --> 00:07:35,810
+where the bottleneck is not the progress
+
+215
+00:07:35,820 --> 00:07:38,570
+of the AI models, the bottleneck is
+
+216
+00:07:38,580 --> 00:07:39,810
+diffusing that through the rest of the
+
+217
+00:07:39,820 --> 00:07:43,210
+world and and helping the world adapt to
+
+218
+00:07:43,220 --> 00:07:44,930
+this amazing technology that already
+
+219
+00:07:44,940 --> 00:07:46,490
+exists. Like I think if the models
+
+220
+00:07:46,500 --> 00:07:48,290
+didn't improve at all from today, there
+
+221
+00:07:48,300 --> 00:07:50,530
+would still be like decades and decades
+
+222
+00:07:50,540 --> 00:07:52,850
+of like total upheaval and change in the
+
+223
+00:07:52,860 --> 00:07:54,890
+economy and how the world operates and
+
+224
+00:07:54,900 --> 00:07:57,530
+and everything around us and um you
+
+225
+00:07:57,540 --> 00:07:59,170
+know, so I think it's as a result, it's
+
+226
+00:07:59,180 --> 00:08:02,050
+like one of the most incredible it's
+
+227
+00:08:02,060 --> 00:08:04,810
+probably a like once in a civilization
+
+228
+00:08:04,820 --> 00:08:07,930
+opportunity to be a dreamer and to have
+
+229
+00:08:07,940 --> 00:08:10,530
+a vision and to have ambition and to
+
+230
+00:08:10,540 --> 00:08:12,610
+impose a view of how the future world
+
+231
+00:08:12,620 --> 00:08:14,250
+should look by building something
+
+232
+00:08:14,260 --> 00:08:16,690
+amazing. Um you know, one of the things
+
+233
+00:08:16,700 --> 00:08:19,290
+that we were we were chatting about um
+
+234
+00:08:19,300 --> 00:08:20,010
+uh
+
+235
+00:08:20,020 --> 00:08:22,970
+you know, backstage is you know, when
+
+236
+00:08:22,980 --> 00:08:25,090
+when I started Scale or you know, 10
+
+237
+00:08:25,100 --> 00:08:27,530
+years ago, if you start a company, you
+
+238
+00:08:27,540 --> 00:08:30,690
+had to be um you know, it was like David
+
+239
+00:08:30,700 --> 00:08:32,850
+versus Goliath and you had to be clever
+
+240
+00:08:32,860 --> 00:08:34,610
+and you had to find like an angle into
+
+241
+00:08:34,620 --> 00:08:36,290
+the market and you had to sort of like,
+
+242
+00:08:36,300 --> 00:08:38,970
+you know, figure out um a way to compete
+
+243
+00:08:38,980 --> 00:08:40,250
+even though you had much fewer
+
+244
+00:08:40,260 --> 00:08:42,130
+resources. And now I actually think with
+
+245
+00:08:42,140 --> 00:08:46,530
+the power of agents um and AI broadly
+
+246
+00:08:46,540 --> 00:08:48,770
+speaking, it's much closer to Goliath
+
+247
+00:08:48,780 --> 00:08:50,970
+versus Goliath. Like I think but maybe
+
+248
+00:08:50,980 --> 00:08:52,890
+the startup is like a mecha Goliath that
+
+249
+00:08:52,900 --> 00:08:55,450
+is like vastly enhanced by the power of
+
+250
+00:08:55,460 --> 00:08:57,890
+agents and AI and you know, the the
+
+251
+00:08:57,900 --> 00:08:59,530
+large companies are the sort of like
+
+252
+00:08:59,540 --> 00:09:01,890
+more traditional Goliath, so to speak.
+
+253
+00:09:01,900 --> 00:09:04,530
+But I think that startups now like if
+
+254
+00:09:04,540 --> 00:09:08,690
+you properly embrace AI agents and um
+
+255
+00:09:08,700 --> 00:09:10,450
+figure out the way to leverage their
+
+256
+00:09:10,460 --> 00:09:12,490
+strengths in the most like ambitious
+
+257
+00:09:12,500 --> 00:09:14,970
+ways, you can easily outcompete
+
+258
+00:09:14,980 --> 00:09:17,290
+incumbents.
+
+259
+00:09:17,300 --> 00:09:19,530
+So, let's talk about super intelligence
+
+260
+00:09:19,540 --> 00:09:21,170
+because that's clearly that's even in
+
+261
+00:09:21,180 --> 00:09:23,170
+the name of your lab.
+
+262
+00:09:23,180 --> 00:09:23,770
+Um,
+
+263
+00:09:23,780 --> 00:09:25,450
+what does super intelligence mean
+
+264
+00:09:25,460 --> 00:09:28,570
+operationally inside Meta right now?
+
+265
+00:09:28,580 --> 00:09:31,410
+Yeah, I think that you know, we a year
+
+266
+00:09:31,420 --> 00:09:34,410
+ago Mark wrote this um,
+
+267
+00:09:34,420 --> 00:09:36,210
+memo about personal super intelligence,
+
+268
+00:09:36,220 --> 00:09:37,250
+which I think actually is very similar
+
+269
+00:09:37,260 --> 00:09:39,490
+to your concept of personal AGI. But,
+
+270
+00:09:39,500 --> 00:09:42,010
+you know, we believe that everybody in
+
+271
+00:09:42,020 --> 00:09:44,290
+the world, you know, all the billions of
+
+272
+00:09:44,300 --> 00:09:46,570
+people in the world are going to have a
+
+273
+00:09:46,580 --> 00:09:48,810
+super intelligence that is adapted and
+
+274
+00:09:48,820 --> 00:09:50,570
+tailored to them, that is enables them
+
+275
+00:09:50,580 --> 00:09:52,610
+to accomplish their goals, knows their
+
+276
+00:09:52,620 --> 00:09:55,130
+context, and ultimately is an expander
+
+277
+00:09:55,140 --> 00:09:56,730
+of their own agency. Like I think the
+
+278
+00:09:56,740 --> 00:09:59,210
+thing that we think a lot about is is
+
+279
+00:09:59,220 --> 00:10:01,370
+agency expansion. How do we help people
+
+280
+00:10:01,380 --> 00:10:02,970
+accomplish things that they couldn't
+
+281
+00:10:02,980 --> 00:10:05,370
+have ever dreamed of before? And what
+
+282
+00:10:05,380 --> 00:10:07,370
+would everyone in the world do if
+
+283
+00:10:07,380 --> 00:10:10,010
+everything was just easy? Um, and we
+
+284
+00:10:10,020 --> 00:10:11,970
+think about this in a in an ecosystem
+
+285
+00:10:11,980 --> 00:10:14,370
+way um, as well. I think uh, you know,
+
+286
+00:10:14,380 --> 00:10:16,170
+Patrick mentioned it, but you know, we
+
+287
+00:10:16,180 --> 00:10:18,370
+don't believe in this totalizing, you
+
+288
+00:10:18,380 --> 00:10:20,730
+know, totalitarian view of, you know,
+
+289
+00:10:20,740 --> 00:10:22,570
+AIs that control the world. We believe
+
+290
+00:10:22,580 --> 00:10:24,370
+that these are going to enhance this
+
+291
+00:10:24,380 --> 00:10:26,730
+very broad ecosystem. And so, you know,
+
+292
+00:10:26,740 --> 00:10:29,130
+we believe in billions of people all
+
+293
+00:10:29,140 --> 00:10:30,530
+around the world all having their own
+
+294
+00:10:30,540 --> 00:10:32,250
+personal super intelligence. And we also
+
+295
+00:10:32,260 --> 00:10:34,330
+believe in, you know, an explosion of
+
+296
+00:10:34,340 --> 00:10:36,170
+entrepreneurship. There's 200 million
+
+297
+00:10:36,180 --> 00:10:38,970
+businesses that uh, are on Meta's
+
+298
+00:10:38,980 --> 00:10:40,690
+platforms today. We think that number
+
+299
+00:10:40,700 --> 00:10:42,250
+should go to billions with this
+
+300
+00:10:42,260 --> 00:10:45,290
+explosion of of creativity and using AI
+
+301
+00:10:45,300 --> 00:10:47,570
+tools. And ultimately we think that, you
+
+302
+00:10:47,580 --> 00:10:49,170
+know, it's going to be this like dynamic
+
+303
+00:10:49,180 --> 00:10:51,650
+ecosystem of business agents working
+
+304
+00:10:51,660 --> 00:10:53,570
+with, you know, personal agents and
+
+305
+00:10:53,580 --> 00:10:55,330
+developing this sort of like
+
+306
+00:10:55,340 --> 00:10:58,890
+uh, complex ecosystem that is fully AI
+
+307
+00:10:58,900 --> 00:11:00,160
+supercharged.
+
+308
+00:11:00,160 --> 00:11:02,430
+how you know, how how has running a
+
+309
+00:11:02,440 --> 00:11:05,260
+frontier lab been? Um, you know, the
+
+310
+00:11:05,260 --> 00:11:06,490
+Yeah, yeah.
+
+311
+00:11:06,500 --> 00:11:08,810
+So, I think it was um, it's been you
+
+312
+00:11:08,820 --> 00:11:10,170
+know, I've been at Meta for about a year
+
+313
+00:11:10,180 --> 00:11:12,010
+now and it's been um,
+
+314
+00:11:12,020 --> 00:11:14,330
+quite a year. I think uh,
+
+315
+00:11:14,340 --> 00:11:17,170
+you know, getting in and um, you know,
+
+316
+00:11:17,180 --> 00:11:18,850
+Meta we we've talked about it publicly
+
+317
+00:11:18,860 --> 00:11:20,530
+like Llama 4 wasn't on the trajectory
+
+318
+00:11:20,540 --> 00:11:23,570
+that was needed for um, for Meta and so
+
+319
+00:11:23,580 --> 00:11:25,290
+I got in there and we kind of did a
+
+320
+00:11:25,300 --> 00:11:29,210
+zero-based build of how do you um,
+
+321
+00:11:29,220 --> 00:11:31,490
+you know, build an entire frontier lab
+
+322
+00:11:31,500 --> 00:11:32,090
+uh,
+
+323
+00:11:32,100 --> 00:11:33,250
+you know, in some ways kind of from
+
+324
+00:11:33,260 --> 00:11:34,690
+scratch obviously using a lot of what we
+
+325
+00:11:34,700 --> 00:11:37,570
+had um, and move as quickly as possible.
+
+326
+00:11:37,580 --> 00:11:39,770
+And so within nine months of that moment
+
+327
+00:11:39,780 --> 00:11:42,130
+we launched Muse Spark 1 and then uh, two
+
+328
+00:11:42,140 --> 00:11:44,050
+months later we launched Muse Image and
+
+329
+00:11:44,060 --> 00:11:46,730
+Muse Spark 1.1 and um,
+
+330
+00:11:46,740 --> 00:11:47,770
+you know, there's a few things that I
+
+331
+00:11:47,780 --> 00:11:49,490
+think have really struck me about this.
+
+332
+00:11:49,500 --> 00:11:52,770
+It you know, the first is talent density
+
+333
+00:11:52,780 --> 00:11:55,210
+was incredibly important. That was the
+
+334
+00:11:55,220 --> 00:11:57,890
+the core thing to bet on and um,
+
+335
+00:11:57,900 --> 00:11:59,010
+like talent density is something that
+
+336
+00:11:59,020 --> 00:12:01,050
+compounds naturally. Like the more
+
+337
+00:12:01,060 --> 00:12:02,930
+talented people you have the more of the
+
+338
+00:12:02,940 --> 00:12:04,890
+most most talented people want to join
+
+339
+00:12:04,900 --> 00:12:06,450
+you. Um,
+
+340
+00:12:06,460 --> 00:12:08,650
+you know, in and I think it's it's kind
+
+341
+00:12:08,660 --> 00:12:11,370
+of um, amazing to see on the inside but
+
+342
+00:12:11,380 --> 00:12:12,210
+you know,
+
+343
+00:12:12,220 --> 00:12:14,970
+frontier AI work is research. Like we
+
+344
+00:12:14,980 --> 00:12:16,609
+are it is scientific work. We're
+
+345
+00:12:16,619 --> 00:12:18,730
+exploring what can you do with these
+
+346
+00:12:18,740 --> 00:12:20,010
+models? How can you push these models?
+
+347
+00:12:20,020 --> 00:12:21,930
+What is the what are the reaches of what
+
+348
+00:12:21,940 --> 00:12:23,170
+can be accomplished with these models
+
+349
+00:12:23,180 --> 00:12:25,410
+which requires a totally different
+
+350
+00:12:25,420 --> 00:12:28,050
+mindset and operating model than you
+
+351
+00:12:28,060 --> 00:12:30,130
+know, existed for internet companies or
+
+352
+00:12:30,140 --> 00:12:31,330
+internet products and what not. There's
+
+353
+00:12:31,340 --> 00:12:32,850
+a lot more about experimentation, about
+
+354
+00:12:32,860 --> 00:12:35,730
+science, about scaling and everything
+
+355
+00:12:35,740 --> 00:12:38,410
+ultimately is about how do you develop
+
+356
+00:12:38,420 --> 00:12:41,170
+a lab, an operating model, a system that
+
+357
+00:12:41,180 --> 00:12:44,370
+will just um, be able to compound with
+
+358
+00:12:44,380 --> 00:12:45,890
+all of the exponential growth that will
+
+359
+00:12:45,900 --> 00:12:47,170
+happen in the ecosystem. Both the
+
+360
+00:12:47,180 --> 00:12:48,609
+exponential growth in capabilities, the
+
+361
+00:12:48,619 --> 00:12:50,090
+exponential growth in compute, um, the
+
+362
+00:12:50,100 --> 00:12:51,770
+exponential growth in adoption and
+
+363
+00:12:51,780 --> 00:12:54,330
+usage. Like these are all um, we are on
+
+364
+00:12:54,340 --> 00:12:56,890
+this like very, very steep exponent
+
+365
+00:12:56,900 --> 00:12:59,170
+across maybe every dimension of the
+
+366
+00:12:59,180 --> 00:13:01,450
+ecosystem. And um, it's important to
+
+367
+00:13:01,460 --> 00:13:03,890
+develop like a like an organism. That's
+
+368
+00:13:03,900 --> 00:13:05,050
+how I think about the lab that that's
+
+369
+00:13:05,060 --> 00:13:07,800
+able to sort of grow with that. Um, you
+
+370
+00:13:07,800 --> 00:13:09,230
+I mean, it sounds like one of the ways,
+
+371
+00:13:09,240 --> 00:13:11,270
+I mean, certainly when I was using uh,
+
+372
+00:13:11,280 --> 00:13:13,430
+Muse Spark with my Open Claw, like, it
+
+373
+00:13:13,440 --> 00:13:15,350
+it became clear that it was as good as
+
+374
+00:13:15,360 --> 00:13:17,230
+Opus, especially for that sort of
+
+375
+00:13:17,240 --> 00:13:19,670
+agentic flow with skill files, but it
+
+376
+00:13:19,680 --> 00:13:22,226
+was like eight x cheaper, actually.
+
+377
+00:13:22,760 --> 00:13:25,070
+Yes. Well, we I think this this goes to
+
+378
+00:13:25,080 --> 00:13:26,670
+it. Like, I don't, you know, we don't
+
+379
+00:13:26,680 --> 00:13:28,510
+believe in a world where these models
+
+380
+00:13:28,520 --> 00:13:30,270
+are so expensive that, you know, they
+
+381
+00:13:30,280 --> 00:13:32,389
+get rationed only for the most wealthy
+
+382
+00:13:32,399 --> 00:13:34,830
+of developers and and companies. Um,
+
+383
+00:13:34,840 --> 00:13:36,389
+it's important for everyone to be able
+
+384
+00:13:36,399 --> 00:13:39,790
+to use the technology to um, and to
+
+385
+00:13:39,800 --> 00:13:41,430
+build whatever they want to build with
+
+386
+00:13:41,440 --> 00:13:43,470
+it. And I think that, you know, we take
+
+387
+00:13:43,480 --> 00:13:44,790
+a view
+
+388
+00:13:44,800 --> 00:13:47,190
+I think the best AI products haven't
+
+389
+00:13:47,200 --> 00:13:48,790
+even been developed yet. You know, that
+
+390
+00:13:48,800 --> 00:13:52,230
+if you look at the AI ecosystem and
+
+391
+00:13:52,240 --> 00:13:54,030
+everything that's happened, like every
+
+392
+00:13:54,040 --> 00:13:56,150
+wave is 10 times bigger than the past
+
+393
+00:13:56,160 --> 00:13:57,749
+wave. So, you know, when I started
+
+394
+00:13:57,759 --> 00:13:58,989
+scale, the first wave was maybe
+
+395
+00:13:58,999 --> 00:14:01,310
+self-driving cars. Self-driving cars are
+
+396
+00:14:01,320 --> 00:14:02,910
+really awesome. They're like really,
+
+397
+00:14:02,920 --> 00:14:05,110
+really cool, but that was like pales in
+
+398
+00:14:05,120 --> 00:14:07,390
+comparison to large language models and
+
+399
+00:14:07,400 --> 00:14:09,150
+chatbots. And like, you know, chatbots
+
+400
+00:14:09,160 --> 00:14:10,470
+became this thing that was like probably
+
+401
+00:14:10,480 --> 00:14:14,310
+10 times bigger even than um than uh you
+
+402
+00:14:14,320 --> 00:14:15,710
+know, self-driving cars. And then there
+
+403
+00:14:15,720 --> 00:14:16,990
+were coding agents which came a few
+
+404
+00:14:17,000 --> 00:14:18,030
+years later. And coding agents are
+
+405
+00:14:18,040 --> 00:14:20,590
+probably 10 times bigger than than um
+
+406
+00:14:20,600 --> 00:14:22,830
+chatbots. And I think we're just on this
+
+407
+00:14:22,840 --> 00:14:24,670
+steep curve. Like, we're going to keep
+
+408
+00:14:24,680 --> 00:14:26,990
+seeing these new modalities and form
+
+409
+00:14:27,000 --> 00:14:28,590
+factors and developments of the AI
+
+410
+00:14:28,600 --> 00:14:31,070
+paradigm that will each be dramatically
+
+411
+00:14:31,080 --> 00:14:33,150
+bigger than the last. And so, um you
+
+412
+00:14:33,160 --> 00:14:34,550
+know, our point of view is like, let's
+
+413
+00:14:34,560 --> 00:14:36,030
+let's unleash the ecosystem. Let's
+
+414
+00:14:36,040 --> 00:14:38,910
+explore and let's see um let's build,
+
+415
+00:14:38,920 --> 00:14:40,070
+you know, kind of the future of the
+
+416
+00:14:40,080 --> 00:14:41,420
+world together.
+
+417
+00:14:41,420 --> 00:14:44,690
+but there's like I truly believe these
+
+418
+00:14:44,700 --> 00:14:46,890
+these models are already just incredibly
+
+419
+00:14:46,900 --> 00:14:48,450
+powerful. Like they should they should
+
+420
+00:14:48,460 --> 00:14:52,610
+be so powerful to fuel, you know, um
+
+421
+00:14:52,620 --> 00:14:55,090
+many many points of expansion of GDP
+
+422
+00:14:55,100 --> 00:14:58,570
+growth and I think it's like up to smart
+
+423
+00:14:58,580 --> 00:15:00,250
+people with vision and ambition to make
+
+424
+00:15:00,260 --> 00:15:02,370
+all that happen.
+
+425
+00:15:02,380 --> 00:15:04,770
+Let's see. So, one question. I mean,
+
+426
+00:15:04,780 --> 00:15:07,410
+when you look back on the decade, um
+
+427
+00:15:07,420 --> 00:15:08,610
+what do you think they'll say was
+
+428
+00:15:08,620 --> 00:15:11,530
+obvious in hindsight about AI that
+
+429
+00:15:11,540 --> 00:15:13,090
+people are just missing in real time
+
+430
+00:15:13,100 --> 00:15:15,290
+right now?
+
+431
+00:15:15,300 --> 00:15:17,330
+You know, so much of the debate that
+
+432
+00:15:17,340 --> 00:15:20,730
+happens these days is around oh, how
+
+433
+00:15:20,740 --> 00:15:22,810
+good are the models actually getting and
+
+434
+00:15:22,820 --> 00:15:25,090
+can the models actually bridge this
+
+435
+00:15:25,100 --> 00:15:27,010
+issue and, you know, when are we going
+
+436
+00:15:27,020 --> 00:15:28,730
+to get super intelligence? Is that in
+
+437
+00:15:28,740 --> 00:15:31,050
+like 2 years or 5 years? And, you know,
+
+438
+00:15:31,060 --> 00:15:32,690
+are we going to hit a wall? And, you
+
+439
+00:15:32,700 --> 00:15:34,850
+know, so much of that debate is like
+
+440
+00:15:34,860 --> 00:15:38,850
+I think um in some ways uh
+
+441
+00:15:38,860 --> 00:15:40,530
+a little bit of a waste of time because,
+
+442
+00:15:40,540 --> 00:15:41,570
+you know,
+
+443
+00:15:41,580 --> 00:15:43,010
+I think it's inevitable that we're going
+
+444
+00:15:43,020 --> 00:15:45,650
+to have very powerful models and um you
+
+445
+00:15:45,660 --> 00:15:47,210
+know, rather than
+
+446
+00:15:47,220 --> 00:15:48,850
+I think we'll look back and say, "Oh,
+
+447
+00:15:48,860 --> 00:15:50,690
+all this arguing around like when
+
+448
+00:15:50,700 --> 00:15:52,370
+exactly it was going to happen was sort
+
+449
+00:15:52,380 --> 00:15:55,570
+of um was short-sighted because the
+
+450
+00:15:55,580 --> 00:15:58,970
+reality is we are just as a entire human
+
+451
+00:15:58,980 --> 00:16:00,770
+civilization on this incredible
+
+452
+00:16:00,780 --> 00:16:02,810
+exponential. Like you cannot look at the
+
+453
+00:16:02,820 --> 00:16:05,930
+progress of AI over the past decade and
+
+454
+00:16:05,940 --> 00:16:09,570
+not just be totally awestruck by how far
+
+455
+00:16:09,580 --> 00:16:12,170
+it's come. Like a decade ago, the best
+
+456
+00:16:12,180 --> 00:16:14,650
+AI models could recognize cats in
+
+457
+00:16:14,660 --> 00:16:17,010
+YouTube videos. And now, you know, we're
+
+458
+00:16:17,020 --> 00:16:18,810
+talking to
+
+459
+00:16:18,820 --> 00:16:20,890
+um you know, a digital god that can, you
+
+460
+00:16:20,900 --> 00:16:22,250
+know,
+
+461
+00:16:22,260 --> 00:16:23,570
+uh I mean, we've all seen some of the
+
+462
+00:16:23,580 --> 00:16:25,210
+hacks and some of the some of the things
+
+463
+00:16:25,220 --> 00:16:27,610
+these systems are capable of. And
+
+464
+00:16:27,620 --> 00:16:29,210
+you just can't help but be awestruck.
+
+465
+00:16:29,220 --> 00:16:30,690
+And and I think this trend will just
+
+466
+00:16:30,700 --> 00:16:32,330
+continue. Like these these models are
+
+467
+00:16:32,340 --> 00:16:34,130
+going to become more and more powerful.
+
+468
+00:16:34,140 --> 00:16:35,250
+And so,
+
+469
+00:16:35,260 --> 00:16:37,610
+I think a decade looking back, it'll
+
+470
+00:16:37,620 --> 00:16:40,570
+it'll be obvious that intelligence
+
+471
+00:16:40,580 --> 00:16:42,890
+became abundant and that agency became
+
+472
+00:16:42,900 --> 00:16:44,690
+abundant. Like the current trends we're
+
+473
+00:16:44,700 --> 00:16:46,490
+on are just going to keep continuing.
+
+474
+00:16:46,500 --> 00:16:48,810
+And um this will be very strange. I
+
+475
+00:16:48,820 --> 00:16:51,530
+mean, I think for the history of
+
+476
+00:16:51,540 --> 00:16:53,330
+humanity, um
+
+477
+00:16:53,340 --> 00:16:55,130
+you know, groups of smart people getting
+
+478
+00:16:55,140 --> 00:16:57,650
+together towards a shared goal was was
+
+479
+00:16:57,660 --> 00:17:00,130
+the bottleneck of progress. You know, US
+
+480
+00:17:00,140 --> 00:17:01,530
+The United States of America in some
+
+481
+00:17:01,540 --> 00:17:02,930
+sense was an example of this. Like the
+
+482
+00:17:02,940 --> 00:17:04,610
+United States of America was formed from
+
+483
+00:17:04,620 --> 00:17:06,170
+a smart group of very smart people
+
+484
+00:17:06,180 --> 00:17:07,850
+getting together and having a vision for
+
+485
+00:17:07,860 --> 00:17:09,330
+the future that they wanted to enact.
+
+486
+00:17:09,340 --> 00:17:11,170
+And that's the story of nearly every
+
+487
+00:17:11,180 --> 00:17:13,010
+company um in America. And it's the
+
+488
+00:17:13,020 --> 00:17:15,290
+story of every YC company. Um
+
+489
+00:17:15,300 --> 00:17:16,450
+and
+
+490
+00:17:16,460 --> 00:17:18,810
+that's going to change. Like all of a
+
+491
+00:17:18,820 --> 00:17:20,970
+sudden, the scarce resource isn't going
+
+492
+00:17:20,980 --> 00:17:23,810
+to be intelligence or agency. I really
+
+493
+00:17:23,820 --> 00:17:25,370
+think it's going to be vision and
+
+494
+00:17:25,380 --> 00:17:27,770
+ambition. It's like, do you have a clear
+
+495
+00:17:27,780 --> 00:17:29,450
+view of
+
+496
+00:17:29,460 --> 00:17:31,090
+what you want the world to look like in
+
+497
+00:17:31,100 --> 00:17:33,570
+the future? What is the like one way in
+
+498
+00:17:33,580 --> 00:17:34,690
+which you want to put your finger on the
+
+499
+00:17:34,700 --> 00:17:36,930
+scale for how the future of the world
+
+500
+00:17:36,940 --> 00:17:39,010
+will develop and how the how the world
+
+501
+00:17:39,020 --> 00:17:40,650
+will look like in 5 to 10 years that it
+
+502
+00:17:40,660 --> 00:17:42,410
+does not look like today? And do you
+
+503
+00:17:42,420 --> 00:17:44,930
+have the ambition and drive to like go
+
+504
+00:17:44,940 --> 00:17:46,530
+through all the crap to make that
+
+505
+00:17:46,540 --> 00:17:49,490
+happen? And AI will make that easier.
+
+506
+00:17:49,500 --> 00:17:52,650
+Like agents in AI makes that maybe 10
+
+507
+00:17:52,660 --> 00:17:54,610
+times or 100 times easier than it was a
+
+508
+00:17:54,620 --> 00:17:56,490
+decade ago. But the flip side of that is
+
+509
+00:17:56,500 --> 00:17:57,530
+then you all of a sudden you can dream
+
+510
+00:17:57,540 --> 00:17:59,770
+bigger. Like I think And the world is
+
+511
+00:17:59,780 --> 00:18:00,970
+like
+
+512
+00:18:00,980 --> 00:18:03,250
+um you know, there's so many things that
+
+513
+00:18:03,260 --> 00:18:06,490
+need to evolve for us to be able to
+
+514
+00:18:06,500 --> 00:18:08,610
+fully embrace this technology. Um you
+
+515
+00:18:08,620 --> 00:18:11,010
+know, the world is like really just, you
+
+516
+00:18:11,020 --> 00:18:12,770
+know, barely even ready for this
+
+517
+00:18:12,780 --> 00:18:14,490
+technology today. And I think, you know,
+
+518
+00:18:14,500 --> 00:18:16,810
+as a builder, we have a responsibility
+
+519
+00:18:16,820 --> 00:18:19,170
+to prepare the world, right? Like we
+
+520
+00:18:19,180 --> 00:18:20,970
+have to help enterprises and
+
+521
+00:18:20,980 --> 00:18:23,410
+governments, you know, to adapt to this
+
+522
+00:18:23,420 --> 00:18:25,010
+new technology. We have to help figure
+
+523
+00:18:25,020 --> 00:18:26,930
+out how we secure the world from a
+
+524
+00:18:26,940 --> 00:18:28,850
+biosecurity perspective or cybersecurity
+
+525
+00:18:28,860 --> 00:18:30,410
+perspective. We have to figure out how
+
+526
+00:18:30,420 --> 00:18:33,610
+we um how we're going to to manage all
+
+527
+00:18:33,620 --> 00:18:35,210
+these risks that we see with this new
+
+528
+00:18:35,220 --> 00:18:37,130
+technology. But on the flip side, it's
+
+529
+00:18:37,140 --> 00:18:39,330
+also the time of like, you know,
+
+530
+00:18:39,340 --> 00:18:41,090
+unprecedented opportunity for humans.
+
+531
+00:18:41,100 --> 00:18:43,330
+Like we can develop new sciences. We can
+
+532
+00:18:43,340 --> 00:18:45,090
+solve problems in health and biology
+
+533
+00:18:45,100 --> 00:18:46,450
+that have been forever unsolved. We can
+
+534
+00:18:46,460 --> 00:18:47,930
+build new businesses that you couldn't
+
+535
+00:18:47,940 --> 00:18:49,570
+have even imagined before. There's like
+
+536
+00:18:49,580 --> 00:18:51,130
+new creative opportunities that couldn't
+
+537
+00:18:51,140 --> 00:18:53,650
+have existed before. So, it's like
+
+538
+00:18:53,660 --> 00:18:56,650
+it's just this incredible cradle of of
+
+539
+00:18:56,660 --> 00:18:59,370
+opportunity and risks that uh that I
+
+540
+00:18:59,380 --> 00:19:01,250
+think makes it like no better time to be
+
+541
+00:19:01,260 --> 00:19:04,450
+someone who's a builder and um
+
+542
+00:19:04,460 --> 00:19:06,090
+and has a strong view of how the world
+
+543
+00:19:06,100 --> 00:19:07,610
+should change.
+
+544
+00:19:07,620 --> 00:19:09,130
+Do you think the path has changed? I
+
+545
+00:19:09,140 --> 00:19:10,730
+mean, one of the things I saw, I think
+
+546
+00:19:10,740 --> 00:19:12,930
+Stanford uh the amount of computer
+
+547
+00:19:12,940 --> 00:19:14,690
+science majors actually dropped by some
+
+548
+00:19:14,700 --> 00:19:16,610
+double-digit percentage. It's people
+
+549
+00:19:16,620 --> 00:19:18,650
+sort of worried like, which is sort of
+
+550
+00:19:18,660 --> 00:19:20,410
+insane to me. Like you still sort of
+
+551
+00:19:20,420 --> 00:19:22,930
+need those skills to even create agents
+
+552
+00:19:22,940 --> 00:19:24,730
+that are that good. Maybe that won't be
+
+553
+00:19:24,740 --> 00:19:26,610
+true. I'm not really sure.
+
+554
+00:19:26,620 --> 00:19:28,370
+How you know, have you changed you know,
+
+555
+00:19:28,380 --> 00:19:29,930
+what do you what would you say to people
+
+556
+00:19:29,940 --> 00:19:31,410
+in this audience right now? Like this is
+
+557
+00:19:31,420 --> 00:19:33,930
+sort of a real question that people are
+
+558
+00:19:33,940 --> 00:19:35,930
+sort of facing. Like should they become
+
+559
+00:19:35,940 --> 00:19:37,930
+more word cell and less shape rotator?
+
+560
+00:19:37,940 --> 00:19:40,410
+Like what you know, what's the move? And
+
+561
+00:19:40,420 --> 00:19:41,290
+you
+
+562
+00:19:41,300 --> 00:19:43,530
+has that changed um
+
+563
+00:19:43,540 --> 00:19:44,810
+the kind of people you're looking to
+
+564
+00:19:44,820 --> 00:19:46,650
+hire and, you know, how you manage your
+
+565
+00:19:46,660 --> 00:19:48,690
+teams right now at Meta?
+
+566
+00:19:48,700 --> 00:19:51,650
+I think systematic and rigorous thinking
+
+567
+00:19:51,660 --> 00:19:54,010
+are still incredibly important because
+
+568
+00:19:54,020 --> 00:19:55,810
+you know, the abstraction layer, I mean,
+
+569
+00:19:55,820 --> 00:19:57,090
+I didn't used to believe that this is
+
+570
+00:19:57,100 --> 00:19:58,130
+how it was going to play out, but it
+
+571
+00:19:58,140 --> 00:19:59,690
+really has, like, the abstraction layer
+
+572
+00:19:59,700 --> 00:20:02,450
+just keeps changing. So, you know, when
+
+573
+00:20:02,460 --> 00:20:04,450
+I started a company back in my day, we
+
+574
+00:20:04,460 --> 00:20:06,537
+wrote code. Um
+
+575
+00:20:07,300 --> 00:20:09,130
+And now, you know, I'm sure nobody here
+
+576
+00:20:09,140 --> 00:20:10,730
+writes code anymore. That's ridiculous.
+
+577
+00:20:10,740 --> 00:20:12,850
+But um but now it's about how do you
+
+578
+00:20:12,860 --> 00:20:14,490
+orchestrate the agents together? And
+
+579
+00:20:14,500 --> 00:20:16,610
+then it's like, how do you develop these
+
+580
+00:20:16,620 --> 00:20:17,930
+organizations of agents? Like, how do
+
+581
+00:20:17,940 --> 00:20:19,330
+you get like a million agents to work
+
+582
+00:20:19,340 --> 00:20:20,890
+together well? And then it'll be, how do
+
+583
+00:20:20,900 --> 00:20:22,450
+you get like a trillion agents to work
+
+584
+00:20:22,460 --> 00:20:23,570
+together well? Like, I think that
+
+585
+00:20:23,580 --> 00:20:26,810
+there's going to be this continued um
+
+586
+00:20:26,820 --> 00:20:30,650
+uh need to figure out how you structure
+
+587
+00:20:30,660 --> 00:20:32,610
+uh workflows at the abstraction layer
+
+588
+00:20:32,620 --> 00:20:34,330
+that we're going to be operating at. And
+
+589
+00:20:34,340 --> 00:20:36,970
+that form of like rigorous systematic
+
+590
+00:20:36,980 --> 00:20:39,490
+thinking, I mean, traditionally the way
+
+591
+00:20:39,500 --> 00:20:41,450
+this would work like in my era of
+
+592
+00:20:41,460 --> 00:20:43,090
+starting companies is you would start by
+
+593
+00:20:43,100 --> 00:20:45,010
+writing code, and then you would have
+
+594
+00:20:45,020 --> 00:20:46,170
+organizations of humans, and you'd
+
+595
+00:20:46,180 --> 00:20:47,490
+figure out how you how to organize those
+
+596
+00:20:47,500 --> 00:20:49,410
+humans. Um and that requires systems
+
+597
+00:20:49,420 --> 00:20:51,330
+thinking. And now, maybe it's like much
+
+598
+00:20:51,340 --> 00:20:53,890
+more much closer to first you you
+
+599
+00:20:53,900 --> 00:20:54,770
+orchestrate the agent, then you figure
+
+600
+00:20:54,780 --> 00:20:56,170
+out how to orchestrate like these armies
+
+601
+00:20:56,180 --> 00:20:57,890
+of agents. But um
+
+602
+00:20:57,900 --> 00:21:00,610
+but I think systems thinking is never
+
+603
+00:21:00,620 --> 00:21:02,410
+going to go out of style. So, I think
+
+604
+00:21:02,420 --> 00:21:04,050
+it's definitely a mistake to go all in
+
+605
+00:21:04,060 --> 00:21:06,050
+on Word Cell. Like, I think you need to
+
+606
+00:21:06,060 --> 00:21:08,370
+you need to shape rotate. Um
+
+607
+00:21:08,380 --> 00:21:11,050
+but then I think the sort of like um
+
+608
+00:21:11,060 --> 00:21:13,210
+much more of I think what's necessary
+
+609
+00:21:13,220 --> 00:21:16,090
+going in the future is having um
+
+610
+00:21:16,100 --> 00:21:18,850
+a deeper sort of compass and
+
+611
+00:21:18,860 --> 00:21:21,210
+philosophical view on how the world
+
+612
+00:21:21,220 --> 00:21:22,850
+should develop. Because I think there
+
+613
+00:21:22,860 --> 00:21:25,770
+are there are many many lessons um from
+
+614
+00:21:25,780 --> 00:21:28,410
+human history around um
+
+615
+00:21:28,420 --> 00:21:30,770
+how how we think civilization go through
+
+616
+00:21:30,780 --> 00:21:33,330
+this period. And um
+
+617
+00:21:33,340 --> 00:21:35,490
+So, you know, humanity will change more
+
+618
+00:21:35,500 --> 00:21:37,050
+in the next decade than it has in the
+
+619
+00:21:37,060 --> 00:21:40,250
+past 100 years, probably. And um
+
+620
+00:21:40,260 --> 00:21:42,610
+And so, I think like the imperative for
+
+621
+00:21:42,620 --> 00:21:45,050
+us to have positive visions for that and
+
+622
+00:21:45,060 --> 00:21:47,970
+have coherent uh articulations of how
+
+623
+00:21:47,980 --> 00:21:49,810
+that should develop are are more
+
+624
+00:21:49,820 --> 00:21:51,730
+important than ever.
+
+625
+00:21:51,740 --> 00:21:53,050
+Um
+
+626
+00:21:53,060 --> 00:21:54,210
+Let's get a little more concrete. I
+
+627
+00:21:54,220 --> 00:21:55,610
+mean, one of the things I'm curious
+
+628
+00:21:55,620 --> 00:21:56,850
+about is like, are there sort of
+
+629
+00:21:56,860 --> 00:21:59,450
+applications of AI that you're seeing
+
+630
+00:21:59,460 --> 00:22:01,690
+among your friends or internal to Meta
+
+631
+00:22:01,700 --> 00:22:03,730
+that you can talk about that are, you
+
+632
+00:22:03,740 --> 00:22:05,530
+know, they're sort of obvious near-term
+
+633
+00:22:05,540 --> 00:22:07,290
+maybe people haven't figured out yet. I
+
+634
+00:22:07,300 --> 00:22:09,678
+mean, give us some alpha.
+
+635
+00:22:10,500 --> 00:22:12,410
+Um, I mean,
+
+636
+00:22:12,420 --> 00:22:14,010
+I think there's still just like
+
+637
+00:22:14,020 --> 00:22:16,730
+astronomical opportunity in
+
+638
+00:22:16,740 --> 00:22:19,170
+uh agentic looping and and figuring out
+
+639
+00:22:19,180 --> 00:22:22,090
+how you develop systems that enable you
+
+640
+00:22:22,100 --> 00:22:25,570
+to spend like 1,000 x more or 1 million
+
+641
+00:22:25,580 --> 00:22:29,290
+x more on tokens to drive an outcome in
+
+642
+00:22:29,300 --> 00:22:31,250
+a in a continuous feedback loop. Like if
+
+643
+00:22:31,260 --> 00:22:32,970
+you think about most companies,
+
+644
+00:22:32,980 --> 00:22:35,210
+companies are just these like
+
+645
+00:22:35,220 --> 00:22:36,890
+large-scale feedback loops where humans
+
+646
+00:22:36,900 --> 00:22:38,730
+are operating each of the edges. Like,
+
+647
+00:22:38,740 --> 00:22:41,210
+you know, companies they um, they get
+
+648
+00:22:41,220 --> 00:22:42,490
+customers and they figure out to make
+
+649
+00:22:42,500 --> 00:22:43,570
+those customers happier. And if
+
+650
+00:22:43,580 --> 00:22:44,930
+customers are happier, then they spend
+
+651
+00:22:44,940 --> 00:22:46,290
+more. And if they spend more, then they
+
+652
+00:22:46,300 --> 00:22:47,610
+can hire more people who can then go
+
+653
+00:22:47,620 --> 00:22:48,850
+figure out how to get more customers and
+
+654
+00:22:48,860 --> 00:22:50,290
+make those customers happier. And that's
+
+655
+00:22:50,300 --> 00:22:52,370
+like this, you know, that in some sense
+
+656
+00:22:52,380 --> 00:22:54,850
+is the feedback loop of uh
+
+657
+00:22:54,860 --> 00:22:57,290
+of every startup or every business. And,
+
+658
+00:22:57,300 --> 00:22:59,610
+you know, these within that there are
+
+659
+00:22:59,620 --> 00:23:01,850
+micro feedback loops that exist. And I
+
+660
+00:23:01,860 --> 00:23:04,250
+think developing agentic systems that
+
+661
+00:23:04,260 --> 00:23:06,490
+can operate and optimize these feedback
+
+662
+00:23:06,500 --> 00:23:09,410
+loops is there's like just huge amounts
+
+663
+00:23:09,420 --> 00:23:11,010
+of of alpha there. Like I think we've
+
+664
+00:23:11,020 --> 00:23:13,250
+seen internally at Meta um
+
+665
+00:23:13,260 --> 00:23:16,170
+cases where if you can develop the right
+
+666
+00:23:16,180 --> 00:23:17,770
+agentic loop and you have the right eval
+
+667
+00:23:17,780 --> 00:23:19,770
+or the right metric for the agents to
+
+668
+00:23:19,780 --> 00:23:23,610
+optimize, you can have a swarm of agents
+
+669
+00:23:23,620 --> 00:23:25,930
+accomplish more than like a team of 100
+
+670
+00:23:25,940 --> 00:23:28,970
+engineers in, you know, uh
+
+671
+00:23:28,980 --> 00:23:30,610
+very very handily actually, very very
+
+672
+00:23:30,620 --> 00:23:32,930
+easily. And so, I think figuring out
+
+673
+00:23:32,940 --> 00:23:34,810
+what the world
+
+674
+00:23:34,820 --> 00:23:37,930
+um looks like with lots of uh
+
+675
+00:23:37,940 --> 00:23:39,770
+sort of this like um
+
+676
+00:23:39,780 --> 00:23:41,330
+these agentic coordination problems, I
+
+677
+00:23:41,340 --> 00:23:42,450
+think that is like one of the most
+
+678
+00:23:42,460 --> 00:23:43,650
+interesting problems today. So,
+
+679
+00:23:43,660 --> 00:23:45,730
+mechanically speaking, I mean, markdown
+
+680
+00:23:45,740 --> 00:23:48,170
+files, cron jobs, is I mean, is it
+
+681
+00:23:48,180 --> 00:23:50,810
+that's and then basically pointing the
+
+682
+00:23:50,820 --> 00:23:54,090
+agent at enough data so that it can
+
+683
+00:23:54,100 --> 00:23:55,890
+figure something out that, you know,
+
+684
+00:23:55,900 --> 00:23:57,570
+maybe isn't in distribution.
+
+685
+00:23:57,580 --> 00:23:59,330
+Yeah, I think figuring out Yeah, yeah,
+
+686
+00:23:59,340 --> 00:24:00,610
+mechanically figuring out what the
+
+687
+00:24:00,620 --> 00:24:02,210
+metric is and then yeah, it just comes
+
+688
+00:24:02,220 --> 00:24:05,930
+down to skills, markdown files, cron
+
+689
+00:24:05,940 --> 00:24:06,530
+jobs,
+
+690
+00:24:06,540 --> 00:24:07,210
+/goal.
+
+691
+00:24:07,220 --> 00:24:09,330
+Yeah, /goal. Like I think I think it's
+
+692
+00:24:09,340 --> 00:24:11,770
+always funny how mundane everything is
+
+693
+00:24:11,780 --> 00:24:13,440
+once you really dig into it. But um
+
+694
+00:24:13,440 --> 00:24:16,790
+So I like to end on this, which is um
+
+695
+00:24:16,800 --> 00:24:17,990
+you know,
+
+696
+00:24:18,000 --> 00:24:20,630
+you get a telegram to send to the
+
+697
+00:24:20,640 --> 00:24:23,470
+18-year-old version of yourself, you
+
+698
+00:24:23,480 --> 00:24:24,910
+know, what do you say to that person
+
+699
+00:24:24,920 --> 00:24:27,630
+right now given all, you know, I mean,
+
+700
+00:24:27,640 --> 00:24:28,910
+thank you for coming back and sharing
+
+701
+00:24:28,920 --> 00:24:30,830
+your wisdom with this audience. I mean,
+
+702
+00:24:30,840 --> 00:24:32,390
+you know, what would you send in a
+
+703
+00:24:32,400 --> 00:24:34,070
+message in a bottle to the 18-year-old
+
+704
+00:24:34,080 --> 00:24:35,550
+version of yourself right now?
+
+705
+00:24:35,560 --> 00:24:38,070
+Yeah, I think the
+
+706
+00:24:38,080 --> 00:24:40,430
+I think it really boils down to
+
+707
+00:24:40,440 --> 00:24:42,950
+develop your own internal compass for
+
+708
+00:24:42,960 --> 00:24:45,230
+how you think the future will develop
+
+709
+00:24:45,240 --> 00:24:47,630
+and have strong conviction in it
+
+710
+00:24:47,640 --> 00:24:50,990
+because, you know, you will get so you
+
+711
+00:24:51,000 --> 00:24:53,230
+will get inundated with noise and people
+
+712
+00:24:53,240 --> 00:24:55,230
+telling you and like you'll could
+
+713
+00:24:55,240 --> 00:24:57,150
+be very confusing and it'll be very
+
+714
+00:24:57,160 --> 00:24:58,790
+hard. And especially when you're young
+
+715
+00:24:58,800 --> 00:25:01,350
+and you don't have experience like it
+
+716
+00:25:01,360 --> 00:25:03,710
+can feel very difficult to
+
+717
+00:25:03,720 --> 00:25:04,470
+um
+
+718
+00:25:04,480 --> 00:25:06,590
+have true conviction in what you believe
+
+719
+00:25:06,600 --> 00:25:08,310
+and and what you want to do. But I think
+
+720
+00:25:08,320 --> 00:25:09,390
+that's the most important thing. Kind of
+
+721
+00:25:09,400 --> 00:25:12,070
+as we talked about, you know, um
+
+722
+00:25:12,080 --> 00:25:14,910
+it took a deep deep conviction in what
+
+723
+00:25:14,920 --> 00:25:17,470
+we were building to be able to weather
+
+724
+00:25:17,480 --> 00:25:20,830
+the the sort of storms of many years of
+
+725
+00:25:20,840 --> 00:25:22,070
+um of
+
+726
+00:25:22,080 --> 00:25:24,150
+uh chaos in the market, in the industry,
+
+727
+00:25:24,160 --> 00:25:26,270
+in the people around us. And so
+
+728
+00:25:26,280 --> 00:25:27,790
+um And and then the other piece of
+
+729
+00:25:27,800 --> 00:25:30,070
+advice I would have is try to identify
+
+730
+00:25:30,080 --> 00:25:32,390
+what is the what is the exponential in
+
+731
+00:25:32,400 --> 00:25:35,070
+the world that has both the steepest
+
+732
+00:25:35,080 --> 00:25:38,430
+curve and will go the longest. And you
+
+733
+00:25:38,440 --> 00:25:41,750
+know many decades ago this curve was
+
+734
+00:25:41,760 --> 00:25:44,270
+was Moore's law and that probably was
+
+735
+00:25:44,280 --> 00:25:45,470
+you know that was
+
+736
+00:25:45,480 --> 00:25:46,870
+at the time like clearly the right thing
+
+737
+00:25:46,880 --> 00:25:48,670
+to invest on. I think right now it's AI
+
+738
+00:25:48,680 --> 00:25:50,390
+progress but there will be more of these
+
+739
+00:25:50,400 --> 00:25:52,230
+very steep curves in the future and it's
+
+740
+00:25:52,240 --> 00:25:55,030
+fine if these curves start
+
+741
+00:25:55,040 --> 00:25:57,070
+you know the starting point is very
+
+742
+00:25:57,080 --> 00:25:58,550
+boring or like it doesn't even seem that
+
+743
+00:25:58,560 --> 00:25:59,990
+interesting. Like it you know when we
+
+744
+00:26:00,000 --> 00:26:01,270
+started
+
+745
+00:26:01,280 --> 00:26:03,550
+when I started working on scale
+
+746
+00:26:03,560 --> 00:26:05,550
+you know we had cat detectors in YouTube
+
+747
+00:26:05,560 --> 00:26:07,990
+videos and that felt you know
+
+748
+00:26:08,000 --> 00:26:10,190
+it's hard to say explain the story that
+
+749
+00:26:10,200 --> 00:26:11,110
+that's like the most important
+
+750
+00:26:11,120 --> 00:26:12,790
+technology of our time but it was on
+
+751
+00:26:12,800 --> 00:26:15,340
+just this like unbelievable exponential.
+
