@@ -269,7 +269,7 @@ def check_body(meta, paras, allow_gh):
     if not retell and not re.search(r"朋友|同事|老板|客户|吃饭|会上|办公室|家里|地铁|排队|群里|后台|截图|照片|会议|饭桌|车上|门口", st) and not re.search(r"\d", st):
         add("⚠", "首屏既没有具体场景也没有数字：读者 5 秒内要看到一个画面")
     p0 = paras[0]
-    if re.search(SOURCE_FIRST, p0) and not re.search(r"^.{0,30}(觉得|认为|其实|根本|没必要|很难|不是|想|打算|最在意|不同意|才是)", p0):
+    if not retell and re.search(SOURCE_FIRST, p0) and not re.search(r"^.{0,30}(觉得|认为|其实|根本|没必要|很难|不是|想|打算|最在意|不同意|才是)", p0):
         add("⚠", f"第一段先交代信源：「{p0[:30]}…」 10-03 起第一句是判断或意图（「越来越觉得 X 很难垄断」「想言简意赅写写我对 X 的理解」），信源压成半句放第二段以后")
     # 搜索关键词（writing_guide 8.5）：标题、首页、正文前 150 字都要有主关键词
     kw = meta.get("keyword", "").strip()
