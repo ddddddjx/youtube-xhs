@@ -1,0 +1,12 @@
+这个号每天读一篇海外 AI 一手内容，每篇留一段能直接用的东西，想每天顺手看一篇，点个关注就行。
+
+给 Claude Code 的指示写得再明确，做出来还是会偏。这周 Claude Code 团队的 Thariq 发了个 skill，把 plan 做成网页，4500 多人收藏，他想拿它替换默认的 plan mode。
+
+内容没变多少，变的是它逼着 Claude 把三样东西摆到你眼前：要你拍板的问题标红列在目录里，不答完不往下走；改哪几个文件画成一棵调用树，带文件名行号；状态流转画成图，mockup 复用项目里已有的组件。这三样正好是 markdown 里最容易被扫过去的。
+
+装法，两行，在终端里跑：
+claude plugin marketplace add anthropics/claude-plugins-community
+claude plugin install html-plan@claude-community
+装完以后 plan mode 还是老样子，要主动说一句「用 html-plan 做 plan」。
+
+#ClaudeCode #planmode #AI编程 #AI #Claude
