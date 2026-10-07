@@ -19,6 +19,12 @@ CLICHE = ["首先", "其次", "再次", "最后，", "总而言之", "综上所�
 # 空泛形容：问用户要一个具体的场景或数字
 VAGUE = ["非常好用", "特别好用", "超级好用", "效率大幅提升", "大大提高", "极大地", "显著提升", "轻松搞定",
          "一键搞定", "事半功倍", "焕然一新", "质的飞跃", "彻底改变"]
+# 用户 10-07 写作要求（账号/写作要求.md）：表演深刻、形容词冒号、拔高、虚构误解、黑话
+PERFORM = ["真正的问题是", "说到底", "说穿了", "本质上", "更深层地看", "这揭示了", "关键在于", "一句话总结", "更重要的是", "归根结底", "说白了"]
+ADJ_COLON = r"(原因|逻辑|答案|道理|理由|根因)(很|非常)?(简单|清晰|明确)[：:]"
+JARGON = ["收口", "收敛", "压实", "兜底", "落盘", "闭环", "抓手", "心智模型", "下一刀", "很工程", "双刃剑", "深度剖析", "不可或缺"]
+INFLATE = ["范式", "转折点", "底层逻辑"]
+FAKE = ["很多人以为", "你可能觉得", "但事情没那么简单"]
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿⭐✅]")
 
 
@@ -41,6 +47,20 @@ def main(path):
         for m in re.finditer(w, joined):
             ctx = joined[max(0, m.start() - 8):m.end() + 12].replace("\n", " ")
             bad.append(f"套话「{m.group(0)}」：…{ctx}…  → 删掉，或换成一件具体的事")
+    for w in PERFORM:
+        if w in joined:
+            bad.append(f"表演深刻的引导语「{w}」 → 删掉直接说内容（写作要求三）")
+    for m in re.finditer(ADJ_COLON, joined):
+        bad.append(f"「{m.group(0)}」形容词下判断再冒号 → 直接写原因（写作要求三）")
+    for w in JARGON:
+        if w in joined:
+            warn.append(f"工程黑话 / 套话「{w}」 → 用中文本来的说法，写出它具体指什么（写作要求六）")
+    for w in INFLATE:
+        if w in joined:
+            warn.append(f"拔高词「{w}」 → 普通事实按普通事实写（写作要求三）")
+    for w in FAKE:
+        if w in joined:
+            warn.append(f"虚构误解「{w}」 → 只在误解真实存在时用，说明是谁这样认为（写作要求四）")
     for w in VAGUE:
         if w in joined:
             warn.append(f"空泛形容「{w}」 → 问用户要一个具体场景或数字（用了多久、省了几分钟、哪一次）")

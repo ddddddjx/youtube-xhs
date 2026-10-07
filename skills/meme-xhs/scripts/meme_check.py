@@ -374,6 +374,75 @@ TURN = r"^(但|不过|可是|然而|只是)"
 MODAL = r"必须|务必|一定要|禁止|不得|严禁|不要|别|不许|确保|需要|应该|要|得"
 
 
+# ---- 用户 10-07 写作要求（账号/写作要求.md），能用正则查的部分 ----
+PERFORM = r"真正的问题是|说到底|说穿了|本质上|更深层地看|这揭示了|值得注意的是|关键在于|一句话总结|更重要的是|归根结底|说白了|有一个数字非常值得看|容易被忽视的部分"
+ADJ_COLON = r"(原因|逻辑|答案|道理|理由|问题|根因)(很|非常)?(简单|清晰|明确|直接)[：:]"
+INFLATE = r"范式|转折点|底层逻辑|趋势性|划时代"
+FAKE_MISREAD = r"很多人以为|不少人以为|你可能觉得|你可能以为|看起来是[^。]{0,20}实际上|但事情没那么简单|没有那么简单"
+CLOSING = r"希望对你有帮助|总之|综上所述|综上"
+JARGON = r"收口|收敛|压实|兜底|落盘|闭环|抓手|心智模型|下一刀|很工程"
+CLICHE2 = r"赋能|深度剖析|不可或缺|双刃剑|在当今[^。]{0,8}时代|随着[^。]{0,10}的发展"
+VERB1 = r"补进去|接一下|核一下|吃目标值|对一下|过一下"
+VAGUE2 = r"显著提升|大幅(提升|增长|下降)|强劲增长|业绩亮眼|彻底改变|质的飞跃|效果显著|效率大幅"
+TERMS = ["RSI", "AGI", "ASI", "MCP", "RAG", "token", "embedding", "微调", "fine-tune", "LoRA", "RLHF", "上下文窗口", "context window"]
+CAUSAL = r"因为|所以|这样一来|但是|于是|因此|结果是"
+
+
+def check_user_rules(paras):
+    text = "\n".join(paras)
+    n = len(re.sub(r"\s", "", text)); k = max(n / 1000, 0.001)
+    hits = 0
+    for m_ in re.finditer(PERFORM, text):
+        add("✗", f"表演深刻的引导语「{m_.group(0)}」：删掉，直接说内容；删完剩下的话很普通，就照实写这句普通的话（写作要求三）"); hits += 1
+    for m_ in re.finditer(ADJ_COLON, text):
+        add("✗", f"形容词下判断再冒号引出：「{m_.group(0)}」 直接写原因（写作要求三）"); hits += 1
+    for m_ in re.finditer(CLICHE2, text):
+        add("✗", f"套话「{m_.group(0)}」（写作要求六）"); hits += 1
+    for m_ in re.finditer(VAGUE2, text):
+        add("✗", f"概括词「{m_.group(0)}」：换成具体数字、口径和来源（写作要求二）"); hits += 1
+    if paras and re.search(CLOSING, paras[-1]):
+        add("✗", f"结尾在总结：「{paras[-1][:20]}…」 内容说完就结束（写作要求五）"); hits += 1
+    if re.search(r"[\U0001F300-\U0001FAFF\u2600-\u27BF]", text):
+        add("✗", "正文里有 emoji（写作要求七）"); hits += 1
+    for name, pat, why in (("拔高词", INFLATE, "普通事实按普通事实写，不说成趋势、范式、转折点或底层逻辑（写作要求三）"),
+                           ("工程黑话", JARGON, "用中文本来的说法，写出它具体指什么（写作要求六）"),
+                           ("单字动词腔", VERB1, "写作要求六")):
+        found = sorted(set(re.findall(pat, text)))
+        if found:
+            add("⚠", f"{name}：{'、'.join(found)}。{why}")
+    fm = re.findall(FAKE_MISREAD, text)
+    if fm:
+        add("⚠", f"虚构误解再纠正 {len(fm)} 处（{'、'.join(dict.fromkeys(fm))}）：只在误解真实存在时用，并说明是谁这样认为、依据是什么；否则直接说正确的内容（写作要求四）")
+    nb = len(re.findall(r"不是[^。，；]{1,20}[，,]\s*而是", text))
+    if nb > 1:
+        add("⚠", f"「不是 A，而是 B」{nb} 次：全文最多一次，只在读者确实可能误解成 A 时用（写作要求四）")
+    # 术语第一次出现的那句里有没有解释
+    for t in TERMS:
+        m_ = re.search(re.escape(t), text)
+        if not m_:
+            continue
+        seg_start = max(text.rfind("。", 0, m_.start()), text.rfind("\n", 0, m_.start())) + 1
+        seg_end = text.find("。", m_.end()); seg_end = len(text) if seg_end < 0 else seg_end
+        sent = text[seg_start:seg_end]
+        if not re.search(r"是|指|就是|即|（|\(|叫|理解成|意思", sent):
+            add("⚠", f"术语「{t}」第一次出现的那句没解释它在这里指什么：「{sent[:30]}…」（写作要求一）")
+    long_s = [x for x in re.split(r"[。！？]", text) if len(x) > 70 and x.count("，") + x.count(",") >= 4]
+    if long_s:
+        add("⚠", f"一句话塞了太多东西 {len(long_s)} 处：「{long_s[0][:30]}…」 一句别同时放几个概念、限定和判断（写作要求一）")
+    cz = len(re.findall(CAUSAL, text)) / k
+    if n > 600 and cz < 2:
+        add("⚠", f"因果连接词每千字 {cz:.1f} 处（因为 / 所以 / 这样一来 / 但是）：把因果写出来，别让读者自己补推理（写作要求一）")
+    run = 0
+    for p in paras:
+        run = run + 1 if len(p) <= 25 and not re.match(r"\d+[、.]", p) else 0
+        if run == 3:
+            add("⚠", "连续 3 段都不到 25 字：一行一句会把句子之间的关系切断，并成自然段（写作要求七）"); break
+    pc = (text.count("：") + text.count("——")) / k
+    if pc > 4:
+        add("⚠", f"冒号和破折号每千字 {pc:.1f} 个：少用，去掉时把句子改写完整（写作要求七）")
+    add("✓" if hits == 0 else "⚠", f"写作要求（账号/写作要求.md）命中 {hits} 处 ✗")
+
+
 def check_ai_tone(meta, paras, draft_dir):
     """中文 AI 腔：结构词孤段、单句总结段、先让步再转折、一是二是、立场稻草人、改写丢语气。"""
     n_hit, flagged = 0, set()
@@ -495,6 +564,7 @@ def main(argv):
     add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（10-07 起每篇至少两张：一张原文证据截图，一张总结 / 对照；Karpathy 稿 8 页纯文字，丰富度 3.0「待提升」）")
     check_body(meta, paras, allow_gh)
     check_ai_tone(meta, paras, os.path.dirname(os.path.abspath(draft)))
+    check_user_rules(paras)
     for level in ("✗", "⚠", "✓"):
         for msg in results[level]:
             print(f"{level} {msg}")
