@@ -1,5 +1,5 @@
 ---
-title: 靠看现金流吃饭30年的人，这样看AI
+title: 管芒格家族钱的人，给AI泼了4盆冷水
 mode: retell
 value: 框架
 keyword: 李录
