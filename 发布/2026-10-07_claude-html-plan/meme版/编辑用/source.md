@@ -104,3 +104,44 @@ Yeah reuses components, should be more token efficient
 - 链接: https://x.com/trq212/status/2107200136485191950
 
 It uses components so should lose much fewer tokens than raw HTML, should be comparable to markdown
+
+---
+
+## 10-07 补查：各家 plan mode 的一手出处（用户要求「基于事实，不瞎编」）
+
+### Claude Code（官方文档 code.claude.com/docs/en/permission-modes，10-07 抓取）
+- 「Plan mode tells Claude to research and propose changes without making them. Claude reads files, runs shell commands to explore, and writes a plan, but does not edit your source.」
+- 进入：`Shift+Tab` 循环到 `⏸ plan mode on`；或单条提示词前加 `/plan`；或 `claude --permission-mode plan`。
+- 方案出来后三个选项：「Yes, and use auto mode」「Yes, manually approve edits」「No, keep planning」。
+- `Ctrl+G` 在你自己的文本编辑器里直接改方案。方案文件在 `~/.claude/plans/`。
+- 项目里 `.claude/settings.json` 设 `defaultMode: plan` 可以让每次都从 plan 开始。
+
+### Codex CLI（搜索结果摘自 OpenAI changelog，developers.openai.com 被代理挡，未直接核对原页）
+- v0.93.0（2026-02）加入 plan mode：「Plan mode streams proposed plans into a dedicated TUI view, plus a feature-gated /plan shortcut」。
+- 进入：`/plan [描述]`，或 `Shift+Tab` 循环 collaboration modes。
+- 2026-03：加了 plan mode 提问的通知（「notifications for plan mode questions」）。
+
+### Kimi Code CLI（官方帮助 kimi.com/help/kimi-code/cli-work-modes，搜索摘要，原页被代理挡）
+- 「Plan 模式是一种只读的规划模式……AI 只能使用只读工具（Glob、Grep、ReadFile）探索代码库，不能修改任何文件或执行命令。AI 会将方案写入一个专门的 plan 文件，然后提交给你审批。」
+- 进入：`kimi --plan`、`Shift-Tab`、`/plan`；复杂任务时 AI 可能自己通过 EnterPlanMode 请求进入。
+- 审批面板：方案有多条路径时列 2 到 3 个带标签的选项；Reject / Reject and Exit / Revise（输入修改意见，AI 修订后重新提交）。
+- 内置三个子代理：coder、explore、plan；plan 子代理没有 shell 命令。
+
+### Qoder CLI（原通义灵码，docs.qoder.com/cli/plan，搜索摘要，原页被代理挡）
+- 「Plan allows Qoder to explore the codebase in read-only mode, analyze problems, and propose a solution before making any code changes.」
+- `/plan` 开关；常和 Goal 搭配：plan 里确认方案，退出后 `/goal set` 让它自己跑完。
+
+### Cursor（cursor.com/blog/plan-mode，搜索摘要，原页被代理挡）
+- `Shift+Tab` 进入；复杂任务 Cursor 会主动建议。
+- 流程：先问澄清问题 → 查代码库 → 写方案 → 你在对话或 markdown 文件里改 → 点 build。
+- 方案默认存在用户主目录，可「Save to workspace」进仓库。
+
+### Trae（字节）
+- 搜到的是 Builder 模式和 SOLO 模式，没搜到官方叫 Plan 的模式。稿子里写「没查到」，不写它有。
+
+### html-plan 插件 README（raw.githubusercontent.com/anthropics/claude-plugins-community/main/html-plan/README.md）
+- 调用：`/html-plan add send later to the composer`。
+- 「review comprehensive specifications in approximately one minute」。
+- 三层：Title（Why）→ Level 1（mockup / 状态机）→ Level 2（调用栈 / schema / 代码片段）→ Level 3（代码位置）。
+- 「Closed, the tree is the summary. Open it one level at a time.」每个决定带编号，按钮「3 to answer」跳到没答的。可以选选项、改 schema、给任何一句加评论，然后提交。
+- 需要 Node.js 把页面打成一个自包含的 HTML。

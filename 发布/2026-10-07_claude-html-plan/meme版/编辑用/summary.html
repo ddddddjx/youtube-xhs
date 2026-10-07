@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;width:540px;height:720px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:22px 24px}
+h1{font-size:22px;margin:0 0 4px;font-weight:700}
+.sub{font-size:11.5px;color:#888;margin-bottom:12px;line-height:1.5}
+table{border-collapse:collapse;width:100%;font-size:12.4px}
+td{padding:7px 6px;border-top:1px solid #e6e6e6;vertical-align:top;line-height:1.5}
+td.m{width:66px;font-weight:700;color:#e8963a;white-space:nowrap}
+td.g{width:118px;font-weight:600}
+td.r{color:#444}
+tr.hi td{background:#fff7d6}
+.foot{font-size:11.5px;color:#777;margin-top:12px;line-height:1.6}
+</style></head><body><div class="wrap">
+<h1>五家工具的 plan 模式，长什么样</h1>
+<div class="sub">10-07 按各家官方文档和更新日志查的，Codex / Kimi / Qoder / Cursor 的原页被代理挡，用的是搜索摘要；Trae 没查到叫 plan 的模式</div>
+<table>
+<tr class="hi"><td class="m">Claude Code</td><td class="g">Shift+Tab 到「plan mode on」，或提示词前加 /plan</td><td class="r">只读文件和探索，不改代码。方案出来问你三选一：用 auto 模式干 / 每处改动手动批 / 不行继续规划。Ctrl+G 在自己编辑器里改方案，文件在 ~/.claude/plans/</td></tr>
+<tr><td class="m">Codex CLI</td><td class="g">/plan 加一句描述，或 Shift+Tab 切协作模式</td><td class="r">2026-02 的 v0.93.0 加的，方案流式显示在单独一块界面里；3 月起 plan 里的提问会弹通知</td></tr>
+<tr class="hi"><td class="m">Kimi Code</td><td class="g">kimi --plan、Shift-Tab、/plan</td><td class="r">只读，方案写进单独的 plan 文件给你批。有多条路径时列 2 到 3 个选项让你选；可以 Revise 输入修改意见让它重写。复杂任务它会自己申请进 plan</td></tr>
+<tr><td class="m">Qoder CLI<br><span style="font-weight:400;color:#888">原通义灵码</span></td><td class="g">/plan 开关</td><td class="r">只读探索、出方案、你确认。常和 Goal 搭配：plan 里定方案，退出后 /goal set 让它自己跑完</td></tr>
+<tr class="hi"><td class="m">Cursor</td><td class="g">Shift+Tab，复杂任务它会主动建议</td><td class="r">先问你几个澄清问题，再查代码、写方案；方案是 markdown，你在对话或文件里改，点 build 才动手。方案默认存用户目录，可存进仓库</td></tr>
+</table>
+<div class="foot">共同点：都是只读、先出方案、你批了才改代码。差别在方案长什么样（一段文字、一个文件、一块界面）和它会不会先问你问题（Cursor、Kimi 会，Claude Code 默认不会，Thariq 的 html-plan 把问题标红摆在目录里）。</div>
+</div></body></html>
