@@ -11,9 +11,6 @@ description: >-
 
 `$M` = 本 SKILL.md 所在目录；`$X` = 同级的 `xiaohongshu-wutu-zhishika`（截图引擎和头像在那边，两个 skill 要一起安装）。
 
-
-**写台词和图下文案之前读 `账号/写作要求.md`**（用户 10-07，所有栏目通用），写完跑 `skills/xhs-cold-start/scripts/ai_tone.py`。
-
 ## 固定 IP（不要改造型）
 
 | 角色 | 造型 | 戏份 |

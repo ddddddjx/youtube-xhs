@@ -9,7 +9,7 @@ description: >-
 
 ## 写稿前先加载账号记忆（2026-09-30 起）
 
-按 `skills/xhs-cold-start/references/voice_tuning.md` 第 0 节的顺序：读根目录 `CLAUDE.md` → `账号/档案.md`（定位卡、观点库）→ `账号/经历库.md` → `账号/范本/` 里一篇自己的同文体稿子 + README 索引的一篇对标稿 → 才读素材。稿子里的「我」只能来自经历库和这次的真实操作；stance 优先从观点库里长出来；写完跑 `skills/xhs-cold-start/scripts/ai_tone.py`。 **写之前读 `账号/写作要求.md`（用户 10-07 给的，所有栏目通用：讲清楚别压缩、说具体、不表演深刻、不虚构误解、中文像中文、用段落写），写完照它最后那张表过一遍；meme_check 和 ai_tone 已经查了能查的部分。**
+按 `skills/xhs-cold-start/references/voice_tuning.md` 第 0 节的顺序：读根目录 `CLAUDE.md` → `账号/档案.md`（定位卡、观点库）→ `账号/经历库.md` → `账号/范本/` 里一篇自己的同文体稿子 + README 索引的一篇对标稿 → 才读素材。稿子里的「我」只能来自经历库和这次的真实操作；stance 优先从观点库里长出来；写完跑 `skills/xhs-cold-start/scripts/ai_tone.py`。
 
 用户发一个 YouTube 链接或 X（Twitter）推文链接，按下面步骤一次产出两份小红书内容。账号：**Krypto说AI**（头像在图文 skill 的 `assets/`）。
 
