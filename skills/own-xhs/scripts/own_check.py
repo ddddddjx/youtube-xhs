@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""own-xhs 的检查：量的是输入有没有进稿子，不是句式。
+"""own-xhs 的检查：先量输入有没有进稿子，再跑 meme_check 全套，用户原话命中的警告放行。
 
 和 meme_check 的区别（10-08，对照小盖 Personal Agent 稿）：
 - 不查「假设我」上限、押注上限、「我觉得」上限、结尾对仗、结构词孤段、首屏时间锚 / 反差、转述词密度。小盖那篇这些全违规，
@@ -89,15 +89,6 @@ def main(argv):
     body = "".join(paras)
     n_chars = len(re.sub(r"\s", "", body))
 
-    # 标题
-    titles = [meta.get("title", "")]
-    for f in ("标题.txt", "标题备选.txt"):
-        titles += [l for l in read(os.path.join(folder, f)).splitlines() if l.strip()]
-    for t in dict.fromkeys(t for t in titles if t):
-        mc.check_title(t, "--allow-cn-brand-title" in argv)
-    if not any(re.search(r"\d|[一二两三四五六七八九十百千万]+\s*[万千百个人篇条]", t) for t in titles if t):
-        add("⚠", "标题没有数字（10-07 公式：数字 + 社会证明 + 痛点动词 + 可搜词，点击率数据撑着的，own 模式照用）")
-
     # 输入三样
     if not inp["判断"] and not inp["日程"]:
         add("✗", "没有 编辑用/输入.md，或者里面没有「## 判断」「## 日程」：own 模式的稿子只能从用户的回答里长出来，先问再写")
@@ -119,8 +110,9 @@ def main(argv):
             if not found_in(q, paras, 0.8):
                 add("⚠", f"原话「{q[:20]}」被改写或没用：原话原样放，带「不知道」「可能吧」也照放，这是稿子里唯一没法生成的东西")
 
-    # 原文里的人只在第一段出现
-    people = [x.strip() for x in re.split(r"[,，、]", meta.get("people", "")) if x.strip()]
+    genre = meta.get("genre", "")
+    # 自述判断文体：原文里的人只在第一段出现
+    people = [x.strip() for x in re.split(r"[,，、]", meta.get("people", "")) if x.strip()] if genre == "自述" else []
     for who in people:
         later = sum(p.count(who) for p in paras[1:])
         if later:
@@ -175,9 +167,8 @@ def main(argv):
             add("⚠", f"极限词「{m.group(0)}」：{p[:24]}…（平台规则，改掉或换说法）")
 
     # 篇幅、图、节奏（只报数）
-    add("✓" if 1800 <= n_chars <= 3500 else "⚠", f"字数 {n_chars}（own 模式 1800 到 3500；小盖 3252）")
-    n_img = len(re.findall(r"!\[[^\]]*\]\(", raw)) + (1 if meta.get("hero") else 0) + (1 if meta.get("extra_pages") else 0)
-    add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（至少两张，点击率数据撑着的）")
+    if genre == "自述":
+        add("✓" if 1800 <= n_chars <= 3500 else "⚠", f"字数 {n_chars}（自述判断 1800 到 3500；小盖 3252）")
     L = [len(p) for p in paras]
     short = sum(1 for x in L if x <= 22)
     n_wo = len(re.findall(r"我", body))
@@ -185,6 +176,43 @@ def main(argv):
     n_bet = len(re.findall(mc.BET, body))
     add("✓", f"只报数不限：「我」{n_wo} 次、假设 / 比如我 {n_scene} 处、对未来的话 {n_bet} 处、22 字以内短段 {short} 个、段长中位 {sorted(L)[len(L)//2] if L else 0}（小盖：40 / 3 / 3+ / 5 / 48）")
 
+    # ---- meme_check 全套 ----
+    mine = {lv: list(results[lv]) for lv in results}
+    for lv in results:
+        results[lv].clear()
+    titles = [meta.get("title", "")]
+    for f in ("标题.txt", "标题备选.txt"):
+        titles += [l for l in read(os.path.join(folder, f)).splitlines() if l.strip()]
+    for t in dict.fromkeys(t for t in titles if t):
+        mc.check_title(t, "--allow-cn-brand-title" in argv)
+    if not any(re.search(r"\d|[一二两三四五六七八九十百千万]+\s*[万千百个人篇条]", t) for t in titles if t):
+        add("⚠", "三条标题备选里没有一条带数字（10-07 起公式：数字 + 社会证明 + 痛点动词 + 可搜词）")
+    main_title = titles[1] if len(titles) > 1 and titles[1] else titles[0]
+    mc.check_cover(meta, [main_title], edit)
+    n_img = len(re.findall(r"!\[[^\]]*\]\(", raw)) + (1 if meta.get("hero") else 0) + (1 if meta.get("extra_pages") else 0)
+    add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（10-07 起每篇至少两张）")
+    mc.check_body(meta, paras, "--allow-ganghao" in argv)
+    mc.check_ai_tone(meta, paras, edit)
+    # 用户原话命中的警告放行；计数型上限只报数
+    user_items = inp["判断"] + inp["日程"] + inp["原话"]
+    user_frags = set()
+    for it in user_items:
+        c = re.sub(r"[\s，。、！？!?,.:：;；「」“”\"'（）()]", "", it)
+        user_frags |= {c[i:i + 6] for i in range(0, max(1, len(c) - 5)) if len(c[i:i + 6]) == 6}
+    COUNT_CAP = r"推演 \d+ 处|第一人称判断 \d+ 处|对行业的预言 \d+ 处|「我」\d+ 次（转述荐读|对仗[^：]*\d+ 处|单独成段的短句"
+    for lv in ("✗", "⚠"):
+        keep = []
+        for msg in results[lv]:
+            m_c = re.sub(r"[\s，。、！？!?,.:：;；「」“”\"'（）()…]", "", msg)
+            if re.search(COUNT_CAP, msg):
+                mine["✓"].append("只报数不扣（own 模式，用户给的不算上限）：" + msg)
+            elif any(f in m_c for f in user_frags) and not re.search(r"露了生产过程|直译|打分|账号禁用|导流|标题", msg):
+                mine["✓"].append("用户原话，放行：" + msg)
+            else:
+                keep.append(msg)
+        results[lv][:] = keep
+    for lv in results:
+        results[lv][:] = mine[lv] + results[lv]
     for level in ("✗", "⚠", "✓"):
         for msg in results[level]:
             print(f"{level} {msg}")
