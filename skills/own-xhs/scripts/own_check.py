@@ -156,6 +156,15 @@ def main(argv):
     if not (re.search(mc.CONCRETE, first) or re.search(PLACE, first) or re.search(DATE, first)):
         add("⚠", f"第一段没有具体东西：「{first[:30]}」 第一句点一下素材（谁、什么），或者一件你这周的事")
 
+    # 开头不和已发的 own 稿重样（模板的第一标记就是开头一样）
+    import glob
+    head = re.sub(r"[\s，。、]", "", first)[:8]
+    for other in sorted(glob.glob(os.path.join(folder, "..", "..", "*", "own版", "编辑用", "draft.md"))):
+        if os.path.abspath(other) == os.path.abspath(draft_p):
+            continue
+        _, op = mc.parse(read(other))
+        if op and head and re.sub(r"[\s，。、]", "", op[0])[:8] == head:
+            add("⚠", f"开头前 8 字和已发的 {os.path.basename(os.path.dirname(os.path.dirname(other)))} 一样（「{head}」）：换一种起法（点素材 / 一条日程 / 最大的判断）")
     # 账号硬规则
     for p in paras:
         m = re.search(FORBID, p)
