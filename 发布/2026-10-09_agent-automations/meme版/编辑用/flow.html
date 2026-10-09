@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;width:540px;height:720px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:16px 20px 0}
+h1{font-size:18px;margin:0 0 2px;font-weight:700}
+.sub{font-size:10.5px;color:#888;margin-bottom:10px;line-height:1.4}
+.row{display:flex;gap:10px;align-items:stretch}
+.col{flex:1;display:flex;flex-direction:column;align-items:center}
+.box{border:1.6px solid #222;border-radius:7px;padding:6px 8px;font-size:11px;line-height:1.35;width:100%;box-sizing:border-box;background:#fff}
+.box b{display:block;font-size:12px;margin-bottom:1px}
+.box.y{background:#fff7d6;border-color:#e8963a}
+.box.g{background:#f3f3f3;border-style:dashed;color:#444}
+.arrow{height:13px;display:flex;align-items:center;justify-content:center;color:#222;font-size:14px;line-height:1}
+.branch{display:flex;gap:8px;width:100%}
+.branch .box{flex:1}
+.side{width:150px;display:flex;flex-direction:column;gap:8px}
+.side .box{font-size:10.5px}
+.main{flex:1;display:flex;flex-direction:column;align-items:center}
+.lbl{font-size:10px;color:#e8963a;font-weight:700;margin:0 0 3px;align-self:flex-start}
+.foot{font-size:9.5px;color:#777;margin-top:6px;line-height:1.4}
+</style></head><body><div class="wrap">
+<h1>这个 agent 每天早上是怎么跑一遍的</h1>
+<div class="sub">按 Anthropic 那篇文章里 agent.md 的八步和 deployment.md 画的，一次跑完就停，下次定时再醒</div>
+<div class="row">
+<div class="main">
+<div class="box"><b>① 定时醒来</b>工作日 7:32，纽约时间；每次都是一个全新的沙箱，不记得上一次</div>
+<div class="arrow">▼</div>
+<div class="box"><b>② 重读你的偏好文件</b>读哪些频道、哪些仓库、留多长。agent 只读不能改；读不到就停下说一声</div>
+<div class="arrow">▼</div>
+<div class="box"><b>③ 从书签接着读</b>Slack 和 GitHub 各一个「上次读到哪」的时间戳，不读「过去 24 小时」</div>
+<div class="arrow">▼</div>
+<div class="branch">
+<div class="box y"><b>某个源读不到？</b>书签不动，照常写别的，末尾加一行「PR 这次没读到」</div>
+<div class="box"><b>④ 判断什么算一条</b>你今天会动手的才算，拿不准就不写</div>
+</div>
+<div class="arrow">▼</div>
+<div class="box"><b>⑤ 发之前每条再核一次</b>没了就删，变了就改，查不到就删掉记进 cuts</div>
+<div class="arrow">▼</div>
+<div class="box"><b>⑥ 查今天发过没，再发到 Slack</b>一条 curl，token 在沙箱外替换进去</div>
+<div class="arrow">▼</div>
+<div class="branch">
+<div class="box y"><b>Slack 回 ok？</b>是：更新账本和书签，记录写「posted」</div>
+<div class="box y"><b>不确定？</b>记录写「maybe posted」，别的什么都不动</div>
+</div>
+</div>
+<div class="side">
+<div class="lbl">它带着跑的东西</div>
+<div class="box g"><b>记忆（跑完还在）</b>bookmarks.json 书签<br>ledger.md 报过什么<br>runs/日期.md 每次记录<br>notes 每个源的脾气</div>
+<div class="box g"><b>凭证（vault）</b>真 token 不进沙箱，请求出去时才换上</div>
+<div class="box g"><b>闸门</b>GitHub token 只读<br>网络只到白名单<br>每次跑花费上限，撞到就暂停</div>
+</div>
+</div>
+<div class="foot">8 个配置文件，一条命令建好，跑在 Anthropic 的机器上。来源：claude.dev 博客，10-08。</div>
+</div></body></html>

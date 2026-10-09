@@ -1,25 +1,25 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
-body{margin:0;width:540px;height:560px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
-.wrap{padding:14px 18px}
-h1{font-size:19px;margin:0 0 2px;font-weight:700}
-.sub{font-size:10px;color:#888;margin-bottom:8px;line-height:1.4}
-table{border-collapse:collapse;width:100%;font-size:11px}
-td{padding:5px 6px;border-top:1px solid #e6e6e6;vertical-align:top;line-height:1.45}
-td.n{width:14px;font-weight:700;color:#e8963a}
-td.g{width:150px;font-weight:600}
+body{margin:0;width:540px;height:720px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:22px 22px}
+h1{font-size:23px;margin:0 0 4px;font-weight:700}
+.sub{font-size:12px;color:#888;margin-bottom:12px;line-height:1.45}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{padding:9px 8px;border-top:1px solid #e3e3e3;vertical-align:top;line-height:1.5}
+td.n{width:16px;font-weight:700;color:#e8963a;font-size:15px}
+td.g{width:175px;font-weight:700}
 td.r{color:#444}
 tr.hi td{background:#fff7d6}
-.foot{font-size:10px;color:#777;margin-top:8px;line-height:1.45}
+.foot{font-size:12px;color:#666;margin-top:12px;line-height:1.5}
 </style></head><body><div class="wrap">
-<h1>Anthropic 那个每天发简报的 agent，六条规矩</h1>
-<div class="sub">来自 claude.dev 博客 Building effective agent automations（Lance Martin、CJ Avilla，10-08），参考实现在 claude-quickstarts 仓库的 managed-agents/daily-brief</div>
+<h1>Anthropic 给定时 agent 定的六条规矩</h1>
+<div class="sub">claude.dev 博客《Building effective agent automations》，Lance Martin、CJ Avilla，2026-10-08。参考实现在 claude-quickstarts 仓库 managed-agents/daily-brief</div>
 <table>
-<tr><td class="n">1</td><td class="g">每个源记一个书签，不读「过去 24 小时」</td><td class="r">跑完把每个源最新一条的时间戳写进 bookmarks.json，下次从那接着读。跑晚了不漏，跑早了不重</td></tr>
-<tr class="hi"><td class="n">2</td><td class="g">读不到不等于没事</td><td class="r">MCP 挂了、token 过期，任务照跑但看不到那个源。规矩：书签原地不动，简报末尾写一行「PR 这次没读到」</td></tr>
-<tr><td class="n">3</td><td class="g">发之前每条再核一遍</td><td class="r">读完到发出去之间世界在变。没了就删，变了就改，查不到就删并记进 cuts。拿不准的一律不发</td></tr>
-<tr class="hi"><td class="n">4</td><td class="g">Slack 回 ok 才算发了</td><td class="r">先查频道里今天的标题发过没有；回了 ok 和消息 ts 才算；之后才更新账本和书签。不确定就标「maybe posted」，别的不动</td></tr>
-<tr><td class="n">5</td><td class="g">偏好每次跑都重读，agent 只读不能改</td><td class="r">偏好写进提示词会一直按旧规矩跑。放在一个它改不了的文件里，读不到就停下说一声，不按默认跑</td></tr>
-<tr class="hi"><td class="n">6</td><td class="g">只读的地方只给只读，每次跑有花费上限</td><td class="r">GitHub token 只读、网络只到白名单；上限先设正常一次的 3 到 5 倍，撞上限是暂停不是报错，设太低的症状是简报突然不来了</td></tr>
+<tr><td class="n">1</td><td class="g">每个源记一个书签</td><td class="r">不读「过去 24 小时」。跑完把最新一条的时间戳写进文件，下次从那接着读。跑晚不漏，跑早不重</td></tr>
+<tr class="hi"><td class="n">2</td><td class="g">读不到不等于没事</td><td class="r">MCP 挂了、token 过期，任务照跑但看不到那个源。书签不动，简报末尾写一行「PR 这次没读到」</td></tr>
+<tr><td class="n">3</td><td class="g">发之前每条再核一遍</td><td class="r">读完到发出去之间世界在变。没了就删，变了就改，查不到就删。拿不准的一律不发</td></tr>
+<tr class="hi"><td class="n">4</td><td class="g">Slack 回 ok 才算发了</td><td class="r">先查今天发过没有；回了 ok 才算；之后才更新账本和书签。不确定就标「maybe posted」</td></tr>
+<tr><td class="n">5</td><td class="g">偏好每次重读，agent 只读</td><td class="r">偏好写进提示词会一直按旧规矩跑。放在它改不了的文件里，读不到就停下说一声</td></tr>
+<tr class="hi"><td class="n">6</td><td class="g">只读的地方只给只读，每次跑有花费上限</td><td class="r">token 只读、网络白名单。上限先设正常一次的 3 到 5 倍，撞到是暂停不是报错</td></tr>
 </table>
-<div class="foot">agent 本身只做一件事：判断哪几条你今天会动手，发出去。「12 个 PR 待审」不算一条，大多数日子只有几条，有时候一条没有。</div>
+<div class="foot">agent 本身只做一件事：判断哪几条你今天会动手，发出去。「12 个 PR 待审」不算一条。大多数日子只有几条，有时候一条没有。</div>
 </div></body></html>
