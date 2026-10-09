@@ -4,6 +4,8 @@ keyword: 李录
 keywords: 哥大, 价值投资, AI
 time: 26-10-10 12:00
 account: Krypto说AI
+hero: lilu.jpg
+hero_after: 1
 ---
 
 上一篇讲他怎么看 AI，很多人要原文，分几篇放出来。这是第二篇，两节：硅谷和中国两种 AI 思路、市场分化与长期回报。

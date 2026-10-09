@@ -4,6 +4,8 @@ keyword: 李录
 keywords: 哥大, 价值投资, AI
 time: 26-10-10 12:00
 account: Krypto说AI
+hero: lilu.jpg
+hero_after: 1
 ---
 
 上一篇讲他怎么看 AI，很多人要原文，分几篇放出来。这是第一篇，三节：价值投资的基本原则、市场里的四类人、AI 的能力边界和红线。
