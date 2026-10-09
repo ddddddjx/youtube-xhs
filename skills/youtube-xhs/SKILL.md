@@ -2,7 +2,7 @@
 name: youtube-xhs
 description: >-
   YouTube / X（Twitter）链接 → 小红书两件套（Krypto说AI）。use this when 用户发来一个 YouTube 链接或 x.com / twitter.com 推文链接，
-  要求下载视频、补中文字幕并产出小红书内容：① 视频版（中英字幕压制视频 + 配视频文案）② 图文版（调用 xiaohongshu-wutu-zhishika 出知识卡，或 xiaohongshu-manhua-jiangjie 出K 老师漫画讲解 + 图下文案）。
+  要求下载视频、补中文字幕并产出小红书内容：① 视频版（1080×1920 竖版中英字幕成片 + 配视频文案；10-09 起只出竖版）② 图文版（调用 xiaohongshu-wutu-zhishika 出知识卡，或 xiaohongshu-manhua-jiangjie 出K 老师漫画讲解 + 图下文案）。
   推文视频没有字幕时用本地 Whisper 转写 + Claude 翻译
 ---
 # YouTube / X → 小红书两件套
@@ -42,7 +42,6 @@ description: >-
 <日期>_<短标题>/
   视频版/
     <短标题>_竖版.mp4          ← 1080×1920：顶部主题+标题钩子+讲者卡，中间原视频，底部中英字幕（发布用）
-    <短标题>_中英字幕.mp4      ← 只带字幕的横屏版（存档 / 自己看）
     标题.txt  正文.txt  开头卡.txt  置顶评论.txt   ← 可直接粘贴进小红书
     cover_candidate.png
     封面备选/          三版封面 cover_A / B / C
@@ -101,7 +100,7 @@ python3 $Y/scripts/sub_translate.py build en.srt tr zh.srt   # 讲中文时: bui
 | 发布状态 | 条件 | 视频版 | 图文版 |
 |---|---|---|---|
 | **可发布** | Creative Commons（CC BY）/ 用户说明是自己的视频 / 已获原作者授权 | 成片 + 标题.txt + 正文.txt；不声明原创，文案注明原作者 | 正常产出，可声明原创 |
-| **仅供学习** | Standard YouTube License 且没有授权；X 推文视频（版权归发布者，平台不提供再利用许可）且没有授权 | 只出字幕成片，**不写**标题.txt / 正文.txt，改写一个 `视频版/仅供学习_勿上传.txt`（一句话说明原因） | 正常产出，这是本期唯一的发布物 |
+| **仅供学习** | Standard YouTube License 且没有授权；X 推文视频（版权归发布者，平台不提供再利用许可）且没有授权 | 只出竖版字幕成片，**不写**标题.txt / 正文.txt，改写一个 `视频版/仅供学习_勿上传.txt`（一句话说明原因） | 正常产出，这是本期唯一的发布物 |
 
 - 未授权的整片搬运会被小红书查重限流、被举报后扣分，所以「仅供学习」时不给视频版发布文案；想发视频，建议用户自己出镜 / 配音解读，原片只做十几秒以内的引用
 - 想拿授权：在对话里帮用户起草一封给原作者的英文授权邮件（用户自己发）；X 上起草一条给作者的英文私信
@@ -116,7 +115,7 @@ python3 $Y/scripts/sub_translate.py build en.srt tr zh.srt   # 讲中文时: bui
 成片一律是 **1080×1920 竖版**：顶部信息框（主题 → 来路 → 两行标题钩子 → 讲者卡），中间原视频，底部中文大字幕 + 英文小字，背景是原视频模糊压暗。上下各留出小红书界面会盖住的一条。细则和钩子写法见 `templates/video_frame.md`。
 
 ```bash
-cd "<输出目录>/_work" && python3 $Y/scripts/merge_subs.py en.srt zh.srt .   # 出 zh.srt / bilingual.srt（交付用）和横屏用的 ass
+cd "<输出目录>/_work" && python3 $Y/scripts/merge_subs.py en.srt zh.srt .   # 出 zh.srt / bilingual.srt（交付用）
 # 写 视频版/编辑用/frame.json：tag 主题、source 来路、title 两行钩子、speaker 讲者
 python3 $Y/scripts/render_frame.py "<输出目录>/视频版/编辑用/frame.json" "<输出目录>/视频版/编辑用/frame.png"
 python3 $Y/scripts/compose_frame.py "<输出目录>/_work" "<输出目录>/视频版/编辑用/frame.png" \
@@ -130,8 +129,8 @@ python3 $Y/scripts/compose_frame.py "<输出目录>/_work" "<输出目录>/视�
 - **前 3 秒开头卡**（仅「可发布」状态；2026-09-22 复盘：视频版平均观看 8.7 秒，读者在开头就走了）：成片从第一句话开始，但在它前面加 2–3 张大字卡。写 `视频版/开头卡.txt`（2–3 行，每行 7–16 字；第一句 = 话题 + Hook + 可信度，不能假设读者看过标题，例：第 1 行「写长文赚了 400 万美元的人说」、第 2 行「你根本不缺自律」），用 ffmpeg 做成 1080×1920 纯色大字卡（每张约 1.5 秒，和成片同帧率、带静音音轨），concat 到竖版成片最前面。顶部标题钩子和开头卡可以是同一个角度；开头卡要等步骤 3 定了立场再写
 - **先 Read preview.png 再压整片**：标题超两行、讲者卡压到视频、字幕落到 1600 以下，都回去改 frame.json / zh.srt
 - compose_frame.py 会列出太长的字幕句：把 `zh.srt` 里那几句压短后重跑
-- 原片本身是竖屏，或者只要横屏带字幕的存档版：
-  `bash $Y/scripts/burn.sh "<输出目录>/_work" "<输出目录>/视频版/<短标题>_中英字幕.mp4"`（只要中文加参数 zh）
+- **只出竖版**（用户 10-09）：不再另压横屏「_中英字幕.mp4」存档版，用户点名要才做。原片本身是竖屏时不套顶部信息框，直接压字幕：
+  `bash $Y/scripts/burn.sh "<输出目录>/_work" "<输出目录>/视频版/<短标题>_竖版.mp4"`（只要中文加参数 zh）
 - 用户点名要「下半屏知识卡」的老分屏版式时：按 `templates/video_panel.md` 用 render_panel.py + compose_split.sh
 - 复制 `zh.srt / bilingual.srt / en.srt` 为 `中文字幕.srt / 中英双语字幕.srt / 英文字幕.srt` 到 `视频版/`
 
