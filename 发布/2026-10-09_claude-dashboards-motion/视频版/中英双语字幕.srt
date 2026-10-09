@@ -1,0 +1,115 @@
+1
+00:00:00,300 --> 00:00:03,600
+这是一段讲空车桩的小动画
+This is a short animation about empty bike docks.
+
+2
+00:00:03,600 --> 00:00:06,200
+它一开始只是一个仪表盘
+It started as a dashboard.
+
+3
+00:00:06,200 --> 00:00:09,000
+今天给大家看两种新的 Artifact
+Today I want to show you two new artifact types,
+
+4
+00:00:09,000 --> 00:00:12,500
+Claude Dashboards 和 Claude Motion
+Claude Dashboards and Claude Motion.
+
+5
+00:00:12,500 --> 00:00:16,500
+假设我管一家共享单车的运营团队
+Pretend that I run the operations team at a bike share.
+
+6
+00:00:16,500 --> 00:00:21,000
+每个工作日，山上的车桩 8:15 就空了
+Every weekday, the docks on the hill are empty by 8:15.
+
+7
+00:00:21,000 --> 00:00:23,300
+我们得查清楚为什么
+We need to get to the bottom of it.
+
+8
+00:00:23,300 --> 00:00:27,500
+我们让 Claude 从数据仓库拉了一年的骑行数据
+We let Claude pull a year of ride data from our data warehouse
+
+9
+00:00:27,500 --> 00:00:30,200
+排成一个好看的仪表盘
+and lay it out as a nice dashboard.
+
+10
+00:00:30,200 --> 00:00:33,000
+看着看着，一个故事就出来了
+As we look at the dashboard, a story takes shape.
+
+11
+00:00:33,000 --> 00:00:37,300
+下次全员大会，得把这个故事讲给整个团队听
+And we'll need to tell this story to the whole team at our next all-hands meeting
+
+12
+00:00:37,300 --> 00:00:39,000
+让大家都认同
+to get them on board.
+
+13
+00:00:39,000 --> 00:00:43,500
+所以我们让 Claude 把仪表盘做成动画
+So we asked Claude to turn this dashboard into an animation,
+
+14
+00:00:43,500 --> 00:00:45,000
+用的是 Claude Motion
+using Claude Motion.
+
+15
+00:00:45,000 --> 00:00:47,500
+Claude 把它变成一段动画叙事
+Claude turns it into an animated narrative.
+
+16
+00:00:52,500 --> 00:00:55,500
+Claude 第一版通常就做得不错
+Claude usually does a pretty good job right away,
+
+17
+00:00:55,500 --> 00:00:59,500
+但想改的话，我可以接着留评论去调
+but I can continue to tweak it and steer it with comments if I want to,
+
+18
+00:00:59,500 --> 00:01:01,000
+直接在视频上留
+right there on the video.
+
+19
+00:01:01,000 --> 00:01:04,000
+发给同事，他们也能留评论
+I can send it to colleagues and they can comment too.
+
+20
+00:01:04,000 --> 00:01:06,500
+大家一起把故事做出来
+We can build the story together.
+
+21
+00:01:06,500 --> 00:01:10,500
+团队想再加工，可以直接导出到设计工具
+And if the team wants to take it further, we can export it straight into their design tools.
+
+22
+00:01:10,500 --> 00:01:13,500
+这就是 Claude Dashboards 和 Claude Motion
+So that's Claude Dashboards and Claude Motion,
+
+23
+00:01:13,500 --> 00:01:15,500
+今天就能用
+and you can try them out today.
+
