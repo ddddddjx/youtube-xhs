@@ -48,6 +48,8 @@ W, H = 1080, 1440
 L, R = 55, 55
 TEXT_W = W - L - R
 FS, LH, PGAP = 44, 72, 44          # 正文字号、行高、段距（量自原号截图）
+if os.environ.get("MEME_FS"):      # 10-09 起：长文整理稿要塞进 18 页时，MEME_FS=36 这样缩小字号（行高、段距按比例）
+    FS = int(os.environ["MEME_FS"]); LH = int(FS * 72 / 44); PGAP = int(FS * 44 / 44)
 BOTTOM = H - 40
 TOP_BAR = 132
 FONT = "/System/Library/Fonts/PingFang.ttc"
