@@ -1,0 +1,21 @@
+让 AI 说人话 — whiteboard explainer (1080x1920), built with the Lemo-Opuscar toolkit (MIT).
+
+Engine
+- engine/wb.js: copied from the Lemo-Opuscar whiteboard demo engine (MIT), changed only to take a vertical viewport.
+- mix.py marker / eraser / whoosh / clock foley: synthesis functions copied from the same demo's mixer (MIT).
+
+Fonts and glyph data
+- fonts/hanzi.json: stroke-order medians from hanzi-writer-data 2.0.1 (Make Me a Hanzi), derived from Arphic PL fonts,
+  Arphic Public License (see https://github.com/skishore/makemeahanzi).
+- fonts/EMSTech.json: EMS Tech single-line font (SIL Open Font License), as converted in the Lemo-Opuscar demo.
+- fonts/sub.woff2: Noto Sans SC Bold, subset via Google Fonts (SIL Open Font License).
+
+Voice
+- Kokoro-82M v1.0 via kokoro-onnx (Apache 2.0), voice zm_yunxi; Chinese G2P by misaki (Apache 2.0).
+
+Music (original score, music.py)
+- Samples (CC0): Versilian Community Sample Library (Versilian Studios) — marimba, glockenspiel, vibraphone, woodblock.
+
+Content
+- Script adapted from this account's 2026-10-02 post on Andrej Karpathy's thread (x.com/karpathy/status/2105819303471976479).
+  No logos, footage or images from third parties appear in the film.
