@@ -1,0 +1,10 @@
+# 引擎本体从 skills/huashu-art-motion/scripts/engine 复制，不重复提交；只留本片自己的文件
+代码工程/*
+!代码工程/dh/
+!代码工程/dirs/
+!代码工程/eras_film.js
+!代码工程/eras_dirs.js
+试渲/
+音频/*.wav
+render_*.log
+qa/*.jpg
