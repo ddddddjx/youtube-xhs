@@ -6,7 +6,7 @@ const bamboo = (c, x, y0, h, t, k) => { const sw = Math.sin(t * 1.4 + k) * 10; c
   for (let j = 0; j < 7; j++) { const q = 0.35 + j * 0.09, yy = y0 - h * q, xx = x + sw * q * q, d = j % 2 ? 1 : -1; F(c, K.ribbon([[xx, yy], [xx + d * 40, yy + 14 + Math.sin(t * 2 + j) * 4], [xx + d * 80, yy + 34]], q2 => 16 * Math.sin(Math.PI * Math.min(1, q2 * 1.1 + 0.05))), C.green, 1.8); } };
 
 // ================= 蔡伦造纸 =================
-const SHEETS = [[1080, 2.0], [1250, 3.0], [1420, 4.0], [1590, 5.2], [1760, 6.4]];
+const SHEETS = [[1080, 0.6], [1230, 1.2], [1380, 1.8], [1530, 2.4], [1680, 3.0], [1830, 3.6]];
 const sag = x => 330 + Math.sin((x - 960) / 960 * Math.PI) * 0 + 40 * Math.sin(((x - 960) / 860) * Math.PI);
 DHW.add({ id: 'paper', label: ['蔡伦造纸', '一〇五年'], wall: 'pale', focus: [560, 520], zoom: 1.28,
   keep: [[200, 330, 980, 960], [1000, 300, 1860, 760]],
@@ -34,7 +34,7 @@ DHW.add({ id: 'paper', label: ['蔡伦造纸', '一〇五年'], wall: 'pale', fo
   } });
 
 // ================= 莫高开窟 =================
-const CAVES = (() => { const o = [], r = U.rng(77); for (let row = 0; row < 3; row++) for (let i = 0; i < 6; i++) o.push([1110 + i * 120 + (row % 2) * 50 + r() * 16, 390 + row * 170 + r() * 10, 0.6 + (row * 6 + i) * 0.38 + r() * 0.2]); return o; })();
+const CAVES = (() => { const o = [], r = U.rng(77); for (let row = 0; row < 3; row++) for (let i = 0; i < 6; i++) o.push([1110 + i * 120 + (row % 2) * 50 + r() * 16, 390 + row * 170 + r() * 10, 0.1 + (row * 6 + i) * 0.22 + r() * 0.1]); return o; })();
 DHW.add({ id: 'mogao', label: ['莫高开窟', '三六六年'], wall: 'ochre', focus: [520, 420], zoom: 1.3,
   keep: [[220, 200, 900, 760], [1040, 200, 1900, 900]],
   silk: (r, t) => flow([[0, SY], [260, 200], [620, 190], [900, 300], [1100, 400], [1300, 395], [1520, 400], [1700, 330], [1920, SY]], t, 10),
@@ -63,39 +63,42 @@ DHW.add({ id: 'mogao', label: ['莫高开窟', '三六六年'], wall: 'ochre', f
 
 // ================= 开元盛世：飞天 =================
 function feitian(c, x, y, s, t) {
-  // 横飞向右：头在右（背面高髻，不露脸），上身前倾，琵琶抱在胸前，长裙和双足拖在左后方
-  c.save(); c.translate(x, y); c.scale(s, s); c.rotate(-0.1 + Math.sin(t * 1.6) * 0.04);
-  const wv = k => Math.sin(t * 4 - k) * 8;
-  // 长裙：两层，向后拖成尖尾；裙下双足
-  const skirt = DH.sm([[10, -18], [-90, -24], [-190, -16 + wv(1)], [-280, -2 + wv(2)], [-360, 12 + wv(3)], [-300, 22 + wv(2)], [-190, 28 + wv(1)], [-80, 28], [10, 22]]);
+  // 横飞向右的飞天，S 形身段：头在右前（背面高髻，脸朝画里），胸前抱琵琶，腰身下沉，长裙向后拖、双腿在裙里向上弯起；两条披帛绕臂后甩
+  c.save(); c.translate(x, y); c.scale(s, s); c.rotate(-0.06 + Math.sin(t * 1.6) * 0.035);
+  const wv = k => Math.sin(t * 3.6 - k) * 9;
+  // 披帛（身后那两段，先画，压在身体下）
+  const band = (pts, w, col) => F(c, K.ribbon(K.densify(pts, 6), q => w * (1 - q * 0.75)), col, 1.8);
+  band([[96, -50], [40, -110 + wv(0)], [-80, -120 + wv(1)], [-210, -90 + wv(2)], [-330, -130 + wv(3)], [-420, -100 + wv(4)]], 14, C.green2);
+  band([[70, 10], [10, 60 + wv(1)], [-110, 50 + wv(2)], [-230, 80 + wv(3)], [-350, 60 + wv(4)]], 12, C.red);
+  // 长裙：从胯部向后拖，末端上扬（腿在裙里弯起）
+  const skirt = DH.sm([[30, -20], [-60, -26], [-170, -30 + wv(1) * 0.4], [-260, -50 + wv(2) * 0.5], [-310, -86 + wv(3) * 0.5], [-292, -62], [-250, -14 + wv(2) * 0.4], [-160, 14 + wv(1) * 0.4], [-60, 22], [30, 18]]);
   F(c, skirt, C.green, 2.4);
-  const under = DH.sm([[-60, 10], [-160, 22 + wv(1)], [-250, 30 + wv(2)], [-330, 46 + wv(3)], [-260, 44 + wv(2)], [-160, 38 + wv(1)], [-60, 30]]); F(c, under, C.blue2, 2);
-  c.strokeStyle = C.white; c.lineWidth = 2; for (let k = 0; k < 5; k++) { c.beginPath(); c.moveTo(-10 - k * 60, -16); c.quadraticCurveTo(-40 - k * 60, 0, -24 - k * 64, 22); c.stroke(); }
-  F(c, DH.sm([[-150, 26 + wv(1)], [-176, 50 + wv(1)], [-190, 58 + wv(1)], [-168, 60 + wv(1)], [-140, 34 + wv(1)]]), C.skin, 2, '#8a3a24');
-  F(c, DH.sm([[-196, 30 + wv(2)], [-226, 52 + wv(2)], [-240, 58 + wv(2)], [-216, 62 + wv(2)], [-186, 38 + wv(2)]]), C.skin, 2, '#8a3a24');
-  // 红披帛两条（飞天身上自己的飘带）
-  F(c, K.ribbon(K.densify([[20, -30], [-60, -70 + wv(0)], [-160, -60 + wv(1)], [-260, -84 + wv(2)]], 5), q => 12 * (1 - q * 0.7)), C.red, 1.8);
-  F(c, K.ribbon(K.densify([[40, 20], [-40, 60 + wv(1)], [-140, 74 + wv(2)], [-230, 96 + wv(3)]], 5), q => 10 * (1 - q * 0.7)), C.red, 1.8);
-  // 腰带垂绦
-  F(c, K.ribbon([[0, 10], [-30, 40 + wv(0) * 0.5], [-70, 60 + wv(1)]], q => 8 - q * 4), C.red, 1.6);
-  // 上身：红色半臂，背面
-  F(c, DH.sm([[0, -24], [60, -44], [118, -40], [128, -8], [90, 18], [8, 22]]), C.red, 2.4);
-  c.strokeStyle = C.gold; c.lineWidth = 3; c.beginPath(); c.moveTo(60, -42); c.quadraticCurveTo(70, -10, 52, 18); c.stroke();
-  // 远侧手臂（托琵琶颈）
-  F(c, K.ribbon([[100, -36], [150, -50], [196, -64]], q => 15 - q * 5), C.skin, 2, '#8a3a24');
-  // 琵琶：梨形腹在胸前下方，颈朝右上
-  c.save(); c.translate(150, 6); c.rotate(-1.05);
-  F(c, DH.sm([[0, 34], [34, 0], [30, -50], [0, -70], [-30, -50], [-34, 0]]), C.ochre2, 2.4); F(c, DH.ell(0, -8, 9, 9), C.brown, 1.4);
-  c.strokeStyle = C.line; c.lineWidth = 1; for (let k = -2; k <= 2; k++) { c.beginPath(); c.moveTo(k * 4, -64); c.lineTo(k * 4, 24); c.stroke(); }
-  F(c, new Path2D('M-6 -70 L6 -70 L4 -150 L-4 -150 Z'), C.brown, 1.6); F(c, new Path2D('M-10 -150 L10 -150 L4 -172 L-12 -166 Z'), C.brown, 1.4); c.restore();
-  // 近侧手臂（拨弦）
-  F(c, K.ribbon([[90, -10], [120, 26], [160, 30]], q => 16 - q * 5), C.skin, 2, '#8a3a24');
-  // 头：头光＋背面高髻（脸朝画里，看不见）
-  c.strokeStyle = C.gold; c.lineWidth = 3; c.beginPath(); c.arc(150, -76, 46, 0, Math.PI * 2); c.stroke(); c.fillStyle = 'rgba(106,176,142,.22)'; c.fill();
-  F(c, DH.sm([[126, -54], [140, -46], [152, -50], [148, -40], [130, -38]]), C.skin, 1.6, '#8a3a24');   // 后颈
-  F(c, DH.ell(146, -76, 25, 26), C.ink, 2); F(c, DH.ell(152, -108, 17, 14, 0.4), C.ink, 1.6); F(c, DH.ell(166, -122, 11, 10), C.ink, 1.6);
-  c.fillStyle = C.gold; c.save(); c.translate(146, -96); c.rotate(-0.4); c.fillRect(-16, -2, 34, 4); c.restore();
-  [[128, -100, C.red], [172, -106, C.white], [134, -118, C.green2]].forEach(([fx, fy, fc]) => { for (let j = 0; j < 5; j++) { c.fillStyle = fc; c.beginPath(); c.arc(fx + Math.cos(j * 1.26) * 5, fy + Math.sin(j * 1.26) * 5, 4, 0, Math.PI * 2); c.fill(); } });
+  c.save(); c.clip(skirt); c.fillStyle = C.blue2; c.beginPath(); c.moveTo(30, 12); c.quadraticCurveTo(-140, 20, -300, -64); c.lineTo(-300, 40); c.lineTo(30, 40); c.closePath(); c.fill(); c.restore();
+  c.strokeStyle = C.white; c.lineWidth = 1.8; for (let k = 0; k < 6; k++) { const x0 = 10 - k * 48; c.beginPath(); c.moveTo(x0, -22 - k * 4); c.quadraticCurveTo(x0 - 30, -4 - k * 4, x0 - 20, 14 - k * 6); c.stroke(); }
+  // 双足：从裙尾露出，向后上方
+  F(c, DH.sm([[-300, -80 + wv(3) * 0.5], [-334, -112 + wv(4) * 0.5], [-344, -106 + wv(4) * 0.5], [-316, -70 + wv(3) * 0.5]]), C.skin, 1.8, '#8a3a24');
+  F(c, DH.sm([[-280, -60], [-322, -84 + wv(4) * 0.4], [-330, -76 + wv(4) * 0.4], [-292, -50]]), C.skin, 1.8, '#8a3a24');
+  // 上身：S 形，腰细、肩宽，红色抹胸＋裸臂
+  const torso = DH.sm([[24, -18], [64, -36], [112, -62], [146, -56], [150, -36], [120, -12], [80, 6], [36, 16]]); F(c, torso, C.skin, 2.2, '#8a3a24');
+  F(c, DH.sm([[60, -30], [108, -54], [138, -48], [124, -26], [86, -6], [52, 2]]), C.red, 2);
+  F(c, DH.sm([[24, -20], [40, -26], [44, 18], [26, 18]]), C.gold, 1.6);   // 腰带
+  // 远侧手臂：向前上方伸，握琵琶颈；金臂钏
+  F(c, K.ribbon(K.densify([[132, -56], [176, -84], [214, -96]], 4), q => 14 - q * 5), C.skin, 2, '#8a3a24');
+  c.fillStyle = C.gold; c.save(); c.translate(160, -76); c.rotate(-0.6); c.fillRect(-3, -8, 6, 16); c.restore();
+  // 琵琶：腹贴胸前，颈朝右上
+  c.save(); c.translate(150, -18); c.rotate(-1.0);
+  F(c, DH.sm([[0, 36], [34, 4], [30, -46], [0, -66], [-30, -46], [-34, 4]]), C.ochre2, 2.4); F(c, DH.ell(0, -4, 9, 9), C.brown, 1.4);
+  c.strokeStyle = C.line; c.lineWidth = 1; for (let k = -2; k <= 2; k++) { c.beginPath(); c.moveTo(k * 4, -60); c.lineTo(k * 4, 26); c.stroke(); }
+  F(c, new Path2D('M-6 -66 L6 -66 L4 -140 L-4 -140 Z'), C.brown, 1.6); F(c, new Path2D('M-9 -140 L9 -140 L4 -162 L-12 -156 Z'), C.brown, 1.4); c.restore();
+  // 近侧手臂：肘弯，手指拨弦；臂上绕一圈披帛
+  F(c, K.ribbon(K.densify([[110, -40], [104, 4], [140, 12]], 4), q => 16 - q * 5), C.skin, 2, '#8a3a24');
+  F(c, K.ribbon([[94, -14], [118, -22]], 9), C.green2, 1.4);
+  // 头：头光、后颈、背面高髻、花钗
+  c.strokeStyle = C.gold; c.lineWidth = 3; c.beginPath(); c.arc(158, -94, 44, 0, Math.PI * 2); c.stroke(); c.fillStyle = 'rgba(106,176,142,.22)'; c.fill();
+  F(c, DH.sm([[136, -62], [150, -58], [160, -66], [152, -54], [138, -52]]), C.skin, 1.6, '#8a3a24');
+  F(c, DH.ell(154, -92, 23, 25), C.ink, 2); F(c, DH.ell(160, -122, 16, 13, 0.4), C.ink, 1.6); F(c, DH.ell(172, -136, 10, 9), C.ink, 1.6);
+  c.fillStyle = C.gold; c.save(); c.translate(154, -110); c.rotate(-0.4); c.fillRect(-16, -2, 34, 4); c.restore();
+  [[136, -114, C.red], [180, -120, C.white], [142, -132, C.green2]].forEach(([fx, fy, fc]) => { for (let j = 0; j < 5; j++) { c.fillStyle = fc; c.beginPath(); c.arc(fx + Math.cos(j * 1.26) * 5, fy + Math.sin(j * 1.26) * 5, 4, 0, Math.PI * 2); c.fill(); } });
   c.restore();
 }
 const ftX = r => lerp(380, 1180, E.inOut3(clamp((r + 0.3) / 9.6))), ftY = (r, t) => 610 + Math.sin(r * 0.9) * 40;
@@ -121,7 +124,7 @@ DHW.segs[DHW.segs.length - 1].focus = [ftX(2 * BAR) + 60, ftY(2 * BAR) - 60];
 // ================= 毕昇活字 =================
 const TXT = '庆历中有布衣毕昇又为活板其法用胶泥刻字薄如钱唇每';
 const slot = i => [300 + (5 - (i / 4 | 0)) * 96, 380 + (i % 4) * 96];   // 竖排：右起第一列从上往下
-DHW.add({ id: 'huozi', label: ['毕昇活字', '一〇四〇年'], wall: 'ochre', focus: [540, 520], zoom: 1.24,
+DHW.add({ id: 'huozi', label: ['毕昇活字', '约一〇四五年'], wall: 'ochre', focus: [540, 520], zoom: 1.24,
   keep: [[240, 300, 900, 840], [1100, 260, 1820, 900]],
   silk: (r, t) => { const pr = r > 2 * BAR ? 1 : 0; return flow([[0, SY], [140, 300], [240, 330 - 0], [560, 336], [880, 330], [1050, 300], [1400, 250], [1920, SY]], t, pr ? 2 : 8); },
   draw(c, r, t) {

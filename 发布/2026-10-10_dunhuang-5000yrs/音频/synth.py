@@ -91,7 +91,7 @@ def verb(x):
     ir = rng.normal(0, 1, int(1.6 * SR)) * np.exp(-np.arange(int(1.6 * SR)) / SR * 3.2); ir[0] = 0
     return ss.fftconvolve(x, ir)[: len(x)] * 0.012
 L2 = L + verb(L); R2 = R + verb(R)
-fade = np.ones(N); fn = int(1.2 * SR); fade[-fn:] = np.linspace(1, 0, fn) ** 2
+fade = np.ones(N); fn = int(3.0 * SR); fade[-fn:] = np.linspace(1, 0, fn) ** 1.5; fi = int(0.4 * SR); fade[:fi] = np.linspace(0, 1, fi)
 st = np.stack([L2 * fade, R2 * fade], 1)
 rms = np.sqrt(np.mean(st ** 2)); st *= 0.12 / rms
 st = np.tanh(st * 1.1) / np.tanh(1.1); st *= 10 ** (-1.5 / 20) / np.max(np.abs(st))

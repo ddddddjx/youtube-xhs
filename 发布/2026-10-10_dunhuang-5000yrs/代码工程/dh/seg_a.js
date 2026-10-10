@@ -34,7 +34,7 @@ DHW.add({ id: 'xu', bars: 2, wall: 'pale', noSeam: true, focus: [1390, 470], pun
     // 蚕：伏在缺口边，一口口啃
     c.save(); c.translate(bx - 10, by + 58); c.rotate(-0.15); c.scale(1.45, 1.45);
     for (let i = 7; i >= 0; i--) { const lift = i === 0 ? -chew * 10 : Math.sin(t * 6 - i * 0.7) * 2.5, rr = i === 0 ? 17 : 22 - Math.abs(i - 3) * 1.5; F(c, DH.ell(-i * 26, lift, rr * 0.9, rr), '#f1e6cf', 2.2); if (i === 2 || i === 5) { c.strokeStyle = 'rgba(90,36,20,.6)'; c.lineWidth = 2.5; c.beginPath(); c.arc(-i * 26, lift - 4, 7, 3.6, 5.8); c.stroke(); } }
-    c.fillStyle = '#7a5a3a'; c.beginPath(); c.arc(8, -chew * 10 - 2, 5, 0, Math.PI * 2); c.fill();
+    c.strokeStyle = '#7a5a3a'; c.lineWidth = 2; c.beginPath(); c.moveTo(14, -chew * 10 + 4); c.lineTo(20, -chew * 10 + 8); c.stroke();
     c.restore(); c.restore();
     // 茧：挂在小枝上，被抽丝时转
     c.save(); c.translate(1395, 470); const spin = r > BAR ? (r - BAR) * 5 : 0; c.rotate(Math.sin(spin) * 0.18 + (r > BAR ? 0.2 : 0));
@@ -145,7 +145,7 @@ DHW.add({ id: 'kongzi', label: ['孔子讲学', '前五〇〇年'], wall: 'ochre
       if (k === 2 && r > hitT && r < hitT + 2.5) { const q = (r - hitT) / 2.5; c.strokeStyle = `rgba(236,223,196,${1 - q})`; c.lineWidth = 4; for (let j = 0; j < 3; j++) { const R = 60 + (q * 3 - j * 0.4) * 90; if (R < 60) continue; c.beginPath(); c.arc(x, 360, R, -0.6, 0.6); c.stroke(); c.beginPath(); c.arc(x, 360, R, Math.PI - 0.6, Math.PI + 0.6); c.stroke(); } }
     }
     // 竹简：从右往左摊开
-    const open = E.out3(clamp(r / 3.2)), n = 16, sw = 44;
+    const open = E.out3(clamp(r / 3.2)), n = 15, sw = 46;
     for (let i = 0; i < n; i++) { const shown = clamp(open * n - (n - 1 - i)); if (shown <= 0) continue; const x = 1120 - (n - i) * sw * shown - 20, y = 540 + Math.sin(i * 0.4) * 4;
       F(c, new Path2D(`M${x} ${y} L${x + sw - 6} ${y} L${x + sw - 6} ${y + 380} L${x} ${y + 380} Z`), i % 2 ? '#d8b878' : '#cfae6c', 2);
       c.font = '30px "LXGWWenKai-500"'; c.fillStyle = C.ink; c.textAlign = 'center'; c.textBaseline = 'top'; const ch = TEXT[(n - 1 - i) * 1 % TEXT.length]; for (let j = 0; j < 1; j++) c.fillText(TEXT[(n - 1 - i)] || '', x + sw / 2 - 3, y + 30);
@@ -166,10 +166,9 @@ DHW.add({ id: 'changcheng', label: ['秦筑长城', '前二一四年'], wall: 'p
     const built = 40 + E.out3(clamp(r / 4.5)) * 1880;
     const top = [], bot = []; for (let x = 0; x <= built; x += 10) { top.push([x, ridge(x) - 40]); bot.push([x, ridge(x) + 30]); }
     if (top.length > 1) { const p = new Path2D(); top.forEach((q, i) => i ? p.lineTo(q[0], q[1]) : p.moveTo(q[0], q[1])); for (let i = bot.length - 1; i >= 0; i--) p.lineTo(bot[i][0], bot[i][1]); p.closePath(); F(c, p, '#d8b88a', 2.6);
-      c.save(); c.clip(p); c.strokeStyle = 'rgba(122,46,30,.45)'; c.lineWidth = 1.5; for (let x = 0; x < built; x += 26) for (let j = 0; j < 3; j++) { const y = ridge(x) - 30 + j * 20; c.beginPath(); c.moveTo(x + (j % 2) * 13, y); c.lineTo(x + (j % 2) * 13, y + 20); c.stroke(); } c.restore();
-      for (let x = 0; x < built - 10; x += 36) F(c, new Path2D(`M${x} ${ridge(x) - 40} L${x} ${ridge(x) - 62} L${x + 20} ${ridge(x + 20) - 62} L${x + 20} ${ridge(x + 20) - 40} Z`), '#d8b88a', 2); }
-    // 正在垒的砖
-    if (r < 4.5) { const bx = built, q = (r * 3) % 1; F(c, new Path2D(`M${bx - 10} ${ridge(bx) - 90 + q * 50} l26 0 l0 16 l-26 0 Z`), '#c99a62', 2); }
+      c.save(); c.clip(p); c.strokeStyle = 'rgba(122,46,30,.45)'; c.lineWidth = 2; for (let j = 0; j < 6; j++) { c.beginPath(); for (let x = 0; x <= built; x += 10) { const y = ridge(x) - 34 + j * 11 + Math.sin(x * 0.05 + j) * 1.5; x ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); } c.restore(); }
+    // 正在夯的那一版：夯杵上下
+    if (r < 4.5) { const bx = built, q = Math.abs(Math.sin(r * 9)); F(c, new Path2D(`M${bx - 30} ${ridge(bx) - 44} l40 0 l0 14 l-40 0 Z`), '#c99a62', 2); F(c, new Path2D(`M${bx - 14} ${ridge(bx) - 60 - q * 50} l8 0 l0 -60 l-8 0 Z`), C.brown, 1.6); F(c, new Path2D(`M${bx - 20} ${ridge(bx) - 60 - q * 50} l20 0 l0 14 l-20 0 Z`), C.brown, 1.6); }
     // 烽火台
     [[420, 0], [1330, 1]].forEach(([x, k]) => { if (built < x) return; const y = ridge(x); F(c, new Path2D(`M${x - 50} ${y - 40} L${x + 50} ${y - 40} L${x + 40} ${y - 170} L${x - 40} ${y - 170} Z`), '#cfa878', 2.6);
       for (let j = 0; j < 4; j++) F(c, new Path2D(`M${x - 44 + j * 26} ${y - 170} l16 0 l0 -20 l-16 0 Z`), '#cfa878', 2);
@@ -181,8 +180,8 @@ DHW.add({ id: 'changcheng', label: ['秦筑长城', '前二一四年'], wall: 'p
   } });
 
 // ================= 张骞通西域 =================
-DHW.add({ id: 'silkroad', label: ['张骞西行', '前一三八年'], wall: 'ochre', focus: [1540, 640], zoom: 1.32,
-  keep: [[150, 600, 1720, 980]],
+DHW.add({ id: 'silkroad', label: ['张骞西行', '前一三八年'], wall: 'ochre', focus: [400, 640], zoom: 1.32,
+  keep: [[200, 560, 1770, 980]],
   silk: (r, t) => flow([[0, SY], [300, 420], [560, 560], [700, 620], [860, 560], [1130, 520], [1270, 610], [1400, 520], [1640, 360], [1920, SY]], t, 8),
-  draw(c, r, t) { c.save(); c.translate(0, 40); DH.han(c, t, { pan: r * 25 }); c.restore(); } });
+  draw(c, r, t) { c.save(); c.translate(1920, 40); c.scale(-1, 1); DH.han(c, t, { pan: -r * 25 }); c.restore(); } });
 })();

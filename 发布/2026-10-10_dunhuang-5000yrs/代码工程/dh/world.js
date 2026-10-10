@@ -23,7 +23,7 @@ DHW.cam = (t) => {
   const hit = k > 0 ? Math.max(0, 1 - (r - PAN_OUT) / 0.3) : 0; z = 1 + 0.03 * ease.out3(hit) * hit;
   // 快推：第 3 小节第一拍推 1.22×（0.28s），第 4 小节中拉回（0.3s）
   const pin = s.punchAt != null ? s.punchAt : 2 * BAR, pout = s.pullAt != null ? s.pullAt : 3.5 * BAR, zz = s.zoom || 1.22;
-  if (s.bars >= 2 && r >= pin) { const a = ease.out3(clamp((r - pin) / 0.28)), b = ease.inOut3(clamp((r - pout) / 0.3)); z *= 1 + (zz - 1) * a * (1 - b); }
+  if (s.bars >= 2 && r >= pin) { const a = ease.inOut3(clamp((r - pin) / 0.45)), b = ease.inOut3(clamp((r - pout) / 0.45)); z *= 1 + (zz - 1) * a * (1 - b); }
   return { x, z, fx: f[0], fy: f[1] };
 };
 // 丝带露出比例（默认）：进场横移时快速冲进来，停留时慢慢往前，离场前跑完
@@ -62,7 +62,7 @@ function frame(c, s, t) {
   c.fillStyle = C.redDk; c.fillRect(0, 0, W, 22); DH.vineBand(c, 0, 18, W + 1, 52, { ph: s.x0 });
   c.fillStyle = C.redDk; c.fillRect(0, 70, W + 1, 6); DH.valance(c, 0, 76, W + 1, { tri: 64, h: 40, ph: t * 2 });
   DH.vineBand(c, 0, DHW.BOT, W + 1, 58, { bg: C.blue, ph: s.x0 }); DH.pearlBand(c, 0, DHW.BOT + 58, W + 1, 42);
-  if (s.k > 0 && !s.noSeam) { c.fillStyle = C.green; c.fillRect(-14, DHW.TOP, 28, DHW.BOT - DHW.TOP); c.strokeStyle = C.white; c.lineWidth = 2.5;
+  if (false) { c.fillStyle = C.green; c.fillRect(-14, DHW.TOP, 28, DHW.BOT - DHW.TOP); c.strokeStyle = C.white; c.lineWidth = 2.5;
     for (let y = DHW.TOP + 20; y < DHW.BOT; y += 44) { c.beginPath(); c.arc((Math.floor(y / 44) % 2 ? 4 : -4), y, 7, 0, Math.PI * 1.4); c.stroke(); }
     c.strokeStyle = C.line; c.lineWidth = 2.5; c.strokeRect(-14, DHW.TOP, 28, DHW.BOT - DHW.TOP); }
 }
@@ -70,13 +70,17 @@ const WALLS = { ochre: ['#d6aa78', '#a8683e', 4], red: ['#b25a3a', '#7a3020', 5]
 function segLayer(c, s, t, part) {
   const r = t - s.T;
   if (part === 'back') {
-    const w = WALLS[s.wall || 'ochre']; c.drawImage(DH.wall(s.wall || 'ochre', w[0], w[1], w[2]), 0, 0);
+    const w = WALLS[s.wall || 'ochre'], wim = DH.wall(s.wall || 'ochre', w[0], w[1], w[2]); c.drawImage(wim, 0, 0);
+    if (s.k > 0) for (let j = 0; j < 16; j++) { c.globalAlpha = (j + 1) / 17; c.drawImage(wim, 1920 - 320 + j * 20, 0, 20, 1080, -320 + j * 20, 0, 20, 1080); } c.globalAlpha = 1;
     c.save(); c.beginPath(); c.rect(0, DHW.TOP, W, DHW.BOT - DHW.TOP); c.clip(); s.draw(c, r, t); c.restore();
   } else if (part === 'front') {
     c.save(); c.beginPath(); c.rect(0, DHW.TOP, W, DHW.BOT - DHW.TOP); c.clip(); if (s.front) s.front(c, r, t); c.restore();
     frame(c, s, t);
-    if (s.label) DH.bangti(c, s.labelX ?? 60, s.labelY ?? 150, s.label, { size: 40, seed: s.k + 3 });
     c.drawImage(DH.aging('seg' + s.k, { keep: (s.keep || []).concat(s.label ? [[(s.labelX ?? 60) - 4, (s.labelY ?? 150) - 4, (s.labelX ?? 60) + 160, (s.labelY ?? 150) + 420]] : []), amt: s.amt || 0.3, smoke: 0, seed: 91 + s.k * 7 }), 0, 0);
+  } else if (part === 'label') {
+    const pin = s.punchAt != null ? s.punchAt : 2 * BAR, pout = s.pullAt != null ? s.pullAt : 3.5 * BAR;
+    const al = 1 - clamp((r - pin + 0.1) / 0.25) + clamp((r - pout - 0.2) / 0.3);
+    if (s.label && al > 0.01) DH.bangti(c, s.labelX ?? 60, s.labelY ?? 150, s.label, { size: 40, seed: s.k + 3, alpha: Math.min(1, al) });
   }
 }
 DHW.silkWorld = (t, upto) => {   // 全片丝带点列（世界坐标），只取 [k0, k1] 段
@@ -94,10 +98,12 @@ DHW.draw = (c, t) => { if (!DHW.total) DHW.finalize();
   const vis = DHW.segs.filter(s => s.x0 + W + 20 > vx0 && s.x0 - 20 < vx1 && !s.offWorld);
   vis.forEach(s => { c.save(); c.translate(s.x0, 0); segLayer(c, s, t, 'back'); c.restore(); });
   const k0 = Math.max(0, vis[0].k - 1), k1 = vis[vis.length - 1].k;
-  c.save(); c.beginPath(); c.rect(vx0 - 10, DHW.TOP, vx1 - vx0 + 20, DHW.BOT - DHW.TOP); c.clip(); drawSilk(c, DHW.silkWorld(t, [0, k1]), t); c.restore();
   vis.forEach(s => { c.save(); c.translate(s.x0, 0); segLayer(c, s, t, 'front'); c.restore(); });
+  c.save(); c.beginPath(); c.rect(vx0 - 10, DHW.TOP, vx1 - vx0 + 20, DHW.BOT - DHW.TOP); c.clip(); drawSilk(c, DHW.silkWorld(t, [0, k1]), t); c.restore();
   c.restore();
   DH.petals(c, t, { n: 10, y0: 100, y1: 1000, speed: 50, scale: 1.2 });
+  c.save(); c.translate(cam.fx, cam.fy); c.scale(cam.z, cam.z); c.translate(-cam.fx - cam.x, -cam.fy);
+  vis.forEach(s => { c.save(); c.translate(s.x0, 0); segLayer(c, s, t, 'label'); c.restore(); }); c.restore();
   c.save(); c.globalCompositeOperation = 'saturation'; c.fillStyle = 'rgba(128,128,128,.22)'; c.fillRect(0, 0, W, H); c.restore();
   c.save(); c.globalCompositeOperation = 'multiply'; c.globalAlpha = 0.35; c.drawImage(PAINT.texture('dh_dirt', '#e8dcc8', { scale: 0.002, amt: 40, grain: 20, seed: 9 }), 0, 0); c.restore();
 };

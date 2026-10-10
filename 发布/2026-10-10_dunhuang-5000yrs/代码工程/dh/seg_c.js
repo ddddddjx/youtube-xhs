@@ -5,7 +5,7 @@ const { C, F } = DH, { clamp, lerp } = U, BAR = DHW.BAR, K = KIT, E = DHW.ease, 
 // ================= 四库全书 =================
 const SK = ['#3f8f6e', '#a5452f', '#2f5f8f', '#b8a888'];   // 经 史 子 集
 const SLOTS = (() => { const o = []; for (let j = 0; j < 4; j++) for (let i = 0; i < 7; i++) o.push([i, j]); const r = U.rng(5); return o.map((p, k) => [...p, k / 28 * 7.5 + r() * 0.3]); })();
-DHW.add({ id: 'siku', label: ['四库全书', '一七七二年'], wall: 'red', focus: [1100, 520], zoom: 1.2,
+DHW.add({ id: 'siku', label: ['四库全书', '一七七三年'], wall: 'red', focus: [1100, 520], zoom: 1.2,
   keep: [[340, 200, 1700, 960]],
   silk: (r, t) => flow([[0, SY], [200, 300], [420, 640], [560, 800], [700, 830], [860, 800], [960, 640], [1200, 200], [1920, SY]], t, 6),
   draw(c, r, t) {
@@ -37,7 +37,7 @@ function flag(c, x, y, w, t, unfurl) { // 国旗：30×20 网格；左上为旗�
     [[10, 2], [12, 4], [12, 7], [10, 9]].forEach(([sx, sy]) => { const a = Math.atan2(5 - sy, 5 - sx); star(c, x + sx * u, y + sy * u + off(sx * u), u, a + Math.PI / 2); }); }
   c.restore(); }
 DHW.add({ id: 'prc', label: ['新中国成立', '一九四九年'], wall: 'pale', focus: [1520, 380], zoom: 1.24,
-  keep: [[180, 240, 1500, 960], [1500, 160, 1900, 900]],
+  keep: [[180, 240, 1500, 960], [1500, 140, 1920, 980]],
   silk: (r, t) => { const up = E.inOut3(clamp((r - 2 * BAR) / 0.8)); return flow([[0, SY], [240, 420], [700, 470], [1200, 470], [1500, 600], [1600, 700 - up * 500], [1620, 760 - up * 560], [1700, 200], [1920, SY]], t, 6); },
   draw(c, r, t) {
     // 城台（红墙、券门）
@@ -71,6 +71,7 @@ DHW.add({ id: 'dfh', label: ['东方红一号', '一九七〇年'], wall: 'red',
   draw(c, r, t) {
     c.fillStyle = '#1f3a52'; c.fillRect(0, 124, 1920, 860);
     const rs = U.rng(12); for (let k = 0; k < 90; k++) { const x = rs() * 1920, y = 130 + rs() * 600, tw = 0.5 + 0.5 * Math.sin(t * 3 + k); c.fillStyle = `rgba(236,223,196,${0.4 + 0.6 * tw})`; c.beginPath(); c.arc(x, y, 1.5 + rs() * 2.5, 0, Math.PI * 2); c.fill(); }
+    [[260, 260, 1.6, 0], [1500, 200, 1.3, 1], [1100, 420, 1.1, 2], [520, 560, 1.2, 3]].forEach(([x, y, sc, k]) => DH.cloud(c, ((x - t * (14 + k * 4)) % 2100 + 2100) % 2100 - 90, y, sc, t, t + k, 'rgba(236,223,196,.9)'));
     // 地球边缘（石绿陆地＋石青海＋白云）
     const earth = DH.ell(960, 1500, 1300, 640); F(c, earth, C.blue, 3); c.save(); c.clip(earth);
     [[500, 900, 300, 80], [1200, 880, 360, 70], [1700, 960, 200, 90]].forEach(([x, y, w, h]) => F(c, DH.ell(x, y, w, h, -0.05), C.green, 2));
@@ -122,6 +123,7 @@ DHW.add({ id: 'change', label: ['嫦娥五号', '二〇二〇年'], wall: 'red',
   draw(c, r, t) {
     c.fillStyle = '#1f3a52'; c.fillRect(0, 124, 1920, 860);
     const rs = U.rng(21); for (let k = 0; k < 60; k++) { const x = rs() * 1920, y = 130 + rs() * 420; c.fillStyle = `rgba(236,223,196,${0.5 + 0.5 * Math.sin(t * 2 + k)})`; c.beginPath(); c.arc(x, y, 1.5 + rs() * 2, 0, Math.PI * 2); c.fill(); }
+    [[300, 240, 1.4, 0], [900, 330, 1.1, 1], [1250, 200, 1.2, 2]].forEach(([x, y, sc, k]) => DH.cloud(c, ((x - t * (14 + k * 4)) % 2100 + 2100) % 2100 - 90, y, sc, t, t + k, 'rgba(236,223,196,.9)'));
     // 地球
     const ea = DH.ell(1560, 290, 90, 90); F(c, ea, C.blue, 2.4); c.save(); c.clip(ea); F(c, DH.ell(1530, 270, 50, 30), C.green, 1.6); F(c, DH.ell(1600, 330, 40, 22), C.green, 1.6); c.fillStyle = 'rgba(31,58,82,.55)'; c.fillRect(1600, 190, 60, 200); c.restore();
     // 月面
@@ -150,11 +152,11 @@ DHW.add({ id: 'change', label: ['嫦娥五号', '二〇二〇年'], wall: 'red',
 const THUMB = {};
 function thumb(k) { if (THUMB[k]) return THUMB[k]; const cv = PAINT.canvas(1920, 1080), g = cv.getContext('2d'), s = DHW.segs[k]; g.save(); g.fillStyle = '#c99a62'; g.fillRect(0, 0, 1920, 1080); g.translate(0, 0); s.draw(g, 4, s.T + 4); if (s.front) s.front(g, 4, s.T + 4); g.restore(); THUMB[k] = cv; return cv; }
 function jiuceng(c, x, y, s, t) { c.save(); c.translate(x, y); c.scale(s, s);
-  for (let k = 0; k < 9; k++) { const w = 300 - k * 22, yy = -k * 62; F(c, new Path2D(`M${-w / 2 + 10} ${yy} L${w / 2 - 10} ${yy} L${w / 2 - 10} ${yy - 44} L${-w / 2 + 10} ${yy - 44} Z`), '#b8402e', 2); for (let m = -w / 2 + 30; m < w / 2 - 20; m += 34) F(c, new Path2D(`M${m} ${yy - 6} l14 0 l0 -30 l-14 0 Z`), '#e6d6b2', 1.2);
+  for (let k = 0; k < 9; k++) { const w = 380 - k * 12, yy = -k * 62; F(c, new Path2D(`M${-w / 2 + 10} ${yy} L${w / 2 - 10} ${yy} L${w / 2 - 10} ${yy - 44} L${-w / 2 + 10} ${yy - 44} Z`), '#b8402e', 2); for (let m = -w / 2 + 30; m < w / 2 - 20; m += 34) F(c, new Path2D(`M${m} ${yy - 6} l14 0 l0 -30 l-14 0 Z`), '#e6d6b2', 1.2);
     const eave = new Path2D(`M${-w / 2 - 34} ${yy - 40} Q${-w / 2} ${yy - 50} ${-w / 2 + 20} ${yy - 64} L${w / 2 - 20} ${yy - 64} Q${w / 2} ${yy - 50} ${w / 2 + 34} ${yy - 40} Z`); F(c, eave, k % 2 ? C.greenDk : C.green, 2);
     c.save(); c.translate(w / 2 + 30, yy - 40); c.rotate(Math.sin(t * 2.5 + k) * 0.25); c.strokeStyle = C.line; c.lineWidth = 1.5; c.beginPath(); c.moveTo(0, 0); c.lineTo(0, 12); c.stroke(); F(c, new Path2D('M-5 12 L5 12 L7 24 L-7 24 Z'), C.gold, 1.2); c.restore(); }
   F(c, new Path2D('M-30 -558 L30 -558 L0 -620 Z'), C.gold, 2); c.restore(); }
-const CLIFF_CAVES = (() => { const o = [], r = U.rng(303); for (let row = 0; row < 5; row++) for (let i = 0; i < 12; i++) { const x = -1500 + i * 280 + (row % 2) * 140 + r() * 30, y = -250 + row * 210; if (Math.abs(x - 960) < 260) continue; o.push([x, y]); } return o; })();
+const CLIFF_CAVES = (() => { const o = [], r = U.rng(303); for (let row = 0; row < 4; row++) for (let i = 0; i < 10; i++) { const x = -1200 + i * 400 + (row % 2) * 200 + r() * 30, y = -200 + row * 300; if (Math.abs(x - 960) < 330) continue; o.push([x, y]); } return o; })();
 function cliffFull(c, t, z, r) {
   // 世界坐标：中心 (960, 560)；崖面 x -1700..3600, y -500..1500
   c.fillStyle = '#d8b88a'; c.fillRect(-2600, -2400, 7200, 2050);
@@ -162,8 +164,8 @@ function cliffFull(c, t, z, r) {
   F(c, new Path2D('M-2600 -360 L4600 -360 L4600 1300 L-2600 1300 Z'), '#c99a62', 3);
   c.strokeStyle = 'rgba(122,46,30,.35)'; c.lineWidth = 4; for (let y = -320; y < 1300; y += 60) { c.beginPath(); for (let x = -2600; x <= 4600; x += 40) { const yy = y + Math.sin(x * 0.01 + y) * 6; x === -2600 ? c.moveTo(x, yy) : c.lineTo(x, yy); } c.stroke(); }
   // 窟口：每个窟里亮着一朝
-  CLIFF_CAVES.forEach(([x, y], i) => { const k = 1 + (i % 15); const p = new Path2D(`M${x - 90} ${y + 80} L${x - 90} ${y - 20} Q${x} ${y - 100} ${x + 90} ${y - 20} L${x + 90} ${y + 80} Z`);
-    F(c, p, '#3a1a10', 3); c.save(); c.clip(p); c.globalAlpha = 0.92; c.drawImage(thumb(k), x - 150, y - 100, 300, 169); c.globalAlpha = 1; c.restore(); c.strokeStyle = C.gold; c.lineWidth = 3; c.stroke(p); });
+  CLIFF_CAVES.forEach(([x, y], i) => { const k = 1 + (i % 15); const p = new Path2D(`M${x - 150} ${y + 120} L${x - 150} ${y - 30} Q${x} ${y - 160} ${x + 150} ${y - 30} L${x + 150} ${y + 120} Z`);
+    F(c, p, '#3a1a10', 3); c.save(); c.clip(p); c.globalAlpha = 0.92; c.drawImage(thumb(k), x - 220, y - 150, 440, 248); c.globalAlpha = 1; c.restore(); c.strokeStyle = C.gold; c.lineWidth = 3; c.stroke(p); });
   // 白杨、沙地
   F(c, new Path2D('M-2600 1180 L4600 1180 L4600 2900 L-2600 2900 Z'), '#d8b88a', 2); c.strokeStyle = 'rgba(122,46,30,.3)'; c.lineWidth = 4; for (let k = 0; k < 10; k++) { c.beginPath(); for (let x = -2600; x <= 4600; x += 40) { const yy = 1320 + k * 150 + Math.sin(x * 0.004 + k) * 30; x === -2600 ? c.moveTo(x, yy) : c.lineTo(x, yy); } c.stroke(); }
   for (let k = 0; k < 40; k++) { const x = -2500 + k * 180, sw = Math.sin(t * 1.4 + k) * 5; F(c, DH.sm([[x - 26, 1190], [x - 34 + sw, 1080], [x + sw, 900], [x + 34 + sw, 1080], [x + 26, 1190]]), C.green, 2.4); }
@@ -174,14 +176,14 @@ DHW.add({ id: 'wei', wall: 'ochre', focus: [960, 540], keep: [[0, 124, 1920, 980
   tip: r => r < -0.75 ? 0 : r < 0.05 ? 0.4 * E.out3((r + 0.75) / 0.8) : 0.4 + 0.6 * E.inOut3(clamp((r - 0.05) / 2.4)),
   draw(c, r, t) { c.save(); c.translate(960, 560); c.scale(0.42, 0.42); c.translate(-960, -560); cliffFull(c, t, 1, r); c.restore(); },
   cam(r, t) { if (r < 2 * BAR) return null;
-    return { custom: (c, tt) => { const q = E.out3(clamp((r - 2 * BAR) / 3.6)), z = lerp(1.15, 0.5, q), cy = lerp(-120, 470, q);
+    return { custom: (c, tt) => { const q = E.out3(clamp((r - 2 * BAR) / 3.6)), z = lerp(1.15, 0.55, q), cy = lerp(-120, 430, q);
       c.fillStyle = '#7a3020'; c.fillRect(0, 0, 1920, 1080);
       c.save(); c.translate(960, 540); c.scale(z, z); c.translate(-960, -cy); cliffFull(c, t, z, r);
       // 丝带：从九层楼顶甩出，在檐角飘
       const top = [960, 1180 - 620 * 1.7], pts = []; for (let i = 0; i <= 26; i++) { const qq = i / 26; pts.push([top[0] + qq * 900, top[1] + Math.sin(qq * 6 - t * 3) * 60 * qq - qq * 120]); } DHW.drawSilk(c, pts.reverse(), t, true);
       c.restore();
       // 最后两小节：题记落在崖面上（世界里的榜题，跟着镜头一起缩）
-      const lq = clamp((r - 3 * BAR) / 0.5); if (lq > 0) { c.save(); c.translate(960, 540); c.scale(z, z); c.translate(-960, -cy); DH.bangti(c, 1240, -230, ['上下五千年', '敦煌莫高窟'], { size: 130, alpha: lq, seed: 8 }); c.restore(); }
+      const lq = clamp((r - 2 * BAR - 1.2) / 0.6); if (lq > 0) { c.save(); c.translate(960, 540); c.scale(z, z); c.translate(-960, -cy); DH.bangti(c, 1250, -480, ['上下五千年', '敦煌莫高窟'], { size: 150, alpha: lq, seed: 8 }); c.restore(); }
       c.save(); c.globalCompositeOperation = 'saturation'; c.fillStyle = 'rgba(128,128,128,.22)'; c.fillRect(0, 0, 1920, 1080); c.restore();
       c.save(); c.globalCompositeOperation = 'multiply'; c.globalAlpha = 0.35; c.drawImage(PAINT.texture('dh_dirt', '#e8dcc8', { scale: 0.002, amt: 40, grain: 20, seed: 9 }), 0, 0); c.restore();
       DH.petals(c, t, { n: 16, speed: 50, scale: 1.4 }); } }; } });
