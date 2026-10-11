@@ -1,0 +1,18 @@
+{
+  "title": "追光（引擎演示）", "format": "9:16", "cps": 4.6, "target": [15, 30],
+  "hook": {"type": "现象", "promise": "看完你会知道，一颗没有大脑的绿藻怎么看见光", "payoff": "fast"},
+  "terms": ["光遗传学", "眼点", "视紫红质"],
+  "beats": [
+    {"id": "hook1", "zh": "蓝光一亮，它就转身游向光", "en": "Light on. It turns and swims toward it.", "key": "游向光", "min": 2.6,
+     "visual": "一颗绿藻在暗水里，蓝光束打下来，它转身朝光游", "sfx": [{"at": 0.15, "name": "click"}, {"at": 0.18, "name": "on"}], "music": "low"},
+    {"id": "hook2", "zh": "光一灭，它立刻停下。再亮，再游", "en": "Light off. It stops. On again, it goes.", "key": "再亮，再游", "min": 3.0,
+     "visual": "光束熄灭，绿藻停住；再亮，它又游", "sfx": [{"at": 0.1, "name": "click"}, {"at": 1.6, "name": "click"}, {"at": 1.63, "name": "on"}]},
+    {"id": "eye", "zh": "可它连大脑都没有，靠什么看光？", "en": "It has no brain. So how does it see?", "key": "靠什么看光", "turn": true,
+     "visual": "镜头推近，穿过细胞壁，停在一团橙红色的眼点上", "sfx": [{"at": 0.2, "name": "whoosh"}, {"at": 0.9, "name": "ding"}]},
+    {"id": "fast", "zh": "答案是这个红点：光一照，电流瞬间就来", "en": "This red spot. Light hits, current flows at once.", "key": "电流瞬间就来", "min": 3.4,
+     "visual": "眼点被光照亮，一圈光环扩散；左侧现场画出电流曲线", "sfx": [{"at": 0.5, "name": "pulse"}]},
+    {"id": "title", "nosub": true, "dur": 3.0, "emotion": true, "visual": "镜头拉远，绿藻群在光柱里游，片名「追光」", "sfx": [{"at": 0.2, "name": "boom"}], "music": "swell"},
+    {"id": "ask", "zh": "如果你也有个光控开关，想关掉什么？", "en": "If you had a light switch inside, what would you turn off?", "key": "关掉什么",
+     "cta": true, "min": 3.4, "visual": "开关图标回到画面中央", "music": "solo"}
+  ]
+}

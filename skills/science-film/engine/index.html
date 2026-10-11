@@ -1,0 +1,74 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- render.py 把引擎挂在 /engine/、片子工程挂在 /film/ 下服务这个页面 -->
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/noto-serif-sc/500.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/noto-serif-sc/600.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/noto-serif-sc/700.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/noto-sans-sc/400.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/noto-sans-sc/600.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/noto-sans-sc/700.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/cormorant-garamond/300.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/cormorant-garamond/400.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/cormorant-garamond/500.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/cormorant-garamond/400-italic.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/inter/400.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/inter/500.css">
+<link rel="stylesheet" href="/engine/node_modules/@fontsource/inter/600.css">
+<style>html,body{margin:0;background:#000;overflow:hidden} canvas{display:block}</style>
+<script type="importmap">{"imports":{
+  "three":"/engine/node_modules/three/build/three.module.js",
+  "three/addons/":"/engine/node_modules/three/examples/jsm/",
+  "sf/":"/engine/lib/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import * as core from 'sf/core.js';
+import * as prims from 'sf/prims.js';
+import * as hudlib from 'sf/hud.js';
+import { makeComposer } from 'sf/post.js';
+
+const q = new URLSearchParams(location.search);
+const W = +(q.get('w') || 1080), H = +(q.get('h') || 1920);
+try {
+  window.TL = await (await fetch('/film/timeline.json')).json();
+  const gl = document.createElement('canvas'); gl.width = W; gl.height = H;
+  const renderer = new THREE.WebGLRenderer({ canvas: gl, antialias: true, preserveDrawingBuffer: true, alpha: false });
+  renderer.setPixelRatio(1); renderer.setSize(W, H, false);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, W / H, .01, 500);
+  const hud = new hudlib.HUD(W, H);
+  const subs = new hudlib.Subtitles(hud);
+  const film = await import('/film/film.js');
+  const ctx3 = { THREE, scene, camera, renderer, hud, subs, W, H, ...core, ...prims, ...hudlib, lib: { core, prims, hud: hudlib } };
+  const update = await film.setup(ctx3);
+  const composer = makeComposer(renderer, scene, camera, W, H, film.post || {});
+  // 预加载字体：所有会画出来的字
+  const all = [...new Set([...hud.texts(), ...subs.texts()].join('') + '0123456789.,:;!?·—→≈%()「」，。：；！？')].join('');
+  const fams = ['700 40px "Noto Serif SC"', '500 40px "Noto Serif SC"', '600 40px "Noto Serif SC"', '400 40px "Noto Sans SC"', '600 40px "Noto Sans SC"', '700 40px "Noto Sans SC"',
+                '300 40px "Cormorant Garamond"', '400 40px "Cormorant Garamond"', '500 40px "Cormorant Garamond"', 'italic 400 40px "Cormorant Garamond"',
+                '400 40px Inter', '500 40px Inter', '600 40px Inter'];
+  await Promise.all(fams.map(f => document.fonts.load(f, all)));
+  await document.fonts.ready;
+  const out = document.createElement('canvas'); out.width = W; out.height = H; document.body.appendChild(out);
+  out.style.width = '100vw'; out.style.height = '100vh'; out.style.objectFit = 'contain';
+  const ctx = out.getContext('2d');
+  window.renderAt = (t) => {
+    update(t);
+    composer.setTime(t);
+    composer.render();
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(gl, 0, 0);
+    hud.draw(ctx, t);
+    subs.draw(ctx, t);
+    return out.toDataURL('image/png').split(',')[1];
+  };
+  window.layout = (t) => { const b = hud.boxes(t); const s = subs.box(t); if (s) b.push(s); return { W, H, safe: hud.safe, boxes: b }; };
+  window.__total = window.TL.total;
+  window.__ready = true;
+  if (!q.has('render')) {                     // 浏览器里直接打开时：实时预览，?t=秒 跳到某一刻
+    let t0 = performance.now() / 1000 - (+(q.get('t') || 0));
+    const loop = () => { window.renderAt((performance.now() / 1000 - t0) % window.TL.total); requestAnimationFrame(loop); }; loop();
+  }
+} catch (e) { window.__bootFailed = String(e && e.stack || e); console.error(e); }
+</script></body></html>
