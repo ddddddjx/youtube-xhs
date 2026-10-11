@@ -15,32 +15,37 @@ description: >-
 - `$S` = 本目录。
 - `references/导演规范.md`：创作规范全文（角色、事实先行、锚词、钩子、高潮、中段、结尾、画风、安全区、转场、字幕、声音、交付）。动手前整篇读一遍，它是这支片子的标准。底稿是 Tom CC 的 Vibe 知识提示词（`对标/TomCC_Vibe知识/原文.md`）。
 - `references/选题库.md`：现成的题目、角度、中英锚词草稿（事实都待核）。
-- `scripts/hv.py`：`drop` 找重拍定 T；`check` 查字幕；`burn` 压中英字幕并混音；`preview` 出安全区预览图；`lint` 查发布文案违禁词。
-- 渲染引擎：同级 `../huashu-art-motion/`（`scripts/engine/render.py`，scenes 写法见它的 `references/04-纯代码绘制.md`、`references/风格配方/INDEX.md`）。
-- 项目目录：`抖音大健康/发布/<YYYY-MM-DD>_<英文短题>/`，里面放 `事实清单.md`、`分镜表.md`、`字幕.json`、`代码工程/`、`静帧/`、`成片.mp4`、`发布文案.md`。随仓库提交（成片太大就只提交其余文件，成片给用户下载）。
+- `scripts/hv.py`：`drop` 找重拍定 T、估 BPM；`check` 查字幕；`zone` 查字幕带干不干净；`burn` 压中英字幕并混音；`preview` 出安全区预览图；`lint` 查发布文案违禁词。
+- 画面引擎和画面纪律：同级 `../huashu-art-motion/`（上游 github.com/alchaincyf/huashu-art-motion）。本 skill 用到它的：镜头表格式和 `scripts/storyboard_lint.py`、`scripts/engine/`（render.py、scenes、`CAM` / `MO` / `transitions.js`）、`references/04-纯代码绘制.md`、`references/05-节奏与配乐.md`、`references/色板.md`（paper）、`references/角色精细度.md`、`references/动画语法/y3_whiteboard.md`（机制段）和 `t3_finance_chart.md`（讲数字时）、`scripts/deliver.py`（内含 film_gate）。它 SKILL.md 里的「六种做坏方式」开工前、交付前各对一遍。两边怎么分工见导演规范文末。
+- 项目目录：`抖音大健康/发布/<YYYY-MM-DD>_<英文短题>/`，里面放 `事实清单.md`、`分镜表.md`、`字幕.json`、`代码工程/`、`静帧/`、`审片/`、`成片.mp4`、`发布文案.md`。随仓库提交（成片太大就只提交其余文件，成片给用户下载）。
 
-## 和导演规范的一处分工
+## 字幕和画面的分工
 
-**画面里不画字幕和锚词。** 字幕、锚词、学名、免责声明全部写进 `字幕.json`，最后由 `hv.py burn` 统一压上去，这样字号、位置、安全区、踩点都由脚本保证。动画只负责画面、示意图里的小标签（中英各一行）和高潮那一下的视觉爆发。画面主体的水平中心放在 x≈486（安全区中线，不是 540），和字幕对齐。
+**画面里不画字幕。** 中英字幕和免责声明写进 `字幕.json`，最后由 `hv.py burn` 统一压，字号、位置、安全区都由脚本保证。锚词例外：它要砸在世界里的物上，所以由动画画（`字幕.json` 里照样写一行 `type: anchor`，`hv.py check` 用它查踩点，burn 不压它）；锚词和学名的位置放在纵向 35%～55%。画面主体的水平中心放在 x≈486（安全区中线，不是 540），和字幕对齐；纵向 1155～1345 是字幕带，主体和图形不进这一条。
 
 ## 流程（每一步停下来等用户确认的地方标了 ⏸）
 
 1. **定题。** 用户给题目就用；没给就从 `references/选题库.md` 挑 3 个让用户选 ⏸。
 2. **要音乐。** 问用户要一首可商用的免版权音乐文件（同一个文件发两个平台，版权歌在 TikTok 会被静音）。用户没有，就请用户从 YouTube 音频库或 Pixabay Music 下一首「cinematic / ambient」、60～100 秒、中间有明显停顿后重拍的。拿到后：
-   `python3 $S/scripts/hv.py drop 音乐.mp3` → 记下建议的 T。超过 100 秒的，用 ffmpeg 截到一个乐句结尾并加 2 秒淡出。
+   `python3 $S/scripts/hv.py drop 音乐.mp3` → 记下 T 和 BPM，排出拍点网格。超过 100 秒的，用 ffmpeg 截到一个乐句结尾并加 2 秒淡出。
 3. **事实清单 ⏸。** 按导演规范「事实先行」写 `事实清单.md`：5～8 条，每条一句中文 + 一句英文 + 来源（机构或期刊 + 年份 + 链接）。能联网就逐条去官方页面核对；核不到的删。中美标准不同的数字两套并列或干脆不放。交给用户确认。
-4. **锚词 + 分镜表 ⏸。** 写 `分镜表.md`：锚词（中 / 英）、T、段落｜时间码｜画面｜转场｜中文字幕｜英文字幕｜音效。同时写 `字幕.json`（格式见 `hv.py` 文件头），跑 `python3 $S/scripts/hv.py check 字幕.json`，红灯清零再交给用户。
+4. **锚词 + 分镜表 ⏸。** 先定贯穿全片的那一个物和中英锚词。`分镜表.md` 用 huashu 镜头表格式（模板 `../huashu-art-motion/references/镜头表模板.md`）：表前三行锁画风 / 色板 / 角色（色板写 `{"name":"paper","accent":"#色值"}`，角色写「只出手和背影」），表头 `时间段 | 画面里的物 | 它在做什么 | 镜头 | 屏上字 | 做法 | 中文字幕 | 英文字幕`，表下写 T、BPM、锚词出现的位置。镜头列只用 停／快推／横移／砸入／切，时间点落在拍点上。同时写 `字幕.json`。两道检查都要红灯清零才交给用户：
+   - `python3 $S/../huashu-art-motion/scripts/storyboard_lint.py 分镜表.md`
+   - `python3 $S/scripts/hv.py check 字幕.json`
 5. **10 秒小样 ⏸。** 复制引擎：`cp -R $S/../huashu-art-motion/scripts/engine <项目>/代码工程`，按分镜写 scenes 和段落表（`eras_<片名>.js`），先只渲 0～10 秒：
    `cd <项目>/代码工程 && uv run --with playwright==1.56.0 python render.py --film <片名> --width 1080 --height 1920 --fps 30 --from 0 --to 10 --out ../小样_画面.mp4`
    （Playwright 钉 1.56.0：云端预装的 Chromium 是 1194 版，新版 Playwright 找不到它。）
-   再 `hv.py burn 字幕.json --video 小样_画面.mp4 --audio 音乐.mp3 --out 小样.mp4 --force`（小样只含部分字幕，用 --force 跳过整片检查），连同 `hv.py preview` 的预览图给用户看画风和字幕排版。用户垫了参考图就照图。
-6. **整片。** 渲全片画面（`--audio` 不传，音乐在 burn 时混），然后：
+   再 `hv.py burn 字幕.json --video 小样_画面.mp4 --audio 音乐.mp3 --out 小样.mp4 --force`（小样只含部分字幕，用 --force 跳过整片检查），连同 `hv.py preview` 的预览图给用户看画风和字幕排版。
+   **第一条片子走三方向硬门**：`抖音大健康/账号.md` 里还没有「定版画风」时，出三个方向的 10 秒小样（构图不同，不只换色；默认纸本医学线稿 / 水墨（`风格配方/17_ink.md`，Tom CC 原版）/ y3 白板），用户挑定后把画风、色板、字体写进账号.md，之后每条沿用，只出一个小样。用户垫了参考图就照图。
+6. **整片。** 渲全片画面（`--audio` 不传，音乐在 burn 时混）为 `画面.mp4`，然后依次：
+   - `python3 $S/scripts/hv.py zone 画面.mp4`：字幕带里有图形就回去挪主体，清零再压字幕。
    - `hv.py burn 字幕.json --video 画面.mp4 --audio 音乐.mp3 --out 成片.mp4`
-   - `hv.py preview 成片.mp4 --subs 字幕.json --times T-0.7,T-0.2,T,T+0.1,T+0.5,T+1 --out 静帧/高潮.jpg`：确认 T-0.2 是收暗的静帧、T 那一帧画面亮起和锚词同时出现。
-   - 再抽 8～10 个时间点出一张 `静帧/全片.jpg`，逐张看：字有没有压在主体上看不清、红区里有没有字、画风是不是一套。
-   - 有问题回到第 5 步改，改完重跑本步。
+   - `hv.py preview 成片.mp4 --subs 字幕.json --times T-0.7,T-0.2,T,T+0.1,T+0.5,T+1 --out 静帧/高潮.jpg`：T-0.2 是收暗但主物还在的静帧，T 那一帧画面亮起、锚词砸在物上。
+   - 再抽 8～10 个时间点出 `静帧/全片.jpg`，逐张看：字有没有压在主体上、红区里有没有字、是不是同一种画风、是不是同一个物贯穿。
+   - **独立审片**：派一个没参与制作的 agent，只给它成片和导演规范，让它挑问题，结论写进 `审片/1.md`。按审片改完重跑本步。
+   - `uv run $S/../huashu-art-motion/scripts/deliver.py 成片.mp4 --root <项目> --vertical yes --out 交付/`（huashu 的 qa.py 整片模式只支持横屏，这里不跑，交付说明里会写「qa 没跑」，正常）：红灯（快动作太少、中段空画面、蓝紫）不出片，按它给的修法改。
 7. **发布文案。** 写 `发布文案.md`，抖音中文一份、TikTok 英文一份（规范见导演规范「交付」第 5 条），跑 `hv.py lint 发布文案.md`。
-8. **交付。** 成片、两张静帧预览、事实清单（发布前给用户再核一遍的年份 / 人名 / 数字）、发布文案。commit + push 到 main。
+8. **交付。** 成片、两张静帧预览、事实清单（发布前给用户再核一遍的年份 / 人名 / 数字）、审片结论、发布文案。在 `抖音大健康/账号.md` 的发布记录里加一行。commit + push 到 main。
 
 ## 用户每次可以只说
 

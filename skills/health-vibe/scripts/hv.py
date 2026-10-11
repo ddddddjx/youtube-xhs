@@ -5,6 +5,7 @@
   python3 hv.py check 字幕.json                      查字幕长度、时长、宽度、锚词踩点、结尾问题、免责声明、违禁词
   python3 hv.py burn  字幕.json --video 画面.mp4 --out 成片.mp4 [--audio 音乐.mp3]
   python3 hv.py preview 成片.mp4 --times 0.5,T-0.2,T,... --out 预览.jpg [--subs 字幕.json]
+  python3 hv.py zone  画面.mp4                       压字幕前查：画面里的图形有没有进字幕带（竖屏版 subzone_gate）
   python3 hv.py lint  发布文案.md                    查发布文案里的违禁词
 
 字幕.json：
@@ -13,6 +14,7 @@
   "lines": [
     {"start": 0.4, "end": 3.6, "cn": "你每天都在睡，为什么还是累？", "en": "You sleep every night. So why so tired?"},
     {"start": 17.0, "end": 20.0, "type": "anchor", "cn": "对表", "en": "Reset the clock", "sci": "昼夜节律 · Circadian rhythm", "sci_at": 17.6},
+      # 锚词默认由动画画在世界里的物上（"draw": "scene"），burn 不压它，只查踩点；要脚本压就写 "draw": "burn"
     ...
   ]
 }
@@ -114,9 +116,19 @@ def cmd_drop(a):
         if len(picked) == 5:
             break
     picked.sort(key=lambda c: c[1])
+    # BPM：onset 包络自相关，取 70～180 BPM 里最强的周期
+    env = flux - flux.mean()
+    ac = np.correlate(env, env, mode='full')[len(env) - 1:]
+    lags = np.arange(len(ac)) * 0.02
+    ok = (lags >= 60 / 180) & (lags <= 60 / 70)
+    bpm = 60 / lags[ok][np.argmax(ac[ok])] if ok.any() else None
     print(f'音频时长 {dur:.2f}s（只看 {a.min_t:.0f}s 以后）。候选重拍，按时间排：')
     for s, tt, dip, jump in picked:
         print(f'  T={tt:6.2f}s  分数 {s:5.1f}  前面换气深 {dip:4.1f}dB  落下后抬升 {jump:4.1f}dB')
+    if bpm:
+        bar = 4 * 60 / bpm
+        print(f'估计 BPM ≈ {bpm:.0f}（一拍 {60 / bpm:.3f}s，一小节约 {bar:.2f}s）。快推、砸入、字幕切换都落在拍点上，'
+              f'以 T 为零点往前后推：T±n×{60 / bpm:.3f}s。估不准就用耳朵数，按实测改。')
     if picked:
         first = min((c for c in picked if c[2] >= 6), key=lambda c: c[1], default=max(picked))
         print(f'建议 T = {first[1]:.2f}s（最早一个前面有明显换气的；没有就取分数最高的）。'
@@ -227,6 +239,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         s, e = l['start'], l['end']
         cn, en = ass_text(l['cn']), ass_text(l['en'])
         if l.get('type') == 'anchor':
+            if l.get('draw', 'scene') == 'scene':      # 锚词和学名由动画画在物上，这里不压
+                continue
             size = min(220, int(W * 0.5 / max(1, len(l['cn']))) * 1)
             pop = r'\fscx118\fscy118\t(0,170,\fscx100\fscy100)'
             ev.append(f"Dialogue: 2,{ass_time(s)},{ass_time(e)},ACN,,0,0,0,,{{\\pos({CX},{ANC_CN_Y})\\fs{size}\\fad(0,300){pop}{blur}}}{cn}")
@@ -297,6 +311,36 @@ def cmd_preview(a):
     print('已出', a.out, '（红色区域会被抖音 / TikTok 的界面挡住，里面不能有字）')
 
 
+# ---------------------------------------------------------------- zone
+def cmd_zone(a):
+    import numpy as np
+    y0, y1 = SUB_CN_Y - 60, SUB_EN_Y + 45          # 字幕块实际占的那一条
+    x0, x1 = SAFE['left'], SAFE['right']
+    w, h = (x1 - x0) // 2, (y1 - y0) // 2
+    vf = f'fps={a.fps},scale={W}:{H},crop={x1 - x0}:{y1 - y0}:{x0}:{y0},scale={w}:{h}'
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', a.video, '-vf', vf, '-f', 'rawvideo', '-pix_fmt', 'gray', '-'],
+                         capture_output=True, check=True).stdout
+    fr = np.frombuffer(raw, np.uint8).reshape(-1, h, w).astype(np.int16)
+    bad = []
+    for i, f in enumerate(fr):
+        base = np.median(f)                          # 纸底的亮度
+        n = int((np.abs(f - base) > a.diff).sum())
+        if n > a.thresh:
+            bad.append((i / a.fps, n))
+    runs = []
+    for t, n in bad:
+        if runs and t - runs[-1][1] <= 1.5 / a.fps:
+            runs[-1][1] = t; runs[-1][2] = max(runs[-1][2], n)
+        else:
+            runs.append([t, t, n])
+    print(f'字幕带 y {y0}–{y1}，{len(fr)} 帧，命中 {len(bad)} 帧')
+    for t0, t1, n in runs:
+        print(f'  ✗ {t0:6.2f}–{t1:6.2f}s  最多 {n} 个像素和纸底差得多：画面主体压进了字幕带，压字幕后会看不清')
+    if not runs:
+        print('字幕带干净，可以压字幕。')
+    return 1 if runs else 0
+
+
 # ---------------------------------------------------------------- lint
 def cmd_lint(a):
     with open(a.file, encoding='utf-8') as fh:
@@ -319,9 +363,11 @@ def main():
     p.add_argument('--out', required=True); p.add_argument('--audio'); p.add_argument('--force', action='store_true')
     p = sp.add_parser('preview'); p.add_argument('video'); p.add_argument('--times', required=True)
     p.add_argument('--out', required=True); p.add_argument('--subs')
+    p = sp.add_parser('zone'); p.add_argument('video'); p.add_argument('--fps', type=float, default=10)
+    p.add_argument('--diff', type=int, default=60, help='和纸底亮度差多少算图形'); p.add_argument('--thresh', type=int, default=150)
     p = sp.add_parser('lint'); p.add_argument('file')
     a = ap.parse_args()
-    rc = {'drop': cmd_drop, 'check': cmd_check, 'burn': cmd_burn, 'preview': cmd_preview, 'lint': cmd_lint}[a.cmd](a)
+    rc = {'drop': cmd_drop, 'check': cmd_check, 'burn': cmd_burn, 'preview': cmd_preview, 'zone': cmd_zone, 'lint': cmd_lint}[a.cmd](a)
     sys.exit(rc or 0)
 
 
