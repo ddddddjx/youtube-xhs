@@ -15,12 +15,13 @@ export const F = {
 
 export class HUD {
   constructor(W, H) {
-    this.W = W; this.H = H; this.u = Math.min(W, H) / 1080 * (H > W ? 1.3 : 1); this.items = [];  // 竖屏信息层放大 1.3 倍，手机上看得清
+    this.W = W; this.H = H; this.u = Math.min(W, H) / 1080 * (H > W ? 1.45 : 1); this.items = [];  // 竖屏信息层放大 1.45 倍：1.3 倍时审片说出处、标签在手机上读不了（10-11）
     this.portrait = H > W;
     // 安全区：竖屏避开抖音 / TikTok 的上 12%、下 25%、右 15%
     this.safe = this.portrait ? { l: W * .06, r: W * .85, t: H * .12, b: H * .75 } : { l: W * .05, r: W * .95, t: H * .07, b: H * .93 };
   }
   add(item) { item.hud = this; this.items.push(item); return item; }
+  get mctx() { return this._m || (this._m = document.createElement('canvas').getContext('2d')); }   // 只用来量字宽（layout 导出时不画也能量）
   texts() { return this.items.flatMap(i => (i.texts ? i.texts() : [])); }
   draw(ctx, t) { for (const i of this.items) { const a = i.alpha(t); if (a > 0.002) { ctx.save(); ctx.globalAlpha = a; i.draw(ctx, t, a); ctx.restore(); } } }
   // 记录每帧文字框，qa 用它查重叠和出安全区
@@ -45,12 +46,24 @@ export class Chapter extends Item {
   texts() { return [this.year, this.title, this.cite || ''] }
   draw(ctx, t) {
     const { u, safe } = this.hud, x = this.x ?? safe.l, y = (this.y ?? safe.t + 90 * u) - this.rise(t);
-    const w = txt(ctx, this.year, x, y, `400 ${92 * u}px ${F.latinSerif}`, C.ink);
-    ctx.fillStyle = C.line; ctx.fillRect(x + w + 18 * u, y - 62 * u, 1.5 * u, 66 * u);
-    txt(ctx, this.title, x + w + 36 * u, y - 18 * u, `600 ${30 * u}px ${F.sans}`, C.ink, { spacing: 2 * u });
-    if (this.cite) txt(ctx, '— ' + this.cite, x, y + 40 * u, `400 ${20 * u}px ${F.latin}`, C.sub);
+    // 先量宽度：超出安全区就整体缩小（竖屏放大 1.45 倍后长标题会出界）
+    const { k } = this.fit();
+    ctx.save(); ctx.translate(x, y); ctx.scale(k, k);
+    const w = txt(ctx, this.year, 0, 0, `400 ${92 * u}px ${F.latinSerif}`, C.ink);
+    ctx.fillStyle = C.line; ctx.fillRect(w + 18 * u, -62 * u, 1.5 * u, 66 * u);
+    txt(ctx, this.title, w + 36 * u, -18 * u, `600 ${30 * u}px ${F.sans}`, C.ink, { spacing: 2 * u });
+    if (this.cite) txt(ctx, '— ' + this.cite, 0, 40 * u, `400 ${20 * u}px ${F.latin}`, C.sub);
+    ctx.restore();
   }
-  box() { const { u, safe } = this.hud; return { x: this.x ?? safe.l, y: (this.y ?? safe.t + 90 * u) - 70 * u, w: 620 * u, h: 120 * u }; }
+  fit() {
+    const { u, safe } = this.hud, m = this.hud.mctx, x = this.x ?? safe.l;
+    m.font = `400 ${92 * u}px ${F.latinSerif}`; const yw = m.measureText(this.year).width;
+    m.font = `600 ${30 * u}px ${F.sans}`; m.letterSpacing = 2 * u + 'px'; const tw = m.measureText(this.title).width; m.letterSpacing = '0px';
+    m.font = `400 ${20 * u}px ${F.latin}`; const cw = this.cite ? m.measureText('— ' + this.cite).width : 0;
+    const total = Math.max(yw + 36 * u + tw, cw); const k = Math.min(1, (safe.r - x) / total);
+    return { k, w: total * k };
+  }
+  box() { const { u, safe } = this.hud, { k, w } = this.fit(); return { x: this.x ?? safe.l, y: (this.y ?? safe.t + 90 * u) - 70 * u * k, w, h: 120 * u * k }; }
 }
 
 // 物体标签：中文名 + 英文小型大写 + 一行说明，引线连到 anchor()（返回屏幕坐标 {x,y}）
@@ -182,16 +195,22 @@ export class ScaleBar extends Item {
 export class Checklist extends Item {
   texts() { return this.items.map(i => i.text) }
   draw(ctx, t) {
-    const { u } = this.hud;
+    const { u, safe } = this.hud;
+    const { k } = this.fit();
     this.items.forEach((it, i) => {
-      const k = smooth((t - this.from - it.at) / .4); if (k <= 0) return;
-      ctx.globalAlpha = k * win(t, this.from, this.to, this.fi, this.fo);
-      const y = this.y + i * 42 * u + (1 - k) * 6 * u;
-      ctx.fillStyle = it.color || C.gold; ctx.beginPath(); ctx.arc(this.x, y - 8 * u, 4 * u, 0, 7); ctx.fill();
-      txt(ctx, it.text, this.x + 18 * u, y, `600 ${24 * u}px ${F.sans}`, C.ink);
+      const a = smooth((t - this.from - it.at) / .4); if (a <= 0) return;
+      ctx.globalAlpha = a * win(t, this.from, this.to, this.fi, this.fo);
+      const y = this.y + i * 42 * u * k + (1 - a) * 6 * u;
+      ctx.fillStyle = it.color || C.gold; ctx.beginPath(); ctx.arc(this.x, y - 8 * u * k, 4 * u * k, 0, 7); ctx.fill();
+      txt(ctx, it.text, this.x + 18 * u * k, y, `600 ${24 * u * k}px ${F.sans}`, C.ink);
     });
   }
-  box() { const { u } = this.hud; return { x: this.x - 10 * u, y: this.y - 30 * u, w: 600 * u, h: this.items.length * 42 * u + 20 * u }; }
+  fit() {
+    const { u, safe } = this.hud, m = this.hud.mctx; m.font = `600 ${24 * u}px ${F.sans}`;
+    const mw = Math.max(...this.items.map(i => m.measureText(i.text).width)) + 18 * u, k = Math.min(1, (safe.r - this.x) / mw);
+    return { k, w: mw * k };
+  }
+  box() { const { u } = this.hud, { k, w } = this.fit(); return { x: this.x - 10 * u * k, y: this.y - 30 * u * k, w: w + 10 * u * k, h: this.items.length * 42 * u * k + 20 * u }; }
 }
 
 // 片名卡：两个大字 + 副标题（字距加宽）+ 可选英文小字在上
@@ -245,7 +264,7 @@ export class Credits extends Item {
 // ---------- 字幕 ----------
 // 跟节拍表逐字出现；key 关键词点金色；有 en 时英文一行在下、整句淡入。
 export class Subtitles {
-  constructor(hud, { cps = 9, size } = {}) { this.hud = hud; this.cps = cps; this.size = size; }
+  constructor(hud, { cps = 16, size } = {}) { this.hud = hud; this.cps = cps; this.size = size; }
   texts() { return TL().beats.flatMap(b => [b.zh || '', b.en || '']); }
   draw(ctx, t) {
     const { W, H, portrait, safe } = this.hud, u = Math.min(W, H) / 1080;   // 字幕不吃竖屏 1.3 倍放大
@@ -256,12 +275,12 @@ export class Subtitles {
     ctx.font = `600 ${zhSize}px ${F.serif}`;
     const fullW = ctx.measureText(b.zh).width;
     if (fullW > maxW) zhSize *= maxW / fullW;                                   // 太长就整句缩小，不出安全区
-    let enSize = Math.min(zhSize * .62, 36 * u);
-    if (b.en) { ctx.font = `400 ${enSize}px ${F.latin}`; const ew = ctx.measureText(b.en).width; if (ew > maxW) enSize *= maxW / ew; }
+    let enSize = Math.min(zhSize * .68, 40 * u);
+    if (b.en) { ctx.font = `500 ${enSize}px ${F.latin}`; const ew = ctx.measureText(b.en).width; if (ew > maxW) enSize *= maxW / ew; }
     const y = portrait ? H * .70 : H * (b.en ? .86 : .9);
     const fadeOut = 1 - smooth((t - b.end) / .25);
     const chars = [...b.zh], n = chars.length;
-    const speed = Math.max(this.cps, n / Math.max(.6, (b.end - b.start) * .55));   // 句子前 55% 时间内打完
+    const speed = b.instant ? 1e6 : Math.max(this.cps, n / Math.max(.4, (b.end - b.start) * .3));   // 前 30% 时间内打完；instant 的拍（钩子句）整句直接出
     const shown = (t - b.start) * speed;
     ctx.font = `600 ${zhSize}px ${F.serif}`; ctx.textBaseline = 'alphabetic';
     const widths = chars.map(c => ctx.measureText(c).width), total = widths.reduce((a, c) => a + c, 0);
@@ -279,7 +298,7 @@ export class Subtitles {
     });
     if (b.en) {
       ctx.globalAlpha = smooth((t - b.start - .15) / .4) * fadeOut;
-      txt(ctx, b.en, (safe.l + safe.r) / 2, y + enSize * 1.6, `400 ${enSize}px ${F.latin}`, 'rgba(237,230,214,.85)', { align: 'center' });
+      txt(ctx, b.en, (safe.l + safe.r) / 2, y + enSize * 1.6, `500 ${enSize}px ${F.latin}`, 'rgba(245,240,228,.96)', { align: 'center' });
     }
     ctx.shadowBlur = 0; ctx.globalAlpha = 1;
   }

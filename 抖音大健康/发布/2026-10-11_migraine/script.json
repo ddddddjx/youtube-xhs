@@ -25,14 +25,15 @@
    "en": "A flicker of light appears. It keeps growing.",
    "key": "越变越大",
    "min": 3.0,
-   "visual": "黑色视野中央，一段锯齿状的光弧亮起、闪烁、向外扩",
+   "visual": "手机屏幕上一排排字，屏幕中央一段锯齿光弧亮起、闪烁、向外扩，光弧里面的字被「吃掉」",
    "sfx": [
     {
      "at": 0.05,
      "name": "on"
     }
    ],
-   "music": "low"
+   "music": "low",
+   "instant": true
   },
   {
    "id": "hook2",
@@ -54,7 +55,8 @@
      "at": 2.4,
      "name": "pulse"
     }
-   ]
+   ],
+   "instant": true
   },
   {
    "id": "hook3",
@@ -65,7 +67,7 @@
    "facts": [
     "f1"
    ],
-   "visual": "头的轮廓旁浮出三个小人剪影，其中一个亮起"
+   "visual": "屏幕下方三个人形图标，其中一个亮起琥珀色"
   },
   {
    "id": "hook4",
@@ -76,7 +78,7 @@
     "f3"
    ],
    "turn": true,
-   "visual": "镜头横移到一张泛黄的纸上，一道锯齿弧正被一笔一笔画出来",
+   "visual": "镜头横移到一张深色的纸上，一道琥珀色的锯齿弧被一笔一笔亮着画出来",
    "sfx": [
     {
      "at": 0.3,
@@ -87,8 +89,8 @@
   {
    "id": "title",
    "nosub": true,
-   "dur": 3.2,
-   "visual": "纸上的锯齿弧亮成光，片名「三毫米」浮出",
+   "dur": 1.6,
+   "visual": "片名「三毫米」直接叠在刚画好的弧上，1.6 秒",
    "sfx": [
     {
      "at": 0.1,
@@ -310,7 +312,7 @@
    "key": "被人看清了",
    "emotion": true,
    "min": 3.4,
-   "visual": "暖光的房间，窗帘被风吹开，阳光照在桌上的杯子上；大字「光，被看清了」",
+   "visual": "镜头从光点海里飞回那颗头，脑里的波平息，整颗大脑转成暖金色；大字「光，被看清了」",
    "sfx": [
     {
      "at": 0.2,
@@ -326,18 +328,8 @@
    "en": "It all began with one man drawing his own illness.",
    "key": "画下了自己的病",
    "min": 3.2,
-   "visual": "回到 1941 年那张纸，镜头慢慢拉远，纸上的弧还在微微发光",
+   "visual": "回到 1941 年那张纸，所有弧一起亮成琥珀色，镜头慢慢拉远",
    "music": "solo"
-  },
-  {
-   "id": "prize",
-   "zh": "2021 年，四位科学家因此获奖",
-   "en": "In 2021, four scientists won a prize for this.",
-   "key": "四位科学家",
-   "facts": [
-    "f10"
-   ],
-   "visual": "四个名字沿一束光排开：埃德温森、戈兹比、莫斯科维茨、奥列森"
   },
   {
    "id": "ask",
