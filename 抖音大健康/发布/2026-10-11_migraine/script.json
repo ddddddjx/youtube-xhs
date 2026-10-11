@@ -1,0 +1,360 @@
+{
+ "title": "三毫米",
+ "format": "9:16",
+ "cps": 4.6,
+ "target": [
+  70,
+  100
+ ],
+ "hook": {
+  "type": "现象",
+  "promise": "看完你会知道眼前那道闪光是什么，为什么它散了头才开始痛",
+  "payoff": "cgrp2"
+ },
+ "terms": [
+  "先兆",
+  "皮层扩散性抑制",
+  "CGRP",
+  "降钙素基因相关肽",
+  "三叉神经"
+ ],
+ "beats": [
+  {
+   "id": "hook1",
+   "zh": "眼前突然出现一道闪光，越变越大",
+   "en": "A flicker of light appears. It keeps growing.",
+   "key": "越变越大",
+   "min": 3.0,
+   "visual": "黑色视野中央，一段锯齿状的光弧亮起、闪烁、向外扩",
+   "sfx": [
+    {
+     "at": 0.05,
+     "name": "on"
+    }
+   ],
+   "music": "low"
+  },
+  {
+   "id": "hook2",
+   "zh": "等它慢慢散去，头才开始痛",
+   "en": "As it fades, the headache begins.",
+   "key": "头才开始痛",
+   "min": 2.8,
+   "visual": "光弧扩到边缘散掉；镜头拉远，露出半透明的头，太阳穴一下下红着跳",
+   "sfx": [
+    {
+     "at": 0.9,
+     "name": "whoosh"
+    },
+    {
+     "at": 1.6,
+     "name": "pulse"
+    },
+    {
+     "at": 2.4,
+     "name": "pulse"
+    }
+   ]
+  },
+  {
+   "id": "hook3",
+   "zh": "三个偏头痛的人里，就有一个见过它",
+   "en": "One in three people with migraine has seen it.",
+   "key": "一个见过它",
+   "min": 3.2,
+   "facts": [
+    "f1"
+   ],
+   "visual": "头的轮廓旁浮出三个小人剪影，其中一个亮起"
+  },
+  {
+   "id": "hook4",
+   "zh": "1941 年，有个人把这道光画了下来",
+   "en": "In 1941, one man drew it on paper.",
+   "key": "画了下来",
+   "facts": [
+    "f3"
+   ],
+   "turn": true,
+   "visual": "镜头横移到一张泛黄的纸上，一道锯齿弧正被一笔一笔画出来",
+   "sfx": [
+    {
+     "at": 0.3,
+     "name": "whoosh"
+    }
+   ]
+  },
+  {
+   "id": "title",
+   "nosub": true,
+   "dur": 3.2,
+   "visual": "纸上的锯齿弧亮成光，片名「三毫米」浮出",
+   "sfx": [
+    {
+     "at": 0.1,
+     "name": "boom"
+    }
+   ],
+   "music": "swell"
+  },
+  {
+   "id": "lashley",
+   "zh": "他叫拉什利，发作时一次次画下它",
+   "en": "Karl Lashley drew it, attack after attack.",
+   "key": "一次次画下它",
+   "facts": [
+    "f3"
+   ],
+   "visual": "纸上一道又一道弧，每一道比上一道更大、更靠外，旁边写着分钟数",
+   "music": "normal",
+   "sfx": [
+    {
+     "at": 0.6,
+     "name": "tick"
+    },
+    {
+     "at": 1.5,
+     "name": "tick"
+    },
+    {
+     "at": 2.4,
+     "name": "tick"
+    }
+   ]
+  },
+  {
+   "id": "calc",
+   "zh": "算出：大脑里有东西每分钟走 3 毫米",
+   "en": "Something in his brain moved 3 mm a minute.",
+   "key": "3 毫米",
+   "min": 3.4,
+   "facts": [
+    "f3"
+   ],
+   "visual": "纸上的弧投进一颗点云大脑的后脑勺，一道亮带缓缓推进，标尺写着 3 毫米 / 分钟"
+  },
+  {
+   "id": "q1",
+   "zh": "可那是什么？没人见过",
+   "en": "But what was it? No one had ever seen it.",
+   "key": "没人见过",
+   "turn": true,
+   "min": 2.6,
+   "visual": "镜头贴着大脑表面滑过，亮带消失在暗处"
+  },
+  {
+   "id": "leao",
+   "zh": "1944 年，兔子大脑里出现一道波",
+   "en": "In 1944, Leão saw a wave in a rabbit's brain.",
+   "key": "一道波",
+   "min": 3.4,
+   "facts": [
+    "f4"
+   ],
+   "visual": "镜头下潜到一片大脑皮层的点云薄片，一点被刺激亮起",
+   "sfx": [
+    {
+     "at": 0.4,
+     "name": "click"
+    }
+   ]
+  },
+  {
+   "id": "leao2",
+   "zh": "电活动像熄灯一样，一圈圈往外扩散",
+   "en": "Activity went dark in rings, spreading outward.",
+   "key": "熄灯",
+   "min": 3.2,
+   "facts": [
+    "f4"
+   ],
+   "visual": "以那一点为圆心，一圈亮环向外扩，环后面的点全部变暗"
+  },
+  {
+   "id": "leao3",
+   "zh": "速度，和拉什利算的几乎一样",
+   "en": "Almost exactly Lashley's speed.",
+   "key": "几乎一样",
+   "facts": [
+    "f3",
+    "f4"
+   ],
+   "turn": true,
+   "visual": "左边拉什利的纸、右边莱昂的薄片，两道波同步向外走"
+  },
+  {
+   "id": "mri",
+   "zh": "2001 年，磁共振在人脑里看见了它",
+   "en": "In 2001, an MRI caught it in a human brain.",
+   "key": "看见了它",
+   "facts": [
+    "f5"
+   ],
+   "visual": "镜头拉回人头，大脑后部亮起一道波，旁边那道锯齿光弧同步变大"
+  },
+  {
+   "id": "mri2",
+   "zh": "每分钟 3.5 毫米，波到哪，光到哪",
+   "en": "3.5 mm a minute. Wherever it went, the light followed.",
+   "key": "波到哪，光到哪",
+   "min": 3.4,
+   "facts": [
+    "f5"
+   ],
+   "visual": "脑里的波和眼前的光弧一起推进，一条细线把两者连起来"
+  },
+  {
+   "id": "q2",
+   "zh": "可光会散，痛从哪里来？",
+   "en": "The light fades. So where does the pain come from?",
+   "key": "痛从哪里来",
+   "turn": true,
+   "min": 2.8,
+   "visual": "光弧熄灭，镜头推向头侧面的一根血管"
+  },
+  {
+   "id": "cgrp",
+   "zh": "1990 年，发作者血里查出一种分子",
+   "en": "In 1990, scientists found a molecule in the blood during attacks.",
+   "key": "一种分子",
+   "min": 3.6,
+   "facts": [
+    "f6"
+   ],
+   "visual": "血管周围冒出一颗颗橙色小分子，血管跟着一下下胀大",
+   "sfx": [
+    {
+     "at": 0.5,
+     "name": "ding"
+    }
+   ]
+  },
+  {
+   "id": "cgrp2",
+   "zh": "把它输给 12 个病人，12 个全头痛了",
+   "en": "Injected into 12 patients, it gave all 12 a headache.",
+   "key": "12 个全头痛了",
+   "min": 3.6,
+   "facts": [
+    "f7"
+   ],
+   "visual": "12 个小格子一个个变红，血管变粗、分子越来越多",
+   "sfx": [
+    {
+     "at": 1.0,
+     "name": "pulse"
+    },
+    {
+     "at": 2.0,
+     "name": "pulse"
+    }
+   ]
+  },
+  {
+   "id": "drug",
+   "zh": "2018 年，首个专门挡住它的药获批",
+   "en": "In 2018, the first drug built to block it was approved.",
+   "key": "挡住它",
+   "min": 3.4,
+   "facts": [
+    "f8"
+   ],
+   "visual": "一枚枚白色的锁扣到受体上，橙色分子撞上去弹开",
+   "sfx": [
+    {
+     "at": 0.6,
+     "name": "click"
+    },
+    {
+     "at": 1.2,
+     "name": "click"
+    }
+   ]
+  },
+  {
+   "id": "result",
+   "zh": "试验里，一半人的发作天数少了一半",
+   "en": "In trials, half the patients cut their migraine days in half.",
+   "key": "少了一半",
+   "min": 3.6,
+   "facts": [
+    "f9"
+   ],
+   "visual": "左上清单一条条亮起：一半人发作天数减半以上；安慰剂组 26.6%；血管慢慢恢复原样",
+   "sfx": [
+    {
+     "at": 0.4,
+     "name": "tick"
+    },
+    {
+     "at": 1.4,
+     "name": "tick"
+    }
+   ]
+  },
+  {
+   "id": "world",
+   "zh": "全世界有 11.6 亿人，头里有这道波",
+   "en": "1.16 billion people live with this wave.",
+   "key": "11.6 亿人",
+   "min": 3.4,
+   "facts": [
+    "f11"
+   ],
+   "visual": "镜头一路拉远，大脑变成无数暖色小光点里的一个"
+  },
+  {
+   "id": "light",
+   "zh": "那道光，终于被人看清了",
+   "en": "That light has finally been seen clearly.",
+   "key": "被人看清了",
+   "emotion": true,
+   "min": 3.4,
+   "visual": "暖光的房间，窗帘被风吹开，阳光照在桌上的杯子上；大字「光，被看清了」",
+   "sfx": [
+    {
+     "at": 0.2,
+     "name": "boom",
+     "gain": 0.6
+    }
+   ],
+   "music": "swell"
+  },
+  {
+   "id": "lesson",
+   "zh": "一切，始于一个人画下了自己的病",
+   "en": "It all began with one man drawing his own illness.",
+   "key": "画下了自己的病",
+   "min": 3.2,
+   "visual": "回到 1941 年那张纸，镜头慢慢拉远，纸上的弧还在微微发光",
+   "music": "solo"
+  },
+  {
+   "id": "prize",
+   "zh": "2021 年，四位科学家因此获奖",
+   "en": "In 2021, four scientists won a prize for this.",
+   "key": "四位科学家",
+   "facts": [
+    "f10"
+   ],
+   "visual": "四个名字沿一束光排开：埃德温森、戈兹比、莫斯科维茨、奥列森"
+  },
+  {
+   "id": "ask",
+   "zh": "你见过那道光吗？还是只有痛？",
+   "en": "Have you seen that light? Or only felt the pain?",
+   "key": "你见过那道光吗",
+   "cta": true,
+   "min": 3.8,
+   "visual": "黑色视野里，锯齿光弧又一次轻轻亮起，停在画面中央"
+  },
+  {
+   "id": "end",
+   "zh": "科普内容，不构成医疗建议",
+   "en": "For education only. Not medical advice.",
+   "credits": true,
+   "min": 3.0,
+   "visual": "片尾卡：三毫米 · 3 分钟看懂偏头痛，下方出处小字"
+  }
+ ]
+}
