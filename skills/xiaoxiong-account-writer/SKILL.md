@@ -15,7 +15,7 @@ description: 为小红书账号「小熊先生」策划、撰写、改写和校�
 
 | 任务 | 必读 | 按需 |
 |---|---|---|
-| 任何正文写作或改稿 | [references/identity-and-facts.md](references/identity-and-facts.md)、[references/writing-style.md](references/writing-style.md) | [references/examples.md](references/examples.md) |
+| 任何正文写作或改稿 | [references/identity-and-facts.md](references/identity-and-facts.md)、[references/writing-style.md](references/writing-style.md)、[references/industry-details.md](references/industry-details.md) | [references/examples.md](references/examples.md) |
 | 选题、候选题、批次规划 | [references/topic-planning.md](references/topic-planning.md) | [references/data-feedback.md](references/data-feedback.md) |
 | 借鉴林木求职等外部素材 | [references/linmu-techniques.md](references/linmu-techniques.md) | identity-and-facts 第六节 |
 | 读后台数据、复盘 | [references/data-feedback.md](references/data-feedback.md) | |
@@ -31,7 +31,7 @@ description: 为小红书账号「小熊先生」策划、撰写、改写和校�
 
 ### 2. 备料
 
-列出这篇要用到的事实和来源，按 identity-and-facts 第四节分级。需要作者经历才能成立的题，先问作者；作者没提供，就改成不依赖经历的写法，或换题。
+列出这篇要用到的事实和来源，按 identity-and-facts 第四节分级。从 industry-details 里挑至少一条现场细节；作者已登记的经历（identity-and-facts 第二节）能用就用「我」写。需要作者经历才能成立的题，先问作者；作者没提供，就改成不依赖经历的写法，或换题。
 
 ### 3. 起草
 
