@@ -151,8 +151,8 @@ def check(path):
                     warns.append(f"  ⚠ 正文第一句没有主关键词「{main}」（搜索权重最高的位置之一）")
                 if main and not any(main in t.lower() for t in tags):
                     warns.append(f"  ⚠ 标签里没有主关键词「{main}」：原样加一个 #{main}")
-        if meme and not re.search(r"这个号|每天一篇|每周|AI 全权运营|AI全权运营|扣\s*1", body):
-            warns.append("  ⚠ 正文里没有关注理由（一句这个号持续给什么，或者领取物）：读者在图下文字里也要看到一次")
+        if meme and re.search(r"^(这个号|本号|这个账号)", next((l for l in lines if l.strip()), "")):   # 10-12 用户：第一段不写「这个号每天讲……」
+            problems.append("正文第一段是「这个号……」的自我介绍 / 关注理由（用户 10-12 取消）：第一段直接写内容")
         if re.search(r"你怎么看|大家怎么看|欢迎讨论|你觉得呢", body):
             warns.append("  ⚠ 有开放式提问（你怎么看）：改成二选一")
     if os.path.basename(path) == "置顶评论.txt" and re.search(r"扣\s*1|扣一", "\n".join(lines)):
