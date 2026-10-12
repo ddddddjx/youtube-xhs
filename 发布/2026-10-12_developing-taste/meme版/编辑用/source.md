@@ -121,8 +121,3 @@ The things you’ll create probably won’t be good at first, but that’s a goo
 ---
 
 **Note:** The original X post contains no attached images or media. The content is pure text recommending the article above. Full text extracted and compiled for offline reading.
-
----
-# 作者背景（10-12 补，Claude 记忆，云端连不上外网未核实，发布前请用户确认）
-- Emil Kowalski：设计工程师，曾在 Vercel；写过开源 toast 组件 Sonner（shadcn/ui 的 toast 用它）、抽屉组件 Vaul；开过动画课 animations.dev。
-- 原文引用的人：Steve Jobs；Julie Zhuo（Facebook 前产品设计副总裁，《On taste》系列）；Ira Glass（《This American Life》主持人，The Taste Gap）；Anu Atluru《Taste is Eating Silicon Valley》；Stripe Sessions 2024《Craft and beauty: The business value of form in function》；Brian Lovin《App Dissection》。（引用关系见上文原文脚注，已核）
