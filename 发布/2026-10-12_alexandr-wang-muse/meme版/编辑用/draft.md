@@ -1,28 +1,30 @@
 ---
-title: 3年心理治疗，AI读完他的邮件就做完了
+title: 这周学AI收获很大的一期播客。
 mode: retell
 value: 情绪
-keyword: 心理治疗
-keywords: Alexandr Wang, Meta, 个人agent
+keyword: 学AI
+keywords: Alexandr Wang, 个人agent, 心理治疗
 hero: 01_alexandr_wang_opening.jpg
-hero_after: 2
+hero_after: 3
 extra_pages: prompt1.png || prompt2.png
 time: 26-10-12 21:00
 location: 香港
 account: Krypto说AI
 ---
 
-让 AI 读完自己的邮件和照片，再一轮一轮追问你到底是个什么样的人，Alexandr Wang 今年 2 月真这么干过。他说那一次，相当于把三年的心理治疗一口气做完。
+这周把 David Senra 和 Alexandr Wang 的这期播客看完了，72 分钟，信息量非常大，听得很过瘾。
+
+学 AI 最容易被快讯追着跑，每天几十条新消息，刷完什么也没留下。对付这种 FOMO，挑一期好访谈从头看完，比刷十条快讯有用得多。
 
 Wang 还不到 30 岁，创办 Scale AI 做了九年。去年 Meta 投资拿下 Scale 49% 的股份，他带着几个人去 Meta 从头重建 AI 实验室，现在直接向他汇报的研究员有 200 多个。
 
-10 月 5 日他上了 David Senra 的播客，聊了 72 分钟。主线是 Meta 今年 9 月推出的个人 agent，叫 Muse，从第一个原型到上线用了七个月。
-
-这些归结起来是同一件事：你敢把自己的生活交给 AI 多少。挑三段说。
+这期主要聊 Meta 今年 9 月推出的个人 agent，叫 Muse，从第一个原型到上线用了七个月。挨个分享下印象很深的三段。
 
 1、让 AI 把自己从头剖一遍，他说整个过程很脆弱
 
-年初 OpenClaw 正火，一个开源的个人 agent，装上以后能读你的邮件和照片，还能自己上网查东西。
+今年 2 月，Wang 让 AI 读完自己的邮件和照片，一轮一轮追问他到底是个什么样的人。他说那一次，相当于把三年的心理治疗一口气做完。
+
+那时 OpenClaw 正火，一个开源的个人 agent，装上以后能读你的邮件和照片，还能自己上网查东西。
 
 和 Wang 一起管实验室的 Nat Friedman，是他们团队里第一个用上的人。Nat 是 Stripe 最早的一批客户，也参与做了 GitHub Copilot，新东西他一向上手很早。
 
