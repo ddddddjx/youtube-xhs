@@ -15,19 +15,25 @@ const LT = MO.longTail;
 W3.camEvents = [
   { at: 2.4, kind: 'to', x: 560, y: 690, z: 1.3, dur: 0.8, ease: LT },       // 从照片拉出 → 露出墙
   { at: 5.4, kind: 'to', x: 800, y: 930, z: 1.75, dur: 0.3 },                // 横到出土照片
-  { at: 8.0, kind: 'cut', x: 890, y: 1862, z: 9.4 },                         // （8–12 满屏实拍盖住）地图卡上的一号坑
-  { at: 15.0, kind: 'to', x: 904, y: 1878, z: 6.9, dur: 0.5, ease: LT },     // 四个坑
+  { at: 8.0, kind: 'cut', x: 890, y: 1890, z: 9.4 },                         // （8–12 满屏实拍盖住）地图卡上的一号坑
+  { at: 15.0, kind: 'to', x: 915, y: 1878, z: 6.9, dur: 0.5, ease: LT },     // 四个坑
   { at: 20.0, kind: 'to', x: 540, y: 2150, z: 0.95, dur: 1.0, ease: LT },    // 拉出：地图＋往下连到陵墓
   { at: 22.5, kind: 'to', x: 540, y: 2690, z: 1.05, dur: 0.6, ease: LT },    // 陵墓＋秦始皇
   { at: 26.0, kind: 'cut', x: 540, y: 3560, z: 1.0 },                        // 人脸墙
   { at: 31.0, kind: 'cut', x: 540, y: 4550, z: 1.06 },                       // 剖面卡
   { at: 35.0, kind: 'to', x: 300, y: 5200, z: 1.75, dur: 0.5, ease: LT },    // 史记卡
   { at: 39.0, kind: 'pan', x: 790, y: 5230, dur: 0.3 },                      // 汞卡
-  { at: 42.5, kind: 'to', x: 540, y: 5700, z: 1.6, dur: 0.4, ease: LT },     // 工匠卡
+  { at: 42.5, kind: 'to', x: 540, y: 5900, z: 1.7, dur: 0.4, ease: LT },     // 工匠卡
+  { at: 24.0, kind: 'punch', k: 0.2, x: 790, y: 2700 },                    // 推近：秦始皇
+  { at: 28.5, kind: 'punch', k: 0.18, x: 540, y: 3620 },                   // 推近：人脸
+  { at: 33.3, kind: 'punch', k: 0.22, x: 540, y: 4680 },                   // 推近：地宫
+  { at: 37.0, kind: 'punch', k: 0.2, x: 280, y: 5140 },                    // 推近：荧光那两行
+  { at: 40.7, kind: 'punch', k: 0.2, x: 780, y: 5270 },                    // 推近：红线下划线
+  { at: 44.5, kind: 'punch', k: 0.2, x: 440, y: 5930 },                    // 推近：None came out
   { at: 46.0, kind: 'cut', x: 330, y: 610, z: 2.0 }, { at: 46.0, kind: 'slam' },          // 回到开场那张脸（回扣）
   { at: 49.5, kind: 'cut', x: 300, y: 2700, z: 1.8 }, { at: 49.7, kind: 'slam' }, { at: 49.7, kind: 'shake', amp: 18 },   // 盖章
-  { at: 53.0, kind: 'to', x: 540, y: 2350, z: 0.8, dur: 1.3, ease: LT },     // 拉远：墙宽占 80%
-  { at: 56.6, kind: 'punch', k: 0.12, x: 430, y: 2560 }, { at: 58.4, kind: 'punch', k: 0.12, x: 360, y: 2660 },
+  { at: 53.0, kind: 'to', x: 545, y: 2507, z: 0.72, dur: 1.3, ease: LT },
+  { at: 56.8, kind: 'punch', k: 0.15, x: 545, y: 2560 },                  // 最后朝陵墓轻推一下，之后停住    // 拉出：地图卡＋陵墓（盖着 SEALED）＋画像整体居中入画，之后不再漂，红线光点在跑
 ];
 W3.cam = t => CAM.track({ x: 330, y: 600, z: 2.6 }, W3.camEvents, t);
 
@@ -93,7 +99,7 @@ function mapCard(c, t, z) { const lw = 3.2 / z;
 }
 
 // ---------- 整面墙 ----------
-const FACES = [['071', 0.42, 0.3, 1.5], ['082', 0.56, 0.4, 1.25], ['074', 0.5, 0.32, 1.35], ['031', 0.5, 0.17, 2.3], ['002', 0.52, 0.42, 1.3], ['072', 0.27, 0.34, 1.5]];
+const FACES = [['071', 0.42, 0.3, 1.5], ['082', 0.56, 0.4, 1.25], ['074', 0.5, 0.32, 1.35], ['031', 0.5, 0.17, 2.3], ['002', 0.52, 0.42, 1.3], ['084', 0.33, 0.25, 2.4]];
 W3.draw = (c, t) => {
   const cam = W3.cam(t), z = cam.z; STR.length = 0;
   CAM.with(c, cam, c => {
@@ -105,7 +111,7 @@ W3.draw = (c, t) => {
     CL.pin(c, 330, 330);
     // 1974 卡（手写＋井的草图）
     card(c, 790, 430, 440, 280, 0.035); handLines(c, ['March 1974', 'Lintong, China', 'farmers digging a well'], 600, 390, 50, 46, t, 2.9, 30, 0.035);
-    if (t > 3.6) { c.save(); c.translate(940, 470); c.rotate(0.035); c.strokeStyle = INK; c.lineWidth = 3; c.beginPath(); c.ellipse(0, 0, 34, 12, 0, 0, U.TAU); c.stroke(); c.beginPath(); c.moveTo(-34, 0); c.lineTo(-34, 40); c.moveTo(34, 0); c.lineTo(34, 40); c.stroke(); c.restore(); }
+    if (t > 3.6) { c.save(); c.translate(930, 350); c.rotate(0.035); c.strokeStyle = INK; c.lineWidth = 3; c.beginPath(); c.ellipse(0, 0, 34, 12, 0, 0, U.TAU); c.stroke(); c.beginPath(); c.moveTo(-34, 0); c.lineTo(-34, 40); c.moveTo(34, 0); c.lineTo(34, 40); c.stroke(); c.restore(); }
     print(c, gsrc('dig', '036', 520, 390, 0.62, 0.58, 1.25), 800, 930, 0.03); CL.pin(c, 800, 720);
     circle(c, 812, 905, 46, 62, clamp((S(t) - 5.8) / 0.6), 6);
     string(c, [330, 330], [800, 720], t, 2.6, 0.5, z);
@@ -130,9 +136,12 @@ W3.draw = (c, t) => {
     CL.highlight(c, 76, 5115, 400, 38, clamp((S(t) - 36.4) / 0.5)); CL.highlight(c, 76, 5161, 300, 38, clamp((S(t) - 36.9) / 0.4));
     card(c, 790, 5230, 440, 340, 0.04); handLines(c, ['Hg  (mercury)', '2020 study: air above', 'the mound has far more', 'mercury than normal'], 600, 5140, 46, 42, t, 39.2, 40, 0.04);
     if (t > 40.6) { c.save(); c.strokeStyle = RED; c.lineWidth = 5; c.beginPath(); c.moveTo(600, 5300); c.lineTo(lerp(600, 960, clamp((S(t) - 40.6) / 0.5)), 5310); c.stroke(); c.restore(); }
-    card(c, 540, 5700, 620, 360, -0.02); handLines(c, ['Sima Qian also wrote:', 'the craftsmen were sealed', 'inside the tomb.', 'None came out.'], 270, 5620, 50, 46, t, 42.9, 40, -0.02);
-    if (t > 44.4) CL.highlight(c, 266, 5722, 300, 40, clamp((S(t) - 44.4) / 0.4));
-    string(c, [540, 4930], [300, 5000], t, 34.7, 0.3, z); string(c, [300, 5000], [790, 5060], t, 38.7, 0.3, z); string(c, [790, 5400], [540, 5520], t, 42.2, 0.3, z);
+    card(c, 540, 5900, 620, 360, -0.02); handLines(c, ['Sima Qian also wrote:', 'the craftsmen were sealed', 'inside the tomb.', 'None came out.'], 270, 5820, 50, 46, t, 42.9, 40, -0.02);
+    if (t > 44.4) CL.highlight(c, 266, 5922, 300, 40, clamp((S(t) - 44.4) / 0.4));
+    string(c, [540, 4930], [300, 5000], t, 34.7, 0.3, z); string(c, [300, 5000], [790, 5060], t, 38.7, 0.3, z); string(c, [790, 5400], [540, 5720], t, 42.2, 0.3, z);
+    // SEALED 印章（49.7 砸在陵墓照片上，之后一直在）
+    if (t > 49.7) { c.save(); c.translate(300, 2700); c.rotate(-0.14); const k = MO.slamK((t - 49.7) / 0.17); c.scale(k, k);
+      c.strokeStyle = RED; c.lineWidth = 7; c.strokeRect(-170, -50, 340, 100); c.font = '900 68px "Inter"'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = RED; c.fillText('SEALED', 0, 4); c.restore(); }
     // 结尾：红线上跑的光点（线索全连上了）
     if (t > 54.2) STR.forEach((s, i) => { const u = ((t - 54.2) * 0.45 + i * 0.17) % 1; let j = 0; while (j < s.cum.length - 1 && s.cum[j] < u * s.L) j++; const p = s.pts[j];
       const gr = c.createRadialGradient(p[0], p[1], 0, p[0], p[1], 26 / z); gr.addColorStop(0, 'rgba(255,120,100,.95)'); gr.addColorStop(1, 'rgba(255,120,100,0)'); c.fillStyle = gr; c.beginPath(); c.arc(p[0], p[1], 26 / z, 0, U.TAU); c.fill(); });
@@ -140,17 +149,15 @@ W3.draw = (c, t) => {
   // 屏幕层：标签最后画、压在最上层（全部在字幕带以上）
   const L = (wx, wy, text, at, o = {}) => { if (t < at || (o.until && t > o.until)) return; const [sx, sy] = CAM.toScreen(cam, wx, wy); MD.label(c, text, sx, Math.min(sy, 1200), { size: o.size || 46, fam: 'Inter', t, at, align: o.align || 'center', bg: o.bg, fg: o.fg, r: o.r || 0, rate: 30 }); };
   L(800, 700, 'AN ENTIRE ARMY', 6.6, { bg: RED, size: 56, r: -0.03, until: 8.0 });
-  L(MX(0), MY(31) + 12, 'PIT 1 · 755 FT LONG', 12.2, { until: 15.0 });
+  L(MX(-115), MY(31) + 8, 'PIT 1 · 755 FT LONG', 12.2, { align: 'left', until: 15.0 });
   L(MX(0), MY(-88) - 6, '2 FOOTBALL FIELDS', 12.9, { bg: PAPER, fg: INK, size: 42, until: 15.2 });
   L(MX(178), MY(-142) - 3, 'PIT 2 · CAVALRY', 15.4, { align: 'right', size: 38, until: 20.0 });
   L(MX(-112), MY(-43), 'PIT 3 · COMMAND POST', 15.9, { align: 'left', size: 38, until: 20.0 });
   L(MX(-3), MY(-102) - 3, 'PIT 4 · EMPTY', 16.4, { bg: RED, size: 38, until: 20.0 });
-  L(MX(40), MY(-160), 'ALL FACING EAST →', 18.1, { bg: PAPER, fg: INK, size: 44, until: 20.0 });
+  L(MX(-60), MY(-160), 'ALL FACING EAST →', 18.1, { bg: PAPER, fg: INK, size: 44, until: 20.0 });
   L(300, 2490, '20+ SQ MI BURIAL COMPLEX', 23.2, { bg: PAPER, fg: INK, size: 36, until: 26.0 });
   L(790, 2450, 'ONE MAN', 23.5, { bg: RED, size: 60, r: -0.03, until: 26.0 });
   L(540, 2950, '× 8,000', 28.4, { bg: RED, size: 70, until: 31.0 });
-  if (t > 49.7 && t < 53.4) { const [sx, sy] = CAM.toScreen(cam, 300, 2700); c.save(); c.translate(sx, Math.min(sy, 1060)); c.rotate(-0.14); const k = MO.slamK((t - 49.7) / 0.17); c.scale(k, k);
-    c.strokeStyle = RED; c.lineWidth = 12; c.strokeRect(-300, -88, 600, 176); c.font = '900 120px "Inter"'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = RED; c.fillText('SEALED', 0, 6); c.restore(); }
   return cam;
 };
 

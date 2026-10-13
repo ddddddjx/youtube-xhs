@@ -4,7 +4,7 @@ window.FILM_SIZE = [1080, 1920];
 window.SCENE_LIBS = ['tt/kit.js', 'tt/film.js', 'tt/wall.js'];
 window.SCENE_DIR = 'ttdirs_none';
 window.FILM_DURATION = 60;
-const ALL = ['000', '036', '125', '067', '071', '074', '072', '082', '002', '031', 'emp1', 'rows1'].map(k => 'img/' + k + '.jpg');
+const ALL = ['000', '036', '125', '067', '071', '074', '072', '082', '002', '031', '084', 'emp1', 'rows1'].map(k => 'img/' + k + '.jpg');
 // 字幕：深色底板＋白字，中文暖黄；切换时 0.1 秒轻弹，不淡入（审片：浅底上粗描边糊字、新旧字幕叠化）
 const wrapEn = (c, s, max) => { const out = []; let line = ''; for (const w of s.split(' ')) { const tr = line ? line + ' ' + w : w; if (c.measureText(tr).width > max && line) { out.push(line); line = w; } else line = tr; } if (line) out.push(line); return out; };
 const wrapZh = (c, s, max) => { const out = []; let line = ''; for (const ch of s) { if (c.measureText(line + ch).width > max && line) { out.push(line); line = ch; } else line += ch; } if (line) out.push(line); return out; };
@@ -25,8 +25,8 @@ const SUBS = [
   [8.0, 12.0, 'Over 8,000 soldiers. Every one life-size.', '八千多个兵俑，个个真人大小', '8,000'],
   [12.0, 15.0, 'Pit 1 alone is longer than two football fields.', '光一号坑，就比两个美式橄榄球场还长', 'two football fields'],
   [15.0, 18.0, 'Pit 2: cavalry. Pit 3: the command post. Pit 4: left empty.', '二号坑骑兵，三号坑指挥部，四号坑是空的', 'empty'],
-  [18.0, 20.0, 'And every soldier faces east...', '所有兵俑，都面朝东方'],
-  [20.0, 22.5, "...guarding one man's tomb, a mile away.", '守着一英里外，一个人的墓', 'one man'],
+  [18.0, 20.5, 'And every soldier faces east...', '所有兵俑，都面朝东方'],
+  [20.5, 22.5, "...guarding one man's tomb, a mile away.", '守着一英里外，一个人的墓', 'one man'],
   [22.5, 26.0, "Qin Shi Huang. China's First Emperor.", '秦始皇，中国第一个皇帝'],
   [26.0, 28.5, 'Every face is different.', '每一张脸都不一样', 'different'],
   [28.5, 31.0, 'No two alike. Over 8,000 of them.', '没有两张一样，一共八千多张'],
@@ -40,8 +40,8 @@ const SUBS = [
 window.ERAS = [
   // 0–2.4 钩子：满幅彩色脸，颜料剥落只剩灰陶
   { id: 's1', dur: 2.4, assets: ALL, draw(c, lt, t) {
-    TF.hook(c, lt, { z: 1.08 + lt * 0.05, peel: U.clamp((lt - 0.55) / 1.55), t0: 0.55, t1: 2.1 }); TF.vignette(c, 0.5);
-    MD.label(c, lt < 1.2 ? 'AS PAINTED · 210 BC (RECONSTRUCTION)' : 'AS FOUND · 1974', 540, 260, { size: 36, fam: 'Inter', align: 'center', bg: lt < 1.2 ? '#b8433f' : '#191817', t: lt, at: lt < 1.2 ? 0 : 1.2, rate: 40 });
+    TF.hook(c, lt, { z: 1.08 + lt * 0.05, peel: U.clamp((lt - 1.0) / 1.2), t0: 1.0, t1: 2.15 }); TF.vignette(c, 0.5);
+    MD.label(c, lt < 1.45 ? 'AS PAINTED · 210 BC (RECONSTRUCTION)' : 'AS FOUND · 1974', 540, 260, { size: 38, fam: 'Inter', align: 'center', bg: lt < 1.45 ? '#b8433f' : '#191817', t: lt, at: lt < 1.45 ? -5 : 1.45, rate: 40 });
     cap(c, lt, SUBS[0][2], SUBS[0][3], { hl: 'gray' }); } },
   // 2.4–60 调查墙
   { id: 'wall', dur: 57.6, assets: ALL, draw(c, lt, t) {
@@ -51,5 +51,5 @@ window.ERAS = [
       CAM.with(c, k, c => TF.cover(c, TF.im('rows1'), { fx: 0.52, fy: 0.62, z: 1.0 })); MD.label(c, 'PIT 1 · TODAY', 70, 300, { size: 46, fam: 'Inter', t, at: 8.1, rate: 30 }); }
     TF.vignette(c, 0.3);
     for (const [a, b, en, zh, hl] of SUBS) if (t >= a && t < b) cap(c, t - a, en, zh, { hl });
-    if (t >= 54.0) cap(c, t - 54.0, 'Would you open it?', '换你，你会打开吗？', { y: 230, size: 92, hl: 'open' }); } },
+    if (t >= 54.0) cap(c, t - 54.0, 'Would you open it?', '换你，你会打开吗？', { y: 1300, size: 92, hl: 'open' }); } },
 ];
