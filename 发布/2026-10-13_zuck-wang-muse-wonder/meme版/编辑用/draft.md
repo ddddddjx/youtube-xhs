@@ -4,7 +4,7 @@ mode: retell
 value: 框架
 keyword: Muse Wonder
 keywords: Meta, Zuckerberg, Alexandr Wang, benchmark
-hero: hero_100b.jpg
+hero: hero_smile.jpg
 hero_after: 2
 time: 26-10-13 21:00
 location: 香港
