@@ -45,12 +45,14 @@ MemeInformation 是一个 AI 科技小红书号，我们蒸馏了它 2025-07 到
 - `$M` = 本 SKILL.md 所在目录：
   - `references/writing_guide.md`：写作指南。**写稿前读完。**
   - `references/cover_guide.md`：首页怎么做（突出标题 + 素材图）。**出图前读。**
+  - `references/wechat_cover_guide.md`：公众号分支（10-13 起）。同一篇发公众号时读：两个平台首图逻辑的差别、front matter、检查项。
   - `assets/cover_illus_template.html`：扁平插画模板，只给正文页的示意图用，不上首页。
   - `references/memeinformation_voice.md`：180 篇的完整手册（四个阶段、统计、出处）。拿不准时查。
   - `references/baseline.json`：原号成熟期 77 篇的节奏基线，检查脚本用。
   - `scripts/meme_check.py`：文风和硬规则检查。
   - `scripts/render_meme.py`：draft.md → 01.png … NN.png + overview.jpg。front matter `font: serif` 用宋体排正文（云端先 `apt-get install -y fonts-noto-cjk`）。
   - `scripts/box.py`：证据截图画红框（`box.py 图.png x1,y1,x2,y2`），10-03 起。
+  - `scripts/render_wechat.py`：公众号分支，同一份 draft.md → `公众号版/`（封面 1800×766、1:1 预览、三处场景预览、标题、摘要、正文.md）。
   - `assets/avatar.png`：Krypto说AI 头像。
 - `$Y` = 同级的 `youtube-xhs`（`scripts/check_paste.py`、`scripts/post_log.py`、`scripts/fetch.py`）。找不到时 `find / -type d -name youtube-xhs 2>/dev/null | head -1`；还是没有就跳过这两步，在交付时说明。
 - 原文库（本地才有）：`~/Downloads/MemeInformation_文字_精校版/`（成熟期 78 篇），`~/Downloads/MemeInformation_文字稿.zip`（早期 102 篇）。
@@ -208,6 +210,18 @@ python3 $Y/scripts/post_log.py add --dir "<输出目录>" --series meme --no <N>
 期数取 `账号/日志.csv` 里 `meme` 栏目的最大期数加 1，没有就从 1 开始。原号不写期数，所以期数只进 log，不上图也不进正文。
 
 check_paste 的 ✗ 要改到 ✓。放在 `meme版/` 目录里的正文.txt，缺二选一问题、缺领取物提示只报 ⚠，不查期数和立场前置：原号这几样都没有，meme 版默认不加。用户要加的时候，二选一问题放在正文.txt 最后一行，不上图。
+
+### 7.5 公众号分支（10-13 起，可选）
+
+用户说「同样的内容发公众号」时走这一步。正文、标题公式、图下文案一个字不改（10-07 到 10-21 规则冻结，这个分支只动输出层），改的是首图、标题长度、摘要。为什么公众号首图不能直接拿小红书第 1 页裁，见 `references/wechat_cover_guide.md` 第一节，一句话：小红书首图在陌生人的瀑布流里拦人，公众号首图给已经认识你的人一个点开的理由，并且在群聊里被裁成拇指大的 1:1 还要认得出。
+
+在 draft.md 的 front matter 里加（都可选）：`wechat_cover`（横幅大字，2 到 3 行、每行 6 字以内、`==词==` 打黄底；不写用 headline，再不写用 title，title 一般会超长报 ✗）、`wechat_kicker`（大字上一行小字）、`wechat_hero`（右侧素材图，竖的或接近方的；不写用 hero，`off` 不放）、`wechat_digest`（摘要，120 字以内，默认取第一段）、`wechat_title`（64 字以内，默认用 title）。
+
+```bash
+python3 $M/scripts/render_wechat.py "<输出目录>/meme版/编辑用/draft.md" "<输出目录>/公众号版"
+```
+
+Read `公众号版/预览.jpg`：②群聊转发卡里的 1:1 缩略图能不能一眼读出大字，①订阅号列表里图和标题是不是在说同一件事。✗ 全改（大字超行超字、出安全区、标题超 64、摘要超 120、极限词），⚠ 看一眼（素材图太暗 / 太宽、标题超 30 字）。`正文.md` 文末自动接了 meme版/正文.txt 里的领取物（去掉标签行），上传正文时按文件名把 `编辑用/` 里的图插回去。交付时把 `封面.png`、`预览.jpg`、`标题.txt`、`摘要.txt`、`正文.md` 一起 SendUserFile。
 
 ### 8. 交付
 
