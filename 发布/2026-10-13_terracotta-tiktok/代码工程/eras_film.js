@@ -36,7 +36,7 @@ window.ERAS = [
     WALL.draw(c, t);
     // 推进一号坑照片 → 硬切成满幅高清原图（Vox 转场：推满照片→切成同一张图的高清扫描）
     if (t >= 16.8 && t < 19.0) { TF.cover(c, TF.im('107'), { fx: 0.5, fy: 0.62, z: 1.15 }); MD.label(c, 'PIT 1 · TODAY', 70, 330, { size: 46, fam: 'Inter', t, at: 16.95 }); }
-    TF.vignette(c, 0.35); TF.grain(c, t);
+    TF.vignette(c, 0.35);   // Vox：纸纹是静态的，不叠逐帧颗粒
     for (const [a, b, en, zh, hl] of SUBS) if (t >= a && t < b) TF.subs(c, t - a, en, zh, { y: 1330, size: 70, hl });
     if (t >= 56.4) TF.subs(c, t - 56.4, 'Would you open it?', '换你，你会打开吗？', { y: 1250, size: 108, hl: 'open' }); } },
 ];
