@@ -13,17 +13,9 @@ import os
 import re
 import sys
 
+CONTRAST = r"不是[^。！？\n]{0,24}(而是|，是|,是)|并非[^。！？\n]{0,24}而是|很多人以为|大错特错|误区|别只|才是(关键|重点|核心|本质)"
+
 CHECKS = [
-    ("先否定再纠正", [
-        r"不是[^。！？\n]{0,24}(而是|，是|,是)",
-        r"并非[^。！？\n]{0,24}而是",
-        r"与其[^。！？\n]{0,24}不如",
-        r"很多人以为",
-        r"表面上[^。！？\n]{0,24}实际上",
-        r"大错特错|误区",
-        r"别只",
-        r"才是(关键|重点|核心|本质)",
-    ]),
     ("宣布或播报", [
         r"我的(判断|建议|答案|看法|结论)(是|很简单|就是)",
         r"先(给|说)一句我的",
@@ -128,6 +120,9 @@ def main(path, voice=False):
         if "*" in line:
             found += 1
             print(f"[半角星号] 第{i}行：平台会当作格式符号，改用卡片工具的加粗")
+
+    contrast = len(re.findall(CONTRAST, body_text))
+    print(f"「不是…而是」类句式 {contrast} 处（2026-10-13 起放开，只看密度：全篇两三处为宜，A 要真实、B 要具体）。")
 
     hedges = len(re.findall(HEDGES, body_text))
     per_k = hedges * 1000 / n_chars if n_chars else 0
