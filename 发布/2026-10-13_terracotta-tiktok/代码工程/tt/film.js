@@ -113,4 +113,5 @@ F.mercury = (c, lt, top) => {
 F.ring = (c, x, y, lt, at) => { const q = lt - at; if (q < 0) return; for (let i = 0; i < 2; i++) { const u = ((q * 0.8 + i * 0.5) % 1); c.strokeStyle = `rgba(255,210,63,${0.9 * (1 - u)})`; c.lineWidth = 7; c.beginPath(); c.arc(x, y, 60 + u * 120, 0, U.TAU); c.stroke(); }
   c.strokeStyle = '#ffd23f'; c.lineWidth = 6; c.beginPath(); c.arc(x, y, 60, 0, U.TAU * clamp(q / 0.4)); c.stroke(); };
 F.im = im;
+F.painted = () => painted();
 })();

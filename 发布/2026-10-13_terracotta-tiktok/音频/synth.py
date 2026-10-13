@@ -44,7 +44,7 @@ def pluck(f, d=1.4):
     return s * np.minimum(1, t / 0.002)
 
 # 段落（与 eras_film.js 对齐）
-CUTS = [2.95, 5.6, 7.4, 8.6, 15.8, 16.8, 19.0, 19.6, 22.1, 24.6, 27.2, 28.6, 31.0, 35.0, 41.0, 44.6, 47.8, 51.0, 53.75, 56.0]  # v3 剪辑点
+CUTS = [2.4, 5.4, 8.0, 9.3, 10.6, 12.0, 15.0, 18.0, 20.0, 22.5, 26.0, 31.0, 35.0, 39.0, 42.5, 46.0, 49.7, 53.0, 56.6, 58.4]  # v3.1 剪辑点
 # 开场：一记钟 + 剥落爆裂 + 低音落地
 add(bell(hz(62), 4), 0.0, 0.55, -0.2); add(sub(2.5), 0.0, 0.9)
 for k in range(5): add(crack(0.45), 0.9 + k * 0.35, 0.18, rng.uniform(-0.6, 0.6))
@@ -68,10 +68,10 @@ t = 19.6; j = 0
 while t < 55.5:
     add(pluck(hz(SCALE[MEL[j % len(MEL)]])), t, 0.22, 0.25); t += BEAT * 2; j += 1
 # 50–57 水银：高音钟慢敲
-for k in range(5): add(bell(hz(74 + (k % 2) * 5), 3), 44.6 + k * 1.3, 0.2, 0.4 - 0.2 * k)
+for k in range(5): add(bell(hz(74 + (k % 2) * 5), 3), 35.2 + k * 0.8, 0.2, 0.4 - 0.2 * k)
 # 结尾：鼓停，一记钟收在问题上
 add(riser(1.4), 54.6, 0.3); add(bell(hz(50), 5), 56.0, 0.6); add(bell(hz(62), 4), 56.0, 0.35, 0.3)
 mix = np.stack([L, R], 1); fade = int(1.0 * SR); mix[-fade:] *= np.linspace(1, 0, fade)[:, None]
-mix = mix / np.max(np.abs(mix)) * 0.89
+mix = mix / np.max(np.abs(mix)) * 0.79   # 留到 -2 dBFS，AAC 编码后不过 -1 dBTP（审片：峰值 0 dBFS）
 sf.write(Path(__file__).with_name('配乐.wav'), mix, SR)
 print('ok', mix.shape)
