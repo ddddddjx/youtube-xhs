@@ -12,7 +12,7 @@ location: 香港
 account: Krypto说AI
 ---
 
-Meta 这回先押了一千多亿美元，Muse Wonder 却连影都没有，这和我最近五年在工作里见过的所有项目都反着来。
+Meta 这回先押了一千多亿美元，Muse Wonder 却连影都没有，这和我最近五年常见的中国互联网「小步快跑」截然相反。
 
 前天一篇写 Alex Wang 的帖子突然火了，我又翻出来 Zuckerberg 和 Alex Wang 的一次少有共同出面的访谈，Stripe 联合创始人 John Collison 的播客，两个多小时，主题就是 Meta 刚发的这个前沿模型。
 
