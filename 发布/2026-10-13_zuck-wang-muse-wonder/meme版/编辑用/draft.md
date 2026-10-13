@@ -4,7 +4,7 @@ mode: retell
 value: 框架
 keyword: Muse Wonder
 keywords: Meta, Zuckerberg, Alexandr Wang, benchmark
-hero: quote.png
+hero: hero_100b.jpg
 hero_after: 2
 time: 26-10-13 21:00
 location: 香港
@@ -28,6 +28,8 @@ Meta 在俄亥俄的 Prometheus 已经过了 1 GW，路易斯安那的 Hyperion 
 Wang 讲了一段很实在的话。创业公司都讲 lean startup，先做一点，看到有效再加码。AI 里完全做不到，数据中心得提前好几年动工。
 
 Muse Wonder 从去年 8 月就定了要做，年底开支票的时候，手上只有他一份「感觉还行」的汇报和几张曲线图，没有任何证据说明这个模型会好。Zuckerberg 当时问他的原话是，Alex，你确定这能成？
+
+![开支票那会儿他们的原话](quote.png)
 
 Zuckerberg 自己倒不觉得有那么险，他算的是另一笔账。要让这事亏，不是 Meta 的模型失败就够了，得整个 AI 都失败，因为只要 AI 还在，算力就有人要。
 
