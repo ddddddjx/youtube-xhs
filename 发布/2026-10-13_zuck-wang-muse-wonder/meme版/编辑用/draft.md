@@ -10,6 +10,10 @@ hero_after: 2
 time: 26-10-13 21:00
 location: 香港
 account: Krypto说AI
+wechat_cover: 先押==千亿==<br>模型没影
+wechat_kicker: Meta 这笔账怎么算
+wechat_hero: hero_wechat.jpg
+wechat_digest: Meta 先押了一千多亿美元，Muse Wonder 却连影都没有，和中国互联网的小步快跑截然相反。Zuckerberg 和 Alex Wang 的播客，我记住三件事：钱怎么决定投，模型好坏怎么判，Muse 为什么没有模型选择器。
 ---
 
 Meta 这回先押了一千多亿美元，Muse Wonder 却连影都没有，这和我最近五年常见的中国互联网「小步快跑」截然相反。
