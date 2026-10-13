@@ -13,7 +13,7 @@ account: Krypto说AI
 
 去年底 Meta 高管在夏威夷开会，CFO Susan Li 好几次把 Alexandr Wang 拉到一边，说这个模型要是不成，财务上会非常非常糟。那时候 Muse Wonder 连影都没有，一千亿到两千亿美元的支票已经开出去了。
 
-这是 Stripe 联合创始人 John Collison 的播客，请了 Zuckerberg 和 Wang 喝 Guinness，聊了两个多小时，主题就是 Meta 刚发的这个前沿模型。
+前天一篇写 Alex Wang 的帖子突然火了，我又翻出来 Zuckerberg 和 Alex Wang 的一次少有共同出面的访谈，Stripe 联合创始人 John Collison 的播客，两个多小时，主题就是 Meta 刚发的这个前沿模型。
 
 Wang 不到 30 岁，Scale AI 做了九年，去年 4 月 Llama 4 发完没几天 Zuckerberg 给他打了个电话，一年多时间从零重建了 Meta 的 AI 实验室。
 
