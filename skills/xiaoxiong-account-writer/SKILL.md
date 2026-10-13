@@ -15,7 +15,7 @@ description: 为小红书账号「小熊先生」策划、撰写、改写和校�
 
 | 任务 | 必读 | 按需 |
 |---|---|---|
-| 任何正文写作或改稿 | [references/identity-and-facts.md](references/identity-and-facts.md)、[references/writing-style.md](references/writing-style.md)、[references/industry-details.md](references/industry-details.md) | [references/examples.md](references/examples.md) |
+| 任何正文写作或改稿 | [references/voice-playbook.md](references/voice-playbook.md)、[references/identity-and-facts.md](references/identity-and-facts.md)、[references/writing-style.md](references/writing-style.md)、[references/industry-details.md](references/industry-details.md) | [references/examples.md](references/examples.md) |
 | 选题、候选题、批次规划 | [references/topic-planning.md](references/topic-planning.md) | [references/data-feedback.md](references/data-feedback.md) |
 | 借鉴林木求职等外部素材 | [references/linmu-techniques.md](references/linmu-techniques.md) | identity-and-facts 第六节 |
 | 读后台数据、复盘 | [references/data-feedback.md](references/data-feedback.md) | |
@@ -35,11 +35,11 @@ description: 为小红书账号「小熊先生」策划、撰写、改写和校�
 
 ### 3. 起草
 
-按 writing-style 第二节选题材类型（A—F），用该类型的必备内容和可选工具。底线七条每篇都要满足。不为字数、配额、版面加内容。
+按 writing-style 第二节选题材类型（A—F），用该类型的必备内容和可选工具。口吻和结构按 voice-playbook：先把题翻成「对面想确认什么」，从第二节九种拆法里选一到两种，开头三拍，每一点一个小循环，挑两三个招牌动作。底线七条每篇都要满足。不为字数、配额、版面加内容。
 
 ### 4. 自查和修订
 
-运行 `python3 scripts/check_draft.py 稿件.md`，逐条人工判断提示；再按 writing-style 第六节朗读检查。发现问题直接改，改完复核事实。
+运行 `python3 scripts/check_draft.py --voice 稿件.md`，逐条人工判断提示，口吻对照里「偏低」的项回到 voice-playbook 补；再按 writing-style 第六节朗读检查。发现问题直接改，改完复核事实。
 
 ### 5. 平台字段和交付
 

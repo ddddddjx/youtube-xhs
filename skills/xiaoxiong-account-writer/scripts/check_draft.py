@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """小熊先生稿件自检：只提示，不改稿，不判定合格。
 
-用法：python3 check_draft.py 稿件.md
+用法：python3 check_draft.py [--voice] 稿件.md
+
+--voice：额外对照林木求职 303 篇转写的口吻基线（linmu_baseline.json），见 references/voice-playbook.md。
 
 正文 = 第一个单独一行的 --- 之前的内容；之后视为平台字段。
 每条提示都需要人工确认：引号里的台词、引用的原文可能触发提示但不必改。
 """
+import json
+import os
 import re
 import sys
 
@@ -47,12 +51,60 @@ CHECKS = [
 
 HEDGES = r"可能|也许|未必|不一定|或许"
 
+VOICE = [
+    ("问句", r"[？?]"),
+    ("所以", r"所以"),
+    ("序数(第一/第二/第三)", r"第[一二三四五]个?"),
+    ("比如说/举个例子", r"比如说|举个例子|比如"),
+    ("一定", r"一定"),
+    ("其实", r"其实"),
+    ("为什么", r"为什么"),
+    ("核心", r"核心"),
+    ("你", r"你"),
+    ("对不对/是不是/你看", r"对不对|是不是|你看"),
+    ("面试官/HR/老板/领导", r"面试官|HR|老板|领导|leader|senior|合伙人"),
+]
+VIEW = r"面试官|HR|senior|带教|合伙人|招人|对面|他会想|心里"
+
+
+def voice_report(body_lines, n_chars):
+    base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "linmu_baseline.json")
+    base = json.load(open(base_path, encoding="utf-8"))
+    text = "\n".join(l for l in body_lines if not l.startswith("#"))
+    print("\n== 口吻对照（每千字；目标落在林木 P25—中位数之间，口播口水词不算）==")
+    for name, pat in VOICE:
+        v = len(re.findall(pat, text)) * 1000 / n_chars if n_chars else 0
+        b = base.get(name, {})
+        lo, mid = b.get("p25", 0), b.get("median", 0)
+        flag = "偏低" if v < lo else ("偏高" if v > b.get("p75", 99) * 1.5 else "在范围内")
+        print(f"  {name}\t{v:.1f}\t林木 P25 {lo} / 中位 {mid}\t{flag}")
+    paras = [l.strip() for l in body_lines if l.strip() and not l.startswith("#")]
+    first = paras[0] if paras else ""
+    second = paras[1] if len(paras) > 1 else ""
+    q = bool(re.search(r"[？?]", first))
+    print(f"  首句：{'问题' if q else '判断/场景'}「{first[:30]}」")
+    if q and re.search(r"[？?]\s*$", second):
+        print("  [开头] 第二段还是问句：问题之后第二句应直接给判断")
+    head = "".join(paras[:5])
+    if not re.search(r"第一|1、|一、|两个|三个|几个|两件|三件|三步|两类|三类", head):
+        print("  [开头] 前五段没有报数或进入第一点")
+    if not re.search(VIEW, text):
+        print("  [视角] 全文没有出现招人方视角（面试官 / senior / 合伙人在想什么）")
+    long_abs = 0
+    for pgh in paras:
+        if len(pgh) > 120 and not re.search(r"比如|举个例子|「|\d", pgh):
+            long_abs += 1
+    if long_abs:
+        print(f"  [推进] {long_abs} 段超过 120 字且没有例子、引语或数字，检查是否抽象话连成片")
+    if "说白了" in text:
+        print("  [用词] 出现「说白了」，林木全量几乎不用")
+
 
 def visible_len(s):
     return len(s.strip())
 
 
-def main(path):
+def main(path, voice=False):
     text = open(path, encoding="utf-8").read()
     lines = text.split("\n")
     split_at = next((i for i, l in enumerate(lines) if l.strip() == "---"), len(lines))
@@ -101,10 +153,13 @@ def main(path):
         print(f"[平台字段] 总结 {len(s)} 字（参考 160—240）")
 
     print(f"共 {found} 条句型提示。逐条人工判断，引号内台词和原文引用可以保留。")
+    if voice:
+        voice_report(body, n_chars)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    args = [a for a in sys.argv[1:] if a != "--voice"]
+    if len(args) != 1:
         print(__doc__)
         sys.exit(1)
-    main(sys.argv[1])
+    main(args[0], voice="--voice" in sys.argv[1:])
