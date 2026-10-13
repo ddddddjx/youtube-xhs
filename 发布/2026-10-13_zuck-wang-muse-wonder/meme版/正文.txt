@@ -1,0 +1,11 @@
+Muse Wonder 发了，Zuckerberg 和 Alexandr Wang 上了 John Collison 的播客，聊了两个多小时。最打我的一段是去年底：模型连影都没有，一千亿到两千亿美元的支票已经开出去，CFO 把 Wang 拉到一边说，这个模型必须成。
+
+他们算这笔账的口径：运营 1 GW 一年约 150 亿美元，自建先付 500 到 600 亿，训一个前沿模型整体几百亿。Wang 说这是 lean startup 的反面，先全押，一年多以后才知道成不成。Zuckerberg 算的是另一笔：要亏得整个 AI 都失败，算力别人会买，广告业务提速几个点就能养。
+
+另外两件事：公开 benchmark 他们越看越少，Wang 说盯着公开榜单等于把产品思考外包给一个碰巧做出爆款榜单的博士生；Muse 里没有模型选择器，付费后 Wonder 自动接管，用户的感受只有「它变好了」。
+
+我自己选模型从来不看榜单，看手上的活：最核心最难的任务给 Claude 的 Fable 5，代码给 Codex，英文圈一手信息靠 Grok 连 Twitter。上周那篇 Wang 讲 Muse 的稿里写过这个分工，这篇接着说。
+
+你选模型看榜单，还是看手上的活？
+
+#MuseWonder #Meta #Zuckerberg #AlexandrWang #AI #benchmark
