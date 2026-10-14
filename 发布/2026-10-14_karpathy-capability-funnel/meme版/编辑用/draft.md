@@ -35,7 +35,11 @@ account: Krypto说AI
 
 Grok 那个每天早上抓推特的 bot，上周定时 agent 那篇写过。
 
-![原文里最值得划的三句](quote.png)
+原文里这句我划了线：
+
+「Somewhere around 20M people (0.2%) see first-hand that large, complex projects that used to take them weeks/months can now be completed by agents with a prompt.」
+
+大约 2000 万人亲眼看到，以前要几周几个月的大项目，现在一个提示词交给 agent 就能做完。
 
 漏斗是三样东西推出来的。
 
