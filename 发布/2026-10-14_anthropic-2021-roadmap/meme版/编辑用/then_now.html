@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;width:960px;height:470px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:16px 24px}
+h1{font-size:26px;margin:0 0 2px;font-weight:700}
+.sub{font-size:13px;color:#888;margin-bottom:12px}
+table{border-collapse:collapse;width:100%}
+th{font-size:14px;color:#888;font-weight:600;text-align:left;padding:4px 10px;border-bottom:2px solid #eee}
+td{font-size:15.5px;padding:9px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top;line-height:1.45}
+td:first-child{width:300px;color:#444}
+td:last-child b{color:#171717}
+.y{background:#fff0a8;padding:0 3px}
+.note{font-size:11.5px;color:#999;margin-top:8px}
+</style></head><body><div class="wrap">
+<h1>2021 年 7 月写的，2026 年你手上用的</h1>
+<div class="sub">左边是 Anthropic 内部路线图原文的意思，右边是今天的 Claude Code 和 Claude</div>
+<table>
+<tr><th>路线图里写的（2021-07）</th><th>五年后</th></tr>
+<tr><td>一个能写函数、找 bug、设计 API、讨论代码风格的 AI 助手，像一个<span class="y">软件工程师同事</span></td><td><b>Claude Code</b>：你在终端里说一句，它自己改完整个仓库</td></tr>
+<tr><td>用强化学习教模型<span class="y">用工具</span>：搜索、printf 调试、读仓库</td><td><b>agent</b>：读文件、跑测试、开 PR，一整条干下来</td></tr>
+<tr><td>训 1T 以上参数的模型，<span class="y">超长上下文</span>或等效的记忆机制</td><td>百万 token 上下文，<b>一次喂整个代码库</b></td></tr>
+<tr><td>用人类反馈把模型训得 generally helpful，会<span class="y">反问澄清</span></td><td>你给的指令不清楚，它<b>先问你再动手</b></td></tr>
+<tr><td>评论区：「不沙箱的工具怎么安全部署？」「尤其是部署时能执行代码的工具」</td><td>今天还在吵的问题，<b>权限给到哪一步</b></td></tr>
+</table>
+<div class="note">原文：Concise Research Roadmap，Jared Kaplan，Last Updated July 2021，法庭披露件 ANT_BARTZ_000436689</div>
+</div></body></html>
