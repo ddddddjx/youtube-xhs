@@ -8,7 +8,7 @@ keyword: 提示词
 keywords: Claude, AI野心, Anthropic
 headline: 用AI两年，我才发现短板是自己
 hero: four_hero.png
-hero_after: 2
+hero_after: 1
 extra_pages: four.png
 time: 26-10-15 21:00
 location: 香港

@@ -1,23 +1,17 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
-body{margin:0;width:960px;height:520px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
-.wrap{padding:26px 30px}
-h1{font-size:30px;margin:0 0 4px;font-weight:700}
-.sub{font-size:16px;color:#888;margin-bottom:16px}
-.row{display:flex;gap:14px}
-.card{flex:1;border:2px solid #e6e6e6;border-radius:12px;padding:16px 18px}
-.card.hot{border-color:#e8963a;background:#fffaf0}
-.k{font-size:26px;font-weight:700;margin-bottom:6px}
-.d{font-size:17px;line-height:1.5;color:#444}
-.ex{font-size:17px;line-height:1.5;margin-top:6px;font-weight:700}
-</style></head><body><div class="wrap">
-<h1>用 AI 的野心分四种，同一件活四种派法</h1>
-<div class="sub">活：给老板做一份季度业务汇报</div>
-<div class="row">
-<div class="card"><div class="k">速度</div><div class="d">更快做完，基本盘</div><div class="ex">「按模板把数填进去」</div></div>
-<div class="card hot"><div class="k">高度</div><div class="d">说结果，不派任务</div><div class="ex">「告诉我变了什么、为什么、该怎么办」</div></div>
-</div>
-<div class="row" style="margin-top:14px">
-<div class="card"><div class="k">深度</div><div class="d">用顶尖的人的方法，定不讲理的目标</div><div class="ex">「别给表格，建模型查我们的假设」</div></div>
-<div class="card"><div class="k">广度</div><div class="d">名词换动词，叫别的领域的人来</div><div class="ex">「叫记者讲清楚，叫做空的挑刺」</div></div>
-</div>
-</div></body></html>
+body{margin:0;width:960px;height:400px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{display:flex;height:400px}
+.col{flex:1;display:flex;flex-direction:column;justify-content:center;padding:34px 36px;box-sizing:border-box}
+.l{background:#f1f1f1}
+.r{background:#e8963a;color:#fff}
+.tag{font-size:26px;font-weight:700;letter-spacing:2px;margin-bottom:18px;opacity:.75}
+.big{font-size:44px;font-weight:800;line-height:1.3;margin-bottom:22px}
+.q{font-size:27px;line-height:1.45;padding:14px 18px;border-radius:10px}
+.l .q{background:#fff;color:#444}
+.r .q{background:rgba(255,255,255,.18);color:#fff}
+.arrow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:#171717;color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.outer{position:relative}
+</style></head><body><div class="outer"><div class="wrap">
+<div class="col l"><div class="tag">我以前这么派活</div><div class="big">派任务</div><div class="q">「帮我把这季度的数填进 PPT」</div></div>
+<div class="col r"><div class="tag">他说该这么派</div><div class="big">要结果</div><div class="q">「告诉我这季度变了什么、为什么、该怎么办」</div></div>
+</div><div class="arrow">→</div></div></body></html>
