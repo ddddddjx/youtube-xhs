@@ -33,7 +33,7 @@ K 神是 OpenAI 的创始成员，后来去特斯拉管了五年自动驾驶的 
 
 Grok 那个早上抓推特的 bot，上周定时 agent 那篇写过。
 
-原文里这句我划了线：
+他的原话：
 
 「Somewhere around 20M people (0.2%) see first-hand that large, complex projects that used to take them weeks/months can now be completed by agents with a prompt.」
 
