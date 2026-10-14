@@ -11,6 +11,9 @@
 front matter 写 `mode: retell`（转述荐读，10-06 起，范本 对标/华一说AI/）时：不查转述词密度、stance、假设场景、
 押注、开头的「我」，改查「我」不超过 6 次、篇幅 1300 到 2200 字。
 
+10-14 起多一组「流畅度」检查（对标西元Tech）：英文专名每千字上限 25、数字 8、虚词占比底线 30%、「你」底线 5、
+开头三段最多 4 个锚点、电报式短分句、reader。转述词放开到每千字 6、单句段每 150 字 1 处、感叹号 2 个。
+
 ✗ 必须改到没有；⚠ 逐条看，能说出理由的可以留。基线见 references/baseline.json。
 """
 import json
@@ -196,9 +199,10 @@ def check_body(meta, paras, allow_gh):
     for p in paras:
         if len(p) > 150:
             add("✗", f"这一段 {len(p)} 字，手机上要七八行，拆开：{p[:24]}…")
-    lone = [p for p in paras if len(p) <= 22 and not re.match(r"\d+[.、]|[「“\"]", p)]
-    cap = max(3, n // 300)   # 10-03 起每 300 字 1 处（小盖 Kimi 稿 1400 字有七八处，但全是三种允许的类型）
-    add("✓" if len(lone) <= cap else "⚠", f"单独成段的短句 {len(lone)} 处（上限 {cap}，每 300 字 1 处；只许三种：带态度的判断 / 说话人动作 / 给上文起名）" +
+    lone = [p for i, p in enumerate(paras) if len(p) <= 22 and not re.match(r"\d+[.、]|[「“\"]", p)
+            and not (i + 1 < len(paras) and re.match(r"^(\d+|[一二三四五六七八九十]+)[、.]", paras[i + 1]))]   # 10-14 起：节尾收束句不计
+    cap = max(4, n // 150)   # 10-14 起每 150 字 1 处（西元三篇 20 字内短段占 26% 到 31%，我们只有 15%；原 10-03 每 300 字 1 处）
+    add("✓" if len(lone) <= cap else "⚠", f"单独成段的短句 {len(lone)} 处（上限 {cap}，每 150 字 1 处；节尾一句大白话收束不计；只许：带态度的判断 / 说话人动作 / 给上文起名 / 上一段的口语重述）" +
         ("" if len(lone) <= cap else "：" + " / ".join(f"「{p}」" for p in lone[:6]) + " 并进上一段或下一段"))
     speak = [p for p in paras if re.match(SPEAK, p)]
     if len(speak) > 1:
@@ -235,11 +239,13 @@ def check_body(meta, paras, allow_gh):
     att = len(re.findall(ATTR, text)) / k
     if retell:
         add("✓", "转述荐读：不查转述词密度（范本每千字约 4 次：他回忆 / 在他看来 / 访谈里他还有一层补充），主语就是原文里那个人")
-    elif att > 3:
-        add("✗", f"转述词（作者说 / 他写 / 原文 / 研究显示……）每千字 {att:.1f} 次，读起来是一篇解读（原号中位 0）："
-                 "事实用自己的话直接讲，出处首页点一次")
-    elif att > 1.5:
-        add("⚠", f"转述词每千字 {att:.1f} 次（原号中位 0，四分之三的稿子低于 0.5）：再删几处「作者说」")
+    elif att > 10:
+        add("✗", f"转述词（作者说 / 他写 / 原文 / 研究显示……）每千字 {att:.1f} 次，每段都在「他说」，读起来是一篇摘要："
+                 "留每节一两处当节奏，其余事实用自己的话直接讲")
+    elif att > 6:
+        add("⚠", f"转述词每千字 {att:.1f} 次（10-14 起放开到 3 到 6：西元 Jen 稿 3.1、Mark 稿 6.4，「Jen说 / Mark的意思是」每节一两次是节奏，不是罪证）")
+    else:
+        add("✓", f"转述词每千字 {att:.1f} 次（10-14 起 3 到 6 次正常，0 次反而像报告）")
     if not meta.get("stance") and not retell:
         add("⚠", "front matter 没有 stance（10-06 起可选）：有一句自己的判断就写，没有就别硬造；原文故事多的素材考虑 mode: retell")
     if not meta.get("output"):
@@ -321,8 +327,8 @@ def check_body(meta, paras, allow_gh):
     if zz / k > 4:
         add("⚠", f"「真正」{zz} 次，每千字 {zz / k:.1f}（原号中位 {BASE['per1k']['真正'][0]}）：多了就成了模仿腔")
     ex = text.count("！") + text.count("!")
-    if ex > 1:
-        add("⚠", f"正文 {ex} 个感叹号：原号成熟期正文几乎不用")
+    if ex > 2:
+        add("⚠", f"正文 {ex} 个感叹号（10-14 起最多 2 个；Kai STEPX 稿 3 个像广告）")
 
     for i, p in enumerate(paras):
         gh = re.search(GANGHAO, p) and not re.search(r"(正好|恰好)(相反|反过来|是反|说明|对应)", p)
@@ -375,7 +381,7 @@ STRUCT = [
     r"有(个|一个|几个)(坑|问题|前提|代价|bug)[。：:]$",                                  # 当然，这招有个坑。
     r"没(这么|那么)简单|问题来了|重点来了|关键来了|有意思的是|印象挺深|值得一说|值得说说|话说回来",
 ]
-SUMMARY = r"一般是|本质上|说到底|归根结底|这就是|这才是|才是关键|就够了|还挺合身|说白了|得先立|一句话[，:：]|换句话说"
+SUMMARY = r"一般是|本质上|说到底|归根结底|这就是|这才是|才是关键|就够了|还挺合身|说白了|得先立|一句话[，:：]"
 CONCEDE = r"(可能|也许|或许|确实|当然|诚然|固然|的确)[^。]{0,16}(是对的|没错|有道理|是这样|成立|说得对)"
 TURN = r"^(但|不过|可是|然而|只是)"
 MODAL = r"必须|务必|一定要|禁止|不得|严禁|不要|别|不许|确保|需要|应该|要|得"
@@ -484,6 +490,78 @@ def check_ai_tone(meta, paras, draft_dir):
                 break
 
 
+# ---- 流畅度（10-14 起，对标西元Tech 三篇 + Kai科技说三篇，`对标/西元Tech/拆解.md`）----
+# 句长一样，差在四个数：锚点密度（我们英文每千字 56 到 63，西元 7 到 23，李录爆款稿 17）、虚词占比（28% vs 35%）、
+# 「你」（4 vs 16 到 31 / 千字）、短段占比。一句话塞三个锚点，中文就只剩名词和单字动词去连它们（「代码强」「能力顶级」「给了口径」）。
+FUNC_CHARS = "的了是在就都也还其实但因为所以而且然后就是这个那个什么怎么很太啊呢吧不会能要把被给跟和"
+GENERIC_EN = GENERIC | {"OK", "ok", "PM", "HR", "KPI", "PRD", "UI", "UX", "IT", "PC", "SDK", "URL", "PDF", "Excel", "PPT", "HTML", "Mac", "iPhone"}
+
+
+def check_flow(meta, paras):
+    text = "".join(paras)
+    cn = re.sub(r"[^\u4e00-\u9fff]", "", text)
+    n = max(len(cn), 1)
+    k = n / 1000
+    user_lines = []
+    # own 模式：用户原话里的专名不算 Claude 的锚点
+    eng = [w for w in re.findall(r"[A-Za-z][A-Za-z0-9.\-]{1,}", text) if w not in GENERIC_EN]
+    nums = re.findall(r"\d+(?:[.,]\d+)?", text)
+    e, d = len(eng) / k, len(nums) / k
+    if e > 45:
+        add("✗", f"英文专名每千字 {e:.0f} 个（10-14 起上限 25：西元 7 到 23，李录稿 17；Wang 稿 63、Zuck 稿 59 就是电报感的来源）："
+                 "首页出现一次后改成「他」「这个模型」「那家公司」，一句话里最多一个专名")
+    elif e > 25:
+        add("⚠", f"英文专名每千字 {e:.0f} 个（上限 25，李录稿 17）：专名首页点一次，后面换成「他」「这个模型」")
+    else:
+        add("✓", f"英文专名每千字 {e:.0f} 个（上限 25）")
+    if d > 8:
+        add("⚠", f"数字每千字 {d:.0f} 个（10-14 起上限 8：西元 Jen 稿 9、Mark 稿 4；我们 10 到 17）：留能改变读者判断的那几个，其余换成「好几百亿」「一年多」")
+    # 单句三个锚点
+    heavy = []
+    for sent in re.split(r"[。！？]", text):
+        a = len([w for w in re.findall(r"[A-Za-z][A-Za-z0-9.\-]{1,}", sent) if w not in GENERIC_EN]) + len(re.findall(r"\d+", sent))
+        if a >= 4 and len(sent) > 6:
+            heavy.append(sent.strip())
+    if len(heavy) > 2:
+        add("⚠", f"一句话里塞了 4 个以上专名或数字的句子 {len(heavy)} 处（最多 2 处）：" + " / ".join(f"「{h[:28]}…」" for h in heavy[:4]) +
+            " 这种句子中文只剩名词和单字动词，拆成两句，或者把专名换成代词")
+    # 首屏锚点
+    head = "".join(paras[:3])
+    ha = len([w for w in re.findall(r"[A-Za-z][A-Za-z0-9.\-]{1,}", head) if w not in GENERIC_EN]) + len(re.findall(r"\d+", head))
+    if ha > 4:
+        add("⚠", f"开头三段有 {ha} 个专名或数字（最多 4 个）：第一句是判断或处境，第二句理由，专名和数字从第三句起一句一个；西元 Jen 稿开头只有一个人名")
+    # 虚词占比
+    func = sum(cn.count(c) for c in FUNC_CHARS) / n
+    if func < 0.30:
+        add("⚠", f"虚词占比 {func:.0%}（的了就是其实这个那个……；10-14 起底线 30%：西元 Jen 34%、Mark 36%，李录稿 30%，Zuck 稿 28%）："
+                 "回去加，不是删。「代码强」→「代码这块它确实强」，「钱有多大」→「这笔钱到底有多大」")
+    else:
+        add("✓", f"虚词占比 {func:.0%}（底线 30%）")
+    # 电报式短分句：3 到 5 个汉字、一个虚词都没有的分句
+    tele = []
+    for cl in re.split(r"[，。！？；：、]", text):
+        c = cl.strip()
+        if 3 <= len(c) <= 5 and re.fullmatch(r"[\u4e00-\u9fff]+", c) and not any(ch in c for ch in FUNC_CHARS) and not re.match(r"^(第|这|那|每|一|两|三|几)", c):
+            tele.append(c)
+    if len(tele) / k > 4:
+        add("⚠", f"电报式短分句每千字 {len(tele) / k:.1f} 个（3 到 5 字、没有一个虚词，上限 4）：" + "、".join(f"「{t}」" for t in tele[:8]) +
+            " 念一遍，口头会说的留，不会说的补成整句")
+    # 「你」的处境
+    you = text.count("你") / k
+    if not meta.get("reader"):
+        add("⚠", "front matter 没有 reader（10-14 起）：写一个职业身份（做销售的 / 带团队的 PM / 刚开始用 Claude 的运营），正文至少一段主语是「你」。西元火的两篇都点名了读者是谁")
+    if you < 5:
+        add("⚠", f"「你」每千字 {you:.0f} 次（10-14 起底线 5：西元 Jen 16、Mark 31；我们 2 到 4）：至少写一段读者的处境（「你知道数据不太对，但你告诉自己也许下一个版本会好一些」），不只写「我」的")
+    else:
+        add("✓", f"「你」每千字 {you:.0f} 次")
+    # 一个意思说两遍：每节有没有一句口语重述（加粗或单句段）。只在编号体里提示
+    numbered = [i for i, p in enumerate(paras) if re.match(r"^(\d+|[一二三四五六七八九十]+)[、.]", p)]
+    if len(numbered) >= 2:
+        n_short = sum(1 for p in paras if len(p) <= 30)
+        if n_short < len(numbered):
+            add("⚠", f"编号 {len(numbered)} 节，30 字内的短段只有 {n_short} 处：西元每节都是「一个点 → 一个例子 → 一句大白话重述」，一个意思说两遍是口语不是啰嗦，每节结尾留一句")
+
+
 def main(argv):
     args = [a for a in argv if not a.startswith("--")]
     allow_cn, allow_gh = "--allow-cn-brand-title" in argv, "--allow-ganghao" in argv
@@ -515,6 +593,7 @@ def main(argv):
     add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（10-07 起每篇至少两张：一张原文证据截图，一张总结 / 对照；Karpathy 稿 8 页纯文字，丰富度 3.0「待提升」）")
     check_body(meta, paras, allow_gh)
     check_ai_tone(meta, paras, os.path.dirname(os.path.abspath(draft)))
+    check_flow(meta, paras)
     for level in ("✗", "⚠", "✓"):
         for msg in results[level]:
             print(f"{level} {msg}")
