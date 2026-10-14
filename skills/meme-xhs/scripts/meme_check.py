@@ -304,6 +304,13 @@ def check_body(meta, paras, allow_gh):
     first = paras[0] if paras else ""
     if not retell and not re.search(TIME, first[:20]) and not re.search(r"\d", first[:40]):
         add("⚠", f"第一段既没有时间锚也没有数字（10-04 起可以直接讲事实 + 数字，或时间锚 + 我；原号 {BASE['first_para_time']:.0%} 有时间锚）：{first[:24]}…")
+    # 10-14 起（两周数据复盘，用户定「现在就用」）：第一句是判断或「我」的处境，不是新闻导语、不是书评腔
+    NEWS = r"^(?:[A-Za-z][\w .\-]{0,24}|[\u4e00-\u9fa5]{2,8})\s*(?:昨天|今天|刚|刚刚|日前|这周|上周|前天)?\s*(?:发了|发布了|推出了|上线了|开源了|更新了|公布了)"
+    REVIEW = r"^(?:读了|看了|读完|刷到|最近读了|最近看了)[^。！？]{0,60}(?:写得很好|写得不错|写得挺好|很有意思|值得一读|很值得看|非常好)"
+    if re.search(NEWS, first):
+        add("⚠", f"第一句是新闻导语「{first[:24]}…」（10-14：定时 agent 稿这样开头 258 观看、停留 22 秒）：第一句改成判断或「我」的处境，谁发了什么压到第二三段")
+    if re.search(REVIEW, first):
+        add("⚠", f"第一句是书评腔「{first[:24]}…」（10-14：品味稿这样开头 151 观看、停留 14 秒）：把你自己那件事或那句判断提到第一句，「写得很好」删掉")
     if not retell and not any("我" in p for p in paras[:3]):
         add("⚠", f"开头三段没有「我」（原号成熟期 {BASE['first3_has_wo']:.0%} 有）：用一个真实的「我」的动作起笔")
     if not retell and not re.search(CONTRAST, "".join(paras[1:5])):
