@@ -497,6 +497,32 @@ FUNC_CHARS = "的了是在就都也还其实但因为所以而且然后就是这
 GENERIC_EN = GENERIC | {"OK", "ok", "PM", "HR", "KPI", "PRD", "UI", "UX", "IT", "PC", "SDK", "URL", "PDF", "Excel", "PPT", "HTML", "Mac", "iPhone"}
 
 
+def check_section_images(md):
+    """10-15 起（用户看 ambitious 稿后定）：信息密度大的节要配一张可视化。按「1 / 2 / 3」或「## 」切节，
+    一节正文超过 400 字却没有一张图就 ⚠；只有开头和结尾那种不分节的短稿不查。"""
+    body = re.sub(r"^---\n.*?\n---\n", "", md, count=1, flags=re.S)
+    secs, cur, name = [], [], "开头"
+    for l in body.splitlines():
+        t = l.strip()
+        if re.fullmatch(r"(\d{1,2}|[一二三四五六七八九十]|##\s+.+)", t):
+            secs.append((name, cur)); cur, name = [], t.lstrip("# ")
+        elif t:
+            cur.append(t)
+    secs.append((name, cur))
+    if len(secs) < 2:
+        return
+    dense = []
+    for name, lines in secs:
+        chars = sum(len(l) for l in lines if not l.startswith(("!", "|")))
+        imgs = sum(1 for l in lines if l.startswith("![") or l.startswith("|"))
+        if chars > 400 and imgs == 0:
+            dense.append(f"第 {name} 节 {chars} 字")
+    if dense:
+        add("⚠", "没配图的大段落：" + "、".join(dense) + "（10-15 起每节的核心招配一张可视化，只画那一节最精华的一个机制，放原文例子段后、「我」的段前；见 cover_guide 末节）")
+    else:
+        add("✓", f"分 {len(secs)} 节，超过 400 字的节都带了图（10-15 起）")
+
+
 def check_flow(meta, paras):
     text = "".join(paras)
     cn = re.sub(r"[^\u4e00-\u9fff]", "", text)
@@ -596,6 +622,7 @@ def main(argv):
     check_cover(meta, [main_title], os.path.dirname(os.path.abspath(draft)))
     n_img = len(re.findall(r"!\[[^\]]*\]\(", open(draft, encoding="utf-8").read())) + (1 if meta.get("hero") else 0) + (1 if meta.get("extra_pages") else 0)
     add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（10-07 起每篇至少两张：一张原文证据截图，一张总结 / 对照；Karpathy 稿 8 页纯文字，丰富度 3.0「待提升」）")
+    check_section_images(open(draft, encoding="utf-8").read())
     check_body(meta, paras, allow_gh)
     check_ai_tone(meta, paras, os.path.dirname(os.path.abspath(draft)))
     check_flow(meta, paras)
