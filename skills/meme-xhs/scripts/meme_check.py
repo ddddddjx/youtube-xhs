@@ -13,6 +13,8 @@ front matter 写 `mode: retell`（转述荐读，10-06 起，范本 对标/华�
 
 10-14 起多一组「流畅度」检查（对标西元Tech）：英文专名每千字上限 25、数字 8、虚词占比底线 30%、「你」底线 5、
 开头三段最多 4 个锚点、电报式短分句、reader。转述词放开到每千字 6、单句段每 150 字 1 处、感叹号 2 个。
+10-15 起 `genre:` 是 解读 / 观察 / 实测（讲概念、讲产品的稿子）时，虚词和「你」两项降成提示，不报 ⚠：
+小盖 Natura-1 稿虚词 22%、「你」0，读起来照样像人，那种讲课腔靠跑题、概念从零讲、说出具体难点，见 对标/小盖/口吻拆解.md 第八批。
 
 ✗ 必须改到没有；⚠ 逐条看，能说出理由的可以留。基线见 references/baseline.json。
 """
@@ -530,9 +532,12 @@ def check_flow(meta, paras):
     ha = len([w for w in re.findall(r"[A-Za-z][A-Za-z0-9.\-]{1,}", head) if w not in GENERIC_EN]) + len(re.findall(r"\d+", head))
     if ha > 4:
         add("⚠", f"开头三段有 {ha} 个专名或数字（最多 4 个）：第一句是判断或处境，第二句理由，专名和数字从第三句起一句一个；西元 Jen 稿开头只有一个人名")
-    # 虚词占比
+    # 虚词占比（10-15 起解读 / 观察 / 实测降成提示，小盖 Natura 稿 22% 照样像人）
+    lecture = meta.get("genre", "").strip() in ("解读", "观察", "实测")
     func = sum(cn.count(c) for c in FUNC_CHARS) / n
-    if func < 0.30:
+    if func < 0.30 and lecture:
+        add("✓", f"提示：虚词占比 {func:.0%}（讲课腔不卡 30%；但要有小盖 Natura 稿那几样：概念从零讲、一个锚用到底、说出具体难点）")
+    elif func < 0.30:
         add("⚠", f"虚词占比 {func:.0%}（的了就是其实这个那个……；10-14 起底线 30%：西元 Jen 34%、Mark 36%，李录稿 30%，Zuck 稿 28%）："
                  "回去加，不是删。「代码强」→「代码这块它确实强」，「钱有多大」→「这笔钱到底有多大」")
     else:
@@ -550,7 +555,9 @@ def check_flow(meta, paras):
     you = text.count("你") / k
     if not meta.get("reader"):
         add("⚠", "front matter 没有 reader（10-14 起）：写一个职业身份（做销售的 / 带团队的 PM / 刚开始用 Claude 的运营），正文至少一段主语是「你」。西元火的两篇都点名了读者是谁")
-    if you < 5:
+    if you < 5 and lecture:
+        add("✓", f"提示：「你」每千字 {you:.0f} 次（讲课腔不卡底线 5）")
+    elif you < 5:
         add("⚠", f"「你」每千字 {you:.0f} 次（10-14 起底线 5：西元 Jen 16、Mark 31；我们 2 到 4）：至少写一段读者的处境（「你知道数据不太对，但你告诉自己也许下一个版本会好一些」），不只写「我」的")
     else:
         add("✓", f"「你」每千字 {you:.0f} 次")
