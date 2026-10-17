@@ -291,7 +291,7 @@ function desk(t) {
     if (t >= 4.9 && t < 6.5) { const k = slamK(t, 4.9); const [x, y] = onPrint(J, 0.5, 1.02); tornLabel(x, y + 40, '飞过 5 辆车', 64, -0.02, { scale: k, anchor: 'center' }); }
     if (t >= 9.0 && t < 10.2) { const [x, y] = onPrint(T, 0.39, 0.8); typedLabel(t, 9.0, x - 180, y, '4 个主喷嘴', 58, 0.02); }
     if (t >= 12.6 && t < 14.2) { const [x, y] = onPrint(K, 0.24, 0.85); typedLabel(t, 12.6, x - 60, y, 'SpaceX 同款气瓶', 54, 0.015); }
-    if (t >= 16.0 && t < 18) { const k = slamK(t, 16.0); const [x, y] = onPrint(Cc, 0.36, 1.0); tornLabel(x, y + 30, '两瓶共 600 升', 66, -0.025, { scale: k, anchor: 'center' }); }
+    if (t >= 16.0 && t < 18) { const k = slamK(t, 16.0); const [x, y] = onPrint(Cc, 0.36, 1.0); tornLabel(x, y + 30, '两瓶共 600 升', 46, -0.025, { scale: k, anchor: 'center' }); }
     if (t >= 37.0) { const k = slamK(t, 37.0); const [x, y] = onPrint(D, 0.62, 1.0); tornLabel(x, y + 40, '最高 2G', 72, 0.02, { scale: k, anchor: 'center' }); }
   } else {
     // 镜 11：年份卡落在桌角
@@ -312,7 +312,7 @@ function screenCam(t) {
   // 镜 7 快推到公式；镜 8 硬切回原景；镜 9 快推到电量条
   if (t < 22) { const k = pulse(t, 20.5); return { z: lerp(1, 1.2, k), fx: 540, fy: 900 }; }   // 镜 6 快推到气流
   if (t < 26) { const k = pulse(t, 24.6); return { z: lerp(1, 1.22, k), fx: 540, fy: 500 }; }
-  if (t < 30) { const k = pulse(t, 28.05); return { z: lerp(1, 1.15, k), fx: 540, fy: 1200 }; }   // 镜 8 快推到两行数字
+  if (t < 30) { const k = pulse(t, 28.05); return { z: lerp(1, 1.15, k), fx: 540, fy: 600 }; }   // 镜 8 快推到两行数字
   const k = pulse(t, 30.25, 0.30); return { z: 1, fx: 540, fy: 960, dy: -170 * k };   // 镜 9 整体上移，给时间轴让出字幕区
 }
 function formulaLayout() {
