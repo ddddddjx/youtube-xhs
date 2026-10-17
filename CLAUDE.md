@@ -60,7 +60,7 @@
 - `发布/排期.md`、`发布/每日清单.md`、`复盘/`：排期和周复盘（最新：`2026-10-07_Karpathy稿数据复盘.md`，曝光 5.8 万、点击率 20.4%、涨粉 17；结论：读者收藏的是原作者的招，关注理由要放在领取物前面；标题公式 数字 + 社会证明 + 痛点动词 + 可搜词）
 - 日志：`账号/日志.csv`（post_log.py 自动定位，不用传 --log）
 - 成品：`发布/<YYYY-MM-DD>_<英文短标题>/`，随仓库提交
-- **Notion 内容中心（10-13 建）**：https://app.notion.com/p/3f872a876c6b8165941dc310099ef5d1 ，6 个数据库：Skills、账号记忆、对标库、MemeInformation 文字稿、稿件日历（看板 / 日历 / 数据视图）、复盘，内容是 10-13 仓库 883c5c7 的全文快照。脚本和出图仍在本仓库跑；Notion 和仓库目前不自动同步，改了哪边要手动同步另一边。**Notion 读写全部授权（用户 10-17）**：建页、改页、补稿件日历、刷新 Skills / 账号记忆都直接做，不再问；项目 `.claude/settings.json` 已放行 `mcp__Notion` 全部工具。删除页面、删数据库仍先说一声
+- **Notion 内容中心（10-13 建）**：https://app.notion.com/p/3f872a876c6b8165941dc310099ef5d1 ，6 个数据库：Skills、账号记忆、对标库、MemeInformation 文字稿、稿件日历（看板 / 日历 / 数据视图）、复盘，内容是 10-13 仓库 883c5c7 的全文快照。脚本和出图仍在本仓库跑；Notion 和仓库目前不自动同步，改了哪边要手动同步另一边。**Notion 读写全部授权（用户 10-17）**：建页、改页、补稿件日历、刷新 Skills / 账号记忆都直接做，不再问；项目 `.claude/settings.json` 已放行 Notion、GitHub、Bash、读写文件等常用工具（用户 10-17：所有权限都打开）；会话里还弹确认，是模式掉出了 Auto，在输入框旁的模式下拉里切回 Auto。删除页面、删数据库仍先说一声
 
 ## 在哪里工作
 本地 Claude Code CLI 在用户的网络下连不上（2026-09-30 测过，api 403），所以**日常在 claude.ai/code 的云端会话里做**：新开会话选这个仓库即可，本页自动加载。云端每次从 main 新克隆，所以每篇做完都要 commit + push 到 main，否则下一个会话看不到；Mac 上 `git pull` 拿成品。出图前把预装 Chromium 放进 PATH：`ln -sf /opt/pw-browsers/chromium-*/chrome-linux/chrome /tmp/claude-0/bin/chromium`（目录不存在就先 mkdir）。
