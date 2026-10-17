@@ -499,6 +499,32 @@ FUNC_CHARS = "的了是在就都也还其实但因为所以而且然后就是这
 GENERIC_EN = GENERIC | {"OK", "ok", "PM", "HR", "KPI", "PRD", "UI", "UX", "IT", "PC", "SDK", "URL", "PDF", "Excel", "PPT", "HTML", "Mac", "iPhone"}
 
 
+def check_section_images(md):
+    """10-15 起（用户看 ambitious 稿后定）：信息密度大的节要配一张可视化。按「1 / 2 / 3」或「## 」切节，
+    一节正文超过 400 字却没有一张图就 ⚠；只有开头和结尾那种不分节的短稿不查。"""
+    body = re.sub(r"^---\n.*?\n---\n", "", md, count=1, flags=re.S)
+    secs, cur, name = [], [], "开头"
+    for l in body.splitlines():
+        t = l.strip()
+        if re.fullmatch(r"(\d{1,2}|[一二三四五六七八九十]|##\s+.+)", t):
+            secs.append((name, cur)); cur, name = [], t.lstrip("# ")
+        elif t:
+            cur.append(t)
+    secs.append((name, cur))
+    if len(secs) < 2:
+        return
+    dense = []
+    for name, lines in secs:
+        chars = sum(len(l) for l in lines if not l.startswith(("!", "|")))
+        imgs = sum(1 for l in lines if l.startswith("![") or l.startswith("|"))
+        if chars > 400 and imgs == 0:
+            dense.append(f"第 {name} 节 {chars} 字")
+    if dense:
+        add("⚠", "没配图的大段落：" + "、".join(dense) + "（10-15 起每节的核心招配一张可视化，只画那一节最精华的一个机制，放原文例子段后、「我」的段前；见 cover_guide 末节）")
+    else:
+        add("✓", f"分 {len(secs)} 节，超过 400 字的节都带了图（10-15 起）")
+
+
 def check_flow(meta, paras):
     text = "".join(paras)
     cn = re.sub(r"[^\u4e00-\u9fff]", "", text)
@@ -551,6 +577,11 @@ def check_flow(meta, paras):
     if len(tele) / k > 4:
         add("⚠", f"电报式短分句每千字 {len(tele) / k:.1f} 个（3 到 5 字、没有一个虚词，上限 4）：" + "、".join(f"「{t}」" for t in tele[:8]) +
             " 念一遍，口头会说的留，不会说的补成整句")
+    # 单字动词（10-15 起，用户看 ambitious 稿「我特别认」「我翻成中文」后定）：「我 / 它 / 他」直接接一个单字动词再接句末、冒号、「成」「了」
+    mono = re.findall(r"(?:我|它|他|你)(?:特别|非常|很|也|都|只|先|再|就)?(认|翻|对|派|讲|评|框|查|改|算|修|填|建|问|写|跑)(?=[：:。，、]|成|了)", text)
+    mono = [m for m in mono if m not in ("写", "跑", "查", "问")]   # 这几个口语里单用很正常
+    if mono:
+        add("⚠", f"单字动词 {len(mono)} 处（10-15 起用双字：认→认同、翻→翻译、对→核对、派→派活、讲→多说、评→评价、框→框住）：" + "、".join(f"「{m}」" for m in mono[:8]))
     # 「你」的处境
     you = text.count("你") / k
     if not meta.get("reader"):
@@ -598,6 +629,7 @@ def main(argv):
     check_cover(meta, [main_title], os.path.dirname(os.path.abspath(draft)))
     n_img = len(re.findall(r"!\[[^\]]*\]\(", open(draft, encoding="utf-8").read())) + (1 if meta.get("hero") else 0) + (1 if meta.get("extra_pages") else 0)
     add("✓" if n_img >= 2 else "⚠", f"图 {n_img} 张（10-07 起每篇至少两张：一张原文证据截图，一张总结 / 对照；Karpathy 稿 8 页纯文字，丰富度 3.0「待提升」）")
+    check_section_images(open(draft, encoding="utf-8").read())
     check_body(meta, paras, allow_gh)
     check_ai_tone(meta, paras, os.path.dirname(os.path.abspath(draft)))
     check_flow(meta, paras)
