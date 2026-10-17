@@ -1,0 +1,426 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'HeiM';src:url(fonts/NotoSansSC-500.woff)}
+@font-face{font-family:'HeiB';src:url(fonts/NotoSansSC-700.woff)}
+@font-face{font-family:'HeiX';src:url(fonts/NotoSansSC-900.woff)}
+@font-face{font-family:'CMU-it';src:url(fonts/cmunti.woff)}
+@font-face{font-family:'CMU-rm';src:url(fonts/cmunrm.woff)}
+html,body{margin:0;background:#000}
+canvas{display:block}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Roadster 怎么「飞」起来的：42 秒竖版。镜头表见 镜头表.md，字幕见 文稿.txt
+// 画风：Vox 证据拼贴（纸桌面 + 冲印照片 + 红笔）为主，18–34 秒切 3b1b 黑底推导
+// 时间只由 t 决定：window.renderFrame(t) 同一时刻渲两次逐像素一致
+const W = 1080, H = 1920, TOTAL = 42;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+
+const C = { desk: '#F3EDE2', paper: '#FBF8F2', ink: '#151515', sub: '#6B655B', red: '#C8402F', yel: '#F2B33D',
+            night: '#151515', white: '#F2EFE8', grey: '#A39E93', teal: '#5FB3A1' };
+
+// ───────── 小工具 ─────────
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const sine = k => 0.5 - 0.5 * Math.cos(Math.PI * k);
+const smooth = k => k * k * k * (k * (k * 6 - 15) + 10);
+const expoOut = k => k >= 1 ? 1 : 1 - Math.pow(2, -10 * k);
+const step12 = t => Math.floor(t * 12 + 1e-6) / 12;        // 纸面元素按 12fps 一拍二
+// 砸入：0.17 秒 1.55 → 0.94 → 1.0
+const slamK = (t, a) => { const k = (t - a) / 0.17; if (k < 0) return null; if (k >= 1) return 1;
+  return k < 0.6 ? lerp(1.55, 0.94, sine(k / 0.6)) : lerp(0.94, 1, sine((k - 0.6) / 0.4)); };
+// 快推 / 横移的进度：0.28 秒（横移 0.30）
+const pulse = (t, a, d = 0.28) => sine(prog(t, a, a + d));
+
+function rng(seed) { let s = seed % 2147483647; if (s <= 0) s += 2147483646; return () => (s = s * 16807 % 2147483647) / 2147483647; }
+function hash(str) { let h = 7; for (const ch of str) h = (h * 31 + ch.codePointAt(0)) % 2147483647; return h; }
+
+const IMG = {};
+const load = (k, src) => new Promise((ok, no) => { const i = new Image(); i.onload = () => { IMG[k] = i; ok(); }; i.onerror = () => no(new Error('缺素材 ' + src)); i.src = src; });
+
+// ───────── 纸桌面世界 ─────────
+const DW = 2400, DH = 4800;
+const PR = {   // 冲印照片：世界坐标中心、宽、旋转
+  J: { img: 'cYPPz', x: 700, y: 700, w: 1100, r: -0.03 },
+  T: { img: 'mDutM', x: 1700, y: 1300, w: 1000, r: 0.025 },
+  K: { img: '9vi83', x: 780, y: 2050, w: 1100, r: 0.02 },
+  C: { img: 'zMSe3', x: 1660, y: 2850, w: 960, r: -0.035 },
+  D: { img: 'D8zHc', x: 820, y: 3560, w: 1020, r: 0.02 },
+};
+const prH = p => p.w * IMG[p.img].height / IMG[p.img].width;
+// 照片上的点（u,v 0–1）→ 世界坐标
+function onPrint(p, u, v, rOverride) {
+  const r = rOverride ?? p.r, h = prH(p), lx = (u - 0.5) * p.w, ly = (v - 0.5) * h;
+  return [p.x + lx * Math.cos(r) - ly * Math.sin(r), p.y + lx * Math.sin(r) + ly * Math.cos(r)];
+}
+
+let DESK = null, BLUR = null;
+function buildCaches() {
+  DESK = document.createElement('canvas'); DESK.width = DW; DESK.height = DH;
+  const d = DESK.getContext('2d'); d.fillStyle = C.desk; d.fillRect(0, 0, DW, DH);
+  const r = rng(11), id = d.getImageData(0, 0, DW, DH), px = id.data;
+  for (let i = 0; i < px.length; i += 4) { const n = (r() - 0.5) * 12; px[i] += n; px[i + 1] += n; px[i + 2] += n; }
+  d.putImageData(id, 0, 0);
+  d.strokeStyle = 'rgba(120,100,70,.06)'; d.lineWidth = 1.2;
+  for (let i = 0; i < 900; i++) { const x = r() * DW, y = r() * DH, a = r() * 6.28, l = 8 + r() * 26; d.beginPath(); d.moveTo(x, y); d.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); d.stroke(); }
+  // 开场直播截图的暗色虚化底
+  BLUR = document.createElement('canvas'); BLUR.width = W; BLUR.height = H;
+  const b = BLUR.getContext('2d'), im = IMG.qBISg, s = H / im.height * 1.05;
+  b.filter = 'blur(28px) brightness(.45)'; b.drawImage(im, (W - im.width * s) / 2, (H - im.height * s) / 2, im.width * s, im.height * s);
+}
+
+function drawPrint(p, dx = 0, dy = 0, rr = null) {
+  const im = IMG[p.img], h = prH(p), b = 22, r = rr ?? p.r;
+  g.save(); g.translate(p.x + dx, p.y + dy); g.rotate(r);
+  g.shadowColor = 'rgba(40,30,20,.32)'; g.shadowBlur = 34; g.shadowOffsetY = 16;
+  g.fillStyle = C.paper; g.fillRect(-p.w / 2 - b, -h / 2 - b, p.w + 2 * b, h + 2 * b);
+  g.shadowColor = 'transparent'; g.drawImage(im, -p.w / 2, -h / 2, p.w, h);
+  // 胶带
+  g.fillStyle = 'rgba(226,216,190,.85)'; g.rotate(-0.5); g.fillRect(-p.w / 2 - 40, -h / 2 + p.w * 0.14, 150, 44); g.restore();
+}
+
+// 红笔：点列按进度描出（12fps 步进由调用方传入）
+function penPath(pts, k, col = C.red, lw = 9) {
+  if (k <= 0) return;
+  const L = []; let tot = 0; for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); L.push(l); tot += l; }
+  let left = tot * k;
+  g.save(); g.strokeStyle = col; g.lineWidth = lw; g.lineCap = g.lineJoin = 'round'; g.globalAlpha = 0.92;
+  g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length && left > 0; i++) {
+    const f = Math.min(1, left / L[i - 1]); g.lineTo(lerp(pts[i - 1][0], pts[i][0], f), lerp(pts[i - 1][1], pts[i][1], f)); left -= L[i - 1];
+  }
+  g.stroke(); g.restore();
+}
+function ellipsePts(cx, cy, rx, ry, rot, seed) {
+  const r = rng(seed), out = [], n = 110;
+  for (let i = 0; i <= n; i++) {
+    const a = -0.7 + i / 100 * Math.PI * 2, k = 1 + 0.03 * Math.sin(i * 0.33 + r() * 0.4) + i / n * 0.06;
+    const x = Math.cos(a) * rx * k, y = Math.sin(a) * ry * k;
+    out.push([cx + x * Math.cos(rot) - y * Math.sin(rot), cy + x * Math.sin(rot) + y * Math.cos(rot)]);
+  }
+  return out;
+}
+function bezierPts(p0, p1, p2, n = 60) { const o = []; for (let i = 0; i <= n; i++) { const k = i / n, a = (1 - k) * (1 - k), b = 2 * k * (1 - k), c = k * k; o.push([a * p0[0] + b * p1[0] + c * p2[0], a * p0[1] + b * p1[1] + c * p2[1]]); } return o; }
+function arrowHead(x, y, ang, s, col) { g.save(); g.fillStyle = col; g.beginPath(); g.moveTo(x, y); g.lineTo(x - Math.cos(ang - 0.45) * s, y - Math.sin(ang - 0.45) * s); g.lineTo(x - Math.cos(ang + 0.45) * s, y - Math.sin(ang + 0.45) * s); g.closePath(); g.fill(); g.restore(); }
+function penArrow(pts, k, col = C.red, lw = 9) {
+  penPath(pts, k, col, lw);
+  if (k >= 1) { const a = pts[pts.length - 2], b = pts[pts.length - 1]; arrowHead(b[0], b[1], Math.atan2(b[1] - a[1], b[0] - a[0]), lw * 4, col); }
+}
+// 红线（图钉 + 下垂弧）
+function string(a, b, k) {
+  if (k <= 0) return;
+  const m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 + Math.hypot(b[0] - a[0], b[1] - a[1]) * 0.12];
+  penPath(bezierPts(a, m, b), k, C.red, 5);
+  g.fillStyle = C.red; g.beginPath(); g.arc(a[0], a[1], 13, 0, 7); g.fill();
+  if (k >= 1) { g.beginPath(); g.arc(b[0], b[1], 13, 0, 7); g.fill(); }
+}
+
+// 撕边标签（多边形按文字取种子，逐帧一致）
+function tornLabel(x, y, text, size, rot, { bg = C.ink, fg = C.paper, scale = 1, anchor = 'left' } = {}) {
+  g.save(); g.font = `${size}px HeiX`;
+  const w = g.measureText(text).width + size * 0.9, h = size * 1.55, r = rng(hash(text));
+  g.translate(x, y); g.rotate(rot); g.scale(scale, scale);
+  if (anchor === 'center') g.translate(-w / 2, -h / 2);
+  g.fillStyle = bg; g.beginPath(); g.moveTo(0, 0);
+  for (let i = 1; i <= 24; i++) g.lineTo(w * i / 24, (r() - 0.5) * 7);
+  for (let i = 1; i <= 8; i++) g.lineTo(w + (r() - 0.5) * 7, h * i / 8);
+  for (let i = 23; i >= 0; i--) g.lineTo(w * i / 24, h + (r() - 0.5) * 7);
+  g.closePath(); g.fill();
+  g.fillStyle = fg; g.textBaseline = 'middle'; g.fillText(text, size * 0.45, h / 2 + 2);
+  g.restore();
+}
+// 12fps 打字的标签
+function typedLabel(t, a, x, y, text, size, rot, opt = {}) {
+  if (t < a) return; const n = Math.min(text.length, Math.ceil((step12(t) - a) * 16) + 1);
+  tornLabel(x, y, [...text].slice(0, n).join(''), size, rot, opt);
+}
+
+// ───────── 相机（纸桌面段） ─────────
+// cam = {x, y, z, ay}：世界点 (x,y) 落在屏幕 (540, ay)
+function camFor(p, zMul = 1, u = 0.5, v = 0.5, ay = 820) { const [x, y] = onPrint(p, u, v); return { x, y, z: 1180 / (p.w + 44) * zMul, ay }; }
+function camLerp(a, b, k) { return { x: lerp(a.x, b.x, k), y: lerp(a.y, b.y, k), z: Math.exp(lerp(Math.log(a.z), Math.log(b.z), k)), ay: lerp(a.ay, b.ay, k) }; }
+// 关键帧：[时刻, 相机, 到这一帧用的缓动时长]
+function camTrack(t, keys) {
+  let cam = keys[0][1];
+  for (let i = 1; i < keys.length; i++) { const [at, c, d, ease] = keys[i]; if (t <= at) break; cam = camLerp(cam, c, (ease || sine)(prog(t, at, at + d))); }
+  return cam;
+}
+function applyCam(c) { g.setTransform(c.z, 0, 0, c.z, 540 - c.x * c.z, c.ay - c.y * c.z); }
+
+// ───────── 字幕 / 水印（屏幕空间，最后画） ─────────
+const SUBS = [
+  [0.2, 3.0, '10 月 15 号，特斯拉让一辆快两吨的车飞了起来'],
+  [3.0, 6.5, '它倒着冲上坡，在空中翻身，飞过 5 辆车'],
+  [6.5, 10, '车尾这 4 个喷嘴，喷的不是火，是空气'],
+  [10, 14, '气从这种球形瓶里来，SpaceX 火箭上用的同一种'],
+  [14, 18, '两只瓶子塞在车身里，一共 600 升，压着约 250kg 空气'],
+  [18, 22, '原理就一句：气往下喷，车往上走'],
+  [22, 26, '推力等于每秒喷出多少气，乘以喷得多快'],
+  [26, 30, '想托住快两吨的车，要 19 kN 的推力，每秒要喷掉约 31kg'],
+  [30, 34, '250kg 理论上够喷 8 秒，可瓶压一掉推力就掉，实际撑 3–5 秒'],
+  [34, 38, '落地以后靠车底风扇，把空气抽走，车被压在地上，最高 2G'],
+  [38, 40.4, '所以它更像一辆能跳几秒的车，量产要等到 2028 年'],
+  [40.4, 42, '一辆只能跳几秒的车，你会买吗？'],
+];
+function wrapZh(text, maxW) {
+  const out = []; let line = '';
+  for (const ch of text) { if (g.measureText(line + ch).width > maxW && line) { out.push(line); line = ch.trim() ? ch : ''; } else line += ch; }
+  if (line) out.push(line);
+  if (out.length === 2) {   // 两行折成接近等长，标点不落行首
+    // 在离中点最近的逗号后断开；没有逗号再按中点断
+    const mid = text.length / 2; let cut = -1;
+    for (let i = 0; i < text.length; i++) if ('，：'.includes(text[i]) && (cut < 0 || Math.abs(i - mid) < Math.abs(cut - mid))) cut = i;
+    if (cut < 0) cut = Math.ceil(mid) - 1;
+    return [text.slice(0, cut + 1).trim(), text.slice(cut + 1).trim()];
+  }
+  return out;
+}
+function drawSubs(t) {
+  const s = SUBS.find(([a, b]) => t >= a && t < b); if (!s) return;
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.font = '52px HeiB'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round';
+  const lines = wrapZh(s[2], 880), y0 = 1500 - (lines.length - 1) * 38;
+  const bw = Math.max(...lines.map(l => g.measureText(l).width)) + 56;
+  g.fillStyle = 'rgba(15,15,15,.55)'; g.beginPath(); g.roundRect(540 - bw / 2, y0 - 50, bw, lines.length * 76 + 24, 18); g.fill();
+  lines.forEach((l, i) => { g.lineWidth = 8; g.strokeStyle = 'rgba(15,15,15,.92)'; g.strokeText(l, 540, y0 + i * 76); g.fillStyle = '#FFFFFF'; g.fillText(l, 540, y0 + i * 76); });
+  g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+}
+function drawWatermark() {
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  const x = 36, y = 236, d = 84;
+  g.font = '38px HeiB'; const tw = g.measureText('Krypto说AI').width;
+  g.fillStyle = 'rgba(15,15,15,.42)'; g.beginPath(); g.roundRect(x - 8, y - 8, d + tw + 46, d + 16, (d + 16) / 2); g.fill();
+  g.save(); g.beginPath(); g.arc(x + d / 2, y + d / 2, d / 2, 0, 7); g.clip(); g.drawImage(IMG.avatar, x, y, d, d); g.restore();
+  g.strokeStyle = '#FFFFFF'; g.lineWidth = 3; g.beginPath(); g.arc(x + d / 2, y + d / 2, d / 2, 0, 7); g.stroke();
+  g.fillStyle = '#FFFFFF'; g.textBaseline = 'middle'; g.fillText('Krypto说AI', x + d + 16, y + d / 2 + 2); g.textBaseline = 'alphabetic';
+}
+
+// ───────── 镜 1 · 0–3 直播截图钩子 ─────────
+function shot1(t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(BLUR, 0, 0);
+  const im = IMG.qBISg, fu = 0.47, fv = 0.5;            // 车在截图里的位置
+  const z = lerp(1, 1.32, pulse(t, 0.3));               // 0.3 秒快推到车
+  const w0 = 1320, s = w0 / im.width * z, cy = 860;
+  const ox = 540 - fu * im.width * s, oy = cy - fv * im.height * s;
+  const top = cy - im.height * (w0 / im.width) / 2, bot = cy + im.height * (w0 / im.width) / 2;
+  g.save(); g.beginPath(); g.rect(0, top, W, bot - top); g.clip();
+  g.drawImage(im, 0, 12, im.width, im.height - 12, ox, oy + 12 * s, im.width * s, (im.height - 12) * s);
+  // 红笔圈车（12fps）
+  const ring = ellipsePts(540, cy, 170, 245, 0.35, 3);
+  penPath(ring, prog(step12(t), 1.25, 1.75), C.red, 11);
+  g.restore();
+  tornLabel(540, 480, '靠空气起飞', 136, -0.025, { bg: C.paper, fg: C.ink, anchor: 'center' });
+  penPath([[425, 575], [560, 571], [690, 568]], prog(step12(t), 0.6, 0.95), C.red, 14);
+  typedLabel(t, 1.9, 70, bot - 100, '10/15 发布会直播', 50, -0.01, {});
+}
+
+// ───────── 纸桌面段（镜 2–5、10、11） ─────────
+function deskCam(t) {
+  const J = PR.J, T = PR.T, K = PR.K, Cc = PR.C, D = PR.D;
+  return camTrack(t, [
+    [3.0, camFor(J, 1, 0.42)],
+    [4.25, camFor(J, 1, 0.6), 0.30],                    // 横移：跟着轨迹往右
+    [5.2, camFor(J, 1.18, 0.55, 0.45), 0.28],           // 快推到车顶上空
+    [6.55, camFor(T, 1), 0.6],                          // 沿红线到车尾照片
+    [7.9, camFor(T, 1.3, 0.39, 0.58), 0.28],            // 快推到喷嘴
+    [10.0, camFor(K, 1.12, 0.78, 0.55), 0.6],           // 沿红线到气瓶照片的喷口
+    [11.6, camFor(K, 1.12, 0.3, 0.42), 0.30],           // 横移：沿管子到球形瓶
+    [14.0, camFor(Cc, 1), 0.5],                         // 到车身气瓶照片
+    [15.25, camFor(Cc, 1.25, 0.36, 0.6), 0.28],         // 快推到瓶子
+    [34.0, camFor(D, 1, 0.5, 0.55), 0.001],             // 硬切回桌面：停着的车
+    [34.55, camFor(D, 1.2, 0.45, 0.72), 0.28],          // 快推到车底
+    [36.6, camFor(D, 1.2, 0.62, 0.72), 0.30],           // 横移：沿车底往后
+    [38.0, { x: DW / 2, y: 2250, z: 0.41, ay: 760 }, 0.001],   // 硬切：拉远看整张桌
+    [40.4, { x: 1700, y: 3600, z: 0.62, ay: 900 }, 0.28],           // 快推到年份卡
+  ]);
+}
+function desk(t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = C.desk; g.fillRect(0, 0, W, H);
+  const cam = deskCam(t); applyCam(cam);
+  g.drawImage(DESK, 0, 0);
+  const J = PR.J, T = PR.T, K = PR.K, Cc = PR.C, D = PR.D, st = step12(t);
+  // 镜 5 那张照片斜着滑进来；38 秒后已经在桌上
+  const slide = expoOut(prog(t, 14.15, 14.75));
+  const show = { J: true, T: t >= 6 || t >= 38, K: t >= 9.5 || t >= 38, C: t >= 14.15, D: t >= 34 };
+  drawPrint(J);
+  if (show.T) drawPrint(T);
+  if (show.K) drawPrint(K);
+  if (show.C) drawPrint(Cc, lerp(900, 0, slide), lerp(-260, 0, slide), lerp(0.28, Cc.r, slide));
+  if (show.D) drawPrint(D);
+
+  // 红线：一张连一张（拉远时全部在）
+  const all = t >= 38;
+  string(onPrint(J, 0.9, 0.85), onPrint(T, 0.12, 0.08), all ? 1 : prog(st, 6.0, 6.55));
+  string(onPrint(T, 0.15, 0.92), onPrint(K, 0.86, 0.1), all ? 1 : prog(st, 9.5, 10.0));
+  if (show.C && slide >= 1) string(onPrint(K, 0.88, 0.9), onPrint(Cc, 0.1, 0.1), all ? 1 : prog(st, 15.0, 15.5));
+  if (t >= 38) string(onPrint(Cc, 0.12, 0.92), onPrint(D, 0.88, 0.1), prog(st, 38.3, 39.0));
+
+  // 镜 2：轨迹弧
+  const arc = bezierPts(onPrint(J, 0.18, 0.62), onPrint(J, 0.5, -0.12), onPrint(J, 0.88, 0.62));
+  penArrow(arc, all ? 1 : prog(st, 3.4, 4.6));
+  // 镜 3：喷嘴红圈
+  if (show.T) { const [x, y] = onPrint(T, 0.39, 0.575); penPath(ellipsePts(x, y, 250, 90, T.r, 5), all ? 1 : prog(st, 8.35, 8.9)); }
+  // 镜 4：沿管子的红线 + 气瓶圈
+  if (show.K) {
+    const pipe = [[0.78, 0.6], [0.66, 0.44], [0.55, 0.24], [0.36, 0.2]].map(([u, v]) => onPrint(K, u, v));
+    penArrow(pipe, all ? 1 : prog(st, 11.2, 11.9));
+    const [x, y] = onPrint(K, 0.2, 0.42); penPath(ellipsePts(x, y, 210, 200, 0, 9), all ? 1 : prog(st, 12.0, 12.5));
+  }
+  // 镜 5：车身里的瓶子
+  if (show.C && slide >= 1) { const [x, y] = onPrint(Cc, 0.36, 0.6); penPath(ellipsePts(x, y, 230, 210, Cc.r, 13), all ? 1 : prog(st, 15.4, 15.9)); }
+  // 镜 10：车底气流往外抽 + 低压减号 + 大气往下压
+  if (show.D) {
+    const kD = all ? 1 : 0;
+    [[0.32, 0.86], [0.5, 0.88], [0.68, 0.86]].forEach(([u, v], i) => {
+      const a = onPrint(D, u, v), b = onPrint(D, u + 0.2, v + 0.03), m = onPrint(D, u + 0.1, v + 0.06);
+      penArrow(bezierPts(a, m, b, 20), kD || prog(st, 34.7 + i * 0.25, 35.2 + i * 0.25), C.red, 8);
+    });
+    [0.26, 0.4, 0.54, 0.68].forEach((u, i) => {
+      if (all || st >= 35.9 + i * 0.18) { const [x, y] = onPrint(D, u, 0.79); g.fillStyle = C.red; g.fillRect(x - 22, y - 5, 44, 10); }
+    });
+    [0.36, 0.56].forEach((u, i) => {
+      const a = onPrint(D, u, 0.06), b = onPrint(D, u, 0.27);
+      penArrow([a, b], kD || prog(st, 36.0 + i * 0.2, 36.4 + i * 0.2), C.ink, 8);
+    });
+  }
+
+  // 标签：最上层、最后画
+  if (t < 38) {
+    if (t >= 4.9 && t < 6.5) { const k = slamK(t, 4.9); const [x, y] = onPrint(J, 0.5, 1.02); tornLabel(x, y + 40, '飞过 5 辆车', 64, -0.02, { scale: k, anchor: 'center' }); }
+    if (t >= 9.0 && t < 10.2) { const [x, y] = onPrint(T, 0.39, 0.8); typedLabel(t, 9.0, x - 180, y, '4 个主喷嘴', 58, 0.02); }
+    if (t >= 12.6 && t < 14.2) { const [x, y] = onPrint(K, 0.24, 0.85); typedLabel(t, 12.6, x - 60, y, 'SpaceX 同款气瓶', 54, 0.015); }
+    if (t >= 16.0 && t < 18) { const k = slamK(t, 16.0); const [x, y] = onPrint(Cc, 0.36, 1.0); tornLabel(x, y + 30, '两瓶共 600 升', 66, -0.025, { scale: k, anchor: 'center' }); }
+    if (t >= 37.0) { const k = slamK(t, 37.0); const [x, y] = onPrint(D, 0.62, 1.0); tornLabel(x, y + 40, '最高 2G', 72, 0.02, { scale: k, anchor: 'center' }); }
+  } else {
+    // 镜 11：年份卡落在桌角
+    const k = slamK(t, 39.3);
+    if (k) {
+      g.save(); g.translate(1720, 3600); g.rotate(-0.04); g.scale(k, k);
+      g.shadowColor = 'rgba(40,30,20,.3)'; g.shadowBlur = 30; g.shadowOffsetY = 14; g.fillStyle = C.paper; g.fillRect(-300, -150, 600, 300);
+      g.shadowColor = 'transparent'; g.fillStyle = C.ink; g.font = '150px HeiX'; g.textAlign = 'center'; g.fillText('2028', 0, 40);
+      g.fillStyle = C.red; g.font = '64px HeiX'; g.fillText('量产', 0, 125); g.textAlign = 'left'; g.restore();
+    }
+  }
+}
+
+// ───────── 黑底推导段（镜 6–9，18–34 秒） ─────────
+const CAR = [[-430, 40], [-440, -20], [-400, -60], [-250, -78], [-120, -150], [60, -158], [200, -100], [430, -40], [450, 10], [430, 40], [-430, 40]];
+const NOZ = [-340, -120, 120, 340], CX = 540, CY = 790;
+function screenCam(t) {
+  // 镜 7 快推到公式；镜 8 硬切回原景；镜 9 快推到电量条
+  if (t < 22) { const k = pulse(t, 20.5); return { z: lerp(1, 1.2, k), fx: 540, fy: 900 }; }   // 镜 6 快推到气流
+  if (t < 26) { const k = pulse(t, 24.6); return { z: lerp(1, 1.22, k), fx: 540, fy: 500 }; }
+  if (t < 30) { const k = pulse(t, 28.05); return { z: lerp(1, 1.15, k), fx: 540, fy: 1200 }; }   // 镜 8 快推到两行数字
+  const k = pulse(t, 30.25, 0.30); return { z: 1, fx: 540, fy: 960, dy: -170 * k };   // 镜 9 整体上移，给时间轴让出字幕区
+}
+function formulaLayout() {
+  const parts = [['F', 'CMU-it', C.yel], [' = ', 'CMU-rm', C.white], ['ṁ', 'CMU-it', C.teal], [' · ', 'CMU-rm', C.white], ['v', 'CMU-it', C.yel]];
+  let tw = 0; const ws = parts.map(([s, f]) => { g.font = `150px ${f}`; const w = g.measureText(s).width; tw += w; return w; });
+  let x = (W - tw) / 2; return parts.map((p, i) => { const o = { s: p[0], f: p[1], c: p[2], x }; x += ws[i]; return o; });
+}
+function upArrow(x1, y1, x2, y2, col, lw, alpha = 1) {
+  g.save(); g.globalAlpha = alpha; g.strokeStyle = col; g.lineWidth = lw; g.lineCap = 'round';
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = lw * 4.2;
+  g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2 - Math.cos(a) * hl * 0.8, y2 - Math.sin(a) * hl * 0.8); g.stroke();
+  arrowHead(x2, y2, a, hl, col); g.restore();
+}
+function night(t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = C.night; g.fillRect(0, 0, W, H);
+  const sc = screenCam(t); g.setTransform(sc.z, 0, 0, sc.z, sc.fx - sc.fx * sc.z, sc.fy - sc.fy * sc.z + (sc.dy || 0));
+  // 上一行：以 (fx,fy) 为不动点缩放
+
+  // 车：白线一笔描出
+  const kCar = smooth(prog(t, 18.0, 18.9));
+  const pts = CAR.map(([x, y]) => [CX + x * 1.05, CY + y * 1.05]);
+  penPath(pts, kCar, C.white, 5);
+  if (kCar >= 1) {
+    g.save(); g.strokeStyle = C.white; g.lineWidth = 5; g.fillStyle = C.night;
+    [[-250, 45], [270, 45]].forEach(([dx, dy]) => { const x = CX + dx * 1.05, y = CY + dy * 1.05; g.beginPath(); g.arc(x, y, 62, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.arc(x, y, 24, 0, 7); g.stroke(); });
+    g.restore();
+  }
+  // 向下的气流
+  const kPl = smooth(prog(t, 19.1, 19.8)), ny = CY + 74;
+  if (kPl > 0) NOZ.forEach(dx => {
+    const x = CX + dx, L = 230 * kPl; g.fillStyle = 'rgba(163,158,147,.24)';
+    g.beginPath(); g.moveTo(x - 16, ny); g.lineTo(x + 16, ny); g.lineTo(x + 16 + 30 * kPl, ny + L); g.lineTo(x - 16 - 30 * kPl, ny + L); g.closePath(); g.fill();
+  });
+  // 黄色推力箭头：长出来 → 镜 7 收拢成公式里的 F
+  const FL = formulaLayout(), Fx = FL[0].x + 40, Fy = 420;
+  const kGather = smooth(prog(t, 22.2, 23.0));
+  NOZ.forEach((dx, i) => {
+    const kG = smooth(prog(t, 19.6 + i * 0.12, 20.1 + i * 0.12)); if (kG <= 0) return;
+    const x = CX + dx, y1 = ny + 150, y2 = lerp(ny + 150, ny - 10, kG);
+    const X1 = lerp(x, Fx, kGather), Y1 = lerp(y1, Fy + 90, kGather), X2 = lerp(x, Fx, kGather), Y2 = lerp(y2, Fy - 40, kGather);
+    upArrow(X1, Y1, X2, Y2, C.yel, 9, 1 - prog(t, 22.85, 23.0));
+  });
+  // 公式
+  if (t >= 22.85 && t < 30) {   // 镜 9 换构图：公式收走，只留车、数字和电量条
+    FL.forEach((p, i) => {
+      const a = i === 0 ? 22.85 : 23.0 + i * 0.18, k = prog(t, a, a + 0.3); if (k <= 0) return;
+      g.globalAlpha = k; g.font = `150px ${p.f}`; g.fillStyle = p.c; g.fillText(p.s, p.x, 480 - 18 * (1 - k)); g.globalAlpha = 1;
+    });
+    const kz = prog(t, 24.0, 24.35);
+    if (kz > 0) {
+      const line = [['推力', C.yel], [' = ', C.grey], ['每秒喷多少气', C.teal], [' × ', C.grey], ['喷多快', C.yel]];
+      g.globalAlpha = kz; g.font = '46px HeiB'; let tw = line.reduce((a, [s]) => a + g.measureText(s).width, 0), x = (W - tw) / 2;
+      line.forEach(([s, c]) => { g.fillStyle = c; g.fillText(s, x, 570); x += g.measureText(s).width; }); g.globalAlpha = 1;
+    }
+  }
+  // 镜 8：重力箭头砸下 + 两行数字
+  const kg = slamK(t, 26.3);
+  if (kg) {
+    const L = 300 * Math.min(kg, 1.08); upArrow(CX, CY - 60, CX, CY - 60 + L, C.teal, 9);
+    if (t >= 26.6) { g.font = '54px CMU-it'; g.fillStyle = C.teal; g.fillText('mg', CX + 28, CY + 236); g.font = '44px HeiB'; g.fillText('≈ 19 kN', CX + 104, CY + 236); }
+  }
+  const row = (y, sym, symCol, val, note, a) => {
+    const k = slamK(t, a); if (!k) return;
+    g.save(); g.translate(130, y); g.scale(k, k);
+    let x = 0; g.font = '60px CMU-it'; g.fillStyle = symCol; g.fillText(sym, x, 0); x += g.measureText(sym).width;
+    g.font = '52px HeiB'; g.fillStyle = C.white; g.fillText(val, x, 0); x += g.measureText(val).width;
+    g.font = '44px HeiM'; g.fillStyle = C.grey; g.fillText(note, x + 18, 0); g.restore();
+  };
+  row(1160, 'v', C.yel, ' ≈ 600 m/s', '空气喷出去的速度', 27.3);
+  row(1245, 'ṁ', C.teal, ' ≈ 31 kg/s', '每秒要喷掉的气', 28.1);
+  if (t >= 27.0) { g.save(); g.strokeStyle = C.red; g.lineWidth = 3; g.font = '34px HeiB'; g.fillStyle = C.red; g.beginPath(); g.roundRect(800, 1072, 168, 54, 8); g.stroke(); g.fillText('我的估算', 816, 1112); g.restore(); }
+  // 镜 9：250kg 能撑几秒——灰条 = 理论（压力不掉，8 秒），黄条 = 实际（瓶压越喷越低，3–5 秒就托不住）
+  if (t >= 30) {
+    const bx = 130, by = 1365, bw = 820, bh = 46, sec = bw / 8;
+    g.font = '44px HeiM'; g.fillStyle = C.grey; g.fillText('250kg 空气能托住车几秒', bx, by - 30);
+    g.strokeStyle = C.grey; g.lineWidth = 3; g.beginPath(); g.moveTo(bx, by + bh + 14); g.lineTo(bx + bw, by + bh + 14); g.stroke();
+    g.font = '30px HeiM'; g.textAlign = 'center';
+    for (let k = 0; k <= 8; k++) { const x = bx + k * sec; g.beginPath(); g.moveTo(x, by + bh + 6); g.lineTo(x, by + bh + 22); g.stroke(); g.fillStyle = C.grey; g.fillText(k + '', x, by + bh + 56); }
+    g.textAlign = 'left';
+    const kI = smooth(prog(t, 30.6, 31.5));
+    if (kI > 0) { g.fillStyle = 'rgba(163,158,147,.45)'; g.fillRect(bx, by, bw * kI, bh); }
+    if (t >= 31.5) { g.font = '40px HeiB'; g.fillStyle = C.grey; g.textAlign = 'right'; g.fillText('理论 8 秒', bx + bw, by + bh + 108); g.textAlign = 'left'; }
+    const kR = smooth(prog(t, 31.9, 32.6));
+    if (kR > 0) {
+      g.fillStyle = 'rgba(242,179,61,.28)'; g.fillRect(bx + 3 * sec, by - 8, 2 * sec * kR, bh + 16);
+      g.fillStyle = C.yel; g.fillRect(bx, by, 4 * sec * kR, bh);
+    }
+    const ks = slamK(t, 32.85);
+    if (ks) { g.save(); g.translate(bx + 4 * sec, by + bh + 108); g.scale(ks, ks); g.font = '52px HeiX'; g.fillStyle = C.yel; g.textAlign = 'center'; g.fillText('实际 3–5 秒', 0, 0); g.restore(); }
+  }
+}
+
+// ───────── 主循环 ─────────
+window.__total = TOTAL;
+window.renderFrame = function (t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  if (t < 3) shot1(t);
+  else if (t < 18 || t >= 34) desk(t);
+  else night(t);
+  drawSubs(t);
+  drawWatermark();
+};
+window.__ready = (async () => {
+  await Promise.all(['HeiM', 'HeiB', 'HeiX', 'CMU-it', 'CMU-rm'].map(f => document.fonts.load(`40px ${f}`, '测试ṁ')));
+  await Promise.all([['qBISg', 'assets/qBISg.jpg'], ['cYPPz', 'assets/cYPPz.jpg'], ['mDutM', 'assets/mDutM.jpg'], ['9vi83', 'assets/9vi83.jpg'],
+    ['zMSe3', 'assets/zMSe3.jpg'], ['D8zHc', 'assets/D8zHc.jpg'], ['avatar', 'assets/avatar.png']].map(([k, s]) => load(k, s)));
+  buildCaches();
+  const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0'); window.renderFrame(t0);
+  return true;
+})();
+</script></body></html>

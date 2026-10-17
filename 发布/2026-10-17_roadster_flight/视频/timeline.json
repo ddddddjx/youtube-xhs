@@ -1,0 +1,14 @@
+{"title": "Roadster 怎么飞起来的", "format": "9:16", "total": 42,
+ "beats": [
+  {"id": "s1", "start": 0.0, "end": 3.0, "music": "swell", "sfx": [{"at": 0.3, "name": "whoosh"}, {"at": 0.6, "name": "boom"}, {"at": 1.3, "name": "tick"}]},
+  {"id": "s2", "start": 3.0, "end": 6.5, "music": "low", "sfx": [{"at": 1.25, "name": "whoosh", "gain": 0.6}, {"at": 1.9, "name": "ding"}]},
+  {"id": "s3", "start": 6.5, "end": 10.0, "sfx": [{"at": 0.05, "name": "whoosh", "gain": 0.6}, {"at": 1.4, "name": "whoosh", "gain": 0.5}, {"at": 1.9, "name": "tick"}, {"at": 2.5, "name": "ding"}]},
+  {"id": "s4", "start": 10.0, "end": 14.0, "sfx": [{"at": 0.0, "name": "whoosh", "gain": 0.6}, {"at": 1.6, "name": "whoosh", "gain": 0.5}, {"at": 2.6, "name": "ding"}]},
+  {"id": "s5", "start": 14.0, "end": 18.0, "sfx": [{"at": 0.15, "name": "whoosh"}, {"at": 2.0, "name": "boom", "gain": 0.7}]},
+  {"id": "s6", "start": 18.0, "end": 22.0, "music": "drop", "sfx": [{"at": 1.1, "name": "pulse"}, {"at": 1.6, "name": "on"}]},
+  {"id": "s7", "start": 22.0, "end": 26.0, "sfx": [{"at": 0.2, "name": "whoosh", "gain": 0.6}, {"at": 0.85, "name": "ding"}, {"at": 2.6, "name": "click"}]},
+  {"id": "s8", "start": 26.0, "end": 30.0, "sfx": [{"at": 0.3, "name": "boom", "gain": 0.7}, {"at": 1.3, "name": "tick"}, {"at": 2.1, "name": "tick"}]},
+  {"id": "s9", "start": 30.0, "end": 34.0, "music": "solo", "sfx": [{"at": 0.25, "name": "click"}, {"at": 0.7, "name": "pulse"}, {"at": 2.85, "name": "boom"}]},
+  {"id": "s10", "start": 34.0, "end": 38.0, "music": "swell", "sfx": [{"at": 0.7, "name": "tick"}, {"at": 2.6, "name": "whoosh", "gain": 0.5}, {"at": 3.0, "name": "boom", "gain": 0.7}]},
+  {"id": "s11", "start": 38.0, "end": 42.0, "music": "solo", "sfx": [{"at": 0.0, "name": "whoosh"}, {"at": 1.3, "name": "boom"}, {"at": 2.4, "name": "click"}]}
+ ]}
