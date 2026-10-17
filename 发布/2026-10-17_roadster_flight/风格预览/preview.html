@@ -1,0 +1,241 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'HeiM';src:url(fonts/NotoSansSC-500.woff)}
+@font-face{font-family:'HeiB';src:url(fonts/NotoSansSC-700.woff)}
+@font-face{font-family:'HeiX';src:url(fonts/NotoSansSC-900.woff)}
+@font-face{font-family:'CMU-it';src:url(fonts/cmunti.woff)}
+@font-face{font-family:'CMU-rm';src:url(fonts/cmunrm.woff)}
+html,body{margin:0;background:#000}
+canvas{display:block}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// 风格预览：同一时刻（「车从坡上飞出、喷嘴接管」）三种画法，竖版 1080×1920
+const W = 1080, H = 1920;
+const g = document.getElementById('c').getContext('2d');
+const V = new URLSearchParams(location.search).get('v') || 'A';
+
+// 种子随机，同一帧渲两次一致
+let seed = 7;
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+const load = src => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(src); i.src = src; });
+
+function grain(alpha) {
+  const d = g.getImageData(0, 0, W, H), p = d.data;
+  for (let i = 0; i < p.length; i += 4) { const n = (rnd() - 0.5) * alpha; p[i] += n; p[i + 1] += n; p[i + 2] += n; }
+  g.putImageData(d, 0, 0);
+}
+
+function wobblyEllipse(cx, cy, rx, ry, col, lw, turns) {
+  g.save(); g.strokeStyle = col; g.lineWidth = lw; g.lineCap = 'round'; g.globalAlpha = 0.9;
+  g.beginPath();
+  const N = 90 * turns;
+  for (let i = 0; i <= N; i++) {
+    const a = -0.6 + i / 90 * Math.PI * 2, k = 1 + 0.035 * Math.sin(i * 0.31) + i / N * 0.05;
+    const x = cx + Math.cos(a) * rx * k, y = cy + Math.sin(a) * ry * k;
+    i ? g.lineTo(x, y) : g.moveTo(x, y);
+  }
+  g.stroke(); g.restore();
+}
+
+function tornLabel(x, y, text, size, rot, bg = '#151515', fg = '#F7F2E8') {
+  g.save(); g.translate(x, y); g.rotate(rot);
+  g.font = `${size}px HeiX`;
+  const w = g.measureText(text).width + size * 0.9, h = size * 1.55;
+  g.fillStyle = bg; g.beginPath();
+  g.moveTo(0, 0);
+  for (let i = 1; i <= 24; i++) g.lineTo(w * i / 24, (rnd() - 0.5) * 6);
+  for (let i = 1; i <= 8; i++) g.lineTo(w + (rnd() - 0.5) * 6, h * i / 8);
+  for (let i = 23; i >= 0; i--) g.lineTo(w * i / 24, h + (rnd() - 0.5) * 6);
+  g.closePath(); g.fill();
+  g.fillStyle = fg; g.textBaseline = 'middle'; g.fillText(text, size * 0.45, h / 2 + 2);
+  g.restore();
+  return w;
+}
+
+function print(img, cx, cy, w, rot, crop) {
+  const [sx, sy, sw, sh] = crop || [0, 0, img.width, img.height];
+  const h = w * sh / sw, b = 22;
+  g.save(); g.translate(cx, cy); g.rotate(rot);
+  g.shadowColor = 'rgba(40,30,20,.35)'; g.shadowBlur = 30; g.shadowOffsetY = 14;
+  g.fillStyle = '#FBF8F2'; g.fillRect(-w / 2 - b, -h / 2 - b, w + 2 * b, h + 2 * b);
+  g.shadowColor = 'transparent';
+  g.drawImage(img, sx, sy, sw, sh, -w / 2, -h / 2, w, h);
+  g.restore();
+  // 返回素材坐标 → 画面坐标
+  return (u, v) => {
+    const lx = (u - 0.5) * w, ly = (v - 0.5) * h;
+    return [cx + lx * Math.cos(rot) - ly * Math.sin(rot), cy + lx * Math.sin(rot) + ly * Math.cos(rot)];
+  };
+}
+
+function tape(x, y, rot) {
+  g.save(); g.translate(x, y); g.rotate(rot); g.fillStyle = 'rgba(232,222,196,.85)';
+  g.fillRect(-70, -22, 140, 44); g.restore();
+}
+
+// ───────── A · Vox 证据桌 ─────────
+async function drawA() {
+  const flight = await load('assets/qBISg.jpg'), tank = await load('assets/9vi83.jpg');
+  g.fillStyle = '#F3EDE2'; g.fillRect(0, 0, W, H);
+  grain(14);
+
+  tornLabel(70, 120, '它其实在放气', 92, -0.02);
+
+  const P1 = print(flight, 560, 640, 940, -0.035, [180, 0, 1250, 882]);
+  tape(170, 330, -0.5); tape(960, 300, 0.4);
+  const P2 = print(tank, 520, 1250, 960, 0.03, [0, 40, 1450, 776]);
+  tape(140, 1000, 0.35);
+
+  // 红线：空中的车 → 气瓶
+  const [ax, ay] = P1(0.47, 0.62), [bx, by] = P2(0.2, 0.35);
+  g.save(); g.strokeStyle = '#C8402F'; g.lineWidth = 5; g.beginPath(); g.moveTo(ax, ay);
+  g.bezierCurveTo(ax - 260, ay + 200, bx + 120, by - 260, bx, by); g.stroke();
+  g.fillStyle = '#C8402F'; [[ax, ay], [bx, by]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 12, 0, 7); g.fill(); });
+  g.restore();
+
+  // 荧光笔圈：车 + 喷嘴
+  const [cx1, cy1] = P1(0.47, 0.5); wobblyEllipse(cx1, cy1, 150, 210, '#C8402F', 9, 1.08);
+  const [cx2, cy2] = P2(0.82, 0.62); wobblyEllipse(cx2, cy2, 230, 120, '#C8402F', 9, 1.08);
+
+  tornLabel(110, 1000, '10/15 发布会直播', 40, -0.015, '#F7F2E8', '#151515');
+  tornLabel(470, 1560, '600 升空气 → 10 个喷嘴', 46, 0.02);
+}
+
+// ───────── B · 3b1b 黑底推导 ─────────
+function arrow(x1, y1, x2, y2, col, lw) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = lw * 4.2;
+  g.save(); g.strokeStyle = g.fillStyle = col; g.lineWidth = lw; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2 - Math.cos(a) * hl * 0.8, y2 - Math.sin(a) * hl * 0.8); g.stroke();
+  g.beginPath(); g.moveTo(x2, y2);
+  g.lineTo(x2 - Math.cos(a - 0.42) * hl, y2 - Math.sin(a - 0.42) * hl);
+  g.lineTo(x2 - Math.cos(a + 0.42) * hl, y2 - Math.sin(a + 0.42) * hl); g.closePath(); g.fill();
+  g.restore();
+}
+
+function carPath(s, ox, oy) {
+  // 楔形跑车侧影（车头朝右），s 为缩放
+  const pts = [[-430, 40], [-440, -20], [-400, -60], [-250, -78], [-120, -150], [60, -158], [200, -100], [430, -40], [450, 10], [430, 40]];
+  g.beginPath(); pts.forEach(([x, y], i) => { const X = ox + x * s, Y = oy + y * s; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.closePath();
+}
+
+function drawB() {
+  const BG = '#121417', INK = '#F2EFE8', SUB = '#A39E93', Y = '#F2B33D', T = '#5FB3A1', G = '#83C167';
+  g.fillStyle = BG; g.fillRect(0, 0, W, H);
+
+  // 公式
+  g.textBaseline = 'alphabetic'; g.textAlign = 'left';
+  const parts = [['F', 'CMU-it', Y], [' = ', 'CMU-rm', INK], ['ṁ', 'CMU-it', T], [' · ', 'CMU-rm', INK], ['v', 'CMU-it', G]];
+  g.font = '150px CMU-it'; let tw = 0;
+  parts.forEach(([s, f]) => { g.font = `150px ${f}`; tw += g.measureText(s).width; });
+  let x = (W - tw) / 2;
+  parts.forEach(([s, f, c]) => { g.font = `150px ${f}`; g.fillStyle = c; g.fillText(s, x, 300); x += g.measureText(s).width; });
+
+  // 中文对照，颜色 = 概念
+  const line = [['推力', Y], [' = ', SUB], ['每秒喷多少气', T], [' × ', SUB], ['喷多快', G]];
+  g.font = '46px HeiB'; tw = line.reduce((a, [s]) => a + g.measureText(s).width, 0); x = (W - tw) / 2;
+  line.forEach(([s, c]) => { g.fillStyle = c; g.fillText(s, x, 400); x += g.measureText(s).width; });
+
+  // 车：白线侧影
+  const cy = 860;
+  g.save(); g.strokeStyle = INK; g.lineWidth = 5; g.lineJoin = 'round'; carPath(1.05, 540, cy); g.stroke();
+  g.fillStyle = BG; [[-250, 45], [270, 45]].forEach(([dx, dy]) => { g.beginPath(); g.arc(540 + dx * 1.05, cy + dy * 1.05, 62, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.arc(540 + dx * 1.05, cy + dy * 1.05, 24, 0, 7); g.stroke(); });
+  g.restore();
+
+  // 喷气（灰）向下，推力（黄）向上
+  [-340, -120, 120, 340].forEach(dx => {
+    const nx = 540 + dx, ny = cy + 70;
+    g.save(); g.fillStyle = 'rgba(163,158,147,.22)'; g.beginPath(); g.moveTo(nx - 16, ny); g.lineTo(nx + 16, ny); g.lineTo(nx + 46, ny + 230); g.lineTo(nx - 46, ny + 230); g.closePath(); g.fill(); g.restore();
+    arrow(nx, ny + 150, nx, ny - 10, Y, 9);
+  });
+  // 重力（青）向下
+  arrow(540, cy - 40, 540, cy + 300, T, 9);
+  g.font = '52px CMU-it'; g.fillStyle = T; g.fillText('mg', 566, cy + 300);
+  g.font = '40px HeiM'; g.fillText('≈ 19 kN', 640, cy + 300);
+  g.font = '52px CMU-it'; g.fillStyle = Y; g.fillText('F', 905, cy + 30);
+
+  // 数字
+  g.font = '48px HeiB';
+  const nums = [[['v', G], [' ≈ 600 m/s', INK], ['  空气喷速', SUB]], [['ṁ', T], [' ≈ 31 kg/s', INK], ['  托住车要喷的量', SUB]]];
+  nums.forEach((row, i) => {
+    x = 130; row.forEach(([s, c], j) => { g.font = j === 0 ? '56px CMU-it' : (j === 2 ? '40px HeiM' : '48px HeiB'); g.fillStyle = c; g.fillText(s, x, 1290 + i * 90); x += g.measureText(s).width; });
+  });
+
+  // 气瓶电量条
+  const bx = 130, by = 1470, bw = 820, bh = 70;
+  g.strokeStyle = INK; g.lineWidth = 4; g.strokeRect(bx, by, bw, bh);
+  g.fillStyle = Y; g.fillRect(bx + 6, by + 6, (bw - 12) * 0.32, bh - 12);
+  g.font = '40px HeiM'; g.fillStyle = SUB; g.fillText('气瓶 250 kg', bx, by - 22);
+  g.font = '44px HeiB'; g.fillStyle = Y; g.fillText('只够 3–5 秒', bx + bw - 250, by - 22);
+}
+
+// ───────── C · Kurzgesagt 扁平剖面 ─────────
+function drawC() {
+  const BG = '#0D1B2A', SUR = '#16293D', INK = '#EEF3F6', SUB = '#8FA3B3', CY = '#5CC8E0', OR = '#F2A93B';
+  g.fillStyle = BG; g.fillRect(0, 0, W, H);
+  // 远景：平涂山丘两层
+  g.fillStyle = '#112236'; g.beginPath(); g.moveTo(0, 1250); g.quadraticCurveTo(300, 1100, 620, 1220); g.quadraticCurveTo(880, 1150, 1080, 1200); g.lineTo(1080, 1920); g.lineTo(0, 1920); g.fill();
+  g.fillStyle = SUR; g.fillRect(0, 1340, W, H - 1340);
+  // 坡道
+  g.fillStyle = '#1D3550'; g.beginPath(); g.moveTo(0, 1340); g.lineTo(0, 1110); g.quadraticCurveTo(140, 1200, 300, 1340); g.fill();
+  // 星点（环境层，少量）
+  for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(238,243,246,${0.15 + rnd() * 0.35})`; g.beginPath(); g.arc(rnd() * W, rnd() * 900, 1.5 + rnd() * 2.5, 0, 7); g.fill(); }
+
+  g.font = '96px HeiX'; g.fillStyle = INK; g.textAlign = 'center'; g.fillText('一瓶气 + 一台风扇', W / 2, 300);
+  g.font = '44px HeiM'; g.fillStyle = SUB; g.fillText('Roadster 离地的那一秒', W / 2, 380);
+  g.textAlign = 'left';
+
+  g.save(); g.translate(560, 1010); g.rotate(-0.09);
+  const s = 1.08;
+  // 喷气羽流（后部，平涂）
+  [[-460, -10], [-460, 22]].forEach(([x, y]) => {
+    g.fillStyle = 'rgba(92,200,224,.35)'; g.beginPath(); g.moveTo(x * s, y * s - 14); g.lineTo(x * s - 330, y * s - 60); g.lineTo(x * s - 330, y * s + 60); g.lineTo(x * s, y * s + 14); g.fill();
+    g.fillStyle = 'rgba(238,243,246,.8)'; g.beginPath(); g.moveTo(x * s, y * s - 7); g.lineTo(x * s - 170, y * s); g.lineTo(x * s, y * s + 7); g.fill();
+  });
+  // 向下的姿态喷嘴
+  [-300, 300].forEach(x => {
+    g.fillStyle = 'rgba(92,200,224,.35)'; g.beginPath(); g.moveTo(x * s - 14, 50 * s); g.lineTo(x * s - 60, 280); g.lineTo(x * s + 60, 280); g.lineTo(x * s + 14, 50 * s); g.fill();
+  });
+  // 车身平涂
+  g.fillStyle = INK; carPath(s, 0, 0); g.fill();
+  g.fillStyle = '#C9D3DA'; g.beginPath(); g.moveTo(-440 * s, 0); g.lineTo(450 * s, 10 * s); g.lineTo(430 * s, 40 * s); g.lineTo(-430 * s, 40 * s); g.fill();
+  // 车窗
+  g.fillStyle = '#1D3550'; g.beginPath(); g.moveTo(-90 * s, -138 * s); g.lineTo(50 * s, -146 * s); g.lineTo(170 * s, -98 * s); g.lineTo(-180 * s, -88 * s); g.fill();
+  // 剖开的窗口：露出气瓶和管路
+  g.fillStyle = '#0A1622'; g.beginPath(); g.roundRect(-390 * s, -70 * s, 360 * s, 100 * s, 18); g.fill();
+  g.fillStyle = OR; g.beginPath(); g.ellipse(-250 * s, -22 * s, 92 * s, 44 * s, 0, 0, 7); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.35)'; g.beginPath(); g.ellipse(-275 * s, -42 * s, 40 * s, 12 * s, 0, 0, 7); g.fill();
+  g.strokeStyle = CY; g.lineWidth = 9; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(-340 * s, -10 * s); g.lineTo(-450 * s, -10 * s); g.moveTo(-340 * s, 10 * s); g.lineTo(-450 * s, 22 * s); g.stroke();
+  // 车轮
+  [[-260, 42], [270, 42]].forEach(([x, y]) => { g.fillStyle = '#0A121B'; g.beginPath(); g.arc(x * s, y * s, 66, 0, 7); g.fill(); g.fillStyle = '#5E7387'; g.beginPath(); g.arc(x * s, y * s, 30, 0, 7); g.fill(); });
+  // 车底风扇
+  g.fillStyle = '#0A1622'; g.beginPath(); g.arc(20, 44 * s, 44, 0, 7); g.fill();
+  g.fillStyle = CY; for (let k = 0; k < 5; k++) { g.save(); g.translate(20, 44 * s); g.rotate(k * 1.2566); g.beginPath(); g.ellipse(0, -20, 8, 20, 0, 0, 7); g.fill(); g.restore(); }
+  g.restore();
+
+  // 标签药丸
+  function pill(x, y, text, col, tc) {
+    g.font = '42px HeiB'; const w = g.measureText(text).width + 56;
+    g.fillStyle = col; g.beginPath(); g.roundRect(x, y, w, 76, 38); g.fill();
+    g.fillStyle = tc; g.textBaseline = 'middle'; g.fillText(text, x + 28, y + 40); g.textBaseline = 'alphabetic';
+  }
+  pill(110, 640, '600 升压缩空气', OR, '#0D1B2A');
+  g.strokeStyle = OR; g.lineWidth = 4; g.beginPath(); g.moveTo(260, 716); g.lineTo(300, 960); g.stroke();
+  pill(60, 1390, '喷嘴：推、抬、转', CY, '#0D1B2A');
+  pill(560, 1390, '风扇：车底抽成低压', INK, '#0D1B2A');
+
+  // 低压区：车底的减号 + 大气压向下的白箭头
+  g.fillStyle = CY; g.font = '54px HeiX';
+  g.save(); g.translate(560, 1010); g.rotate(-0.09); g.textAlign = 'center';
+  [-150, -60, 100, 190].forEach(x => g.fillText('−', x, 112));
+  [-200, 0, 200].forEach(x => arrow(x, -330, x, -190, 'rgba(238,243,246,.75)', 7));
+  g.restore();
+}
+
+document.fonts.load('40px HeiX').then(() => Promise.all(['HeiM', 'HeiB', 'CMU-it', 'CMU-rm'].map(f => document.fonts.load(`40px ${f}`))))
+  .then(() => ({ A: drawA, B: drawB, C: drawC }[V])())
+  .then(() => { document.title = 'done'; });
+</script></body></html>
