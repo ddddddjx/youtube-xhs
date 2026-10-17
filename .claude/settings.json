@@ -1,7 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "mcp__Notion"
+      "Bash",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "Skill",
+      "Agent",
+      "SendMessage",
+      "SendUserFile",
+      "mcp__Notion",
+      "mcp__github",
+      "mcp__claude-code-remote"
     ]
   }
 }
