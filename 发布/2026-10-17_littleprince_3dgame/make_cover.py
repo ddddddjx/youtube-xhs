@@ -27,7 +27,7 @@ d.text((176, 82), "26-10-17 18:00", font=f(29, 500), fill=GREY)
 y = 190
 d.text((L, y), "16天，一个人用AI做出3D游戏", font=f(62, 900), fill=BLACK); y += 104
 fb = f(44, 500)
-for ln in wrap("小王子去过的星球，每一颗都能走进去。预告 332 万次观看，近 1 万人收藏。他把五步流程和提示词都公开了，我拆成了这条视频。", fb, W - 2 * L):
+for ln in wrap("小王子去过的星球，每一颗都能走进去。累计 332 万次观看，近 1 万人收藏。把五步流程和提示词都公开了，拆成了这条讲解视频。", fb, W - 2 * L):
     d.text((L, y), ln, font=fb, fill=BLACK); y += 72
 top, bottom = y + 36, H - 40
 src = Image.open(os.path.join(HERE, "代码工程/clips_lp/rose/0060.jpg")).convert("RGB")
