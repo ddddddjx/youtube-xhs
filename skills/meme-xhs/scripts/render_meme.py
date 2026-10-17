@@ -13,7 +13,7 @@ draft.md 格式:
 
   ---
   title: 标题（只进 标题.txt，不上图）
-  headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内
+  headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内；用「|」手动换行，避免一个字落单
   hero: quote.png                        # 可选：首页的一张素材图（原文截图、原文配图、后台截图），不用自己画的
   hero_after: 3                          # 素材图放在第几段之后（默认 3：先铺垫几句再放图，读者才知道图在讲什么）
   font: serif                            # 可选（10-03 起，对标小盖）：正文用宋体，信息流里像一个人认真写的长文；headline 和名片卡仍是黑体
@@ -201,7 +201,7 @@ class Pager:
             self.y = author_block(im, d, self.meta, self.avatar) + 40
             if self.meta.get("headline"):
                 fh = font(58, "Semibold")
-                for ln in wrap(self.meta["headline"], fh):
+                for ln in [l for part in self.meta["headline"].split("|") for l in wrap(part.strip(), fh)]:   # 「|」手动换行
                     d.text((L, self.y), ln, font=fh, fill=BLACK)
                     self.y += 82
                 self.y += 14

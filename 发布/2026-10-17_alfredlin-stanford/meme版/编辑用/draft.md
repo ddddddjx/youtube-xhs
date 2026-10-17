@@ -5,7 +5,7 @@ value: 框架
 reader: 怕被 AI 淘汰的上班族
 keyword: 红杉合伙人
 keywords: Alfred Lin, AI泡沫, 应用层
-headline: 红杉合伙人：AI 铺开，比你想的慢
+headline: 红杉合伙人：|AI发展速度比你想的要慢
 hero: hero.jpg
 hero_after: 2
 time: 26-10-17 18:00
