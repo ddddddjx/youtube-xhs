@@ -38,7 +38,7 @@ const capDraw = (c, lt, caps) => {
   c.restore();
 };
 // 主画面里的小字：素材出处
-const credit = (c, txt = '实机画面 · X @Saccc_c') => {
+const credit = (c, txt = '实录画面') => {
   c.save(); c.font = TY.font(26, 'PuHui-Medium'); const w = c.measureText(txt).width;
   c.fillStyle = 'rgba(20,18,15,.55)'; c.fillRect(PANEL.x + 24, PANEL.y + PANEL.h - 64, w + 28, 42);
   c.fillStyle = '#F3EDE2'; c.textBaseline = 'middle'; c.fillText(txt, PANEL.x + 38, PANEL.y + PANEL.h - 43); c.restore();
@@ -224,15 +224,15 @@ const lp12x = (c, lt) => {
 const lp13x = (c, lt) => { MD.label(c, '绑骨：Auto-Rig Pro', 50, PANEL.y + 100, { size: 40, t: lt, at: 0.2 }); MD.label(c, '动作：Mixamo', 50, PANEL.y + 190, { size: 40, bg: C.red, t: lt, at: 2.4 }); };
 const lp14x = (c, lt) => { if (lt >= 2.4) MD.label(c, '提水壶：Opus 在 Blender 里调', W - 60, PANEL.y + PANEL.h - 140, { size: 40, bg: C.red, t: lt, at: 2.5, align: 'right' }); };
 // lp15/16：Glimpse 界面，裁到要看的那块
-SH.lp15.crop = [0.2, 0.0, 0.6, 0.86]; SH.lp15.credit = '原作者录屏 · X @Saccc_c';
-SH.lp16.crop = [0.54, 0.02, 0.46, 0.62]; SH.lp16.credit = '原作者录屏 · X @Saccc_c';
+SH.lp15.crop = [0.2, 0.0, 0.6, 0.86];
+SH.lp16.crop = [0.54, 0.02, 0.46, 0.62];
 const lp16x = (c, lt) => { const k = lt < 2.9 ? MO.slam(lt, 1.45) : 0; if (k) { c.save(); c.translate(W / 2, PANEL.y + PANEL.h - 150); c.scale(k, k); MD.label(c, '0:13–0:14 推门时镜头钻进门板', 0, 0, { size: 40, bg: C.red, align: 'center' }); c.restore(); } };
 // lp17：原作者的对比图，冲印件，圈出结论
 const lp17 = (c, lt, IMG) => {
   const im = IMG['clips_lp/stills/compare.jpg'];
   const z = zoomAt(lt, [{ at: 2.4, k: 0.3 }]);
   c.save(); c.translate(W / 2, PANEL.y + 500); c.scale(z, z); c.translate(0, -120 * (z - 1) / 0.3); c.rotate(-0.012);
-  MD.print(c, im, 980, 675, { key: 'cmp', caption: '图源：X @Saccc_c' });
+  MD.print(c, im, 980, 675, { key: 'cmp', caption: '实录画面' });
   circle(c, 0, 675 * (0.885 - 0.5), 420, 46, seg(lt, 2.5, 3.1), C.red, 7);
   c.restore();
 };
@@ -241,7 +241,6 @@ const lp19x = (c, lt) => {};
 // lp20：坠机现场
 // lp21：结尾，小王子站在云海上，标签贴在天上
 const lp21x = (c, lt) => {
-  MD.label(c, '原作：Sac（X @Saccc_c）', W / 2, PANEL.y + 110, { size: 38, align: 'center', t: lt, at: 0.6 });
   MD.label(c, '《The Little Prince: Among the Stars》', W / 2, PANEL.y + 190, { size: 34, align: 'center', bg: C.red, t: lt, at: 1.0, rate: 40 });
 };
 
