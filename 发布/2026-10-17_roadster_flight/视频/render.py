@@ -36,7 +36,7 @@ with sync_playwright() as p:
     pg.on('console', lambda m: m.type == 'error' and errors.append(m.text))
     pg.goto(url)
     pg.evaluate('window.__ready')
-    grab = "t => { window.renderFrame(t); return document.getElementById('c').toDataURL('image/png').split(',')[1]; }"
+    grab = "async t => { await window.prepareFrame(t); window.renderFrame(t); return document.getElementById('c').toDataURL('image/png').split(',')[1]; }"
     if a.stills:
         out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
         for s in a.stills.split(','):

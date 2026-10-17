@@ -405,14 +405,63 @@ function night(t) {
   }
 }
 
+// ───────── 现场视频段（edit.json 的 clip 段） ─────────
+let EDIT = null; const FR = new Map();
+function segAt(t) { const S = EDIT.segments; for (let i = 0; i < S.length; i++) if (t < S[i].o1 || i === S.length - 1) return [i, S[i]]; }
+function framePath(i, seg, t) { const n = Math.min(Math.floor((t - seg.o0) * 30 + 1e-6) + 1, 9999); return `footage/frames/seg${i}/${String(n).padStart(4, '0')}.jpg`; }
+function cxAt(seg, lt) { const K = seg.cx; if (lt <= K[0][0]) return K[0][1];
+  for (let k = 1; k < K.length; k++) if (lt <= K[k][0]) return lerp(K[k - 1][1], K[k][1], sine((lt - K[k - 1][0]) / (K[k][0] - K[k - 1][0]))); return K[K.length - 1][1]; }
+window.prepareFrame = async function (t) {
+  const [i, seg] = segAt(t); if (!seg.clip) return;
+  let path = framePath(i, seg, t);
+  if (!FR.has(path)) {
+    if (FR.size > 6) FR.delete(FR.keys().next().value);
+    const im = new Image(); im.src = path;
+    try { await im.decode(); } catch (e) {   // 段尾多出的一帧没有就用上一帧
+      const n = parseInt(path.slice(-8, -4)) - 1; path = path.slice(0, -8) + String(n).padStart(4, '0') + '.jpg'; im.src = path; await im.decode(); }
+    FR.set(framePath(i, seg, t), im);
+  }
+};
+function drawClip(i, seg, t) {
+  const lt = t - seg.o0, im = FR.get(framePath(i, seg, t)); if (!im) throw new Error('帧没加载 ' + framePath(i, seg, t));
+  const cx = cxAt(seg, lt) * im.width;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+  // 底：同一帧放大虚化压暗，铺满竖屏
+  const sb = H / im.height; g.filter = 'blur(34px) brightness(.36)';
+  g.drawImage(im, 540 - cx * sb, 0, im.width * sb, H); g.filter = 'none';
+  // 主画面：4:5 窗口，跟着车平移
+  const cw = im.height * 0.8, sx = clamp(cx - cw / 2, 0, im.width - cw), y0 = 300, h = 1350;
+  g.drawImage(im, sx, 0, cw, im.height, 0, y0, W, h);
+  if (i === 0) {   // 钩子：大字从第 0 帧就在，0.4 秒红笔划「空气」
+    tornLabel(540, 480, '靠空气起飞', 136, -0.025, { bg: C.paper, fg: C.ink, anchor: 'center' });
+    penPath([[425, 575], [560, 571], [690, 568]], prog(step12(lt), 0.4, 0.75), C.red, 14);
+    typedLabel(lt, 1.6, 60, 1180, '10/15 发布会现场', 50, -0.01, {});
+  } else if (seg.label) {
+    const k = slamK(lt, 0.25); if (k) tornLabel(540, 1290, seg.label, 70, -0.02, { scale: k, anchor: 'center' });
+  }
+}
+function drawSubText(text) {
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.font = '52px HeiB'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round';
+  const lines = wrapZh(text, 880), y0 = 1500 - (lines.length - 1) * 38;
+  const bw = Math.max(...lines.map(l => g.measureText(l).width)) + 56;
+  g.fillStyle = 'rgba(15,15,15,.55)'; g.beginPath(); g.roundRect(540 - bw / 2, y0 - 50, bw, lines.length * 76 + 24, 18); g.fill();
+  lines.forEach((l, k) => { g.lineWidth = 8; g.strokeStyle = 'rgba(15,15,15,.92)'; g.strokeText(l, 540, y0 + k * 76); g.fillStyle = '#FFFFFF'; g.fillText(l, 540, y0 + k * 76); });
+  g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+}
+
 // ───────── 主循环 ─────────
-window.__total = TOTAL;
-window.renderFrame = function (t) {
+function renderCanvas(t) {
   g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
   if (t < 3) shot1(t);
   else if (t < 18 || t >= 34) desk(t);
   else night(t);
   drawSubs(t);
+}
+window.renderFrame = function (t) {
+  const [i, seg] = segAt(t);
+  if (seg.clip) { drawClip(i, seg, t); if (seg.sub && t - seg.o0 >= (i === 0 ? 0.2 : 0)) drawSubText(seg.sub); }
+  else renderCanvas(seg.canvas + (t - seg.o0));
   drawWatermark();
 };
 window.__ready = (async () => {
@@ -420,7 +469,9 @@ window.__ready = (async () => {
   await Promise.all([['qBISg', 'assets/qBISg.jpg'], ['cYPPz', 'assets/cYPPz.jpg'], ['mDutM', 'assets/mDutM.jpg'], ['9vi83', 'assets/9vi83.jpg'],
     ['zMSe3', 'assets/zMSe3.jpg'], ['D8zHc', 'assets/D8zHc.jpg'], ['avatar', 'assets/avatar.png']].map(([k, s]) => load(k, s)));
   buildCaches();
-  const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0'); window.renderFrame(t0);
+  EDIT = await (await fetch('edit.json')).json();
+  window.__total = EDIT.segments[EDIT.segments.length - 1].o1;
+  const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0'); await window.prepareFrame(t0); window.renderFrame(t0);
   return true;
 })();
 </script></body></html>

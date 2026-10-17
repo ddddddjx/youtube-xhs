@@ -128,25 +128,26 @@ def music():
             for i, n in enumerate(mel):
                 tn = t0 + i * BEAT
                 if tn < t1 - 0.2: put(m, lead(n, BEAT * 0.95), tn, leadv)
+    # 段落按成片时间（edit.json 插进现场视频后，全片 47.6 秒）
     section(0.0, 3.0, kick_on=False, bass='16', hats=False, arp='16', padv=0.18, clap_on=False)
-    section(3.0, 17.5, bass='off', arp='16', padv=0.2)
-    section(18.0, 29.0, kick_on=False, bass=None, hats=False, arp='8', padv=0.26, clap_on=False)
-    section(29.0, 32.85, kick_on=True, bass='16', hats=False, arp='16', padv=0.24, clap_on=False)
-    section(34.0, 40.4, bass='off', arp='16', padv=0.22, leadv=0.16)
-    section(40.4, 42.0, kick_on=False, bass=None, hats=False, arp=None, padv=0.3, clap_on=False)
+    section(3.0, 18.5, bass='off', arp='16', padv=0.2)
+    section(19.0, 32.0, kick_on=False, bass=None, hats=False, arp='8', padv=0.26, clap_on=False)
+    section(32.0, 35.95, kick_on=True, bass='16', hats=False, arp='16', padv=0.24, clap_on=False)
+    section(37.0, 43.5, bass='off', arp='16', padv=0.22, leadv=0.16)
+    section(43.5, 47.6, kick_on=False, bass=None, hats=False, arp=None, padv=0.3, clap_on=False)
     # 黑底段的钟摆滴答（算账的感觉）
-    for b in range(int((29 - 18) / BEAT)):
-        tb = 18 + b * BEAT; put(drums, hp(noise(0.03), 4000) * expdec(int(0.03 * SR), 0.006), tb, 0.35)
+    for b in range(int((32 - 19) / BEAT)):
+        tb = 19 + b * BEAT; put(drums, hp(noise(0.03), 4000) * expdec(int(0.03 * SR), 0.006), tb, 0.35)
     # 低频长音：黑底段打底
-    t = tt(11.5); put(m, np.sin(2 * np.pi * hz(29) * t) * env(len(t), 1.0, 0, 1, 1.5, 9) * 0.35, 18.0)
+    t = tt(13.5); put(m, np.sin(2 * np.pi * hz(29) * t) * env(len(t), 1.0, 0, 1, 1.5, 11) * 0.35, 18.9)
     # 军鼓滚奏 29–32.85，越来越密
-    tb = 29.0
-    while tb < 32.8:
-        k = (tb - 29) / 3.85; put(drums, snare(), tb, 0.25 + 0.4 * k); tb += BEAT / (2 if k < 0.4 else 4 if k < 0.75 else 8)
+    tb = 32.0
+    while tb < 35.9:
+        k = (tb - 32) / 3.95; put(drums, snare(), tb, 0.25 + 0.4 * k); tb += BEAT / (2 if k < 0.4 else 4 if k < 0.75 else 8)
     m = m * sc; mix = m + drums
     # 32.85–34：重击后几乎静音
-    i0, i1 = int(32.95 * SR), int(34.0 * SR); mix[i0:i1] *= np.linspace(1, 0.03, i1 - i0) ** 0.3 * 0 + 0.03
-    i2 = int(41.2 * SR); mix[i2:] *= np.linspace(1, 0, N - i2) ** 1.5
+    i0, i1 = int(36.05 * SR), int(37.1 * SR); mix[i0:i1] *= np.linspace(1, 0.03, i1 - i0) ** 0.3 * 0 + 0.03
+    i2 = int(46.6 * SR); mix[i2:] *= np.linspace(1, 0, N - i2) ** 1.5
     return reverb(mix, 0.18, 1.6)[:N]
 
 
@@ -234,9 +235,46 @@ EVENTS = [
     (38.0, whoosh(0.9, 2400, 300, True), 0.6), (38.3, marker(0.7, 13), 0.6), (39.3, impact(0.8), 0.9), (39.3, stamp(), 0.8), (40.4, zip_(), 0.4),
     (40.5, end_chime(), 0.7),
 ]
+import json
+EDIT = json.load(open(os.path.join(os.path.dirname(os.path.abspath(a.video)), 'edit.json'), encoding='utf-8'))
+def cv(tc):
+    """原动画时间 → 成片时间；落在被视频段替换掉的动画时间里返回 None。"""
+    for sg in EDIT['segments']:
+        if 'canvas' in sg and sg['canvas'] <= tc < sg['canvas'] + (sg['o1'] - sg['o0']):
+            return sg['o0'] + tc - sg['canvas']
+    return None
+CLIP_EVENTS = [
+    # 钩子 v1：开场重击 + 喷嘴嘶声 + 红笔 + 打字
+    (0.0, impact(1.0), 0.9), (0.0, gas_hiss(2.0), 0.5), (0.4, marker(0.35, 1), 0.9), *[(1.6 + i / 16, type_click(), 0.9) for i in range(10)],
+    (2.6, riser(0.6), 0.35),
+    # v4 俯拍爬坡 → v3 飞过一排车
+    (3.2, whoosh(0.4, 2400, 400), 0.6), (3.45, stamp(), 0.9), (5.0, whoosh(0.35, 400, 3000), 0.6), (5.25, stamp(), 0.9), (6.1, gas_hiss(1.0), 0.5), (6.6, impact(0.5), 0.6),
+    # 回到纸桌面
+    (7.4, photo_drop(), 0.9),
+    # v2 喷嘴往下喷
+    (18.9, glitch(), 0.5), (18.9, gas_hiss(2.0), 0.85), (19.15, stamp(), 0.8),
+    # v5 后喷嘴起步
+    (41.1, impact(0.8), 0.8), (41.15, gas_hiss(2.2), 0.9), (41.1, whoosh(0.8, 300, 4000), 0.5),
+]
+def clip_audio():
+    """现场原声：只当底噪（里面可能有人声和人群声），每段 0.08 秒淡入淡出。"""
+    out = np.zeros(N)
+    for sg in EDIT['segments']:
+        if 'clip' not in sg: continue
+        d = sg['o1'] - sg['o0']
+        raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-ss', str(sg['src']), '-t', str(d), '-i',
+                              os.path.join(os.path.dirname(os.path.abspath(a.video)), 'footage', sg['clip'] + '.mp4'),
+                              '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
+        x = np.frombuffer(raw, '<i2').astype(float) / 32768
+        f = int(0.08 * SR); x[:f] *= np.linspace(0, 1, f); x[-f:] *= np.linspace(1, 0, f)
+        put(out, x, sg['o0'])
+    return out
 def sfx_track():
     s = np.zeros(N)
-    for at, x, gain in EVENTS: put(s, x, at, gain)
+    for at, x, gain in EVENTS:
+        o = cv(at)
+        if o is not None: put(s, x, o, gain)
+    for at, x, gain in CLIP_EVENTS: put(s, x, at, gain)
     return s
 
 
@@ -253,7 +291,9 @@ def mux(audio, out):
 
 sfx = sfx_track()
 mus = music()
-mix = mus / (np.abs(mus).max() + 1e-9) * 0.42 + sfx / (np.abs(sfx).max() + 1e-9) * 0.75
+live = clip_audio()
+mix = mus / (np.abs(mus).max() + 1e-9) * 0.42 + sfx / (np.abs(sfx).max() + 1e-9) * 0.75 + live * 0.3
 mux(mix / np.abs(mix).max() * 0.9, a.out)
 if a.no_music:
-    mux(sfx / np.abs(sfx).max() * 0.9, a.no_music)
+    nm = sfx / np.abs(sfx).max() * 0.75 + live * 0.3
+    mux(nm / np.abs(nm).max() * 0.9, a.no_music)
