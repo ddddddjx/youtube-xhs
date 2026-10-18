@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;width:540px;background:#fff;font-family:"Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:18px 20px 14px}
+h1{font-size:22px;margin:0 0 4px;font-weight:700}
+.sub{font-size:12px;color:#777;margin-bottom:8px}
+.lg{font-size:12px;color:#444;display:flex;gap:16px;margin:2px 0 4px}
+.lg i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.foot{font-size:11px;color:#888;margin-top:2px}
+</style></head><body><div class="wrap">
+<h1>技术岗新招的人里，初级只剩 9%</h1>
+<div class="sub">Anthropic 技术部门，初级员工占比（2025 年 3 月 – 2026 年 6 月）</div>
+<div class="lg"><span><i style="background:#2a6fdb"></i>新招聘</span><span><i style="background:#b8b8b8"></i>在职员工</span><span><i style="background:#e0b48a"></i>招聘岗位</span></div>
+<svg id="c" width="500" height="250"></svg>
+<div class="foot">数据：Anthropic《How employment is changing at Anthropic》图 1，按原图读数重绘</div>
+</div><script>
+const hires=[null,null,27.5,25.2,21.5,22,20.7,22.5,18.5,16.9,16.6,18.4,19.1,16.7,13.5,9.3];
+const head=[21,20.5,21.4,16.5,16.3,16.8,17.2,18,17.5,13.2,13.7,14.1,14.5,14.4,14.1,13.5];
+const open=[10.6,13.5,13.9,12.7,12.3,14.4,16.4,17.4,21.3,20.2,15.4,14.5,9.3,9.7,6.2,6.1];
+const W=500,H=250,L=34,R=52,T=8,B=28,ymax=30;
+const x=i=>L+i*(W-L-R)/15, y=v=>T+(1-v/ymax)*(H-T-B);
+const s=document.getElementById('c');let g='';
+for(const v of [0,10,20,30]){g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#eee"/><text x="${L-6}" y="${y(v)+4}" font-size="11" fill="#999" text-anchor="end">${v}%</text>`}
+const lab={0:'25.3',2:'25.5',4:'25.7',6:'25.9',8:'25.11',10:'26.1',12:'26.3',14:'26.5'};
+for(const i in lab){g+=`<text x="${x(+i)}" y="${H-8}" font-size="11" fill="#999" text-anchor="middle">${lab[i]}</text>`}
+function line(d,c,w){let p='';d.forEach((v,i)=>{if(v==null)return;p+=(p?'L':'M')+x(i)+','+y(v)});return `<path d="${p}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`}
+g+=line(open,'#e0b48a',2)+line(head,'#b8b8b8',2)+line(hires,'#2a6fdb',3.5);
+g+=`<circle cx="${x(2)}" cy="${y(27.5)}" r="4.5" fill="#2a6fdb" stroke="#fff" stroke-width="2"/><text x="${x(2)+8}" y="${y(27.5)-4}" font-size="13" font-weight="700" fill="#171717">27%</text>`;
+g+=`<circle cx="${x(15)}" cy="${y(9.3)}" r="4.5" fill="#2a6fdb" stroke="#fff" stroke-width="2"/><text x="${x(15)+8}" y="${y(9.3)+5}" font-size="15" font-weight="700" fill="#171717">9%</text>`;
+g+=`<text x="${x(15)+8}" y="${y(13.5)-1}" font-size="11" fill="#777">14%</text><text x="${x(15)+8}" y="${y(6.1)+12}" font-size="11" fill="#777">6%</text>`;
+s.innerHTML=g;
+</script></body></html>
