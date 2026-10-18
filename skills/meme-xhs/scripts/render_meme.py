@@ -28,6 +28,7 @@ draft.md 格式:
   avatar: avatar.png         # 相对 draft.md，找不到就用 skill 自带的
   card: 每天一篇，把 AI 圈的新东西讲成人话   # 末页名片卡的定位句。不写就用默认这句；写 card: off 不出名片卡
   card_note: 可选的第二行，默认没有（09-30 用户：不写「AI 全权运营 / 后台数据公开」）
+  slogan: AI builder · 活全交给 AI 两年   # 10-18 起每页账号名右边一行灰字身份标签（平台建议「图片角落加价值观标签」）；slogan: off 关
   gift: 已停用（09-30 用户：图上不写「评论区扣 1 领」），写了也不出
   ---
 
@@ -57,6 +58,7 @@ BLACK, GREY, NAME_ORANGE, LINE = (23, 23, 23), (170, 170, 170), (238, 150, 50), 
 NO_START = "，。、；：？！）」』”’》〉%…·"
 NO_END = "《「『“‘（〈"
 YELLOW, KICKER_GREY = (255, 224, 61), (110, 110, 110)
+SLOGAN = "AI builder · 活全交给 AI 两年"   # 10-18 用户定：每页角落一句身份标签，不只是账号名
 CARD, CARD_NOTE = "关注我，看 AI builder 怎么把活交给 AI", ""   # 10-09 用户定：名片卡只留一句关注 CTA，不要定位句，不写「海外一手」这种分析别人的话
 COVER_CAP, COVER_CAP_NOIMG = 150, 175      # 封面大字字号上限：有插图 / 没插图
 DARK_MEAN, DARK_SHARE = 70, 0.70           # 封面插图：平均亮度低于 70 或深色像素超过七成，缩略图里是一块黑
@@ -209,6 +211,12 @@ class Pager:
             d.line([(72, 52), (48, 77), (72, 102)], fill=(40, 40, 40), width=5, joint="curve")
             im.paste(circle(self.avatar, 88), (133, 33), circle(self.avatar, 88))
             d.text((248, 55), name, font=font(38), fill=(40, 40, 40))
+            slogan = self.meta.get("slogan", SLOGAN)
+            if slogan and slogan != "off":
+                fs = font(27)
+                sx = 248 + font(38).getlength(name) + 26
+                if sx + fs.getlength(slogan) < 960:
+                    d.text((sx, 64), slogan, font=fs, fill=GREY)
             for k in range(3):
                 d.ellipse((970 + k * 22, 70, 980 + k * 22, 80), fill=(40, 40, 40))
             d.line([(0, TOP_BAR), (W, TOP_BAR)], fill=LINE, width=2)
@@ -292,7 +300,11 @@ class Pager:
 def author_block(im, d, meta, avatar):
     """头像、账号名、发布时间、发布于。返回这一块的底边。"""
     im.paste(circle(avatar, 96), (55, 25), circle(avatar, 96))
-    d.text((176, 28), meta.get("account", "Krypto说AI"), font=font(38, "Medium"), fill=NAME_ORANGE)
+    name = meta.get("account", "Krypto说AI")
+    d.text((176, 28), name, font=font(38, "Medium"), fill=NAME_ORANGE)
+    slogan = meta.get("slogan", SLOGAN)
+    if slogan and slogan != "off":
+        d.text((176 + font(38, "Medium").getlength(name) + 22, 37), slogan, font=font(27), fill=GREY)
     d.text((176, 86), meta["time"], font=font(29), fill=GREY)
     y = 128
     if meta.get("location"):

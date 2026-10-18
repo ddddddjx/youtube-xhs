@@ -86,16 +86,32 @@ def brand_in(text):
     return any(w not in GENERIC for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9]|[A-Za-z]+\d[\w.]*", text))
 
 
-def check_title(t, allow_cn):
+def check_title(t, allow_cn, keyword="", main=True):
+    """main=False 是 标题备选.txt 里的候选：可搜词缺席只 ⚠，发出去的那条（title / 标题.txt）才 ✗。"""
     t = t.strip()
     if not t:
         return
     n = len(t)
     add("✓" if n <= 20 else "✗", f"标题「{t}」{n} 字（小红书上限 20，原号中位 18）")
+    kw_main = ""
+    if keyword:
+        core = [w for w in re.split(r"[\s，,、]+", keyword) if w]
+        kw_main = max(core, key=len) if core else keyword
+    tn = re.sub(r"\s", "", t).lower()
+    if kw_main:
+        pos = tn.find(kw_main.lower())
+        if pos < 0:
+            add("✗" if main else "⚠", f"标题「{t}」里没有主关键词「{kw_main}」（10-18 起可搜词必须在标题里，搜索靠它命中{'' if main else '；备选只提示'}）")
+        elif pos > 5:
+            add("⚠", f"标题「{t}」里「{kw_main}」在第 {pos + 1} 个字之后：10-18 起可搜词放在前 6 字（平台五篇诊断「标题前置人名、模型名、场景词」；「扎克伯格：……」搜索 3.6% 是账号最高）")
+        else:
+            add("✓", f"标题前 6 字里有可搜词「{kw_main}」")
     head = next((x for x in CN_NAMES if t.startswith(x)), None)
-    if head and not allow_cn:
-        add("✗", f"标题「{t}」以中文专名「{head}」开头：借句式，开头换成数字或读者处境，专名放后半句"
-                 "（用户明确要求时加 --allow-cn-brand-title）")
+    if head and kw_main and head.lower() == kw_main.lower():
+        add("✓", f"标题以可搜词「{head}」开头（10-18 起 keyword 当开头放行）")
+    elif head and not allow_cn:
+        add("⚠", f"标题「{t}」以中文专名「{head}」开头但它不是 keyword：要么把它定成 keyword，要么开头换成数字或读者处境"
+                 "（10-18 起从 ✗ 降 ⚠；用户明确要求时加 --allow-cn-brand-title）")
     elif not head and re.match(r"^[一-龥]{2,4}(是|又|再|开始|正在|终于|这波|把)", t) \
             and not re.match(r"^(很多人|打字|冷知识|别再|我|你|这|那|为什么|如果|AI|看完|逛完|听完)", t):
         add("⚠", f"标题「{t}」开头像是中文专名：是的话换成数字或读者处境开头（英文品牌名开头不受限）")
@@ -185,10 +201,10 @@ def check_body(meta, paras, allow_gh):
     lo, _, hi = BASE["chars_q"]
     retell = is_retell(meta)
     if retell:
-        add("✓" if 1300 <= n <= 2200 else "⚠", f"正文 {n} 字（转述荐读 1300 到 2200，范本华一 Peter Deng 稿约 2000）")
+        add("✓" if 1300 <= n <= 2400 else "⚠", f"正文 {n} 字（转述荐读 1300 到 2400，范本华一 Peter Deng 稿约 2000，10-18 起多一段「我」）")
         wo = text.count("我")
-        add("✓" if wo <= 6 else "⚠", f"「我」{wo} 次（转述荐读最多 6 次；范本 2000 字里 3 次：推荐、挑三点、一句认同）" +
-            ("" if wo <= 6 else "：主语换回原文里那个人，「我」只留开头推荐和结尾一句"))
+        add("✓" if wo <= 10 else "⚠", f"「我」{wo} 次（转述荐读最多 10 次，10-18 起；其中结尾前那段独家判断用 4 次以内）" +
+            ("" if wo <= 10 else "：正文主语换回原文里那个人，「我」集中在结尾前那段判断"))
     else:
         add("✓" if 1000 <= n <= 3400 else "⚠", f"正文 {n} 字（原号中位 {BASE['chars_median']:.0f}，四分位 {lo} 到 {hi}）")
 
@@ -248,8 +264,13 @@ def check_body(meta, paras, allow_gh):
         add("⚠", f"转述词每千字 {att:.1f} 次（10-14 起放开到 3 到 6：西元 Jen 稿 3.1、Mark 稿 6.4，「Jen说 / Mark的意思是」每节一两次是节奏，不是罪证）")
     else:
         add("✓", f"转述词每千字 {att:.1f} 次（10-14 起 3 到 6 次正常，0 次反而像报告）")
-    if not meta.get("stance") and not retell:
-        add("⚠", "front matter 没有 stance（10-06 起可选）：有一句自己的判断就写，没有就别硬造；原文故事多的素材考虑 mode: retell")
+    if not meta.get("stance"):
+        add("✗", "front matter 没有 stance（10-18 起所有文体必填，retell 也要）：一句原文没说过的判断。平台 10-18 对红杉稿的诊断「博主像搬运工，缺乏持续的价值观输出」，13 篇涨粉 94% 来自有自己判断的两篇")
+    sl = str(meta.get("stance_line", "")).strip().upper()
+    if sl not in ("A", "B", "C", "D"):
+        add("✗", f"front matter stance_line「{sl or '空'}」不是 A / B / C / D：10-18 起每篇回到 账号/档案.md 长期立场里的一条，读者连看三篇要能说出这个号站什么")
+    else:
+        add("✓", f"stance_line: {sl}（回到长期立场 {sl}）")
     if not meta.get("output"):
         add("✓", "front matter 没有 output：10-05 起领取物默认写进置顶评论.txt，不进正文")
     st_ = re.sub(r"\s", "", meta.get("stance", ""))
@@ -257,6 +278,11 @@ def check_body(meta, paras, allow_gh):
     head = re.sub(r"\s", "", "".join(paras[:6]))
     if grams and sum(g in head for g in grams) < 3 and not retell:
         add("⚠", "首页（前 6 段）看不到 stance 里的说法：原文结论一两段带过，第三四段就亮出你自己的判断")
+    if retell and grams:
+        tail = re.sub(r"\s", "", "".join(paras[-4:]))
+        hit = sum(g in tail for g in grams)
+        add("✓" if hit >= 3 else "✗", ("结尾 4 段里有 stance 的说法（结尾停在我的判断上）" if hit >= 3 else
+            "结尾 4 段里看不到 stance 的说法：10-18 起 retell 稿结尾前要有一段 150 到 300 字的「我」的独家判断，最后一段停在我的判断上，不停在他的观点上（平台：读者记住了原文里的人，没记住这个号）"))
     if meta.get("output") and not re.search(r"我会|我先|我建议|可以这样|这么改|三条|几条|清单|自测|算一笔|分成三类", text):
         add("✓", "正文里没有清单式产出：10-05 起领取物默认进置顶评论，正文停在判断上")
 
@@ -614,13 +640,17 @@ def main(argv):
     if not paras:
         sys.exit("draft.md 是空的")
     titles = [meta.get("title", "")]
+    main_titles = set(titles)
     if folder:
         for f in ("标题.txt", "标题备选.txt"):
             p = os.path.join(folder, f)
             if os.path.exists(p):
-                titles += [l for l in open(p, encoding="utf-8").read().splitlines() if l.strip()]
+                lines = [l for l in open(p, encoding="utf-8").read().splitlines() if l.strip()]
+                titles += lines
+                if f == "标题.txt":
+                    main_titles.update(lines)
     for t in dict.fromkeys(titles):
-        check_title(t, allow_cn)
+        check_title(t, allow_cn, meta.get("keyword", ""), main=t in main_titles)
     if folder and not any(re.search(r"\d|[一二两三四五六七八九十百千万]+\s*[万千百个人篇条]", t) for t in titles if t):
         add("⚠", "三条标题备选里没有一条带数字（10-07 起公式：数字 + 社会证明 + 痛点动词 + 可搜词；Karpathy 稿点击率 20.4% 靠的是「1.3万人收藏」）")
     if folder and not any(re.search(r"和|跟|与|比|不一样|不是一回事|完全|路子|反过来|另一条路", t) for t in titles if t):
