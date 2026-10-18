@@ -9,7 +9,7 @@ output: 把这周的活分成干活、看活、拍板三列的自查
 keyword: Anthropic
 keywords: AI取代工作, 校招, AI agent
 headline: Anthropic技术岗，新人只招9%了
-hero: hiring_box.png
+hero: hiring_cn.png
 time: 26-10-20 18:00
 location: 香港
 account: Krypto说AI
@@ -19,7 +19,7 @@ account: Krypto说AI
 
 你要是刚毕业，或者才工作两三年，看到这里大概会心里一紧：AI 是不是先拿新人开刀了？
 
-上周四 Anthropic 拿自己当样本发了两份报告。技术岗新招的人里，初级的占比一年多就掉到了 9%，大家看左边那条蓝线。
+上周四 Anthropic 拿自己当样本发了两份报告。技术岗新招的人里，初级的占比一年多就掉到了 9%，大家看图里那条蓝线。
 
 我看完以后觉得，这条线只是结果。报告真正讲清楚的，是新人原来的位置为什么没了。
 
