@@ -171,6 +171,32 @@ def wrap(text, f):
     return lines
 
 
+EMOJI_FONT = "/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf"
+EMOJI_RE = re.compile("[\U0001F000-\U0001FAFF\u2600-\u27BF]\uFE0F?")
+
+
+def draw_text(im, d, xy, text, f, fill):
+    """正文里的 emoji（🤡）用彩色字体单独贴图，其余照常用正文字体。"""
+    if not EMOJI_RE.search(text) or not os.path.exists(EMOJI_FONT):
+        d.text(xy, text, font=f, fill=fill)
+        return
+    x, y = xy
+    size = getattr(f, "size", 44)
+    for part in re.split("(" + EMOJI_RE.pattern + ")", text):
+        if not part:
+            continue
+        if EMOJI_RE.fullmatch(part):
+            ef = ImageFont.truetype(EMOJI_FONT, 109)
+            tile = Image.new("RGBA", (136, 128), (0, 0, 0, 0))
+            ImageDraw.Draw(tile).text((0, 0), part, font=ef, embedded_color=True)
+            tile = tile.crop(tile.getbbox() or (0, 0, 136, 128)).resize((size, size), Image.LANCZOS)
+            im.paste(tile, (int(x), int(y + size * 0.12)), tile)
+            x += size + 4
+        else:
+            d.text((x, y), part, font=f, fill=fill)
+            x += f.getlength(part)
+
+
 def circle(img, size):
     img = img.convert("RGB").resize((size, size), Image.LANCZOS)
     mask = Image.new("L", (size * 4, size * 4), 0)
@@ -234,7 +260,7 @@ class Pager:
         f = f or F_BODY
         if self.y + LH > BOTTOM:
             self.new_page()
-        self.d.text((L, self.y + (LH - FS) // 2 - 4), text, font=f, fill=BLACK)
+        draw_text(self.im, self.d, (L, self.y + (LH - FS) // 2 - 4), text, f, BLACK)
         self.y += LH
         self.fresh = False
         self.last_line = text
