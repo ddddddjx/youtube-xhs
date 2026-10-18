@@ -1,5 +1,5 @@
 ---
-title: Anthropic技术岗，新人只招9%
+title: 强烈推荐看看Anthropic就业报告。
 genre: 观察
 value: 框架
 reader: 刚工作两三年、怕被 AI 淘汰的上班族
