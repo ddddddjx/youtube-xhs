@@ -10,14 +10,12 @@ keyword: LobsterAI
 keywords: 办公Agent, Claude, DeepSeek
 headline: LobsterAI：七成人只用一个模型
 hero: models.png
-hero_after: 2
+hero_after: 1
 location: 香港
 account: Krypto说AI
 ---
 
-办公 Agent 产品 LobsterAI 发布了 9 月的用户报告。被转发得最多的是国庆那一页：大家用 Agent 的高峰推迟到了晚上 10 点，写代码的任务增长得最多。
-
-但我觉得更值得看的是另一页。在普通用户里面，七成多只用一个模型，重度用户平均要用两三个。
+办公 Agent 产品 LobsterAI 发布了 9 月的用户报告，里面有一组数：在普通用户里面，七成多只用一个模型，重度用户平均要用两三个。
 
 我日常干活用三个模型，最近又增加了第四个。这两年用下来，我最想说的一件事是：一个模型够不够用，取决于你手上交出去了几种活。挑模型跟分活是一回事，看的是这件活，不是排行榜。
 
