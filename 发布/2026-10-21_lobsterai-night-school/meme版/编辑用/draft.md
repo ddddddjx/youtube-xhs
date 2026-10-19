@@ -1,5 +1,5 @@
 ---
-title: 办公Agent是编程夜校？我看还没开学。
+title: LobsterAI：听说你下班偷学AI？
 genre: 观察
 value: 框架
 reader: 不写代码、刚开始用 AI 干活的上班族
@@ -7,9 +7,9 @@ stance: 「普通人学编程的夜校」还没开学，假期晚上用 Agent �
 stance_line: C
 stance_quote: 还变成新一代普通人学编程的夜校
 output: 读一份 AI 使用报告先问的两件事：谁在用、交出去了几种活
-keyword: 办公Agent
-keywords: LobsterAI, AI编程, DeepSeek
-headline: 办公Agent成了编程夜校？还没开学
+keyword: LobsterAI
+keywords: 办公Agent, AI编程, DeepSeek
+headline: LobsterAI：听说你们下班偷偷学AI？
 hero: holiday.png
 hero_after: 2
 location: 香港
