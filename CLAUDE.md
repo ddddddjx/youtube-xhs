@@ -73,3 +73,5 @@
 
 ## 在哪里工作
 本地 Claude Code CLI 在用户的网络下连不上（2026-09-30 测过，api 403），所以**日常在 claude.ai/code 的云端会话里做**：新开会话选这个仓库即可，本页自动加载。云端每次从 main 新克隆，所以每篇做完都要 commit + push 到 main，否则下一个会话看不到；Mac 上 `git pull` 拿成品。出图前把预装 Chromium 放进 PATH：`ln -sf /opt/pw-browsers/chromium-*/chrome-linux/chrome /tmp/claude-0/bin/chromium`（目录不存在就先 mkdir）。
+
+**人在外面要用 Mac mini**（10-19）：Mac mini 常驻跑 `claude remote-control` server 模式（手机 Claude app 可随时新开会话，每个会话一个 worktree），launchd 托管断网退出自动拉起，Tailscale + SSH 保底。设置步骤和 `install.sh` 在 `tools/mac-remote/`。云端会话连不到 Mac，发布那一步走 Mac 上的会话。
