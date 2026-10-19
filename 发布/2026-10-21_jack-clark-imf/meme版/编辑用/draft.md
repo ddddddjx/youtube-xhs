@@ -1,5 +1,5 @@
 ---
-title: Anthropic联创：奇点已经来了！
+title: 50道题AI改对专家，你的活还安全吗
 genre: 观察
 value: 框架
 reader: 刚工作几年、开始担心被 AI 淘汰的上班族
