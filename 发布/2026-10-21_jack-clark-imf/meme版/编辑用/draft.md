@@ -9,7 +9,7 @@ output: 每周留一件活自己从头算一遍，AI 跟你的答案打架时先
 keyword: Anthropic
 keywords: Jack Clark, AI取代工作, 奇点
 headline: Anthropic联创：AI改了专家的作业
-hero: hero_card.jpg
+hero: hero_stage.jpg
 hero_after: 2
 location: 香港
 account: Krypto说AI
