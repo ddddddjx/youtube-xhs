@@ -37,7 +37,6 @@ draft.md 格式:
   ![说明](chart.png)           ← 图片横向撑满，放不下就挪到下一页
   | 列 | 列 |                  ← 表格
 """
-import datetime
 import math
 import os
 import re
@@ -324,15 +323,14 @@ class Pager:
 
 
 def author_block(im, d, meta, avatar):
-    """头像、账号名、发布时间、发布于。返回这一块的底边。"""
+    """头像、账号名、发布于。返回这一块的底边。"""
     im.paste(circle(avatar, 96), (55, 25), circle(avatar, 96))
     name = meta.get("account", "Krypto说AI")
     d.text((176, 28), name, font=font(38, "Medium"), fill=NAME_ORANGE)
     slogan = meta.get("slogan", SLOGAN)
     if slogan and slogan != "off":
         d.text((176 + font(38, "Medium").getlength(name) + 22, 37), slogan, font=font(27), fill=GREY)
-    d.text((176, 86), meta["time"], font=font(29), fill=GREY)
-    y = 128
+    y = 86                                    # 10-19 起不印发布时间（用户定）：出图时不知道哪天发，印了就对不上
     if meta.get("location"):
         d.text((176, y), "发布于 " + meta["location"], font=font(29), fill=GREY)
         y += 50
@@ -469,8 +467,6 @@ def main(src, out):
     base = os.path.dirname(os.path.abspath(src))
     if meta.get("font") == "serif":
         set_body_font("serif")
-    now = datetime.datetime.now()
-    meta.setdefault("time", f"{now.year % 100}-{now.month}-{now.day} {now:%H:%M}")
     av = os.path.join(base, meta.get("avatar", "avatar.png"))
     if not os.path.exists(av):
         av = os.path.join(HERE, "..", "assets", "avatar.png")
