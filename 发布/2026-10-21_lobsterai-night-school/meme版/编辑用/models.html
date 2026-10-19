@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_style.css"></head><body><div class="wrap">
+<h1>七成多普通用户，只用一个模型</h1>
+<div class="sub">每个用户 9 月用了几个模型（普通用户人均 1.6 个，重度用户 2.4 个）</div>
+<div class="lg"><span><i style="background:#2a6fdb"></i>普通用户</span><span><i style="background:#f08a24"></i>重度用户</span></div>
+<div id="rows"></div>
+<div class="note">最常见的搭配是 DeepSeek Flash 系列 + GLM 5.3 Flash，占 14%。我自己手上是四个：Claude、Codex、Grok，最近加了 WorkBuddy。</div>
+<div class="foot">数据：LobsterAI《中国办公 Agent 用户行为报告》9 月版，按原图读数重绘</div>
+</div><script>
+const d=[['1 个',73.6,44.7],['2 个',14.7,24.7],['3 个',5.1,13.1],['4 个及以上',6.6,17.6]];let h='';
+for(const [n,a,b] of d){h+=`<div class="row" style="margin-top:10px"><span class="n">${n}</span><span class="bar" style="background:none;height:30px"><i style="top:0;left:0;width:${a*1.15}%;height:13px;background:#2a6fdb"></i><i style="top:16px;left:0;width:${b*1.15}%;height:13px;background:#f08a24"></i></span><span class="v" style="font-size:13px;line-height:15px"><span style="color:#2a6fdb">${a}%</span><br><span style="color:#f08a24">${b}%</span></span></div>`}
+document.getElementById('rows').innerHTML=h;
+</script></body></html>
