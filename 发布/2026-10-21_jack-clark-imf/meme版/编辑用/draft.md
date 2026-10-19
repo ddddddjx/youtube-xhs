@@ -1,5 +1,5 @@
 ---
-title: Anthropic联创：AI改了专家作业
+title: Anthropic联创：专家竟被AI纠错
 genre: 观察
 value: 框架
 reader: 刚工作几年、开始担心被 AI 淘汰的上班族
