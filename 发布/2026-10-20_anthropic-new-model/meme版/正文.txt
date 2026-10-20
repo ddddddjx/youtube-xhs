@@ -1,6 +1,6 @@
 根据 The Information 昨晚的爆料，Anthropic、Google、OpenAI 三家都把新模型排在了十月。Google 的叫 Gemini 4 Carbon，OpenAI 的 Terra 可能也要出新版本，Anthropic 这款连名字都没定。
 
-Anthropic 这款有两个长处：读意图，用户没给多少信息也能猜出真正想要什么；不照本宣科，问怎么买股票不只让你看市盈率，可能自己琢磨一套预测算法。Anthropic 这款我非常期待。
+Anthropic 这款有两个重大升级：读意图，用户没给多少信息也能猜出真正想要什么；不照本宣科，问怎么买股票不只让你看市盈率，可能自己琢磨一套预测算法。Anthropic 这款我非常期待。
 
 能力描述只有一位知情人的转述，没有分数也没有例子，等模型真发了再看。
 
