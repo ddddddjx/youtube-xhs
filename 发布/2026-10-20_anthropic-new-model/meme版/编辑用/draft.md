@@ -1,5 +1,5 @@
 ---
-title: 十月扎堆发模型，Anthropic最神秘
+title: 十月扎堆发模型，Anthropic再放大招
 genre: 热点快评
 hot: true
 value: 信息
@@ -9,7 +9,7 @@ stance_line: C
 output: 这个月谁先发，就先拿自己最常返工的那件活试谁
 keyword: Anthropic
 keywords: Claude, 新模型, Gemini 4
-headline: 十月扎堆发模型，Anthropic最神秘
+headline: 十月扎堆发模型，Anthropic再放大招
 hero: reply_meme.jpg
 hero_after: 1
 hero_max: 760
