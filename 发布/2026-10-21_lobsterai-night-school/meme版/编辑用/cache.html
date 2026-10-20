@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_style.css"></head><body><div class="wrap">
+<h1>缓存都命中九成，账单差了七倍</h1>
+<div class="sub">算上缓存后，实际费用是原价的多少（括号里是缓存命中率）</div>
+<div id="rows"></div>
+<div class="note">Agent 干活要反复读同一份要求，读过的再读一遍会打折。命中率差不多，差在每家打几折：DeepSeek 缓存价是原价的 2%，GLM 5.3 Flash 是 28.8%。</div>
+<div class="foot">数据：LobsterAI《中国办公 Agent 用户行为报告》9 月版，按原图读数重绘</div>
+</div><script>
+const d=[['DeepSeek V4.1 Flash',4.6,97],['DeepSeek V4 Flash',6.2,96],['Qwen 3.8 Max',18.5,93],['Kimi K3',20.2,89],['GLM 5.3',29.6,94],['GLM 5.3 Flash',35.1,91]];let h='';
+for(const [n,v,c] of d){h+=`<div class="row"><span class="n" style="width:150px;font-size:13px">${n}</span><span class="bar"><i style="left:0;width:${v/36*100}%;background:${v<10?'#2a6fdb':'#b9c3d3'}"></i></span><span class="v" style="width:96px">${v}%<span style="font-weight:400;color:#999;font-size:11px"> (${c}%)</span></span></div>`}
+document.getElementById('rows').innerHTML=h;
+</script></body></html>
