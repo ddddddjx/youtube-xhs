@@ -23,6 +23,6 @@ Google 的叫 Gemini 4 Carbon，OpenAI 的 Terra 可能也要出新版本。Anth
 
 它有两个长处。一个是读意图，用户没给多少信息，它也能猜出背后真正想要什么。另一个是不照本宣科：问它怎么买股票，它不只让你看市盈率，可能自己琢磨一套预测算法出来。
 
-Anthropic 这款我非常期待。
+![The Information 的原话](newsletter_crop.png)
 
-![The Information 的原话](newsletter_box.png)
+Anthropic 这款我非常期待。
