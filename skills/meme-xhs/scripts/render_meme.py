@@ -15,6 +15,7 @@ draft.md 格式:
   title: 标题（只进 标题.txt，不上图）
   headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内；用「|」手动换行，避免一个字落单
   hero: quote.png                        # 可选：首页的一张素材图（原文截图、原文配图、后台截图），不用自己画的
+  hero_max: 760                          # 首页素材图最高多少 px（默认 480；10-20 起可改）
   hero_after: 3                          # 素材图放在第几段之后（默认 3：先铺垫几句再放图，读者才知道图在讲什么）
   font: serif                            # 可选（10-03 起，对标小盖）：正文用宋体，信息流里像一个人认真写的长文；headline 和名片卡仍是黑体
   extra_pages: summary.png               # 可选：整页图（1080×1440，比如结构化总结表），插在名片卡前面，多张用 || 隔开
@@ -63,6 +64,8 @@ COVER_CAP, COVER_CAP_NOIMG = 150, 175      # 封面大字字号上限：有插�
 DARK_MEAN, DARK_SHARE = 70, 0.70           # 封面插图：平均亮度低于 70 或深色像素超过七成，缩略图里是一块黑
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+
+HERO_MAX = 480
 
 def font(size, weight="Regular"):
     idx = {"Regular": 2, "Medium": 5, "Semibold": 8}[weight]
@@ -280,8 +283,8 @@ class Pager:
         src = Image.open(path).convert("RGB")
         w = TEXT_W
         h = int(src.height * w / src.width)
-        if hero and h > 480:                                 # 首页素材图最高 480，前面的铺垫和后面的正文都要露出来
-            h, w = 480, int(src.width * 480 / src.height)
+        if hero and h > HERO_MAX:                            # 首页素材图最高 480（front matter hero_max 可改，10-20 起），前面的铺垫和后面的正文都要露出来
+            h, w = HERO_MAX, int(src.width * HERO_MAX / src.height)
         avail_full = BOTTOM - (TOP_BAR + 34)
         if h > avail_full:                                   # 太高：按整页可用高度缩
             h = avail_full
@@ -472,6 +475,8 @@ def main(src, out):
         av = os.path.join(HERE, "..", "assets", "avatar.png")
     avatar = Image.open(av)
     cover = cover_page(meta, avatar, base) if meta.get("cover") else None
+    global HERO_MAX
+    HERO_MAX = int(meta.get("hero_max", 480) or 480)       # 10-20 起：hero_max 放大首页素材图（meme 图当传播工具时用）
     if meta.get("hero"):                                    # 素材图插在第 hero_after 段之后（默认 3），不放在正文前面
         k, seen = int(meta.get("hero_after", 3) or 3), 0
         for i, b in enumerate(blocks):
