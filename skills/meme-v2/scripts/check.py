@@ -36,7 +36,7 @@ CONCRETE = r"\d|假设|比如|举个|[A-Za-z]{3,}|上午|下午|晚上|周[一�
 GRADE = r"这条|这一条|这篇|这份报告|这篇文章|原文|这期|作者|文里"
 EMPTY_CONCEDE = r"^(他|她|作者|原文|这话|这个说法)?(可能|也许|大概)(是对的|没错|有道理)[。，]"
 CAUSAL = r"因为|所以|但|即使|这样一来|不然|否则|毕竟|比如|于是|结果|哪怕|只要|一旦"
-HUMAN_NOTE = r"是|就是|也就是|约|相当于|做|搞|的那|这家|这个|那个|一个|用的|拿来|可以理解"
+HUMAN_NOTE = r"是|的|约|相当于|做|搞|这|那|一个|叫|用|讲|说|写|在|有|给|把|上"   # 专名后面接着说人话的痕迹，没有就是报表
 
 results = {"✗": [], "⚠": [], "提示": []}
 
@@ -145,7 +145,8 @@ def check_body(meta, paras, images, allow_gh):
     # 硬规则
     if not allow_gh:
         for p in paras:
-            if re.search(GANGHAO, p) and re.search(r"[A-Z][A-Za-z]+|" + "|".join(CN_NAMES), p):
+            brands = [w for w in re.findall(r"[A-Z][A-Za-z0-9]+", p) if w not in GENERIC] + [n for n in CN_NAMES if n in p]
+            if re.search(GANGHAO + r"[^。]{0,12}(" + "|".join(map(re.escape, brands)) + ")", p) if brands else False:
                 add("✗", f"「刚好」式品牌引入：「{p[:40]}」")
     for pat, msg in ((ADS, "极限词 / 广告话"), (OUTLINK, "站外导流"), (BACKSTAGE, "后台叙述（读者不关心你读了几遍）"),
                      (PROCESS, "生产过程露出来了（读者没见过我们的素材）"), (PREFIX, "给自己的发言加前缀（判断直接说）"),
@@ -191,13 +192,13 @@ def check_body(meta, paras, images, allow_gh):
     seen = set()
     bare = []
     for p in paras:
-        for m in re.finditer(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9]|[A-Za-z]+\d[\w.]*|" + "|".join(CN_NAMES), p):
+        for m in re.finditer(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?|[A-Za-z]+\d[\w.]*|" + "|".join(CN_NAMES), p):
             w = m.group(0)
             if w in GENERIC or w in seen:
                 continue
             seen.add(w)
             tail = p[m.end():m.end() + 24]
-            if cjk_len(tail) < 6 or not re.search(HUMAN_NOTE, tail):
+            if cjk_len(tail) < 3 or not re.search(HUMAN_NOTE, tail):
                 bare.append(w)
     if len(bare) >= 3:
         add("⚠", f"专名第一次出现后 20 字内没有半句人话 {len(bare)} 个（「Apple II，很多人小学机房里用的就是它」）：" + "、".join(bare[:6]))
@@ -208,7 +209,7 @@ def check_body(meta, paras, images, allow_gh):
     if nums / k > 8:
         add("⚠", f"数字每千字 {nums / k:.0f} 个（上限 8），一句话最多一个锚点")
     first3 = "".join(paras[:3])
-    anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9]", first3) if w not in GENERIC]) + len(re.findall(r"\d+", first3))
+    anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?", first3) if w not in GENERIC]) + len(re.findall(r"\d+", first3))
     if anchors > 4:
         add("⚠", f"开头三段 {anchors} 个专名 / 数字（最多 4），第一句要是判断或处境")
 
