@@ -75,6 +75,7 @@ def check_meta(meta, draft_dir):
         add("✗", f"stance 的宾语是文章不是世界：「{st}」。判断对着公司 / 行业 / 一群人 / 未来下")
     if st and not re.search(r"会|不会|才|比|取决于|靠|正在|已经|要|值钱|不值|够|不够|难|容易|先|后|越", st):
         add("⚠", f"stance 看起来放哪都对，没有一个能出错的说法：「{st}」")
+    # stance 贴标签（10-21 晚用户退回「这是我整场听下来最想说的一句」）：判断只论证一次，不给它贴给脚本看的标签
     reader = meta.get("reader", "")
     if reader and cjk_len(reader) <= 8 and not re.search(r"时|天|周|晚|早|正在|刚|还没|不敢|要交|被", reader):
         add("⚠", f"reader 像职业身份不像具体时刻：「{reader}」。写成「周五下午要交周报、但手上正经活一件没交出去的人」那种")
@@ -235,13 +236,14 @@ def check_body(meta, paras, images, allow_gh):
     you = sum(1 for p in paras if p.startswith("你") or "，你" in p or "。你" in p)
     if you == 0 and not retell:
         add("⚠", "没有一段主语是「你」。写 reader 那个具体时刻")
-    if "我" not in "".join(paras[:4]) and not retell:
-        add("⚠", "前四段没有「我」。「我最想说的一件事是」或一件在场的事放前面")
     if retell:
         wo = len(re.findall(r"我", text))
         if wo > 10:
             add("⚠", f"retell 稿「我」{wo} 次，超过 10；多出来的只许在结尾前那段判断里")
 
+    labels = [p for p in paras if re.search(r"最想说的一(件事|句)|这是我.{0,8}最想说|我想讲清楚一件事", p)]
+    if labels:
+        add("✗", f"给判断贴标签 {len(labels)} 处（「我最想说的一件事是」「这是我整场听下来最想说的一句」），判断只论证一次，标签删掉：" + "；".join(f"「{p[:30]}」" for p in labels[:2]))
     # 模仿腔
     for w, cap in (("真正", 2), ("其实", 3), ("当然", 2)):
         c = text.count(w)
