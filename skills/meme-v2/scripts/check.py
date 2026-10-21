@@ -227,6 +227,10 @@ def check_body(meta, paras, images, allow_gh):
     if len(tele) / k > 4:
         add("⚠", f"电报式短分句每千字 {len(tele) / k:.1f} 个（上限 4）：" + "、".join(f"「{t}」" for t in tele[:6]))
 
+    # 逗号串句（10-21 用户：断句奇怪、不像正常叙事）：一个句号里逗号 ≥4 的句子列出来念一遍，主语换了就换句号
+    runon = [sent for p in paras for sent in re.split(r"[。！？]", p) if sent.count("，") >= 4]
+    if runon:
+        add("提示", f"逗号连了四个以上分句的句子 {len(runon)} 处，念一遍，主语换了就换句号：" + "；".join(f"「{s_[:28]}…」" for s_ in runon[:3]))
     # 「我」「你」
     you = sum(1 for p in paras if p.startswith("你") or "，你" in p or "。你" in p)
     if you == 0 and not retell:
