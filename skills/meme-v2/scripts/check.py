@@ -147,7 +147,7 @@ def check_body(meta, paras, images, allow_gh):
     if not allow_gh:
         for p in paras:
             brands = [w for w in re.findall(r"[A-Z][A-Za-z0-9]+", p) if w not in GENERIC] + [n for n in CN_NAMES if n in p]
-            if re.search(GANGHAO + r"[^。]{0,12}(" + "|".join(map(re.escape, brands)) + ")", p) if brands else False:
+            if re.search("(?:" + GANGHAO + r")[^。]{0,12}(" + "|".join(map(re.escape, brands)) + ")", p) if brands else False:
                 add("✗", f"「刚好」式品牌引入：「{p[:40]}」")
     for pat, msg in ((ADS, "极限词 / 广告话"), (OUTLINK, "站外导流"), (BACKSTAGE, "后台叙述（读者不关心你读了几遍）"),
                      (PROCESS, "生产过程露出来了（读者没见过我们的素材）"), (PREFIX, "给自己的发言加前缀（判断直接说）"),
@@ -261,7 +261,7 @@ def check_body(meta, paras, images, allow_gh):
         add("⚠", f"结尾停在行业判断上：「{last[:40]}」。三选一：自己的一件小事 / 往下收一句评价 / 以前现在")
     if re.search(r"总之|总结|综上|最后想说", last):
         add("⚠", f"结尾在总结：「{last[:30]}」")
-    if not re.search(r"上周那篇|前几天那篇|之前(那篇|写过)|上一篇|前两天我也|那篇我写过", text):
+    if not re.search(r"上周那篇|前几天那篇|之前(那篇|写过)|上一篇|前两天我也|那篇.{0,8}(写过|提过|说过|聊过)|上周写.{0,12}那篇", text):
         add("提示", "没有回指已发的稿子。有可回指的就回指一次，没有就算了")
 
 
