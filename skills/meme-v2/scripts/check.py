@@ -222,6 +222,13 @@ def check_body(meta, paras, images, allow_gh):
     adj = re.findall(r"(?:得|挺|很|太|不太|最|更|特别|非常|比较)(广|慌|信|稳|顶|贵|快|慢|准|火|乱|久|累|狠|猛|顺|丑|难|强|弱|全|深|浅|忙|懂|服|认)(?=[，。、；：！？」]|$)", text, re.M)
     if mono or adj:
         add("⚠", f"单字动词 / 形容词 {len(mono) + len(adj)} 处（认→认同、翻→翻译、传得挺广→传播得很广泛、不太信→不太相信）：" + "、".join(f"「{m}」" for m in (mono + adj)[:8]))
+    # 口语名词「活」和单字口语谓语收尾（10-21 用户：要像科技栏目主编写的，不像聊天）
+    huo = len(re.findall(r"(?<![生干复灵激])活(?![动力跃泼性着力])", text))
+    if huo >= 2:
+        add("⚠", f"口语名词「活」{huo} 处，换成工作 / 任务 / 项目（品牌 slogan 除外）")
+    tail1 = re.findall(r"(?:去|就|才|都|能|会)(到|换|量|长|交|派|算|看)(?=[。，；！？])", text)
+    if tail1:
+        add("⚠", f"单字口语动词收尾 {len(tail1)} 处（到→到来 / 实现，换→换取，量→测出，长→建立）：" + "、".join(f"「{m}」" for m in tail1[:6]))
     tele = [c.strip() for c in re.split(r"[，。；：！？\n]", text)
             if 3 <= cjk_len(c.strip()) <= 5 and re.fullmatch(r"[一-鿿]+", c.strip())
             and not re.search(r"[的了是在就也都很不我你他它这那和与或但]", c)]
@@ -265,7 +272,7 @@ def check_body(meta, paras, images, allow_gh):
         add("⚠", f"结尾停在行业判断上：「{last[:40]}」。三选一：自己的一件小事 / 往下收一句评价 / 以前现在")
     if re.search(r"总之|总结|综上|最后想说", last):
         add("⚠", f"结尾在总结：「{last[:30]}」")
-    if not re.search(r"上周那篇|前几天那篇|之前(那篇|写过)|上一篇|前两天我也|那篇.{0,8}(写过|提过|说过|聊过)|上周写.{0,12}那篇", text):
+    if not re.search(r"上周那篇|前几天那篇|之前(那篇|写过)|上一篇|前两天我也|那篇.{0,8}(写过|提过|说过|聊过)|上周写.{0,20}那篇", text):
         add("提示", "没有回指已发的稿子。有可回指的就回指一次，没有就算了")
 
 
