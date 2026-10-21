@@ -1,21 +1,21 @@
 ---
-title: Ilya毕业演讲：AI会做你能做的一切
+title: OpenAI联创Ilya：AI会做一切
 genre: 观察
 value: 行动
 reader: 每天追 AI 新闻、但手上的工作一项都还没交给 AI 的人
 stance: 对 AI 的判断力买不来也读不来，只能用自己的工作去换；读十篇解读不如自己失败一次
 stance_line: B
 cost: 让 Codex 定时生成 sites，背后 MCP 查询太重，token 烧得很快，数据一多页面组装就乱（经历库 #9）
-keyword: Ilya
-keywords: OpenAI, 多伦多大学, AI取代工作
-headline: Ilya：AI 会做你能做的一切
+keyword: OpenAI
+keywords: Ilya, 多伦多大学, AI取代工作
+headline: OpenAI 联创 Ilya：AI 会做你能做的一切
 hero: shots/07_p2_68s.jpg
 hero_after: 1
 location: 香港
 account: Krypto说AI
 ---
 
-今年 6 月，多伦多大学授予 Ilya Sutskever 荣誉学位。这是他在这所学校获得的第四个学位，二十年前的本科学位也是在同一个礼堂领取的，导师是 Geoffrey Hinton。演讲不到十分钟，开场先自嘲了一句：毕业演讲照例要给一些人生建议，这次不打算多讲，因为想讲的其实是另一件事。
+今年 6 月，多伦多大学授予 OpenAI 联合创始人 Ilya Sutskever 荣誉学位。这是他在这所学校获得的第四个学位，二十年前的本科学位也是在同一个礼堂领取的，导师是 Geoffrey Hinton。演讲不到十分钟，开场先自嘲了一句：毕业演讲照例要给一些人生建议，这次不打算多讲，因为想讲的其实是另一件事。
 
 建议只留了一条：接受现实本来的样子，不要反复后悔过去，把精力放在下一步怎么走。Ilya 坦言这一条很难做到。人一遇到挫折，很容易反复回想当初哪个决定做错了、哪次运气不好、哪里不公平，一想就是大半天。更有效的做法是对自己说一句「好吧，事情已经这样了」，然后继续往前。他每次这样做，事情都会顺利一些。但他也承认，这是一场和自己情绪的长期拉锯，讲给台下的毕业生，也是讲给自己。
 
