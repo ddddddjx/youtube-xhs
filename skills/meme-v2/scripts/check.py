@@ -244,6 +244,10 @@ def check_body(meta, paras, images, allow_gh):
     labels = [p for p in paras if re.search(r"最想说的一(件事|句)|这是我.{0,8}最想说|我想讲清楚一件事", p)]
     if labels:
         add("✗", f"给判断贴标签 {len(labels)} 处（「我最想说的一件事是」「这是我整场听下来最想说的一句」），判断只论证一次，标签删掉：" + "；".join(f"「{p[:30]}」" for p in labels[:2]))
+    # 「他」密度（10-21 用户看 Ilya 稿：「他」用得太频繁）：转述稿主语轮着来，名字 / 省略 / 内容当主语
+    ta = text.count("他")
+    if ta / k > 8:
+        add("⚠", f"「他」每千字 {ta / k:.0f} 个（上限 8）。换成名字、省略主语、或拿内容当主语（「建议只留了一条」）")
     # 模仿腔
     for w, cap in (("真正", 2), ("其实", 3), ("当然", 2)):
         c = text.count(w)
