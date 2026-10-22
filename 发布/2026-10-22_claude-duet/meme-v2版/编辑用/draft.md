@@ -10,7 +10,7 @@ cost: 做了一堆看板和监控，几天没盯，停了更新都没发现，bu
 keyword: Claude Duet
 keywords: Anthropic, Claude, AI agent
 headline: Claude Duet：AI 开始主动来找你了
-hero: shots/02_reaches_out.jpg
+hero: shots/02b_phone_draft.jpg
 hero_after: 1
 location: 香港
 account: Krypto说AI
