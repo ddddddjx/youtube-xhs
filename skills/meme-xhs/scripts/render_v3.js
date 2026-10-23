@@ -55,6 +55,7 @@ p.head{font-weight:700}
 u{color:#c0251f;text-decoration:none;border-bottom:5px solid #c0251f;padding-bottom:2px}
 .quote{background:#fdf1f1;border-left:8px solid #b42020;padding:22px 30px;font-size:${FS - 2}px;line-height:1.6;color:#333;margin:0 0 44px}
 .shot{border-bottom:10px solid #c0251f;padding-bottom:10px;margin:0 0 44px}.shot img{width:100%;display:block}
+.m{display:flow-root}   /* 量高度时把段落 margin 算进去，不让它折叠到外面 */
 .card{height:1440px;display:flex;flex-direction:column;align-items:center;padding-top:330px;box-sizing:border-box}
 .card img{width:260px;height:260px;border-radius:50%}
 .card .n{font-size:64px;font-weight:600;color:#ee9632;margin-top:50px}
@@ -74,7 +75,7 @@ const coverHtml = () => {
 <div class="block"><div class="h">${lines}</div></div><div class="lead">${mark(meta.lead || '')}</div>${shot}${q}`;
 };
 const cardHtml = () => `<div class="card"><img src="${AV}"><div class="n">${account}</div><div class="c">${esc(meta.card || CARD)}</div></div>`;
-const LIMIT = 1440 - 132 - 40 - 30;
+const LIMIT = 1440 - 132 - 40 - 50;
 
 (async () => {
   const exe = process.env.CHROME || fs.readdirSync(process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers').filter(d => /^chromium-\d+$/.test(d)).map(d => path.join(process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers', d, 'chrome-linux/chrome')).find(fs.existsSync);
@@ -88,7 +89,7 @@ const LIMIT = 1440 - 132 - 40 - 30;
   // 首页：量出四层的高度，剩下的空间用正文填（赛博老奶的首页正文接着引用块往下排，不留白）
   await pg.setContent(doc(coverHtml()), { waitUntil: 'load' });
   const coverH = await pg.evaluate(() => document.body.scrollHeight);
-  const firstLimit = Math.max(0, 1440 - coverH - 40 - 30);
+  const firstLimit = Math.max(0, 1440 - coverH - 30 - 16);   // 首页正文 padding-top 30，底边留 16
   const paginate = async () => {
     let pages = [], cur = [], used = 0;
     const lim = () => pages.length === 0 ? firstLimit : LIMIT;
