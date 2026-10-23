@@ -36,14 +36,14 @@ body{margin:0;width:1080px;background:#fff;font-family:"Noto Sans CJK SC","PingF
 .top img{width:92px;height:92px;border-radius:50%}
 .name{margin-left:28px}.name b{font-size:38px;color:#ee9632;font-weight:600}
 .name span{font-size:27px;color:#aaa;margin-left:22px}.name .loc{display:block;font-size:26px;color:#aaa;margin-top:2px;margin-left:0}
-.block{position:relative;margin:70px 55px 0;background:#fdeeee;padding:26px 40px}
+.block{position:relative;margin:54px 55px 0;background:#fdeeee;padding:26px 40px}
 .block:before{content:"";position:absolute;left:0;top:0;width:8px;height:140px;background:#b42020}
 .block:after{content:"";position:absolute;right:0;bottom:0;width:8px;height:140px;background:#b42020}
 .h{font-size:${meta.headline_size || 96}px;font-weight:900;line-height:1.22;letter-spacing:1px;color:#1a1212}
-.lead{margin:44px 55px 0;font-size:40px;line-height:1.65}
-.cshot{margin:40px 55px 0;border-bottom:10px solid #c0251f;padding-bottom:10px}
-.cshot img{width:100%;display:block;max-height:${meta.hero_max || 330}px;object-fit:cover;object-position:top}
-.cquote{margin:34px 55px 0;background:#fdf1f1;border-left:8px solid #b42020;padding:22px 30px;font-size:36px;line-height:1.55;color:#444}
+.lead{margin:34px 55px 0;font-size:40px;line-height:1.65}
+.cshot{margin:30px 55px 0;border-bottom:10px solid #c0251f;padding-bottom:10px}
+.cshot img{width:100%;display:block;max-height:${meta.hero_max || 290}px;object-fit:cover;object-position:top}
+.cquote{margin:26px 55px 0;background:#fdf1f1;border-left:8px solid #b42020;padding:22px 30px;font-size:36px;line-height:1.55;color:#444}
 .bar{height:132px;display:flex;align-items:center;padding:0 55px;border-bottom:2px solid #eee;box-sizing:border-box}
 .bar .back{font-size:56px;color:#333;margin-right:40px;font-weight:300}
 .bar img{width:84px;height:84px;border-radius:50%}
@@ -85,18 +85,23 @@ const LIMIT = 1440 - 132 - 40 - 30;
     return await pg.evaluate(() => [...document.querySelectorAll('.m')].map(e => e.getBoundingClientRect().height));
   };
   const sents = (h) => (h.match(/[^。]*。|[^。]+$/g) || [h]).filter(s => s.trim());
+  // 首页：量出四层的高度，剩下的空间用正文填（赛博老奶的首页正文接着引用块往下排，不留白）
+  await pg.setContent(doc(coverHtml()), { waitUntil: 'load' });
+  const coverH = await pg.evaluate(() => document.body.scrollHeight);
+  const firstLimit = Math.max(0, 1440 - coverH - 40 - 30);
   const paginate = async () => {
     let pages = [], cur = [], used = 0;
+    const lim = () => pages.length === 0 ? firstLimit : LIMIT;
     for (const b of blocks) {
       const [hgt] = await measure([b]);
-      if (used + hgt <= LIMIT) { cur.push(b); used += hgt; continue; }
-      if (b.t === 'p' && LIMIT - used > 200) {
+      if (used + hgt <= lim()) { cur.push(b); used += hgt; continue; }
+      if (b.t === 'p' && lim() - used > (pages.length === 0 ? 90 : 200)) {
         const ss = sents(b.h); let head = '', rest = '';
         for (let k = 0; k < ss.length; k++) {
           const tryH = ss.slice(0, k + 1).join('');
           if (/<u>[^<]*$/.test(tryH)) continue;           // 不在红线中间断句
           const [th] = await measure([{ t: 'p', h: tryH }]);
-          if (used + th <= LIMIT) head = tryH; else { rest = ss.slice(k).join(''); break; }
+          if (used + th <= lim()) head = tryH; else { rest = ss.slice(k).join(''); break; }
         }
         if (head) { cur.push({ t: 'p', h: head }); pages.push(cur); cur = []; used = 0; if (rest) { const [rh] = await measure([{ t: 'p', h: rest }]); cur.push({ t: 'p', h: rest }); used = rh; } continue; }
       }
@@ -109,12 +114,14 @@ const LIMIT = 1440 - 132 - 40 - 30;
   if (last < 320 && pages.length > 1) { FS = 38; [pages, last] = await paginate(); }
   fs.mkdirSync(OUT, { recursive: true });
   for (const f of fs.readdirSync(OUT)) if (/^\d{2}\.png$/.test(f)) fs.unlinkSync(path.join(OUT, f));
-  const shots = [coverHtml(), ...pages.map(p => bar + `<div class="body">` + p.map(html).join('') + `</div>`)];
+  const first = pages.shift() || [];
+  const shots = [coverHtml() + `<div class="body" style="padding-top:30px">` + first.map(html).join('') + `</div>`,
+                 ...pages.map(p => bar + `<div class="body">` + p.map(html).join('') + `</div>`)];
   if (meta.card !== 'off') shots.push(cardHtml());
   for (let i = 0; i < shots.length; i++) {
     await pg.setContent(doc(shots[i]), { waitUntil: 'load' }); await pg.waitForTimeout(200);
     await pg.screenshot({ path: path.join(OUT, String(i + 1).padStart(2, '0') + '.png'), clip: { x: 0, y: 0, width: 1080, height: 1440 } });
   }
   await br.close();
-  console.log(JSON.stringify({ pages: shots.length, body_pages: pages.length, last_fill: +(last / LIMIT).toFixed(2), font: FS }));
+  console.log(JSON.stringify({ pages: shots.length, body_pages: pages.length + 1, last_fill: +(last / LIMIT).toFixed(2), font: FS }));
 })();
