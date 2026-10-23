@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;width:960px;background:#fff;font-family:-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#171717}
+.wrap{padding:30px 40px 26px}
+h1{font-size:34px;margin:0 0 6px;font-weight:700}
+.sub{font-size:19px;color:#888;margin-bottom:20px}
+table{border-collapse:collapse;width:100%;font-size:22px}
+th{font-size:21px;color:#888;font-weight:600;text-align:left;padding:6px 10px}
+td{padding:12px 10px;border-top:1px solid #e6e6e6;vertical-align:top;line-height:1.45}
+td.m{width:150px;font-weight:700;color:#e8963a;white-space:nowrap}
+td.a{width:330px}
+td.b{color:#444}
+.foot{font-size:21px;color:#555;line-height:1.5;margin-top:16px}
+</style></head><body><div class="wrap">
+<h1>FDE 在客户那里做的事，对照我的定时任务</h1>
+<div class="sub">左边是原文的做法，右边是我公司里十几个 Codex 定时任务的现状</div>
+<table>
+<tr><th></th><th>OpenAI 的 FDE</th><th>我的定时任务</th></tr>
+<tr><td class="m">公共框架</td><td class="a">一个以 Codex 为核心的 harness，各用例都搬上去</td><td class="b">没有，十几个任务各搭各的</td></tr>
+<tr><td class="m">定制代码</td><td class="a">每个项目拆掉约 90%</td><td class="b">每个任务都是 100% 定制</td></tr>
+<tr><td class="m">出错的地方</td><td class="a">集中在公共层，修一次全部受益</td><td class="b">各自出错，一个一个修</td></tr>
+<tr><td class="m">推广</td><td class="a">第二个团队一天上线</td><td class="b">每加一个任务从头搭</td></tr>
+<tr><td class="m">结果</td><td class="a">每隔几个月让自己没用一次</td><td class="b">上个月底把企业版额度用完</td></tr>
+</table>
+<div class="foot">他们做的三件事：先搭公共层、把定制压到最少、把推广做成一天的事。我一件都没做。</div>
+</div></body></html>
