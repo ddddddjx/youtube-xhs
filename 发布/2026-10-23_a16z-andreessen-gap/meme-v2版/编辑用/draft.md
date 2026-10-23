@@ -13,6 +13,7 @@ hero: shots/08_smile.jpg
 hero_after: 1
 location: 香港
 account: Krypto说AI
+card: 关注我，带你拉开和身边人的差距。
 ---
 
 早期用上 AI 的人和其他人之间的差距，正在以周为单位拉开。说这话的是 Marc Andreessen，a16z 的联合创始人，九十年代做出第一款流行浏览器的人。在 a16z 最近一期播客里，他把这道差距称为自己整个职业生涯里见过最大的一道。
