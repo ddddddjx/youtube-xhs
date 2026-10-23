@@ -30,6 +30,9 @@ draft.md 格式:
   card: 每天一篇，把 AI 圈的新东西讲成人话   # 末页名片卡的定位句。不写就用默认这句；写 card: off 不出名片卡
   card_note: 可选的第二行，默认没有（09-30 用户：不写「AI 全权运营 / 后台数据公开」）
   slogan: AI builder · 活全交给 AI 两年   # 10-18 起每页账号名右边一行灰字身份标签（平台建议「图片角落加价值观标签」）；slogan: off 关
+  style: v3                              # 10-23 起（用户说「v3」就是它，对标赛博老奶）：首页粉底三行大字块 + 导语 + 素材图压红线 + 引用块，正文 ==句子== 红字下划线、`> ` 引用块；
+  lead: 导语一句，==最有分量的半句==      #   由 render_v3.js（Playwright）出图，分页按实际高度量；headline 用 | 分三行，每行 ≤7 字；hero 是首页素材图
+  cover_quote: 首页引用块一句（可选）     #   正文第一段别重复 lead 的内容；说明见 references/cover_guide.md「v3 版式」
   gift: 已停用（09-30 用户：图上不写「评论区扣 1 领」），写了也不出
   ---
 
@@ -465,9 +468,39 @@ def overview(pages, path):
     sheet.save(path, quality=88)
 
 
+def render_v3(src, out, meta, avatar_path):
+    """10-23 起 style: v3：交给 render_v3.js（Playwright）出首页和正文页，这里只做 overview 和统计。"""
+    import json, subprocess
+    js = os.path.join(HERE, "render_v3.js")
+    env = dict(os.environ)
+    if "NODE_PATH" not in env:
+        try:
+            env["NODE_PATH"] = subprocess.run(["npm", "root", "-g"], capture_output=True, text=True).stdout.strip()
+        except Exception:
+            pass
+    r = subprocess.run(["node", js, src, out, avatar_path, meta.get("card") or CARD, SLOGAN], capture_output=True, text=True, env=env)
+    if r.returncode != 0:
+        sys.exit("render_v3.js 失败：" + r.stderr[-800:])
+    info = json.loads(r.stdout.strip().splitlines()[-1])
+    pages = [Image.open(os.path.join(out, f)) for f in sorted(os.listdir(out)) if re.fullmatch(r"\d{2}\.png", f)]
+    overview(pages, os.path.join(out, "overview.jpg"))
+    print(f"v3 版式：共 {info['pages']} 页（正文 {info['body_pages']} 页，字号 {info['font']}），末页填充 {info['last_fill']:.0%}"
+          + ("  ✗ 超过小红书 18 张上限，删段落" if info["pages"] > 18 else ""))
+    if info["last_fill"] < 0.25 and info["body_pages"] > 1:
+        print(f"⚠ 末页只有 {info['last_fill']:.0%}：删几句让它并进上一页，或者在结尾补一句回扣")
+    return info["pages"]
+
+
 def main(src, out):
     meta, blocks = parse(open(src, encoding="utf-8").read())
     base = os.path.dirname(os.path.abspath(src))
+    if meta.get("style") == "v3":
+        av = os.path.join(base, meta.get("avatar", "avatar.png"))
+        if not os.path.exists(av):
+            av = os.path.join(HERE, "..", "assets", "avatar.png")
+        if not meta.get("headline") or not meta.get("lead"):
+            print("⚠ v3 版式要有 headline（| 分三行）和 lead（导语，==半句== 标红）")
+        return render_v3(src, out, meta, av)
     if meta.get("font") == "serif":
         set_body_font("serif")
     av = os.path.join(base, meta.get("avatar", "avatar.png"))

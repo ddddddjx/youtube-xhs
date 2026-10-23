@@ -54,7 +54,7 @@ def parse(md):
                 k, v = line.split(":", 1)
                 meta[k.strip()] = re.sub(r"\s+#\s.*$", "", v).strip()
         md = md[m.end():]
-    paras = [l.strip().replace("**", "") for l in md.splitlines()
+    paras = [l.strip().replace("**", "").replace("==", "") for l in md.splitlines()
              if l.strip() and not l.strip().startswith(("!", "|", "#", ">"))]
     images = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", md)
     return meta, paras, images

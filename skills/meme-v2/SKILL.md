@@ -63,7 +63,7 @@ python3 $V/scripts/check.py "<输出目录>/meme版"
 cp $M/assets/avatar.png "<输出目录>/meme版/编辑用/"
 python3 $M/scripts/render_meme.py "<输出目录>/meme版/编辑用/draft.md" "<输出目录>/meme版"
 ```
-首页按 `$M/references/cover_guide.md`：`headline` + `hero`（人脸或素材图）。超过 18 页删段落。Read `overview.jpg` 和 `01.png` 看首页认不认得出。
+首页按 `$M/references/cover_guide.md`：`headline` + `hero`（人脸或素材图）。**用户说「v3」**：front matter 加 `style: v3`、`lead:`（导语，`==半句==` 标红）、`cover_quote:`（可选），headline 用 `|` 分三行，正文每页最多一处 `==句子==`、原话用 `> ` 引用块，见 cover_guide「v3 版式」。超过 18 页删段落。Read `overview.jpg` 和 `01.png` 看首页认不认得出。
 
 标题正文写完再起，三条备选三种句式，写进 `标题备选.txt`，最强的进 `标题.txt` 和 `title`：
 - 可搜词在前 6 字（路人认识的人名 / 模型名 / 场景词），社会证明是路人认识的名字；
