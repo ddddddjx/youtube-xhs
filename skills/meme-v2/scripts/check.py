@@ -213,6 +213,17 @@ def check_body(meta, paras, images, allow_gh):
     anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?", first3) if w not in GENERIC]) + len(re.findall(r"\d+", first3))
     if anchors > 4:
         add("⚠", f"开头三段 {anchors} 个专名 / 数字（最多 4），第一句要是判断或处境")
+    # 10-29：第一句是「我」在当下做的一件事（账号四篇爆款的共同点；六篇 v2 稿第三人称开头合计观看不到 1600）
+    if paras:
+        p1 = paras[0]
+        s1 = re.split(r"[。！？]", p1, 1)[0]
+        if not re.search(r"我|我们|咱", s1) and not re.search(r"今天|昨天|昨晚|这周|上周|周[一二三四五六日末]|早上|晚上|凌晨|刚才|刚刚|最近|前天|这几天|趁", s1):
+            add("⚠", f"第一句没有「我」也没有时间词，镜头在素材上不在写的人身上：「{s1[:40]}」。四篇爆款：「趁放假看了……」「这周我花了 72 分钟……」「今天刷到……看完我有点坐不住」")
+        p1_anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?", p1) if w not in GENERIC]) + len(re.findall(r"\d+", p1))
+        if cjk_len(p1) > 80 or p1_anchors > 2:
+            add("⚠", f"第一段 {cjk_len(p1)} 字、{p1_anchors} 个锚点（建议 60 字以内、锚点最多 2）。履历、机构分量、一串数字从第二段起")
+        if re.match(r"^[^。]{0,24}(发布了|发了一篇|递交了|公布了|上线了|宣布)", s1) and not re.search(r"我", s1):
+            add("⚠", f"新闻导语体开头：「{s1[:40]}」。先写我在当下做的事，发布信息放第二句")
 
     # 句子说没说完
     causal = len(re.findall(CAUSAL, text))
