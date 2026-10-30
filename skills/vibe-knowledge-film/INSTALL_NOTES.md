@@ -11,3 +11,4 @@
 - 10-30 云端自测：`new_film.py` 建骨架 + `--stills` 出帧；`examples/fold_C` 第 12 秒静帧和 10–12 秒片段（1920×1080、30fps）都正常。
 - 适用范围：16:9 横屏、无旁白字幕知识短片（抖音「Vibe 知识大赏」式）。跟 `health-vibe`（9:16 大健康号）、`science-film`（3D 微观科普）是不同的片种；本号小红书图文规则（CLAUDE.md）不适用它。
 - 以后同步上游：重新 clone，按上面排除项拷贝，再把 `render.py` 这处改动补回来。
+- **旁白（10-30，这个 skill 原本无旁白，用户在 FOMO 片里要求加）**：云端 edge-tts 能用。它用自己的 certifi 证书包、不读 `SSL_CERT_FILE`，被代理重签的 TLS 会报 self-signed；把 `certifi.where` 指到 `/root/.ccr/ca-bundle.crt` 就通（不关校验）。脚本在 `发布/2026-10-30_fomo-film/project/tools/tts.py`（`python3 -I tts.py "文字" zh-CN-YunxiNeural out.mp3`）。旁白和音效、配乐的合成用同目录 `mix.py`（配乐在旁白处 sidechain 压低）。字幕按每句旁白的实际时长排。
