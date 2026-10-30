@@ -9,21 +9,21 @@
 const { W, H, clamp, lerp, seg, smooth, ss, E, hash, rng, rgba } = VK;
 const K = VKit, P = K.PAL.flat;
 
-const T = { h2: 4.0, h3: 11.4, title: 22.6, titleIn: 23.2, w1: 34.6, w2: 38.4, w3: 42.2, tl: 46.2, card: 57.4, end: 62.0 };
+const T = { h2: 4.0, h3: 12.6, title: 24.8, titleIn: 25.2, w1: 27.8, w2: 31.2, w3: 35.0, tl: 39.4, card: 51.4, end: 56.4 };   // 10-30：片名只停 2 秒；每句字幕按旁白时长排
 const SUBS = [
-  { a: .4,   b: 3.6,  zh: '周五晚上十点，你窝在沙发上。' },
-  { a: 4.2,  b: 7.4,  zh: '手机亮了：朋友们在天台聚会。' },
-  { a: 7.9,  b: 11.1, zh: '又亮一下：同事在海边看日落。' },
-  { a: 11.7, b: 14.8, zh: '面还是那碗面，书还是那本书。' },
-  { a: 15.2, b: 18.5, zh: '可这个晚上，突然{!不香了}。' },
-  { a: 19.0, b: 22.3, zh: '什么都没少，为什么像丢了东西？' },
-  { a: 35.0, b: 38.1, zh: '你只能待在一个房间里。' },
-  { a: 38.7, b: 41.9, zh: '手机却给你打开了四十扇窗。' },
-  { a: 42.5, b: 45.9, zh: '每扇窗里，都是别人最好的那一刻。' },
-  { a: 46.6, b: 49.7, zh: '你拿来比的，是自己一整个晚上，' },
-  { a: 50.1, b: 53.0, zh: '连洗碗和发呆也算进去。' },
-  { a: 53.4, b: 56.9, zh: '别人的窗里，只放剪出来的那三秒。' },
-  { a: 57.9, b: 61.6, zh: '你在拿自己的{全片}，比别人的预告片。' },
+  { a: .4,   b: 3.9,  zh: '周五晚上十点，你窝在沙发上。' },
+  { a: 4.2,  b: 7.9,  zh: '手机亮了：朋友们在天台聚会。' },
+  { a: 8.3,  b: 12.5, zh: '又亮一下：同事在海边看日落。' },
+  { a: 12.9, b: 16.9, zh: '面还是那碗面，书还是那本书。' },
+  { a: 17.2, b: 20.5, zh: '可这个晚上，突然{!不香了}。' },
+  { a: 20.8, b: 24.5, zh: '什么都没少，为什么像丢了东西？' },
+  { a: 28.3, b: 31.0, zh: '你只能待在一个房间里。' },
+  { a: 31.4, b: 34.7, zh: '手机却给你打开了四十扇窗。' },
+  { a: 35.2, b: 39.2, zh: '每扇窗里，都是别人最好的那一刻。' },
+  { a: 39.8, b: 43.6, zh: '你拿来比的，是自己一整个晚上，' },
+  { a: 43.9, b: 46.8, zh: '连洗碗和发呆也算进去。' },
+  { a: 47.1, b: 51.1, zh: '别人的窗里，只放剪出来的那三秒。' },
+  { a: 51.7, b: 55.6, zh: '你在拿自己的{全片}，比别人的预告片。' },
 ];
 
 /* ---------- 色 ---------- */
@@ -34,7 +34,7 @@ const C = {
 };
 
 /* 错过感读数（示意）：钩子里随手机涨；屋里不变，只有它在变 */
-const MISS = [[0, 20], [4.3, 20], [5.3, 70], [8.1, 72], [9.1, 98], [13.5, 99], [15.6, 128], [22.6, 128]];
+const MISS = [[0, 20], [4.3, 20], [5.3, 70], [8.4, 72], [9.4, 98], [15.5, 99], [17.6, 128], [24.8, 128]];
 const missAt = t => K.track(MISS, t);
 
 /* ---------- 道具 ---------- */
@@ -151,18 +151,18 @@ function hook2(fr, t) {
   for (let i = 0; i < 9; i++) fr.rect(0, 120 * i + 30, W, 3, { fill: C.table2, a: .5 });
   bowl(fr, 360, 640, 2.0, t, 1);
   fr.g({ at: [1580, 760], s: 1.6 }, () => book(fr, 0, 0, 1));
-  const k1 = ss(t, 4.2, 4.7), k2 = ss(t, 8.0, 8.5);
+  const k1 = ss(t, 4.2, 4.7), k2 = ss(t, 8.3, 8.8);
   const pw = 520, ph = 720;
   phone(fr, 1010, 470, pw, ph, Math.max(k1, .0), (fr2, w, h) => {
     picRoof(fr2, w, h); if (k2 > 0) fr2.g({ at: [lerp(w, 0, E.out3(k2)), 0] }, () => picSea(fr2, w, h));
     notice(fr2, w, h, seg(t, 4.2, 4.7) * (1 - ss(t, 6.4, 6.9)), '小林 发了 4 张照片');
-    notice(fr2, w, h, seg(t, 8.0, 8.5) * (1 - ss(t, 10.2, 10.7)), '陈姐 分享了一条动态');
+    notice(fr2, w, h, seg(t, 8.3, 8.8) * (1 - ss(t, 10.8, 11.3)), '陈姐 分享了一条动态');
   });
   if (t < 4.6) fr.glow(1010, 470, 300 * (1 - seg(t, 4.2, 4.6)), '#FFFFFF', .2 * seg(t, 4.1, 4.2));
 }
 /* 中景：面还是那碗面，书还是那本书 —— 然后屋里变灰，热气停了 */
 function hook3(fr, t) {
-  const grey = ss(t, 15.4, 18.0), steam = 1 - ss(t, 15.4, 17.0);
+  const grey = ss(t, 17.3, 19.8), steam = 1 - ss(t, 17.3, 18.9);
   const s = lerp(1.25, 1.32, seg(t, T.h3, T.title));
   fr.g({ at: [960, 560], s }, () => fr.g({ at: [-960, -520] }, () => room(fr, t, { steam, grey, phoneLit: .9 })));
   if (grey > 0) { const x = fr.x; x.save(); x.globalCompositeOperation = 'saturation'; x.fillStyle = rgba('#808080', grey * .85); x.fillRect(0, 0, W, H); x.globalCompositeOperation = 'multiply'; x.fillStyle = rgba('#8A8A9A', grey * .45); x.fillRect(0, 0, W, H); x.restore(); }
@@ -269,12 +269,12 @@ function timelines(fr, t) {
   const x = fr.x; x.fillStyle = '#211C2A'; x.fillRect(0, 0, W, H);
   const aIn = ss(t, T.tl, T.tl + .6), aOut = 1 - ss(t, T.card - .2, T.card + .4);
   /* 你：一格一格亮起，洗碗、发呆在第 11 句时闪一下 */
-  const blink = i => (i === 2 || i === 3) ? Math.sin(seg(t, 50.3, 51.9) * Math.PI) : 0;
+  const blink = i => (i === 2 || i === 3) ? Math.sin(seg(t, 44.0, 45.6) * Math.PI) : 0;
   strip(fr, 170, MINE, { a: aIn * aOut, label: '你', sub: '2 小时', lit: i => ss(t, T.tl + .5 + i * .32, T.tl + .8 + i * .32), hot: blink });
   /* 别人：先也是一整条亮着，然后除了「碰杯」全灭 */
-  const theirsIn = ss(t, 53.4, 53.9), dim = ss(t, 54.4, 55.6);
-  strip(fr, 520, THEIRS, { a: theirsIn * aOut, label: '别人', sub: '2 小时', lit: i => i === 2 ? 1 : 1 - dim, hot: i => i === 2 ? ss(t, 55.2, 55.8) : 0 });
-  const a3 = ss(t, 55.6, 56.1) * aOut;
+  const theirsIn = ss(t, 47.1, 47.6), dim = ss(t, 48.1, 49.3);
+  strip(fr, 520, THEIRS, { a: theirsIn * aOut, label: '别人', sub: '2 小时', lit: i => i === 2 ? 1 : 1 - dim, hot: i => i === 2 ? ss(t, 48.9, 49.5) : 0 });
+  const a3 = ss(t, 49.3, 49.8) * aOut;
   if (a3 > 0) { fr.text('3 秒', 250 + 2 * 236 + 118, 790, { font: 'sansh', size: 44, color: P.gold, a: a3 }); fr.line(250 + 2 * 236 + 118, 724, 250 + 2 * 236 + 118, 750, { color: P.gold, w: 3, a: a3 }); }
 }
 /* 规则卡：米色纸，左边一卷长胶片，右边一小段 */
@@ -310,11 +310,11 @@ VK.film({
     if (ga > 0) K.gauge(fr, 45, 35, { value: missAt(t), max: 150, redFrom: 100, label: '错过感', zone: '超标', caption: '示意', a: ga });
     /* 声音 */
     fr.sfx(.3, 'chord', { root: 0, gain: .5 });
-    fr.sfx(4.2, 'soft', { gain: .8 }); fr.sfx(8.0, 'soft', { gain: .8 });
-    fr.sfx(15.6, 'thud', { gain: .6 }); fr.sfx(T.titleIn, 'bloom', { gain: .9 });
+    fr.sfx(4.2, 'soft', { gain: .8 }); fr.sfx(8.3, 'soft', { gain: .8 });
+    fr.sfx(17.5, 'thud', { gain: .6 }); fr.sfx(T.titleIn, 'bloom', { gain: .9 });
     for (let i = 0; i < 40; i += 3) fr.sfx(+(T.w2 + .4 + i * .07).toFixed(2), 'tick', { pitch: i % 5, gain: .3 });
     for (let i = 0; i < 6; i++) fr.sfx(+(T.tl + .6 + i * .32).toFixed(2), 'tick', { pitch: 2, gain: .35 });
-    fr.sfx(54.4, 'rise', { dur: 1.2, gain: .5 }); fr.sfx(55.4, 'tock', { pitch: 1 });
+    fr.sfx(48.1, 'rise', { dur: 1.2, gain: .5 }); fr.sfx(49.1, 'tock', { pitch: 1 });
     fr.sfx(T.card + .1, 'stamp', { gain: .7 });
     K.subs(fr, t, SUBS, 'flat');
   },
