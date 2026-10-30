@@ -1,14 +1,14 @@
 ---
-title: Anthropic兄妹：90%的人看走眼
+title: Claude创始人看见就去做了，我没有
 mode: retell
 value: 框架
 stance: 看见 AI 走向的人里还要再分两种，看见了去做的和看见了观望的；拉开距离的是看见之后那几年，「六个月、十二个月」不是夸大，只是离前沿远的人只看得见每一项都还不够好
 stance_line: B
 reader: 第一次被 AI 写的东西惊到、第二天又照常回去上班的人
 cost: 三年前就觉得 GPT 写的誓词比我好，眼看朋友转行做 AI 创业，自己没有动
-keyword: Anthropic
-keywords: Anthropic, Dario Amodei, Claude, GPT-2, Walter Isaacson
-headline: Anthropic兄妹：90%的人看走眼了
+keyword: Claude
+keywords: Claude, Anthropic, Dario Amodei, Claude, GPT-2, Walter Isaacson
+headline: Claude创始人看见就去做了，我没有
 hero: shots/01_01_开场_Walter_Isaacson.jpg
 hero_after: 2
 location: 香港
