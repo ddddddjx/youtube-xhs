@@ -9,7 +9,7 @@
 const { W, H, clamp, lerp, seg, smooth, ss, E, hash, rng, rgba } = VK;
 const K = VKit, P = K.PAL.flat;
 
-const T = { h2: 4.0, h3: 12.6, title: 24.8, titleIn: 25.2, w1: 27.8, w2: 31.2, w3: 35.0, tl: 39.4, card: 51.4, end: 56.4 };   // 10-30：片名只停 2 秒；每句字幕按旁白时长排
+const T = { h2: 4.0, h3: 12.6, title: 24.8, titleIn: 25.2, w1: 27.8, w2: 31.2, w3: 35.0, tl: 39.4, card: 51.4, end: 168.6 };   // 10-30：片名只停 2 秒；每句字幕按旁白时长排
 const SUBS = [
   { a: .4,   b: 3.9,  zh: '周五晚上十点，你窝在沙发上。' },
   { a: 4.2,  b: 7.9,  zh: '手机亮了：朋友们在天台聚会。' },
@@ -24,6 +24,30 @@ const SUBS = [
   { a: 43.9, b: 46.8, zh: '连洗碗和发呆也算进去。' },
   { a: 47.1, b: 51.1, zh: '别人的窗里，只放剪出来的那三秒。' },
   { a: 51.7, b: 55.6, zh: '你在拿自己的{全片}，比别人的预告片。' },
+  { a: 56.8, b: 61.4, zh: '人天生会拿别人当尺子，量自己。' },
+  { a: 61.7, b: 65.5, zh: '更麻烦的是，错过会被记成{!亏了}。' },
+  { a: 66.3, b: 70.5, zh: '抛一次硬币：输了，你给我一百。' },
+  { a: 70.8, b: 75.0, zh: '赢了，我得给你多少，你才肯赌？' },
+  { a: 75.3, b: 79.1, zh: '多数人要{一百五到二百五}才点头。' },
+  { a: 79.4, b: 83.3, zh: '丢一百的疼，大约是捡一百的{两倍}。' },
+  { a: 83.6, b: 87.5, zh: '四十扇窗，就是四十笔{!亏损}。' },
+  { a: 88.3, b: 92.9, zh: '以前，你只知道楼下几个朋友在干嘛。' },
+  { a: 93.2, b: 97.1, zh: '现在，整座城的窗都对着你亮。' },
+  { a: 97.9, b: 102.7, zh: '2013 年，心理学家第一次给这种感觉打分。' },
+  { a: 103.0, b: 107.4, zh: '分数越高的人，越常边开车边看消息。' },
+  { a: 107.7, b: 110.9, zh: '这种感觉，有个名字——' },
+  { a: 112.1, b: 115.4, zh: '{!FOMO}，害怕错过。' },
+  { a: 116.2, b: 120.1, zh: '那多看几扇，是不是就安心了？' },
+  { a: 120.7, b: 124.6, zh: '每多看一扇，就多一扇你不在的窗。' },
+  { a: 124.9, b: 128.0, zh: '刷得越多，错过的越多。', tone: 'gold' },
+  { a: 129.0, b: 133.5, zh: '你不在任何一扇窗里，你一直在窗外。' },
+  { a: 134.0, b: 135.9, zh: '三步。' },
+  { a: 136.4, b: 140.3, zh: '拉上窗帘：关掉那几个提醒。' },
+  { a: 140.6, b: 144.4, zh: '回到屋里，只做眼前这一件事。' },
+  { a: 144.7, b: 147.4, zh: '你只能在一个房间里，' },
+  { a: 147.7, b: 151.3, zh: '选了这里，就是放下了别处。' },
+  { a: 153.0, b: 156.8, zh: '周五晚上十点，面又冒起了热气。' },
+  { a: 157.7, b: 163.5, zh: '你永远在错过；你能过的，只有这一个晚上。', tone: 'gold' },
 ];
 
 /* ---------- 色 ---------- */
@@ -120,7 +144,8 @@ function room(fr, t, o = {}) {
   fr.rect(330, 220, 220, 320, { fill: C.bldg }); fr.rect(600, 170, 250, 370, { fill: C.bldg2 });
   for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) { const on = hash(r * 7 + c * 13) > .55; fr.rect(350 + c * 48, 240 + r * 48, 26, 28, { fill: on ? C.winOn : C.winOff, a: on ? .75 : 1 }); }
   for (let r = 0; r < 7; r++) for (let c = 0; c < 4; c++) { const on = hash(r * 5 + c * 11 + 3) > .55; fr.rect(622 + c * 56, 190 + r * 48, 30, 28, { fill: on ? C.winOn : C.winOff, a: on ? .75 : 1 }); }
-  fr.rect(250, 100, 660, 450, { color: '#5A5070', w: 20 }); fr.line(580, 110, 580, 540, { color: '#5A5070', w: 12 });
+  if (o.curtain > 0) { const cw = 640 * o.curtain; fr.rect(260, 104, cw, 440, { fill: '#7E5A6E' }); for (let k = 0; k < cw; k += 36) fr.rect(260 + k, 104, 14, 440, { fill: '#6A4A5C', a: .6 }); fr.rect(260 + cw - 10, 104, 10, 440, { fill: '#5E4052' }); }
+  fr.rect(250, 100, 660, 450, { color: '#5A5070', w: 20 }); fr.line(580, 110, 580, 540, { color: '#5A5070', w: 12, a: 1 - (o.curtain || 0) });
   });
   /* 落地灯 */
   fr.line(1500, 260, 1500, 780, { color: '#2A2436', w: 10 }); fr.path('M 1420,260 L 1580,260 L 1550,170 L 1450,170 Z', { fill: '#F2D49A' }); fr.glow(1500, 230, 260, C.lamp, .5);
@@ -191,24 +216,26 @@ function highlight(fr, kind, w, h) {
   else if (kind === 2) { fr.rect(-w / 2, -h / 2, w, h, { fill: '#3A2230' }); fr.rect(-w * .4, h * .1, w * .8, h * .08, { fill: '#F2E6D4' }); fr.rect(-w * .04, -h * .12, w * .08, h * .22, { fill: '#F8F2E4' }); fr.ellipse(0, -h * .18, w * .03, h * .06, { fill: '#FFC24A' }); fr.glow(0, -h * .18, w * .5, '#FFB84A', .6); }
   else { fr.rect(-w / 2, -h / 2, w, h, { fill: '#1E1838' }); for (let i = 0; i < 4; i++) fr.path(`M ${-w * .3 + i * w * .2},${-h / 2} L ${-w * .05 + i * w * .03},${h * .1} L ${w * .05 + i * w * .03},${h * .1} Z`, { fill: ['#E84B75', '#64B8F6', '#F8D893', '#8477D0'][i], a: .35 }); for (let i = 0; i < 9; i++) person(fr, -w * .44 + i * w * .11, h * .52, w / 380, '#0E0B18', i % 2); }
 }
-function towers(fr, t, cam) {                              // cam: { s, fx, fy } 屏幕中心对着世界里的 (fx, fy)，缩放 s
+function towers(fr, t, cam, o = {}) {                              // cam: { s, fx, fy } 屏幕中心对着世界里的 (fx, fy)，缩放 s
   const x = fr.x; x.fillStyle = C.sky; x.fillRect(0, 0, W, H);
   fr.rect(0, 0, W, H, { fill: fr.grad(0, 0, 0, H, [[0, '#121530', 1], [1, '#2C2448', 1]]) });
   const r0 = rng(9); for (let i = 0; i < 90; i++) fr.circle(r0() * W, r0() * 520, 1 + r0() * 1.6, { fill: '#DDE4FF', a: .25 + .3 * r0() });
   fr.g({ clip: [0, 0, W, 836] }, () => fr.g({ at: [960, 540], s: cam.s }, () => fr.g({ at: [-cam.fx, -cam.fy] }, () => {
     /* 你的楼（左） */
     fr.rect(80, 260, 520, 900, { fill: C.bldg });
-    for (let r = 0; r < 7; r++) for (let c = 0; c < 4; c++) { const mine = r === 3 && c === 1; fr.rect(130 + c * 116, 310 + r * 110, 70, 76, { fill: mine ? C.winOn : C.winOff }); if (mine) { fr.glow(281, 668, 140, C.winOn, .5); fr.g({ clip: [246, 640, 70, 76] }, () => { fr.circle(281, 696, 14, { fill: '#2A2034' }); fr.rect(265, 708, 32, 20, { r: 6, fill: '#2A2034' }); }); } }
+    for (let r = 0; r < 7; r++) for (let c = 0; c < 4; c++) { const mine = r === 3 && c === 1; fr.rect(130 + c * 116, 310 + r * 110, 70, 76, { fill: mine ? C.winOn : C.winOff }); if (mine) { fr.glow(281, 668, 140 * (o.mineGlow || 1), C.winOn, .5 * (o.mineGlow || 1)); fr.g({ clip: [246, 640, 70, 76] }, () => { fr.circle(281, 696, 14, { fill: '#2A2034' }); fr.rect(265, 708, 32, 20, { r: 6, fill: '#2A2034' }); }); } }
     /* 对面的楼（右） */
     fr.rect(820, 120, 1040, 1040, { fill: C.bldg2 });
     for (let i = 0; i < COLS * ROWS; i++) {
       const c = i % COLS, r = Math.floor(i / COLS), wx = 880 + c * 124, wy = 180 + r * 150, ww = 92, wh = 112;
-      const on = ss(t, T.w2 + .3 + winOrder[i] * .07, T.w2 + .55 + winOrder[i] * .07);
+      const on = ss(t, T.w2 + .3 + winOrder[i] * .07, T.w2 + .55 + winOrder[i] * .07) * (o.off ? 1 - o.off(i) : 1);
       fr.rect(wx, wy, ww, wh, { fill: C.winOff });
       if (on > 0) fr.g({ a: on, clip: [wx, wy, ww, wh] }, () => fr.g({ at: [wx + ww / 2, wy + wh / 2] }, () => highlight(fr, (c + r * 3) % 4, ww, wh)));
       if (on > 0) fr.glow(wx + ww / 2, wy + wh / 2, 90, C.winOn, .12 * on);
       fr.rect(wx, wy, ww, wh, { color: '#17162A', w: 5 });
+      if (o.tag) { const k = o.tag(i); if (k > 0) { fr.rect(wx + ww - 40, wy - 10, 46, 34, { r: 6, fill: P.red, a: k }); fr.text('−', wx + ww - 17, wy + 7, { font: 'sansh', size: 30, color: '#FFFFFF', a: k }); } }
     }
+    if (o.extra) o.extra(fr);
     fr.rect(0, 1040, 2000, 200, { fill: '#141322' });
   })));
 }
@@ -292,7 +319,12 @@ function ruleCard(fr, t) {
   });
 }
 
-const SHOTS = [[0, T.h2, hook1], [T.h2, T.h3, hook2], [T.h3, T.title, hook3], [T.title, T.w1, title], [T.w1, T.tl, windows], [T.tl, T.card, timelines], [T.card, T.end, ruleCard]];
+window.FOMO = { towers, room, bowl, book, phone, person, highlight, icon, C };
+const CHs = n => (fr, t) => window.CH[n](fr, t);
+const SHOTS = [[0, T.h2, hook1], [T.h2, T.h3, hook2], [T.h3, T.title, hook3], [T.title, T.w1, title], [T.w1, T.tl, windows], [T.tl, T.card, timelines], [T.card, 56.4, ruleCard],
+  [56.4, 66.0, CHs('ruler')], [66.0, 79.2, CHs('coin')], [79.2, 83.4, CHs('scale')], [83.4, 88.0, CHs('tags')], [88.0, 97.6, CHs('street')],
+  [97.6, 102.8, CHs('survey')], [102.8, 111.3, CHs('car')], [111.3, 120.4, CHs('fomo')], [120.4, 124.8, CHs('chart')], [124.8, 128.6, CHs('card2')],
+  [128.6, 140.4, CHs('room2')], [140.4, 144.5, CHs('table2')], [144.5, 152.6, CHs('wide2')], [152.6, 157.4, CHs('back')], [157.4, 163.8, CHs('end')], [163.8, T.end, CHs('refs')]];
 
 VK.film({
   dur: T.end, theme: 'flat', meta: { title: '错过' },
@@ -306,8 +338,9 @@ VK.film({
       const b = x.createLinearGradient(0, 820, 0, H); b.addColorStop(0, 'rgba(16,12,20,0)'); b.addColorStop(.5, 'rgba(16,12,20,.75)'); b.addColorStop(1, 'rgba(16,12,20,.9)'); fr.rect(0, 820, W, 260, { fill: b });
     });
     /* 常驻：错过感仪表（钩子里） */
-    const ga = ss(t, .8, 1.4) * (1 - ss(t, T.title - .4, T.title));
-    if (ga > 0) K.gauge(fr, 45, 35, { value: missAt(t), max: 150, redFrom: 100, label: '错过感', zone: '超标', caption: '示意', a: ga });
+    const ga = Math.max(ss(t, .8, 1.4) * (1 - ss(t, T.title - .4, T.title)), ss(t, 83.8, 84.3) * (1 - ss(t, 87.6, 88.0)), ss(t, 129.0, 129.5) * (1 - ss(t, 152.2, 152.6)), ss(t, 153.0, 153.5) * (1 - ss(t, 157.0, 157.4)));
+    const gv = t < 60 ? missAt(t) : K.track([[83.6, 99], [86.0, 140], [88, 140], [129, 128], [137.0, 128], [139.4, 80], [143.0, 45], [150, 20], [157.4, 20]], t);
+    if (ga > 0) K.gauge(fr, 45, 35, { value: gv, max: 150, redFrom: 100, label: '错过感', zone: '超标', caption: '示意', a: ga });
     /* 声音 */
     fr.sfx(.3, 'chord', { root: 0, gain: .5 });
     fr.sfx(4.2, 'soft', { gain: .8 }); fr.sfx(8.3, 'soft', { gain: .8 });
@@ -316,6 +349,13 @@ VK.film({
     for (let i = 0; i < 6; i++) fr.sfx(+(T.tl + .6 + i * .32).toFixed(2), 'tick', { pitch: 2, gain: .35 });
     fr.sfx(48.1, 'rise', { dur: 1.2, gain: .5 }); fr.sfx(49.1, 'tock', { pitch: 1 });
     fr.sfx(T.card + .1, 'stamp', { gain: .7 });
+    fr.sfx(57.4, 'rise', { dur: 1.6, gain: .4 }); for (let i = 0; i < 8; i++) fr.sfx(+(62.6 + i * .25).toFixed(2), 'tick', { pitch: 7, gain: .3 });
+    for (let i = 0; i < 4; i++) fr.sfx([75.5, 76.5, 77.9, 78.4][i], 'tick', { pitch: 2 + i, gain: .45 }); fr.sfx(77.0, 'tock', { pitch: 2 });
+    fr.sfx(80.2, 'thud', { gain: .7 }); fr.sfx(84.0, 'rise', { dur: 1.4, gain: .5 });
+    fr.sfx(93.3, 'shimmer', { gain: .5 }); for (let i = 0; i < 5; i++) fr.sfx(+(98.8 + i * .5).toFixed(2), 'tick', { pitch: 4, gain: .3 });
+    fr.sfx(112.1, 'bloom', { gain: .9 }); fr.sfx(116.2, 'rise', { dur: 1.6, gain: .35 });
+    fr.sfx(124.9, 'stamp', { gain: .7 }); fr.sfx(137.0, 'soft', { gain: .7 }); fr.sfx(145.0, 'soft', { gain: .5 });
+    fr.sfx(153.2, 'chord', { root: 0, gain: .55 }); fr.sfx(157.6, 'stamp', { gain: .6 }); fr.sfx(163.9, 'bloom', { gain: .7 });
     K.subs(fr, t, SUBS, 'flat');
   },
 });
