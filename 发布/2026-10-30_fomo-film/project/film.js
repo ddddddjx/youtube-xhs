@@ -36,7 +36,7 @@ const SUBS = [
   { a: 97.9, b: 102.7, zh: '2013 年，心理学家第一次给这种感觉打分。' },
   { a: 103.0, b: 107.4, zh: '分数越高的人，越常边开车边看消息。' },
   { a: 107.7, b: 110.9, zh: '这种感觉，有个名字——' },
-  { a: 112.1, b: 115.4, zh: '{!FOMO}，害怕错过。' },
+  { a: 111.6, b: 116.0, zh: '{!FOMO}，Fear of Missing Out，害怕错过。' },
   { a: 116.2, b: 120.1, zh: '那多看几扇，是不是就安心了？' },
   { a: 120.7, b: 124.6, zh: '每多看一扇，就多一扇你不在的窗。' },
   { a: 124.9, b: 128.0, zh: '刷得越多，错过的越多。', tone: 'gold' },
@@ -344,7 +344,7 @@ VK.film({
     /* 声音 */
     fr.sfx(.3, 'chord', { root: 0, gain: .5 });
     fr.sfx(4.2, 'soft', { gain: .8 }); fr.sfx(8.3, 'soft', { gain: .8 });
-    fr.sfx(17.5, 'thud', { gain: .6 }); fr.sfx(T.titleIn, 'bloom', { gain: .9 });
+    fr.sfx(17.5, 'thud', { gain: .6 }); fr.sfx(T.titleIn, 'shimmer', { gain: .7 });
     for (let i = 0; i < 40; i += 3) fr.sfx(+(T.w2 + .4 + i * .07).toFixed(2), 'tick', { pitch: i % 5, gain: .3 });
     for (let i = 0; i < 6; i++) fr.sfx(+(T.tl + .6 + i * .32).toFixed(2), 'tick', { pitch: 2, gain: .35 });
     fr.sfx(48.1, 'rise', { dur: 1.2, gain: .5 }); fr.sfx(49.1, 'tock', { pitch: 1 });
@@ -353,7 +353,7 @@ VK.film({
     for (let i = 0; i < 4; i++) fr.sfx([75.5, 76.5, 77.9, 78.4][i], 'tick', { pitch: 2 + i, gain: .45 }); fr.sfx(77.0, 'tock', { pitch: 2 });
     fr.sfx(80.2, 'thud', { gain: .7 }); fr.sfx(84.0, 'rise', { dur: 1.4, gain: .5 });
     fr.sfx(93.3, 'shimmer', { gain: .5 }); for (let i = 0; i < 5; i++) fr.sfx(+(98.8 + i * .5).toFixed(2), 'tick', { pitch: 4, gain: .3 });
-    fr.sfx(112.1, 'bloom', { gain: .9 }); fr.sfx(116.2, 'rise', { dur: 1.6, gain: .35 });
+    fr.sfx(111.6, 'shimmer', { gain: .8 }); fr.sfx(116.2, 'rise', { dur: 1.6, gain: .35 });
     fr.sfx(124.9, 'stamp', { gain: .7 }); fr.sfx(137.0, 'soft', { gain: .7 }); fr.sfx(145.0, 'soft', { gain: .5 });
     fr.sfx(153.2, 'chord', { root: 0, gain: .55 }); fr.sfx(157.6, 'stamp', { gain: .6 }); fr.sfx(163.9, 'bloom', { gain: .7 });
     K.subs(fr, t, SUBS, 'flat');

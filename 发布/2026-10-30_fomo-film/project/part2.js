@@ -148,9 +148,9 @@ CH.car = function (fr, t) {
 /* ---------- 26–27：红色大字 FOMO，前面出现过的道具围在四周 ---------- */
 CH.fomo = function (fr, t) {
   BG(fr, '#14101A');
-  const a = ss(t, 112.1, 112.8), fade = 1 - .7 * ss(t, 116.4, 118);
+  const a = ss(t, 111.6, 112.3), fade = 1 - .7 * ss(t, 116.4, 118);
   fr.text('FOMO', 960, 470, { font: 'sansh', size: 260, track: 30, color: P.red, a: a * fade, glow: 30, glowColor: P.red, glowA: .35 });
-  fr.text('Fear of Missing Out · 害怕错过', 960, 640, { font: 'sansm', size: 40, track: 4, color: P.ink, a: ss(t, 112.9, 113.5) * fade });
+  fr.text('Fear of Missing Out · 害怕错过', 960, 640, { font: 'sansm', size: 40, track: 4, color: P.ink, a: ss(t, 112.6, 113.2) * fade });
   const pa = ss(t, 113.4, 114.2) * (1 - ss(t, 116.2, 117));
   if (pa > 0) {
     fr.g({ at: [330, 250], s: .9, a: pa }, () => { fr.rect(-60, -70, 120, 140, { fill: C().winOn }); fr.rect(-60, -70, 120, 140, { color: '#2A2838', w: 10 }); fr.rect(14, -86, 50, 36, { r: 6, fill: P.red }); fr.text('−', 39, -68, { font: 'sansh', size: 30, color: '#fff' }); });
