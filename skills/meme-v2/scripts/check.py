@@ -64,6 +64,37 @@ def cjk_len(s):
     return len(re.findall(r"[一-鿿]", s))
 
 
+
+def opening_family(s):
+    if re.search(r"(看完|看了|读完|读了|刷到|听完|听了|追完)", s[:20]):
+        return "汇报看了什么"
+    if s.startswith(("「", "“", "\"")):
+        return "原话"
+    if re.search(r"我|我们", s):
+        return "自己的场景或处境"
+    if re.search(r"朋友|同事|表妹|学弟|老板", s):
+        return "身边人的场景"
+    return "事实或主角场景"
+
+
+def previous_opening(draft_path):
+    """找发布目录里排在本篇之前、最近一篇 meme-v2 draft 的第一句。"""
+    if not draft_path:
+        return ""
+    here = os.path.abspath(draft_path)
+    pub = here.split(os.sep + "发布" + os.sep)[0] + os.sep + "发布"
+    cur = here.split(os.sep + "发布" + os.sep)[1].split(os.sep)[0]
+    dirs = sorted(d for d in os.listdir(pub) if d < cur and os.path.isdir(os.path.join(pub, d, "meme-v2版", "编辑用")))
+    for d in reversed(dirs):
+        f = os.path.join(pub, d, "meme-v2版", "编辑用", "draft.md")
+        if os.path.exists(f):
+            body = open(f, encoding="utf-8").read().split("\n---\n", 1)[-1]
+            for para in body.split("\n\n"):
+                para = para.strip()
+                if para and not para.startswith(("!", ">", "#")):
+                    return re.split(r"[。！？]", para, maxsplit=1)[0]
+    return ""
+
 def check_meta(meta, draft_dir):
     for k in ("stance", "stance_line", "reader", "keyword", "title"):
         if not meta.get(k):
@@ -213,17 +244,22 @@ def check_body(meta, paras, images, allow_gh):
     anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?", first3) if w not in GENERIC]) + len(re.findall(r"\d+", first3))
     if anchors > 4:
         add("⚠", f"开头三段 {anchors} 个专名 / 数字（最多 4），第一句要是判断或处境")
-    # 10-29：第一句是「我」在当下做的一件事（账号四篇爆款的共同点；六篇 v2 稿第三人称开头合计观看不到 1600）
+    # 10-29 / 10-30：前三行要有一个人站在一个具体时刻里；起法不固定，跟上一篇不同
     if paras:
         p1 = paras[0]
-        s1 = re.split(r"[。！？]", p1, 1)[0]
-        if not re.search(r"我|我们|咱", s1) and not re.search(r"今天|昨天|昨晚|这周|上周|周[一二三四五六日末]|早上|晚上|凌晨|刚才|刚刚|最近|前天|这几天|趁", s1):
-            add("⚠", f"第一句没有「我」也没有时间词，镜头在素材上不在写的人身上：「{s1[:40]}」。四篇爆款：「趁放假看了……」「这周我花了 72 分钟……」「今天刷到……看完我有点坐不住」")
+        s1 = re.split(r"[。！？]", p1, maxsplit=1)[0]
+        if re.search(r"^(这两天|这几天|最近|昨天|昨晚|今天|前几天|周末|上周|这周|趁[^，]{0,6})?[，,]?\s*(我)?(花了[^，]{0,8})?(看完|看了|读完|读了|刷到|听完|听了|追完)", s1):
+            add("⚠", f"第一句在汇报自己看了 / 读了什么：「{s1[:40]}」。看过素材读者默认知道，换一种起法（writing_guide §3 七种）")
+        if re.match(r"^(今年|去年|\d{4}\s*年|\d{1,2}\s*月)", s1) and "我" not in s1:
+            add("⚠", f"第三人称背景交代开头：「{s1[:40]}」。前三行要有一个人站在一个具体时刻里")
         p1_anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?", p1) if w not in GENERIC]) + len(re.findall(r"\d+", p1))
         if cjk_len(p1) > 80 or p1_anchors > 2:
             add("⚠", f"第一段 {cjk_len(p1)} 字、{p1_anchors} 个锚点（建议 60 字以内、锚点最多 2）。履历、机构分量、一串数字从第二段起")
         if re.match(r"^[^。]{0,24}(发布了|发了一篇|递交了|公布了|上线了|宣布)", s1) and not re.search(r"我", s1):
-            add("⚠", f"新闻导语体开头：「{s1[:40]}」。先写我在当下做的事，发布信息放第二句")
+            add("⚠", f"新闻导语体开头：「{s1[:40]}」。发布信息放第二句以后")
+        prev = previous_opening(meta.get("_draft_path", ""))
+        if prev and opening_family(prev) == opening_family(s1):
+            add("提示", f"起法跟上一篇同一种（{opening_family(s1)}）：上一篇「{prev[:24]}」，这一篇「{s1[:24]}」。换一种")
 
     # 句子说没说完
     causal = len(re.findall(CAUSAL, text))
@@ -306,6 +342,7 @@ def main(argv):
         sys.exit(2)
     md = open(draft, encoding="utf-8").read()
     meta, paras, images = parse(md)
+    meta["_draft_path"] = draft
     draft_dir = os.path.dirname(os.path.abspath(draft))
     check_meta(meta, draft_dir)
     check_title(meta, out_dir, allow_cn)
