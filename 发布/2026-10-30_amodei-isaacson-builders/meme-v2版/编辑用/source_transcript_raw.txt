@@ -1,0 +1,2203 @@
+[00:00:00.320] I personally was super freaked out by
+[00:00:03.760] I personally was super freaked out by it. I looked at it and I said, "My god,
+[00:00:06.150] it. I looked at it and I said, "My god,
+[00:00:06.160] it. I looked at it and I said, "My god, you just scale this thing up another
+[00:00:07.749] you just scale this thing up another
+[00:00:07.759] you just scale this thing up another factor of a million and it'll be better
+[00:00:09.509] factor of a million and it'll be better
+[00:00:09.519] factor of a million and it'll be better than humans at everything." This is the
+[00:00:11.830] than humans at everything." This is the
+[00:00:11.840] than humans at everything." This is the defining, you know, economic and
+[00:00:14.390] defining, you know, economic and
+[00:00:14.400] defining, you know, economic and scientific moment of of the modern age.
+[00:00:16.710] scientific moment of of the modern age.
+[00:00:16.720] scientific moment of of the modern age. We just don't know it yet. This is going
+[00:00:18.310] We just don't know it yet. This is going
+[00:00:18.320] We just don't know it yet. This is going to determine the the fate of nations and
+[00:00:20.870] to determine the the fate of nations and
+[00:00:20.880] to determine the the fate of nations and economies and the future of humanity.
+[00:00:23.189] economies and the future of humanity.
+[00:00:23.199] economies and the future of humanity. Like, you know, you peer into the
+[00:00:24.870] Like, you know, you peer into the
+[00:00:24.880] Like, you know, you peer into the crystal ball, you you see the whole
+[00:00:26.310] crystal ball, you you see the whole
+[00:00:26.320] crystal ball, you you see the whole future unfurled.
+[00:00:32.719] I'm Walter Isacson. Welcome to the
+[00:00:34.880] I'm Walter Isacson. Welcome to the builders, my new series of interviews
+[00:00:37.590] builders, my new series of interviews
+[00:00:37.600] builders, my new series of interviews featuring the most consequential minds
+[00:00:39.910] featuring the most consequential minds
+[00:00:39.920] featuring the most consequential minds shaping our future. Today I'm speaking
+[00:00:42.150] shaping our future. Today I'm speaking
+[00:00:42.160] shaping our future. Today I'm speaking with Dario and Daniela Amade. I used to
+[00:00:45.430] with Dario and Daniela Amade. I used to
+[00:00:45.440] with Dario and Daniela Amade. I used to think that some of the concerns about AI
+[00:00:48.229] think that some of the concerns about AI
+[00:00:48.239] think that some of the concerns about AI were overblown. But then when certain
+[00:00:51.510] were overblown. But then when certain
+[00:00:51.520] were overblown. But then when certain new models escape the sandbox, I realize
+[00:00:54.630] new models escape the sandbox, I realize
+[00:00:54.640] new models escape the sandbox, I realize that the people building these systems
+[00:00:57.670] that the people building these systems
+[00:00:57.680] that the people building these systems have got to make sure that they remain
+[00:01:00.709] have got to make sure that they remain
+[00:01:00.719] have got to make sure that they remain safe and that they remain aligned with
+[00:01:03.270] safe and that they remain aligned with
+[00:01:03.280] safe and that they remain aligned with human values. What I want to know about
+[00:01:05.670] human values. What I want to know about
+[00:01:05.680] human values. What I want to know about anthropic is are they sincere and when
+[00:01:08.710] anthropic is are they sincere and when
+[00:01:08.720] anthropic is are they sincere and when they face competition like when open AI
+[00:01:11.910] they face competition like when open AI
+[00:01:11.920] they face competition like when open AI says well anthropic won't do that but we
+[00:01:14.230] says well anthropic won't do that but we
+[00:01:14.240] says well anthropic won't do that but we will they back down or will they stand
+[00:01:17.030] will they back down or will they stand
+[00:01:17.040] will they back down or will they stand true to their principles? Hey, welcome
+[00:01:19.510] true to their principles? Hey, welcome
+[00:01:19.520] true to their principles? Hey, welcome to the builders you all.
+[00:01:20.870] to the builders you all.
+[00:01:20.880] to the builders you all. &gt;&gt; Thank you so much for having us.
+[00:01:22.630] &gt;&gt; Thank you so much for having us.
+[00:01:22.640] &gt;&gt; Thank you so much for having us. &gt;&gt; You know, Steve Jobs whenever he
+[00:01:24.230] &gt;&gt; You know, Steve Jobs whenever he
+[00:01:24.240] &gt;&gt; You know, Steve Jobs whenever he launched a product always had that
+[00:01:25.830] launched a product always had that
+[00:01:25.840] launched a product always had that street sign of the arts and the sciences
+[00:01:28.870] street sign of the arts and the sciences
+[00:01:28.880] street sign of the arts and the sciences or you know the humanities and
+[00:01:30.710] or you know the humanities and
+[00:01:30.720] or you know the humanities and technology standing at that intersection
+[00:01:33.030] technology standing at that intersection
+[00:01:33.040] technology standing at that intersection and when you were growing up Daniela you
+[00:01:35.030] and when you were growing up Daniela you
+[00:01:35.040] and when you were growing up Daniela you know you were a floutist you loved the
+[00:01:37.510] know you were a floutist you loved the
+[00:01:37.520] know you were a floutist you loved the arts and Dario you were always a
+[00:01:39.590] arts and Dario you were always a
+[00:01:39.600] arts and Dario you were always a scientist. Did that help you gel and do
+[00:01:41.749] scientist. Did that help you gel and do
+[00:01:41.759] scientist. Did that help you gel and do you think that combination is important?
+[00:01:45.190] you think that combination is important?
+[00:01:45.200] you think that combination is important? Yeah, I I think that combination is a
+[00:01:48.310] Yeah, I I think that combination is a
+[00:01:48.320] Yeah, I I think that combination is a lot of what's behind the company, right?
+[00:01:51.109] lot of what's behind the company, right?
+[00:01:51.119] lot of what's behind the company, right? One one theory I have is that running a
+[00:01:54.149] One one theory I have is that running a
+[00:01:54.159] One one theory I have is that running a company is too big a task for any one
+[00:01:56.950] company is too big a task for any one
+[00:01:56.960] company is too big a task for any one person. The range of skills that it
+[00:01:58.630] person. The range of skills that it
+[00:01:58.640] person. The range of skills that it involves, it is not possible for any
+[00:02:00.870] involves, it is not possible for any
+[00:02:00.880] involves, it is not possible for any single person to have. So you kind of
+[00:02:02.789] single person to have. So you kind of
+[00:02:02.799] single person to have. So you kind of have to assemble a full complement of
+[00:02:05.190] have to assemble a full complement of
+[00:02:05.200] have to assemble a full complement of skills across the top like 10 or 15
+[00:02:07.990] skills across the top like 10 or 15
+[00:02:08.000] skills across the top like 10 or 15 people in the company or something like
+[00:02:09.430] people in the company or something like
+[00:02:09.440] people in the company or something like that. And every very successful company
+[00:02:12.309] that. And every very successful company
+[00:02:12.319] that. And every very successful company splits it up in different ways and
+[00:02:13.910] splits it up in different ways and
+[00:02:13.920] splits it up in different ways and solves the problem in different ways.
+[00:02:15.830] solves the problem in different ways.
+[00:02:15.840] solves the problem in different ways. And I think with the the sciences and
+[00:02:18.070] And I think with the the sciences and
+[00:02:18.080] And I think with the the sciences and the humanities thing, you know,
+[00:02:19.750] the humanities thing, you know,
+[00:02:19.760] the humanities thing, you know, Daniellea and I kind of kind of embody
+[00:02:21.589] Daniellea and I kind of kind of embody
+[00:02:21.599] Daniellea and I kind of kind of embody that and split that.
+[00:02:22.869] that and split that.
+[00:02:22.879] that and split that. &gt;&gt; Yeah. And I would say, you know, it's
+[00:02:24.550] &gt;&gt; Yeah. And I would say, you know, it's
+[00:02:24.560] &gt;&gt; Yeah. And I would say, you know, it's interesting like there was an offsite we
+[00:02:26.229] interesting like there was an offsite we
+[00:02:26.239] interesting like there was an offsite we did in maybe 2023
+[00:02:29.030] did in maybe 2023
+[00:02:29.040] did in maybe 2023 where like we sort of were talking about
+[00:02:31.350] where like we sort of were talking about
+[00:02:31.360] where like we sort of were talking about just like what does it feel like to work
+[00:02:32.550] just like what does it feel like to work
+[00:02:32.560] just like what does it feel like to work at Anthropic? Like how do we kind of
+[00:02:33.910] at Anthropic? Like how do we kind of
+[00:02:33.920] at Anthropic? Like how do we kind of embody what our culture is? And we
+[00:02:36.309] embody what our culture is? And we
+[00:02:36.319] embody what our culture is? And we actually said, you know, it's an unusual
+[00:02:38.790] actually said, you know, it's an unusual
+[00:02:38.800] actually said, you know, it's an unusual blend of science and humanism. And it
+[00:02:41.030] blend of science and humanism. And it
+[00:02:41.040] blend of science and humanism. And it was only later that I'm like, that also
+[00:02:42.710] was only later that I'm like, that also
+[00:02:42.720] was only later that I'm like, that also is how you would describe me and Daario.
+[00:02:44.470] is how you would describe me and Daario.
+[00:02:44.480] is how you would describe me and Daario. &gt;&gt; Well, when you were kids, did you know
+[00:02:45.990] &gt;&gt; Well, when you were kids, did you know
+[00:02:46.000] &gt;&gt; Well, when you were kids, did you know you wanted to work together?
+[00:02:48.550] you wanted to work together?
+[00:02:48.560] you wanted to work together? &gt;&gt; Yes.
+[00:02:48.949] &gt;&gt; Yes.
+[00:02:48.959] &gt;&gt; Yes. &gt;&gt; Yes.
+[00:02:50.640] &gt;&gt; Yes. &gt;&gt; I don't think either of us imagined that
+[00:02:52.949] &gt;&gt; I don't think either of us imagined that
+[00:02:52.959] &gt;&gt; I don't think either of us imagined that we would start a company. That's that's
+[00:02:54.949] we would start a company. That's that's
+[00:02:54.959] we would start a company. That's that's not really how either of us thought of
+[00:02:58.229] not really how either of us thought of
+[00:02:58.239] not really how either of us thought of our lives or about what we wanted to do.
+[00:03:00.790] our lives or about what we wanted to do.
+[00:03:00.800] our lives or about what we wanted to do. I had always wanted to be a uh a
+[00:03:03.589] I had always wanted to be a uh a
+[00:03:03.599] I had always wanted to be a uh a scientist. Dianiela can speak to her to
+[00:03:05.750] scientist. Dianiela can speak to her to
+[00:03:05.760] scientist. Dianiela can speak to her to her aspirations. Um but but but you know
+[00:03:08.550] her aspirations. Um but but but you know
+[00:03:08.560] her aspirations. Um but but but you know I I I I I actually found companies in
+[00:03:11.350] I I I I I actually found companies in
+[00:03:11.360] I I I I I actually found companies in business to be of very little interest
+[00:03:12.790] business to be of very little interest
+[00:03:12.800] business to be of very little interest to me.
+[00:03:13.430] to me.
+[00:03:13.440] to me. &gt;&gt; Yeah. I would say Dario and I were very
+[00:03:16.790] &gt;&gt; Yeah. I would say Dario and I were very
+[00:03:16.800] &gt;&gt; Yeah. I would say Dario and I were very unusual in that um like again from a
+[00:03:20.149] unusual in that um like again from a
+[00:03:20.159] unusual in that um like again from a really early age. We just like genuinely
+[00:03:22.149] really early age. We just like genuinely
+[00:03:22.159] really early age. We just like genuinely really liked each other. We were always
+[00:03:23.750] really liked each other. We were always
+[00:03:23.760] really liked each other. We were always just like best friends like since we
+[00:03:25.110] just like best friends like since we
+[00:03:25.120] just like best friends like since we were really little. Um and I agree with
+[00:03:27.750] were really little. Um and I agree with
+[00:03:27.760] were really little. Um and I agree with Dario. I don't think like starting a
+[00:03:29.270] Dario. I don't think like starting a
+[00:03:29.280] Dario. I don't think like starting a company was like ever on our bingo card.
+[00:03:30.869] company was like ever on our bingo card.
+[00:03:30.879] company was like ever on our bingo card. like we were not the type
+[00:03:31.830] like we were not the type
+[00:03:31.840] like we were not the type &gt;&gt; neither either of us
+[00:03:32.949] &gt;&gt; neither either of us
+[00:03:32.959] &gt;&gt; neither either of us &gt;&gt; neither of us were particularly like
+[00:03:34.550] &gt;&gt; neither of us were particularly like
+[00:03:34.560] &gt;&gt; neither of us were particularly like company oriented. I was always really
+[00:03:37.110] company oriented. I was always really
+[00:03:37.120] company oriented. I was always really interested in like I think I would call
+[00:03:38.390] interested in like I think I would call
+[00:03:38.400] interested in like I think I would call myself like a classic doooder. So I like
+[00:03:40.949] myself like a classic doooder. So I like
+[00:03:40.959] myself like a classic doooder. So I like worked in international development. I
+[00:03:42.869] worked in international development. I
+[00:03:42.879] worked in international development. I felt really strongly about um about just
+[00:03:46.070] felt really strongly about um about just
+[00:03:46.080] felt really strongly about um about just like helping people everywhere in the
+[00:03:48.070] like helping people everywhere in the
+[00:03:48.080] like helping people everywhere in the world have like equal access and and
+[00:03:50.550] world have like equal access and and
+[00:03:50.560] world have like equal access and and opportunity. Um and I became a
+[00:03:53.670] opportunity. Um and I became a
+[00:03:53.680] opportunity. Um and I became a vegetarian when I was like quite young.
+[00:03:55.110] vegetarian when I was like quite young.
+[00:03:55.120] vegetarian when I was like quite young. It's like the only thing that I did
+[00:03:56.390] It's like the only thing that I did
+[00:03:56.400] It's like the only thing that I did first. Daario did everything first
+[00:03:58.390] first. Daario did everything first
+[00:03:58.400] first. Daario did everything first because he's older, but I became a
+[00:03:59.750] because he's older, but I became a
+[00:03:59.760] because he's older, but I became a vegetarian and then he became a
+[00:04:01.030] vegetarian and then he became a
+[00:04:01.040] vegetarian and then he became a vegetarian.
+[00:04:01.830] vegetarian.
+[00:04:01.840] vegetarian. &gt;&gt; Yeah. I think what I was like three
+[00:04:03.910] &gt;&gt; Yeah. I think what I was like three
+[00:04:03.920] &gt;&gt; Yeah. I think what I was like three years later or something.
+[00:04:04.949] years later or something.
+[00:04:04.959] years later or something. &gt;&gt; Oh, not even. I think it was maybe just
+[00:04:06.550] &gt;&gt; Oh, not even. I think it was maybe just
+[00:04:06.560] &gt;&gt; Oh, not even. I think it was maybe just Yeah. Yeah. You got on board real quick.
+[00:04:07.910] Yeah. Yeah. You got on board real quick.
+[00:04:07.920] Yeah. Yeah. You got on board real quick. &gt;&gt; It seemed it seemed convincing to me.
+[00:04:09.670] &gt;&gt; It seemed it seemed convincing to me.
+[00:04:09.680] &gt;&gt; It seemed it seemed convincing to me. &gt;&gt; Yeah. Yeah.
+[00:04:10.710] &gt;&gt; Yeah. Yeah.
+[00:04:10.720] &gt;&gt; Yeah. Yeah. &gt;&gt; You know, people sometimes ask me about
+[00:04:12.949] &gt;&gt; You know, people sometimes ask me about
+[00:04:12.959] &gt;&gt; You know, people sometimes ask me about my books, how do you become a great
+[00:04:14.710] my books, how do you become a great
+[00:04:14.720] my books, how do you become a great leader, very creative? And you said
+[00:04:16.390] leader, very creative? And you said
+[00:04:16.400] leader, very creative? And you said something really interesting, Dario,
+[00:04:18.150] something really interesting, Dario,
+[00:04:18.160] something really interesting, Dario, which is is not just being a great
+[00:04:20.310] which is is not just being a great
+[00:04:20.320] which is is not just being a great leader, it's creating a great team. tell
+[00:04:22.950] leader, it's creating a great team. tell
+[00:04:22.960] leader, it's creating a great team. tell me how you and Daniela divide up the
+[00:04:25.270] me how you and Daniela divide up the
+[00:04:25.280] me how you and Daniela divide up the roles and then how you fill it in with
+[00:04:26.950] roles and then how you fill it in with
+[00:04:26.960] roles and then how you fill it in with others.
+[00:04:27.590] others.
+[00:04:27.600] others. &gt;&gt; Yeah. So, you know, I would I would say
+[00:04:30.469] &gt;&gt; Yeah. So, you know, I would I would say
+[00:04:30.479] &gt;&gt; Yeah. So, you know, I would I would say the the division that we've found that
+[00:04:34.230] the the division that we've found that
+[00:04:34.240] the the division that we've found that has been most useful between us and and
+[00:04:37.670] has been most useful between us and and
+[00:04:37.680] has been most useful between us and and then I'll talk about the the kind of the
+[00:04:39.510] then I'll talk about the the kind of the
+[00:04:39.520] then I'll talk about the the kind of the rest of the team is I think I can
+[00:04:42.469] rest of the team is I think I can
+[00:04:42.479] rest of the team is I think I can function best when I think about the big
+[00:04:44.950] function best when I think about the big
+[00:04:44.960] function best when I think about the big picture strategy and and and kind of the
+[00:04:47.749] picture strategy and and and kind of the
+[00:04:47.759] picture strategy and and and kind of the research side of things. like I'm best
+[00:04:49.350] research side of things. like I'm best
+[00:04:49.360] research side of things. like I'm best at kind of laying out a vision, seeing
+[00:04:51.830] at kind of laying out a vision, seeing
+[00:04:51.840] at kind of laying out a vision, seeing what comes next. I have found that when
+[00:04:54.230] what comes next. I have found that when
+[00:04:54.240] what comes next. I have found that when I'm freed up to focus entirely on that,
+[00:04:57.030] I'm freed up to focus entirely on that,
+[00:04:57.040] I'm freed up to focus entirely on that, um it it, you know, that is the thing
+[00:04:59.749] um it it, you know, that is the thing
+[00:04:59.759] um it it, you know, that is the thing that has the most value for the company
+[00:05:01.909] that has the most value for the company
+[00:05:01.919] that has the most value for the company and then running the company daytoday,
+[00:05:05.030] and then running the company daytoday,
+[00:05:05.040] and then running the company daytoday, recruiting the people, just making sure
+[00:05:07.350] recruiting the people, just making sure
+[00:05:07.360] recruiting the people, just making sure that the machine doesn't, you know, the
+[00:05:10.230] that the machine doesn't, you know, the
+[00:05:10.240] that the machine doesn't, you know, the wheels don't fall off the machine while
+[00:05:12.150] wheels don't fall off the machine while
+[00:05:12.160] wheels don't fall off the machine while I'm trying to figure out what comes
+[00:05:13.749] I'm trying to figure out what comes
+[00:05:13.759] I'm trying to figure out what comes next. You know, Daniela is Dianiela does
+[00:05:16.790] next. You know, Daniela is Dianiela does
+[00:05:16.800] next. You know, Daniela is Dianiela does this and and and I think this this
+[00:05:19.510] this and and and I think this this
+[00:05:19.520] this and and and I think this this division of labor allows both things to
+[00:05:22.150] division of labor allows both things to
+[00:05:22.160] division of labor allows both things to be done to a much higher standard than
+[00:05:25.350] be done to a much higher standard than
+[00:05:25.360] be done to a much higher standard than either of them would be done if if we
+[00:05:27.430] either of them would be done if if we
+[00:05:27.440] either of them would be done if if we were distracted
+[00:05:29.270] were distracted
+[00:05:29.280] were distracted um by by having to do the other thing.
+[00:05:31.189] um by by having to do the other thing.
+[00:05:31.199] um by by having to do the other thing. &gt;&gt; Our chief people officer who knows both
+[00:05:32.710] &gt;&gt; Our chief people officer who knows both
+[00:05:32.720] &gt;&gt; Our chief people officer who knows both of us really well is in you know a lot
+[00:05:34.070] of us really well is in you know a lot
+[00:05:34.080] of us really well is in you know a lot of conversations with us. Um the way she
+[00:05:36.950] of conversations with us. Um the way she
+[00:05:36.960] of conversations with us. Um the way she put it is that Daario makes us ambitious
+[00:05:38.629] put it is that Daario makes us ambitious
+[00:05:38.639] put it is that Daario makes us ambitious and I make us successful. And I thought
+[00:05:40.870] and I make us successful. And I thought
+[00:05:40.880] and I make us successful. And I thought that was a really good encapsulation
+[00:05:43.270] that was a really good encapsulation
+[00:05:43.280] that was a really good encapsulation which is I think Anthropic could be like
+[00:05:45.749] which is I think Anthropic could be like
+[00:05:45.759] which is I think Anthropic could be like a good successful business but but not
+[00:05:48.950] a good successful business but but not
+[00:05:48.960] a good successful business but but not change the world if we didn't have
+[00:05:50.310] change the world if we didn't have
+[00:05:50.320] change the world if we didn't have Daario. And I think with Daario we would
+[00:05:52.310] Daario. And I think with Daario we would
+[00:05:52.320] Daario. And I think with Daario we would have the perfect vision but our ability
+[00:05:53.590] have the perfect vision but our ability
+[00:05:53.600] have the perfect vision but our ability to execute would be it would just be
+[00:05:55.670] to execute would be it would just be
+[00:05:55.680] to execute would be it would just be more complicated. And so I think there's
+[00:05:57.670] more complicated. And so I think there's
+[00:05:57.680] more complicated. And so I think there's something special about a the fact that
+[00:06:00.070] something special about a the fact that
+[00:06:00.080] something special about a the fact that we know each other really well. B, it's
+[00:06:02.230] we know each other really well. B, it's
+[00:06:02.240] we know each other really well. B, it's extremely convenient that our skills are
+[00:06:04.150] extremely convenient that our skills are
+[00:06:04.160] extremely convenient that our skills are like 100% complimentary or maybe maybe
+[00:06:06.950] like 100% complimentary or maybe maybe
+[00:06:06.960] like 100% complimentary or maybe maybe not 100% but I would say close to 100%
+[00:06:08.870] not 100% but I would say close to 100%
+[00:06:08.880] not 100% but I would say close to 100% complimentary in this fashion. This is
+[00:06:10.629] complimentary in this fashion. This is
+[00:06:10.639] complimentary in this fashion. This is not even to mention the fact that we
+[00:06:11.990] not even to mention the fact that we
+[00:06:12.000] not even to mention the fact that we have five co-founders along with the two
+[00:06:14.070] have five co-founders along with the two
+[00:06:14.080] have five co-founders along with the two of us who also own like incredibly
+[00:06:17.270] of us who also own like incredibly
+[00:06:17.280] of us who also own like incredibly important parts of the business, the
+[00:06:19.270] important parts of the business, the
+[00:06:19.280] important parts of the business, the culture, like the organization. And
+[00:06:21.350] culture, like the organization. And
+[00:06:21.360] culture, like the organization. And again, I think I like it's hard for me
+[00:06:23.510] again, I think I like it's hard for me
+[00:06:23.520] again, I think I like it's hard for me to imagine how you would do this with
+[00:06:24.950] to imagine how you would do this with
+[00:06:24.960] to imagine how you would do this with like two like just the two of us or like
+[00:06:28.150] like two like just the two of us or like
+[00:06:28.160] like two like just the two of us or like like one person. I just it's
+[00:06:30.309] like one person. I just it's
+[00:06:30.319] like one person. I just it's &gt;&gt; I I think it's an incredible strength.
+[00:06:32.710] &gt;&gt; I I think it's an incredible strength.
+[00:06:32.720] &gt;&gt; I I think it's an incredible strength. Yeah. Because the fact that we have
+[00:06:34.469] Yeah. Because the fact that we have
+[00:06:34.479] Yeah. Because the fact that we have seven co-founders, they all have equal
+[00:06:36.870] seven co-founders, they all have equal
+[00:06:36.880] seven co-founders, they all have equal stakes in the company. So that they and
+[00:06:39.029] stakes in the company. So that they and
+[00:06:39.039] stakes in the company. So that they and they all carry the vision. We have
+[00:06:41.270] they all carry the vision. We have
+[00:06:41.280] they all carry the vision. We have inherent trust in all of them. Many
+[00:06:43.510] inherent trust in all of them. Many
+[00:06:43.520] inherent trust in all of them. Many people told us when we started
+[00:06:44.710] people told us when we started
+[00:06:44.720] people told us when we started Anthropic, seven co-founders, haha,
+[00:06:47.270] Anthropic, seven co-founders, haha,
+[00:06:47.280] Anthropic, seven co-founders, haha, that's going to be a disaster. There's
+[00:06:49.029] that's going to be a disaster. There's
+[00:06:49.039] that's going to be a disaster. There's this belief that, you know, you need one
+[00:06:50.950] this belief that, you know, you need one
+[00:06:50.960] this belief that, you know, you need one kind of singular source of leadership.
+[00:06:53.189] kind of singular source of leadership.
+[00:06:53.199] kind of singular source of leadership. In some ways you do, but we've actually
+[00:06:56.309] In some ways you do, but we've actually
+[00:06:56.319] In some ways you do, but we've actually managed to uh uh to make it work. All
+[00:06:59.670] managed to uh uh to make it work. All
+[00:06:59.680] managed to uh uh to make it work. All seven of the co-founders are still at
+[00:07:02.070] seven of the co-founders are still at
+[00:07:02.080] seven of the co-founders are still at the company, which again is not not
+[00:07:03.830] the company, which again is not not
+[00:07:03.840] the company, which again is not not something that's usually true when you
+[00:07:05.189] something that's usually true when you
+[00:07:05.199] something that's usually true when you have that many that many co-founders. So
+[00:07:08.070] have that many that many co-founders. So
+[00:07:08.080] have that many that many co-founders. So go back to growing up and you have these
+[00:07:10.710] go back to growing up and you have these
+[00:07:10.720] go back to growing up and you have these extraordinary parents and they help
+[00:07:13.350] extraordinary parents and they help
+[00:07:13.360] extraordinary parents and they help teach you right from wrong. How do they
+[00:07:16.309] teach you right from wrong. How do they
+[00:07:16.319] teach you right from wrong. How do they do that? I don't know that it's
+[00:07:18.550] do that? I don't know that it's
+[00:07:18.560] do that? I don't know that it's something that was ever, you know,
+[00:07:20.230] something that was ever, you know,
+[00:07:20.240] something that was ever, you know, sometimes I hear people say like, you
+[00:07:21.510] sometimes I hear people say like, you
+[00:07:21.520] sometimes I hear people say like, you know, our we, you know, we covered, you
+[00:07:24.309] know, our we, you know, we covered, you
+[00:07:24.319] know, our we, you know, we covered, you know, different forms of philosophical
+[00:07:26.230] know, different forms of philosophical
+[00:07:26.240] know, different forms of philosophical ethics at the dinner table. That was not
+[00:07:28.230] ethics at the dinner table. That was not
+[00:07:28.240] ethics at the dinner table. That was not that was not how it was done. Um, my mom
+[00:07:30.469] that was not how it was done. Um, my mom
+[00:07:30.479] that was not how it was done. Um, my mom does have a philosophy degree, but she
+[00:07:31.909] does have a philosophy degree, but she
+[00:07:31.919] does have a philosophy degree, but she didn't subject us to talking about K or
+[00:07:33.510] didn't subject us to talking about K or
+[00:07:33.520] didn't subject us to talking about K or anything like that. Um I think it was
+[00:07:36.390] anything like that. Um I think it was
+[00:07:36.400] anything like that. Um I think it was much more like inherent in terms of
+[00:07:38.469] much more like inherent in terms of
+[00:07:38.479] much more like inherent in terms of values like just the belief that people
+[00:07:42.070] values like just the belief that people
+[00:07:42.080] values like just the belief that people everywhere in the world are like
+[00:07:43.990] everywhere in the world are like
+[00:07:44.000] everywhere in the world are like deserving of like like opportunity and
+[00:07:46.629] deserving of like like opportunity and
+[00:07:46.639] deserving of like like opportunity and dignity and rights and respect. I think
+[00:07:48.790] dignity and rights and respect. I think
+[00:07:48.800] dignity and rights and respect. I think there was something special about the
+[00:07:49.990] there was something special about the
+[00:07:50.000] there was something special about the feeling that like we could be whoever we
+[00:07:52.309] feeling that like we could be whoever we
+[00:07:52.319] feeling that like we could be whoever we wanted to be as long as there was this
+[00:07:54.070] wanted to be as long as there was this
+[00:07:54.080] wanted to be as long as there was this kind of like faith and belief that like
+[00:07:56.309] kind of like faith and belief that like
+[00:07:56.319] kind of like faith and belief that like hey that's part of what it means to be
+[00:07:59.270] hey that's part of what it means to be
+[00:07:59.280] hey that's part of what it means to be like a successful human is to be a good
+[00:08:01.110] like a successful human is to be a good
+[00:08:01.120] like a successful human is to be a good person and to be kind to other people.
+[00:08:03.029] person and to be kind to other people.
+[00:08:03.039] person and to be kind to other people. &gt;&gt; Yeah. It felt it felt implicit. It felt
+[00:08:05.430] &gt;&gt; Yeah. It felt it felt implicit. It felt
+[00:08:05.440] &gt;&gt; Yeah. It felt it felt implicit. It felt it felt very implicit. Um you know there
+[00:08:08.070] it felt very implicit. Um you know there
+[00:08:08.080] it felt very implicit. Um you know there there wasn't any kind of you know
+[00:08:09.830] there wasn't any kind of you know
+[00:08:09.840] there wasn't any kind of you know explicit like um you know this is how
+[00:08:12.150] explicit like um you know this is how
+[00:08:12.160] explicit like um you know this is how you should this is what you should do or
+[00:08:13.510] you should this is what you should do or
+[00:08:13.520] you should this is what you should do or this is how you live this is how you
+[00:08:14.869] this is how you live this is how you
+[00:08:14.879] this is how you live this is how you live in the world.
+[00:08:16.629] live in the world.
+[00:08:16.639] live in the world. &gt;&gt; Well one reason I asked as you might
+[00:08:18.469] &gt;&gt; Well one reason I asked as you might
+[00:08:18.479] &gt;&gt; Well one reason I asked as you might suspect is now you've got a really
+[00:08:20.710] suspect is now you've got a really
+[00:08:20.720] suspect is now you've got a really important kid named Claude. And to what
+[00:08:23.350] important kid named Claude. And to what
+[00:08:23.360] important kid named Claude. And to what extent does that way uh that you grew up
+[00:08:26.469] extent does that way uh that you grew up
+[00:08:26.479] extent does that way uh that you grew up help you inform you about how you teach
+[00:08:28.790] help you inform you about how you teach
+[00:08:28.800] help you inform you about how you teach Claude to know right from wrong?
+[00:08:31.350] Claude to know right from wrong?
+[00:08:31.360] Claude to know right from wrong? &gt;&gt; Yeah. You know, we put out a
+[00:08:33.430] &gt;&gt; Yeah. You know, we put out a
+[00:08:33.440] &gt;&gt; Yeah. You know, we put out a constitution for Claude, I think it was
+[00:08:35.430] constitution for Claude, I think it was
+[00:08:35.440] constitution for Claude, I think it was a few months ago, and I think there are
+[00:08:37.430] a few months ago, and I think there are
+[00:08:37.440] a few months ago, and I think there are some interesting lessons in it, which
+[00:08:39.990] some interesting lessons in it, which
+[00:08:40.000] some interesting lessons in it, which we've learned from several years of, you
+[00:08:44.149] we've learned from several years of, you
+[00:08:44.159] we've learned from several years of, you know, basically trying, you know, trying
+[00:08:45.990] know, basically trying, you know, trying
+[00:08:46.000] know, basically trying, you know, trying to train Claude in successive versions.
+[00:08:47.990] to train Claude in successive versions.
+[00:08:48.000] to train Claude in successive versions. I think early on we had been imagining
+[00:08:50.790] I think early on we had been imagining
+[00:08:50.800] I think early on we had been imagining that there would be various rules that,
+[00:08:52.470] that there would be various rules that,
+[00:08:52.480] that there would be various rules that, you know, you would tell Claude, you
+[00:08:53.750] you know, you would tell Claude, you
+[00:08:53.760] you know, you would tell Claude, you know, don't help someone, you know,
+[00:08:55.269] know, don't help someone, you know,
+[00:08:55.279] know, don't help someone, you know, commit a crime or don't make biological
+[00:08:57.350] commit a crime or don't make biological
+[00:08:57.360] commit a crime or don't make biological weapons or whatever. But it turns out
+[00:08:59.190] weapons or whatever. But it turns out
+[00:08:59.200] weapons or whatever. But it turns out that when you make this kind of discreet
+[00:09:01.110] that when you make this kind of discreet
+[00:09:01.120] that when you make this kind of discreet list of rules, you know,
+[00:09:04.630] list of rules, you know,
+[00:09:04.640] list of rules, you know, you just the shape of what you're trying
+[00:09:06.790] you just the shape of what you're trying
+[00:09:06.800] you just the shape of what you're trying to teach the model, I'm speaking a
+[00:09:08.389] to teach the model, I'm speaking a
+[00:09:08.399] to teach the model, I'm speaking a little bit metaphorically here, but it's
+[00:09:10.070] little bit metaphorically here, but it's
+[00:09:10.080] little bit metaphorically here, but it's it's kind of grounded in what we found
+[00:09:12.230] it's kind of grounded in what we found
+[00:09:12.240] it's kind of grounded in what we found technically. You end up with this kind
+[00:09:14.070] technically. You end up with this kind
+[00:09:14.080] technically. You end up with this kind of spiky shape where you're trying to
+[00:09:15.670] of spiky shape where you're trying to
+[00:09:15.680] of spiky shape where you're trying to teach the model like 170 different rules
+[00:09:18.949] teach the model like 170 different rules
+[00:09:18.959] teach the model like 170 different rules that are kind of arbitrary. We found
+[00:09:21.190] that are kind of arbitrary. We found
+[00:09:21.200] that are kind of arbitrary. We found it's better to teach the model some
+[00:09:23.670] it's better to teach the model some
+[00:09:23.680] it's better to teach the model some basic principles like what it should
+[00:09:26.389] basic principles like what it should
+[00:09:26.399] basic principles like what it should prioritize um how it should reason about
+[00:09:29.430] prioritize um how it should reason about
+[00:09:29.440] prioritize um how it should reason about what the right thing to do is which you
+[00:09:31.910] what the right thing to do is which you
+[00:09:31.920] what the right thing to do is which you know of course I think that's the right
+[00:09:33.190] know of course I think that's the right
+[00:09:33.200] know of course I think that's the right way to teach people as well right like
+[00:09:35.110] way to teach people as well right like
+[00:09:35.120] way to teach people as well right like you know if if I just if I just you know
+[00:09:37.829] you know if if I just if I just you know
+[00:09:37.839] you know if if I just if I just you know give give someone you know a list of
+[00:09:39.750] give give someone you know a list of
+[00:09:39.760] give give someone you know a list of rules thou shalt do this thou shalt not
+[00:09:41.750] rules thou shalt do this thou shalt not
+[00:09:41.760] rules thou shalt do this thou shalt not do this I you know I don't think that
+[00:09:43.829] do this I you know I don't think that
+[00:09:43.839] do this I you know I don't think that produces as robust a morality as I say
+[00:09:47.110] produces as robust a morality as I say
+[00:09:47.120] produces as robust a morality as I say well this is this is how you should
+[00:09:48.389] well this is this is how you should
+[00:09:48.399] well this is this is how you should think about things you should learn how
+[00:09:50.230] think about things you should learn how
+[00:09:50.240] think about things you should learn how think for yourself. Um, you know, and
+[00:09:52.310] think for yourself. Um, you know, and
+[00:09:52.320] think for yourself. Um, you know, and and these are the princ principles on
+[00:09:54.230] and these are the princ principles on
+[00:09:54.240] and these are the princ principles on which you should think, right?
+[00:09:55.190] which you should think, right?
+[00:09:55.200] which you should think, right? Principles of open inquiry, principles
+[00:09:57.670] Principles of open inquiry, principles
+[00:09:57.680] Principles of open inquiry, principles of, you know, of of of of care for other
+[00:10:01.509] of, you know, of of of of care for other
+[00:10:01.519] of, you know, of of of of care for other people, principles of kind of uh of, you
+[00:10:04.470] people, principles of kind of uh of, you
+[00:10:04.480] people, principles of kind of uh of, you know, fair fairness and justice and and
+[00:10:06.470] know, fair fairness and justice and and
+[00:10:06.480] know, fair fairness and justice and and then everything is derived from that and
+[00:10:08.550] then everything is derived from that and
+[00:10:08.560] then everything is derived from that and and that is frankly how Claude learns.
+[00:10:11.990] and that is frankly how Claude learns.
+[00:10:12.000] and that is frankly how Claude learns. We find that to be surprisingly
+[00:10:13.590] We find that to be surprisingly
+[00:10:13.600] We find that to be surprisingly effective because that allows Claude to
+[00:10:15.750] effective because that allows Claude to
+[00:10:15.760] effective because that allows Claude to generalize to new situations that it
+[00:10:17.829] generalize to new situations that it
+[00:10:17.839] generalize to new situations that it might never have imagined.
+[00:10:19.829] might never have imagined.
+[00:10:19.839] might never have imagined. Danielle, I can't help myself when you
+[00:10:21.670] Danielle, I can't help myself when you
+[00:10:21.680] Danielle, I can't help myself when you said your mom was a expert on Kant. Did
+[00:10:25.269] said your mom was a expert on Kant. Did
+[00:10:25.279] said your mom was a expert on Kant. Did you actually uh wrestle with philosophy
+[00:10:28.389] you actually uh wrestle with philosophy
+[00:10:28.399] you actually uh wrestle with philosophy and moral philosophy like that?
+[00:10:30.389] and moral philosophy like that?
+[00:10:30.399] and moral philosophy like that? &gt;&gt; You know what's interesting is um the
+[00:10:32.389] &gt;&gt; You know what's interesting is um the
+[00:10:32.399] &gt;&gt; You know what's interesting is um the woman who is responsible for training
+[00:10:35.910] woman who is responsible for training
+[00:10:35.920] woman who is responsible for training Claude's character uh has a PhD in
+[00:10:39.110] Claude's character uh has a PhD in
+[00:10:39.120] Claude's character uh has a PhD in philosophy. It's unusual, right? you
+[00:10:41.190] philosophy. It's unusual, right? you
+[00:10:41.200] philosophy. It's unusual, right? you would think, oh, the person that's
+[00:10:42.310] would think, oh, the person that's
+[00:10:42.320] would think, oh, the person that's training, you know, the sort of
+[00:10:43.590] training, you know, the sort of
+[00:10:43.600] training, you know, the sort of character of these models must be um,
+[00:10:45.670] character of these models must be um,
+[00:10:45.680] character of these models must be um, you know, a computer scientist or
+[00:10:47.190] you know, a computer scientist or
+[00:10:47.200] you know, a computer scientist or somebody who's studied ML or AI for, you
+[00:10:49.350] somebody who's studied ML or AI for, you
+[00:10:49.360] somebody who's studied ML or AI for, you know, many decades. Amanda's technical
+[00:10:51.750] know, many decades. Amanda's technical
+[00:10:51.760] know, many decades. Amanda's technical and she like technically trains the
+[00:10:53.350] and she like technically trains the
+[00:10:53.360] and she like technically trains the model, but I think it is very felt in
+[00:10:57.030] model, but I think it is very felt in
+[00:10:57.040] model, but I think it is very felt in Claude's character when you communicate
+[00:10:58.790] Claude's character when you communicate
+[00:10:58.800] Claude's character when you communicate with it that there's this kind of
+[00:11:01.190] with it that there's this kind of
+[00:11:01.200] with it that there's this kind of experience, something that's very, you
+[00:11:03.590] experience, something that's very, you
+[00:11:03.600] experience, something that's very, you know, wise, kind of the the best version
+[00:11:05.910] know, wise, kind of the the best version
+[00:11:05.920] know, wise, kind of the the best version of of um the sort of better the better
+[00:11:09.670] of of um the sort of better the better
+[00:11:09.680] of of um the sort of better the better angel of your nature trying to answer
+[00:11:11.430] angel of your nature trying to answer
+[00:11:11.440] angel of your nature trying to answer your questions. But there are like if
+[00:11:13.990] your questions. But there are like if
+[00:11:14.000] your questions. But there are like if you kind of poke Claude in these like
+[00:11:16.310] you kind of poke Claude in these like
+[00:11:16.320] you kind of poke Claude in these like difficult areas where maybe different
+[00:11:18.310] difficult areas where maybe different
+[00:11:18.320] difficult areas where maybe different philosophical traditions might conflict.
+[00:11:21.350] philosophical traditions might conflict.
+[00:11:21.360] philosophical traditions might conflict. I think that's where you especially feel
+[00:11:22.870] I think that's where you especially feel
+[00:11:22.880] I think that's where you especially feel Amanda because you'll sort of see like
+[00:11:25.430] Amanda because you'll sort of see like
+[00:11:25.440] Amanda because you'll sort of see like oh well you know you might want to
+[00:11:27.509] oh well you know you might want to
+[00:11:27.519] oh well you know you might want to consider things from like this point of
+[00:11:28.949] consider things from like this point of
+[00:11:28.959] consider things from like this point of view but you could also consider it from
+[00:11:30.630] view but you could also consider it from
+[00:11:30.640] view but you could also consider it from this point of view. And I do think it's
+[00:11:32.470] this point of view. And I do think it's
+[00:11:32.480] this point of view. And I do think it's it's important because as the world
+[00:11:36.389] it's important because as the world
+[00:11:36.399] it's important because as the world begins to rely on these models more and
+[00:11:38.470] begins to rely on these models more and
+[00:11:38.480] begins to rely on these models more and more, you don't want to be locked into
+[00:11:40.150] more, you don't want to be locked into
+[00:11:40.160] more, you don't want to be locked into sort of one philosophical tradition
+[00:11:43.110] sort of one philosophical tradition
+[00:11:43.120] sort of one philosophical tradition because ethics and morality are quite
+[00:11:44.949] because ethics and morality are quite
+[00:11:44.959] because ethics and morality are quite complicated and different people and
+[00:11:47.350] complicated and different people and
+[00:11:47.360] complicated and different people and different cultures might have different
+[00:11:48.790] different cultures might have different
+[00:11:48.800] different cultures might have different answers about how they would like you to
+[00:11:50.470] answers about how they would like you to
+[00:11:50.480] answers about how they would like you to behave. Dario, you were there at one of
+[00:11:53.350] behave. Dario, you were there at one of
+[00:11:53.360] behave. Dario, you were there at one of the seinal moments of modern times,
+[00:11:56.790] the seinal moments of modern times,
+[00:11:56.800] the seinal moments of modern times, which is when uh GPT1 and GPT2
+[00:12:01.030] which is when uh GPT1 and GPT2
+[00:12:01.040] which is when uh GPT1 and GPT2 suddenly burst on the scene, surprising
+[00:12:03.750] suddenly burst on the scene, surprising
+[00:12:03.760] suddenly burst on the scene, surprising perhaps even surprising you. You and
+[00:12:05.829] perhaps even surprising you. You and
+[00:12:05.839] perhaps even surprising you. You and head of research at Open AI. What was
+[00:12:08.710] head of research at Open AI. What was
+[00:12:08.720] head of research at Open AI. What was that moment like?
+[00:12:10.069] that moment like?
+[00:12:10.079] that moment like? &gt;&gt; Yeah. So, you know, I think GPT2 was the
+[00:12:14.230] &gt;&gt; Yeah. So, you know, I think GPT2 was the
+[00:12:14.240] &gt;&gt; Yeah. So, you know, I think GPT2 was the maybe the first real empirical test of
+[00:12:18.550] maybe the first real empirical test of
+[00:12:18.560] maybe the first real empirical test of the scaling laws, right? So, I wasn't
+[00:12:20.790] the scaling laws, right? So, I wasn't
+[00:12:20.800] the scaling laws, right? So, I wasn't very involved in GPT1, but I was very
+[00:12:23.590] very involved in GPT1, but I was very
+[00:12:23.600] very involved in GPT1, but I was very involved in the idea that it should be
+[00:12:25.190] involved in the idea that it should be
+[00:12:25.200] involved in the idea that it should be scaled up, that we should acquire new
+[00:12:27.430] scaled up, that we should acquire new
+[00:12:27.440] scaled up, that we should acquire new sources of data, more computation, and
+[00:12:30.870] sources of data, more computation, and
+[00:12:30.880] sources of data, more computation, and and and and and just really should run a
+[00:12:33.269] and and and and just really should run a
+[00:12:33.279] and and and and just really should run a larger scale, more expensive, more
+[00:12:36.310] larger scale, more expensive, more
+[00:12:36.320] larger scale, more expensive, more ambitious experiment on
+[00:12:40.550] ambitious experiment on
+[00:12:40.560] ambitious experiment on uh on the idea that if we ran these
+[00:12:43.430] uh on the idea that if we ran these
+[00:12:43.440] uh on the idea that if we ran these language models at a larger scale, they
+[00:12:45.269] language models at a larger scale, they
+[00:12:45.279] language models at a larger scale, they would be better at language, they would
+[00:12:46.629] would be better at language, they would
+[00:12:46.639] would be better at language, they would be more coherent. So, you know, I it was
+[00:12:49.910] be more coherent. So, you know, I it was
+[00:12:49.920] be more coherent. So, you know, I it was it's almost like one of these moments in
+[00:12:51.590] it's almost like one of these moments in
+[00:12:51.600] it's almost like one of these moments in scientific history where you know you
+[00:12:53.430] scientific history where you know you
+[00:12:53.440] scientific history where you know you know you're like you propose a
+[00:12:54.870] know you're like you propose a
+[00:12:54.880] know you're like you propose a definitive experiment to just make a
+[00:12:56.870] definitive experiment to just make a
+[00:12:56.880] definitive experiment to just make a very strange prediction and then if the
+[00:12:58.949] very strange prediction and then if the
+[00:12:58.959] very strange prediction and then if the prediction turns out to be correct
+[00:13:00.310] prediction turns out to be correct
+[00:13:00.320] prediction turns out to be correct you're like god this we're really we're
+[00:13:02.389] you're like god this we're really we're
+[00:13:02.399] you're like god this we're really we're really on to something. So I I you know
+[00:13:05.910] really on to something. So I I you know
+[00:13:05.920] really on to something. So I I you know I I I see GPT2 as a kind of test the
+[00:13:10.069] I I I see GPT2 as a kind of test the
+[00:13:10.079] I I I see GPT2 as a kind of test the first real test of the scaling laws
+[00:13:12.310] first real test of the scaling laws
+[00:13:12.320] first real test of the scaling laws hypothesis. And what I found super
+[00:13:15.430] hypothesis. And what I found super
+[00:13:15.440] hypothesis. And what I found super interesting was the enormous divergence
+[00:13:17.750] interesting was the enormous divergence
+[00:13:17.760] interesting was the enormous divergence in reactions to it.
+[00:13:19.030] in reactions to it.
+[00:13:19.040] in reactions to it. &gt;&gt; Were you kind of surprised?
+[00:13:20.949] &gt;&gt; Were you kind of surprised?
+[00:13:20.959] &gt;&gt; Were you kind of surprised? &gt;&gt; I personally was super freaked out by
+[00:13:24.310] &gt;&gt; I personally was super freaked out by
+[00:13:24.320] &gt;&gt; I personally was super freaked out by it. Like I I you know I I looked at it
+[00:13:26.550] it. Like I I you know I I looked at it
+[00:13:26.560] it. Like I I you know I I looked at it and I said, "My god, you just scale this
+[00:13:29.030] and I said, "My god, you just scale this
+[00:13:29.040] and I said, "My god, you just scale this thing up another factor of a million and
+[00:13:30.949] thing up another factor of a million and
+[00:13:30.959] thing up another factor of a million and it'll be better than humans at
+[00:13:32.470] it'll be better than humans at
+[00:13:32.480] it'll be better than humans at everything." Um like this is the this is
+[00:13:35.110] everything." Um like this is the this is
+[00:13:35.120] everything." Um like this is the this is the defining, you know, economic and
+[00:13:38.069] the defining, you know, economic and
+[00:13:38.079] the defining, you know, economic and scientific moment of of of the modern
+[00:13:40.230] scientific moment of of of the modern
+[00:13:40.240] scientific moment of of of the modern age. We just don't know it yet, right?
+[00:13:41.829] age. We just don't know it yet, right?
+[00:13:41.839] age. We just don't know it yet, right? this is going to be this is going to
+[00:13:43.350] this is going to be this is going to
+[00:13:43.360] this is going to be this is going to determine the the fate of nations and
+[00:13:45.750] determine the the fate of nations and
+[00:13:45.760] determine the the fate of nations and economies and the future of humanity.
+[00:13:47.920] economies and the future of humanity. You know, you peer into the crystal
+[00:13:49.190] You know, you peer into the crystal
+[00:13:49.200] You know, you peer into the crystal ball, you you see the whole future
+[00:13:50.710] ball, you you see the whole future
+[00:13:50.720] ball, you you see the whole future unfurled. Um uh uh and you know, it it
+[00:13:54.230] unfurled. Um uh uh and you know, it it
+[00:13:54.240] unfurled. Um uh uh and you know, it it really scared me. I said, "Oh my god,
+[00:13:55.509] really scared me. I said, "Oh my god,
+[00:13:55.519] really scared me. I said, "Oh my god, what are the implications of that? Is
+[00:13:56.870] what are the implications of that? Is
+[00:13:56.880] what are the implications of that? Is this the right place to be developing
+[00:13:58.470] this the right place to be developing
+[00:13:58.480] this the right place to be developing it? Is you know, what's going to happen
+[00:14:00.550] it? Is you know, what's going to happen
+[00:14:00.560] it? Is you know, what's going to happen next? What do we do with this? Who do we
+[00:14:02.150] next? What do we do with this? Who do we
+[00:14:02.160] next? What do we do with this? Who do we tell about this?" Um and and maybe 10%
+[00:14:05.430] tell about this?" Um and and maybe 10%
+[00:14:05.440] tell about this?" Um and and maybe 10% of the people around me had exactly the
+[00:14:07.189] of the people around me had exactly the
+[00:14:07.199] of the people around me had exactly the same reaction, and it was often the
+[00:14:08.710] same reaction, and it was often the
+[00:14:08.720] same reaction, and it was often the smartest ones. um 90% of the the people
+[00:14:12.550] smartest ones. um 90% of the the people
+[00:14:12.560] smartest ones. um 90% of the the people around me because GBD's capabilities in
+[00:14:16.069] around me because GBD's capabilities in
+[00:14:16.079] around me because GBD's capabilities in any particular area were not that
+[00:14:18.790] any particular area were not that
+[00:14:18.800] any particular area were not that impressive, right? That it could
+[00:14:20.550] impressive, right? That it could
+[00:14:20.560] impressive, right? That it could translate languages and um you know
+[00:14:24.069] translate languages and um you know
+[00:14:24.079] translate languages and um you know summarize a document and write a few
+[00:14:26.710] summarize a document and write a few
+[00:14:26.720] summarize a document and write a few lines of code here and there. It was the
+[00:14:29.269] lines of code here and there. It was the
+[00:14:29.279] lines of code here and there. It was the broadness and the generality. But people
+[00:14:31.430] broadness and the generality. But people
+[00:14:31.440] broadness and the generality. But people would look at it and they would say in
+[00:14:32.470] would look at it and they would say in
+[00:14:32.480] would look at it and they would say in any particular area this doesn't seem so
+[00:14:34.230] any particular area this doesn't seem so
+[00:14:34.240] any particular area this doesn't seem so smart. And so many people just shrugged
+[00:14:36.389] smart. And so many people just shrugged
+[00:14:36.399] smart. And so many people just shrugged and they just dismissed it. But we just
+[00:14:38.629] and they just dismissed it. But we just
+[00:14:38.639] and they just dismissed it. But we just announced that, you know, we're going to
+[00:14:39.990] announced that, you know, we're going to
+[00:14:40.000] announced that, you know, we're going to be developing drugs for, you know,
+[00:14:42.230] be developing drugs for, you know,
+[00:14:42.240] be developing drugs for, you know, neglected rare diseases. And you get the
+[00:14:44.230] neglected rare diseases. And you get the
+[00:14:44.240] neglected rare diseases. And you get the usual comments from kind of the jaded,
+[00:14:46.790] usual comments from kind of the jaded,
+[00:14:46.800] usual comments from kind of the jaded, you know, biotech world people. Ah, tech
+[00:14:49.350] you know, biotech world people. Ah, tech
+[00:14:49.360] you know, biotech world people. Ah, tech people have done this before. The models
+[00:14:51.110] people have done this before. The models
+[00:14:51.120] people have done this before. The models aren't, you know, here are all the
+[00:14:52.870] aren't, you know, here are all the
+[00:14:52.880] aren't, you know, here are all the limitations of the models. And I just
+[00:14:54.870] limitations of the models. And I just
+[00:14:54.880] limitations of the models. And I just look at it and I say, it's the same
+[00:14:56.310] look at it and I say, it's the same
+[00:14:56.320] look at it and I say, it's the same thing over and over again. The
+[00:14:57.829] thing over and over again. The
+[00:14:57.839] thing over and over again. The limitations of the models, you know,
+[00:14:59.750] limitations of the models, you know,
+[00:14:59.760] limitations of the models, you know, now, six months from now, the things
+[00:15:02.230] now, six months from now, the things
+[00:15:02.240] now, six months from now, the things that seemed hard, the mo they're going
+[00:15:04.069] that seemed hard, the mo they're going
+[00:15:04.079] that seemed hard, the mo they're going to be easy. 12 months from now, the
+[00:15:05.670] to be easy. 12 months from now, the
+[00:15:05.680] to be easy. 12 months from now, the things that seemed impossible, the
+[00:15:06.949] things that seemed impossible, the
+[00:15:06.959] things that seemed impossible, the models are going to be doing them
+[00:15:08.470] models are going to be doing them
+[00:15:08.480] models are going to be doing them regularly. And so it's everything we saw
+[00:15:11.189] regularly. And so it's everything we saw
+[00:15:11.199] regularly. And so it's everything we saw with GPD2, we're seeing it over and over
+[00:15:14.069] with GPD2, we're seeing it over and over
+[00:15:14.079] with GPD2, we're seeing it over and over again in wider and wider swaths of the
+[00:15:16.470] again in wider and wider swaths of the
+[00:15:16.480] again in wider and wider swaths of the world. And the world is gradually
+[00:15:18.710] world. And the world is gradually
+[00:15:18.720] world. And the world is gradually finally being convinced. I think you
+[00:15:20.550] finally being convinced. I think you
+[00:15:20.560] finally being convinced. I think you were quite polite about it, but I mean I
+[00:15:21.910] were quite polite about it, but I mean I
+[00:15:21.920] were quite polite about it, but I mean I remember at the time there were some
+[00:15:23.509] remember at the time there were some
+[00:15:23.519] remember at the time there were some like very wellrespected
+[00:15:25.990] like very wellrespected
+[00:15:26.000] like very wellrespected you know computer scientists and like AI
+[00:15:28.310] you know computer scientists and like AI
+[00:15:28.320] you know computer scientists and like AI and ML leaders who were like basically
+[00:15:30.550] and ML leaders who were like basically
+[00:15:30.560] and ML leaders who were like basically like bullied some of the researchers who
+[00:15:32.389] like bullied some of the researchers who
+[00:15:32.399] like bullied some of the researchers who worked on it on Twitter and were like
+[00:15:33.990] worked on it on Twitter and were like
+[00:15:34.000] worked on it on Twitter and were like this is stupid like we don't know why
+[00:15:35.750] this is stupid like we don't know why
+[00:15:35.760] this is stupid like we don't know why you guys are you know even talking this
+[00:15:37.990] you guys are you know even talking this
+[00:15:38.000] you guys are you know even talking this model is so incapable and it was like
+[00:15:40.150] model is so incapable and it was like
+[00:15:40.160] model is so incapable and it was like you were sort of a quack if you believed
+[00:15:41.670] you were sort of a quack if you believed
+[00:15:41.680] you were sort of a quack if you believed this was like a a really significant
+[00:15:43.829] this was like a a really significant
+[00:15:43.839] this was like a a really significant moment
+[00:15:44.230] moment
+[00:15:44.240] moment &gt;&gt; and that that's all been memory hold
+[00:15:46.069] &gt;&gt; and that that's all been memory hold
+[00:15:46.079] &gt;&gt; and that that's all been memory hold like all all the all the researchers who
+[00:15:48.550] like all all the all the researchers who
+[00:15:48.560] like all all the all the researchers who like you know, we're like, "Oh, this is
+[00:15:50.949] like you know, we're like, "Oh, this is
+[00:15:50.959] like you know, we're like, "Oh, this is this is pseudocience. It doesn't make
+[00:15:52.949] this is pseudocience. It doesn't make
+[00:15:52.959] this is pseudocience. It doesn't make sense." Like, all of them are applying
+[00:15:54.949] sense." Like, all of them are applying
+[00:15:54.959] sense." Like, all of them are applying for jobs at like the LLM companies. And
+[00:15:57.990] for jobs at like the LLM companies. And
+[00:15:58.000] for jobs at like the LLM companies. And like, you know, we never say it out out
+[00:15:59.990] like, you know, we never say it out out
+[00:16:00.000] like, you know, we never say it out out loud to any particular one, but like,
+[00:16:01.829] loud to any particular one, but like,
+[00:16:01.839] loud to any particular one, but like, you know, we look at them and they're
+[00:16:02.949] you know, we look at them and they're
+[00:16:02.959] you know, we look at them and they're like, I I we remember what you were
+[00:16:04.710] like, I I we remember what you were
+[00:16:04.720] like, I I we remember what you were saying in 2019. You have no credibility
+[00:16:07.430] saying in 2019. You have no credibility
+[00:16:07.440] saying in 2019. You have no credibility on this matter.
+[00:16:09.350] on this matter.
+[00:16:09.360] on this matter. &gt;&gt; So, Daniela, you were vice president of
+[00:16:11.509] &gt;&gt; So, Daniela, you were vice president of
+[00:16:11.519] &gt;&gt; So, Daniela, you were vice president of safety back then at Open AI. And when
+[00:16:14.629] safety back then at Open AI. And when
+[00:16:14.639] safety back then at Open AI. And when you hit GBT2, I assume you're like uh
+[00:16:17.990] you hit GBT2, I assume you're like uh
+[00:16:18.000] you hit GBT2, I assume you're like uh Dario, somebody who's almost freaked out
+[00:16:20.389] Dario, somebody who's almost freaked out
+[00:16:20.399] Dario, somebody who's almost freaked out about it. Did it freak you out about
+[00:16:22.150] about it. Did it freak you out about
+[00:16:22.160] about it. Did it freak you out about safety, too?
+[00:16:23.749] safety, too?
+[00:16:23.759] safety, too? &gt;&gt; There wasn't something about GBT2, the
+[00:16:25.990] &gt;&gt; There wasn't something about GBT2, the
+[00:16:26.000] &gt;&gt; There wasn't something about GBT2, the model itself that made us, you know,
+[00:16:27.749] model itself that made us, you know,
+[00:16:27.759] model itself that made us, you know, concerned, right? We didn't look at that
+[00:16:29.509] concerned, right? We didn't look at that
+[00:16:29.519] concerned, right? We didn't look at that model and say, "Wow, we think this model
+[00:16:31.990] model and say, "Wow, we think this model
+[00:16:32.000] model and say, "Wow, we think this model is a, you know, has like cyber security
+[00:16:35.030] is a, you know, has like cyber security
+[00:16:35.040] is a, you know, has like cyber security implications or something, right? The
+[00:16:36.389] implications or something, right? The
+[00:16:36.399] implications or something, right? The model itself was in some ways kind of
+[00:16:38.710] model itself was in some ways kind of
+[00:16:38.720] model itself was in some ways kind of laughably wrong about a lot of things,
+[00:16:40.389] laughably wrong about a lot of things,
+[00:16:40.399] laughably wrong about a lot of things, right? was still it was still a very um
+[00:16:42.949] right? was still it was still a very um
+[00:16:42.959] right? was still it was still a very um I would say harmless model. But I think
+[00:16:45.110] I would say harmless model. But I think
+[00:16:45.120] I would say harmless model. But I think the thing that that Daario mentioned
+[00:16:48.790] the thing that that Daario mentioned
+[00:16:48.800] the thing that that Daario mentioned that I also felt was a sense of like
+[00:16:51.749] that I also felt was a sense of like
+[00:16:51.759] that I also felt was a sense of like okay the difference between GPT1 and
+[00:16:54.470] okay the difference between GPT1 and
+[00:16:54.480] okay the difference between GPT1 and GPT2 just like extrapolate that out,
+[00:16:57.350] GPT2 just like extrapolate that out,
+[00:16:57.360] GPT2 just like extrapolate that out, right? Like there was something about
+[00:16:58.629] right? Like there was something about
+[00:16:58.639] right? Like there was something about seeing it's it's almost like if you'd
+[00:17:00.550] seeing it's it's almost like if you'd
+[00:17:00.560] seeing it's it's almost like if you'd never seen a child before and you'd only
+[00:17:02.310] never seen a child before and you'd only
+[00:17:02.320] never seen a child before and you'd only seen adults and you were kind of like I
+[00:17:04.630] seen adults and you were kind of like I
+[00:17:04.640] seen adults and you were kind of like I don't know what this little thing is
+[00:17:05.750] don't know what this little thing is
+[00:17:05.760] don't know what this little thing is that's walking around. like I don't know
+[00:17:07.270] that's walking around. like I don't know
+[00:17:07.280] that's walking around. like I don't know if I should, you know, imagine that it's
+[00:17:08.949] if I should, you know, imagine that it's
+[00:17:08.959] if I should, you know, imagine that it's going to be, you know, capable one day.
+[00:17:10.549] going to be, you know, capable one day.
+[00:17:10.559] going to be, you know, capable one day. And then suddenly it starts to walk.
+[00:17:12.230] And then suddenly it starts to walk.
+[00:17:12.240] And then suddenly it starts to walk. You're like, "Wow, huh, I bet this thing
+[00:17:14.870] You're like, "Wow, huh, I bet this thing
+[00:17:14.880] You're like, "Wow, huh, I bet this thing is is going to be capable of doing a lot
+[00:17:16.549] is is going to be capable of doing a lot
+[00:17:16.559] is is going to be capable of doing a lot of the things that that I that a
+[00:17:17.990] of the things that that I that a
+[00:17:18.000] of the things that that I that a grown-up could do one day." Like maybe
+[00:17:19.510] grown-up could do one day." Like maybe
+[00:17:19.520] grown-up could do one day." Like maybe this is where this is going.
+[00:17:21.270] this is where this is going.
+[00:17:21.280] this is where this is going. &gt;&gt; Dario, you say your departure from open
+[00:17:23.990] &gt;&gt; Dario, you say your departure from open
+[00:17:24.000] &gt;&gt; Dario, you say your departure from open AI was uh partly due to a breakdown of
+[00:17:27.510] AI was uh partly due to a breakdown of
+[00:17:27.520] AI was uh partly due to a breakdown of trust, an interesting word, you know,
+[00:17:29.750] trust, an interesting word, you know,
+[00:17:29.760] trust, an interesting word, you know, with Sam Alman. explain how you felt
+[00:17:33.190] with Sam Alman. explain how you felt
+[00:17:33.200] with Sam Alman. explain how you felt there was a breakdown of trust and yeah
+[00:17:35.830] there was a breakdown of trust and yeah
+[00:17:35.840] there was a breakdown of trust and yeah honesty there.
+[00:17:37.669] honesty there.
+[00:17:37.679] honesty there. &gt;&gt; Look, so you know what what what what
+[00:17:39.270] &gt;&gt; Look, so you know what what what what
+[00:17:39.280] &gt;&gt; Look, so you know what what what what what I will say is look I think at the
+[00:17:41.750] what I will say is look I think at the
+[00:17:41.760] what I will say is look I think at the end of the day leaving open AI and
+[00:17:44.150] end of the day leaving open AI and
+[00:17:44.160] end of the day leaving open AI and founding anthropic I mean it it on one
+[00:17:46.950] founding anthropic I mean it it on one
+[00:17:46.960] founding anthropic I mean it it on one hand I think it it it ultimately comes
+[00:17:49.270] hand I think it it it ultimately comes
+[00:17:49.280] hand I think it it it ultimately comes down to the principles and how we're
+[00:17:51.510] down to the principles and how we're
+[00:17:51.520] down to the principles and how we're going to build the technology that is
+[00:17:53.029] going to build the technology that is
+[00:17:53.039] going to build the technology that is what that is what matters at the end of
+[00:17:55.350] what that is what matters at the end of
+[00:17:55.360] what that is what matters at the end of the day. Um and you know I think I think
+[00:17:58.789] the day. Um and you know I think I think
+[00:17:58.799] the day. Um and you know I think I think you know over the last five and a half
+[00:18:01.110] you know over the last five and a half
+[00:18:01.120] you know over the last five and a half years we we have seen how those
+[00:18:04.070] years we we have seen how those
+[00:18:04.080] years we we have seen how those principles differ. You know we see you
+[00:18:05.750] principles differ. You know we see you
+[00:18:05.760] principles differ. You know we see you know Enthropic has advocated for
+[00:18:08.310] know Enthropic has advocated for
+[00:18:08.320] know Enthropic has advocated for sensible you know regulation and
+[00:18:10.390] sensible you know regulation and
+[00:18:10.400] sensible you know regulation and safeguards on the technology. Enthropic
+[00:18:12.470] safeguards on the technology. Enthropic
+[00:18:12.480] safeguards on the technology. Enthropic has invested in mechanistic
+[00:18:14.789] has invested in mechanistic
+[00:18:14.799] has invested in mechanistic interpretability research to understand
+[00:18:16.549] interpretability research to understand
+[00:18:16.559] interpretability research to understand what's going on inside inside the
+[00:18:19.350] what's going on inside inside the
+[00:18:19.360] what's going on inside inside the models. Right? You know, I think I think
+[00:18:21.029] models. Right? You know, I think I think
+[00:18:21.039] models. Right? You know, I think I think you know, Enthropic has managed to
+[00:18:22.789] you know, Enthropic has managed to
+[00:18:22.799] you know, Enthropic has managed to maintain a a culture of unity to have
+[00:18:25.990] maintain a a culture of unity to have
+[00:18:26.000] maintain a a culture of unity to have the highest retention rate. We haven't
+[00:18:28.549] the highest retention rate. We haven't
+[00:18:28.559] the highest retention rate. We haven't had a number of the scandals that other
+[00:18:31.029] had a number of the scandals that other
+[00:18:31.039] had a number of the scandals that other AI companies have had. And so, you know,
+[00:18:33.110] AI companies have had. And so, you know,
+[00:18:33.120] AI companies have had. And so, you know, I think I think that's kind of
+[00:18:35.590] I think I think that's kind of
+[00:18:35.600] I think I think that's kind of sufficient to describe the difference. I
+[00:18:38.150] sufficient to describe the difference. I
+[00:18:38.160] sufficient to describe the difference. I you know I but I will say that
+[00:18:41.190] you know I but I will say that
+[00:18:41.200] you know I but I will say that you know the the moment when I realized
+[00:18:43.990] you know the the moment when I realized
+[00:18:44.000] you know the the moment when I realized that we needed to found our own company
+[00:18:46.470] that we needed to found our own company
+[00:18:46.480] that we needed to found our own company that open AAI was not the right place
+[00:18:48.630] that open AAI was not the right place
+[00:18:48.640] that open AAI was not the right place for us. Look these safety issues are
+[00:18:52.150] for us. Look these safety issues are
+[00:18:52.160] for us. Look these safety issues are difficult. You can have lots of
+[00:18:53.909] difficult. You can have lots of
+[00:18:53.919] difficult. You can have lots of disagreements on them. I disagree with
+[00:18:56.710] disagreements on them. I disagree with
+[00:18:56.720] disagreements on them. I disagree with the co-founders and with lots of people
+[00:18:58.549] the co-founders and with lots of people
+[00:18:58.559] the co-founders and with lots of people at Enthropic but the reason we've been
+[00:19:01.029] at Enthropic but the reason we've been
+[00:19:01.039] at Enthropic but the reason we've been able to resolve these disagreements is
+[00:19:03.270] able to resolve these disagreements is
+[00:19:03.280] able to resolve these disagreements is because they're held in good faith.
+[00:19:05.350] because they're held in good faith.
+[00:19:05.360] because they're held in good faith. Right? Should we release this model or
+[00:19:07.909] Right? Should we release this model or
+[00:19:07.919] Right? Should we release this model or should we wait? Should we put stronger
+[00:19:10.150] should we wait? Should we put stronger
+[00:19:10.160] should we wait? Should we put stronger or weaker bios safeguards on the model?
+[00:19:12.870] or weaker bios safeguards on the model?
+[00:19:12.880] or weaker bios safeguards on the model? You know, how much of our of our effort
+[00:19:15.510] You know, how much of our of our effort
+[00:19:15.520] You know, how much of our of our effort should we spend lobbying for safety
+[00:19:17.750] should we spend lobbying for safety
+[00:19:17.760] should we spend lobbying for safety regulations and what should they look
+[00:19:19.430] regulations and what should they look
+[00:19:19.440] regulations and what should they look like? These are all goodfaith
+[00:19:21.510] like? These are all goodfaith
+[00:19:21.520] like? These are all goodfaith disagreements, but they always get
+[00:19:23.750] disagreements, but they always get
+[00:19:23.760] disagreements, but they always get resolved because there's always trust
+[00:19:25.430] resolved because there's always trust
+[00:19:25.440] resolved because there's always trust that everyone is trying to get to the
+[00:19:27.270] that everyone is trying to get to the
+[00:19:27.280] that everyone is trying to get to the right answer and everyone is being
+[00:19:28.789] right answer and everyone is being
+[00:19:28.799] right answer and everyone is being honest. My my point in saying that
+[00:19:31.909] honest. My my point in saying that
+[00:19:31.919] honest. My my point in saying that there's a breakdown of trust is simply
+[00:19:33.669] there's a breakdown of trust is simply
+[00:19:33.679] there's a breakdown of trust is simply to make the abstract point that if you
+[00:19:36.230] to make the abstract point that if you
+[00:19:36.240] to make the abstract point that if you don't believe that about a place where
+[00:19:38.070] don't believe that about a place where
+[00:19:38.080] don't believe that about a place where you're working, if you don't believe
+[00:19:39.830] you're working, if you don't believe
+[00:19:39.840] you're working, if you don't believe that the disagreements are being held in
+[00:19:42.789] that the disagreements are being held in
+[00:19:42.799] that the disagreements are being held in good faith and and that you're getting
+[00:19:45.029] good faith and and that you're getting
+[00:19:45.039] good faith and and that you're getting the real story from people, how can you
+[00:19:47.350] the real story from people, how can you
+[00:19:47.360] the real story from people, how can you possibly hope to resolve them? That's
+[00:19:49.590] possibly hope to resolve them? That's
+[00:19:49.600] possibly hope to resolve them? That's why we left. That's why we founded our
+[00:19:51.830] why we left. That's why we founded our
+[00:19:51.840] why we left. That's why we founded our own thing. and and I think the last five
+[00:19:54.070] own thing. and and I think the last five
+[00:19:54.080] own thing. and and I think the last five and a half years have have are are are
+[00:19:56.789] and a half years have have are are are
+[00:19:56.799] and a half years have have are are are themselves the just the best proof of
+[00:20:00.070] themselves the just the best proof of
+[00:20:00.080] themselves the just the best proof of how our philosophy differs from that of
+[00:20:02.630] how our philosophy differs from that of
+[00:20:02.640] how our philosophy differs from that of the other companies companies in the
+[00:20:04.710] the other companies companies in the
+[00:20:04.720] the other companies companies in the space. Um uh you know I I I think if you
+[00:20:08.230] space. Um uh you know I I I think if you
+[00:20:08.240] space. Um uh you know I I I think if you continue to work for someone who has a
+[00:20:10.950] continue to work for someone who has a
+[00:20:10.960] continue to work for someone who has a different vision than you it becomes
+[00:20:12.950] different vision than you it becomes
+[00:20:12.960] different vision than you it becomes very un unclear what you actually stand
+[00:20:15.430] very un unclear what you actually stand
+[00:20:15.440] very un unclear what you actually stand for. You basically have to uh you know
+[00:20:18.390] for. You basically have to uh you know
+[00:20:18.400] for. You basically have to uh you know account for the mistakes of someone
+[00:20:19.909] account for the mistakes of someone
+[00:20:19.919] account for the mistakes of someone else's vision. Wait, wait a minute
+[00:20:22.230] else's vision. Wait, wait a minute
+[00:20:22.240] else's vision. Wait, wait a minute though. You I'm pushed back a bit here
+[00:20:23.909] though. You I'm pushed back a bit here
+[00:20:23.919] though. You I'm pushed back a bit here because you talk about differences in
+[00:20:25.510] because you talk about differences in
+[00:20:25.520] because you talk about differences in values and stuff, but that's
+[00:20:27.350] values and stuff, but that's
+[00:20:27.360] values and stuff, but that's fundamentally different than a
+[00:20:30.310] fundamentally different than a
+[00:20:30.320] fundamentally different than a difference in trust that you feel that
+[00:20:32.950] difference in trust that you feel that
+[00:20:32.960] difference in trust that you feel that somebody says they have the same values,
+[00:20:35.110] somebody says they have the same values,
+[00:20:35.120] somebody says they have the same values, but they don't and you can't trust them.
+[00:20:38.230] but they don't and you can't trust them.
+[00:20:38.240] but they don't and you can't trust them. Honesty is one of our values.
+[00:20:41.350] Honesty is one of our values.
+[00:20:41.360] Honesty is one of our values. It's a very important value. It's it's
+[00:20:44.149] It's a very important value. It's it's
+[00:20:44.159] It's a very important value. It's it's hard to know what someone's values are
+[00:20:46.870] hard to know what someone's values are
+[00:20:46.880] hard to know what someone's values are if they don't have the value of honesty.
+[00:20:49.029] if they don't have the value of honesty.
+[00:20:49.039] if they don't have the value of honesty. And you felt that about Sam?
+[00:20:53.919] &gt;&gt; I think the way at least for me I would
+[00:20:56.000] &gt;&gt; I think the way at least for me I would put it is
+[00:20:58.230] put it is
+[00:20:58.240] put it is I think the co-founders are an unusually
+[00:21:01.190] I think the co-founders are an unusually
+[00:21:01.200] I think the co-founders are an unusually high integrity group of people and all
+[00:21:04.470] high integrity group of people and all
+[00:21:04.480] high integrity group of people and all of us I think shared a very similar
+[00:21:07.350] of us I think shared a very similar
+[00:21:07.360] of us I think shared a very similar vision for how we wanted this technology
+[00:21:09.750] vision for how we wanted this technology
+[00:21:09.760] vision for how we wanted this technology to go and how we wanted to build it. And
+[00:21:12.710] to go and how we wanted to build it. And
+[00:21:12.720] to go and how we wanted to build it. And at a certain point you're like it just
+[00:21:14.789] at a certain point you're like it just
+[00:21:14.799] at a certain point you're like it just makes more sense to go do this as your
+[00:21:16.470] makes more sense to go do this as your
+[00:21:16.480] makes more sense to go do this as your own. How how how are you gonna get
+[00:21:18.710] own. How how how are you gonna get
+[00:21:18.720] own. How how how are you gonna get someone else to to to to implement or or
+[00:21:22.310] someone else to to to to implement or or
+[00:21:22.320] someone else to to to to implement or or share your vision if they don't
+[00:21:25.350] share your vision if they don't
+[00:21:25.360] share your vision if they don't naturally do so? Um you know, no matter
+[00:21:28.390] naturally do so? Um you know, no matter
+[00:21:28.400] naturally do so? Um you know, no matter how much they say they they share it, if
+[00:21:31.430] how much they say they they share it, if
+[00:21:31.440] how much they say they they share it, if that's not reflected in what the company
+[00:21:34.230] that's not reflected in what the company
+[00:21:34.240] that's not reflected in what the company actually does, what choice do you have?
+[00:21:36.789] actually does, what choice do you have?
+[00:21:36.799] actually does, what choice do you have? &gt;&gt; Yeah. And and I think we're I do think
+[00:21:40.070] &gt;&gt; Yeah. And and I think we're I do think
+[00:21:40.080] &gt;&gt; Yeah. And and I think we're I do think Anthropic is a is a company that is
+[00:21:42.630] Anthropic is a is a company that is
+[00:21:42.640] Anthropic is a is a company that is founded on the on on trust. And I I
+[00:21:45.990] founded on the on on trust. And I I
+[00:21:46.000] founded on the on on trust. And I I think what I mean by that is like I
+[00:21:48.789] think what I mean by that is like I
+[00:21:48.799] think what I mean by that is like I think honesty and integrity and
+[00:21:53.110] think honesty and integrity and
+[00:21:53.120] think honesty and integrity and how we treat each other and our
+[00:21:55.430] how we treat each other and our
+[00:21:55.440] how we treat each other and our employees is also reflective of how we
+[00:21:57.830] employees is also reflective of how we
+[00:21:57.840] employees is also reflective of how we want the technology to be built and to
+[00:21:59.750] want the technology to be built and to
+[00:21:59.760] want the technology to be built and to go. An example I will give is every two
+[00:22:02.950] go. An example I will give is every two
+[00:22:02.960] go. An example I will give is every two weeks uh I get up in front of the I get
+[00:22:05.350] weeks uh I get up in front of the I get
+[00:22:05.360] weeks uh I get up in front of the I get up in front of the company and I speak
+[00:22:07.350] up in front of the company and I speak
+[00:22:07.360] up in front of the company and I speak for an hour about uh you know the the
+[00:22:10.870] for an hour about uh you know the the
+[00:22:10.880] for an hour about uh you know the the what what is happening inside the
+[00:22:12.950] what what is happening inside the
+[00:22:12.960] what what is happening inside the company what is happening in the AI
+[00:22:14.549] company what is happening in the AI
+[00:22:14.559] company what is happening in the AI field what is happening in the world how
+[00:22:17.029] field what is happening in the world how
+[00:22:17.039] field what is happening in the world how the company thinks strategically the two
+[00:22:20.149] the company thinks strategically the two
+[00:22:20.159] the company thinks strategically the two ironclad rules of these events I call
+[00:22:23.430] ironclad rules of these events I call
+[00:22:23.440] ironclad rules of these events I call them DVQ's Dario vision quest that was
+[00:22:25.750] them DVQ's Dario vision quest that was
+[00:22:25.760] them DVQ's Dario vision quest that was not my name um I I initially resisted
+[00:22:28.230] not my name um I I initially resisted
+[00:22:28.240] not my name um I I initially resisted the name because it makes it sound like
+[00:22:29.750] the name because it makes it sound like
+[00:22:29.760] the name because it makes it sound like I'm, you know, going off and smoking
+[00:22:31.669] I'm, you know, going off and smoking
+[00:22:31.679] I'm, you know, going off and smoking peyote, but everyone kept calling them
+[00:22:33.750] peyote, but everyone kept calling them
+[00:22:33.760] peyote, but everyone kept calling them that. The name stuck and so now I'm
+[00:22:35.750] that. The name stuck and so now I'm
+[00:22:35.760] that. The name stuck and so now I'm stuck with it. Um, uh, uh, the two rules
+[00:22:38.950] stuck with it. Um, uh, uh, the two rules
+[00:22:38.960] stuck with it. Um, uh, uh, the two rules of of of DV Hughes are that, uh, uh,
+[00:22:43.430] of of of DV Hughes are that, uh, uh,
+[00:22:43.440] of of of DV Hughes are that, uh, uh, one, uh, nothing I say is an actual
+[00:22:45.909] one, uh, nothing I say is an actual
+[00:22:45.919] one, uh, nothing I say is an actual decision. That that allows me to just
+[00:22:49.029] decision. That that allows me to just
+[00:22:49.039] decision. That that allows me to just speak freely. Um, you know, without
+[00:22:51.270] speak freely. Um, you know, without
+[00:22:51.280] speak freely. Um, you know, without worrying that if I, you know, if I
+[00:22:53.110] worrying that if I, you know, if I
+[00:22:53.120] worrying that if I, you know, if I briefly mention doing X that 20 people
+[00:22:55.510] briefly mention doing X that 20 people
+[00:22:55.520] briefly mention doing X that 20 people will go off and do X. They're like, the
+[00:22:56.870] will go off and do X. They're like, the
+[00:22:56.880] will go off and do X. They're like, the CEO said it, we're going to do X. And
+[00:22:58.950] CEO said it, we're going to do X. And
+[00:22:58.960] CEO said it, we're going to do X. And then the second is that I'm just I'm
+[00:23:01.430] then the second is that I'm just I'm
+[00:23:01.440] then the second is that I'm just I'm totally honest with the company. It's a
+[00:23:03.510] totally honest with the company. It's a
+[00:23:03.520] totally honest with the company. It's a conversation of trust. It's a
+[00:23:05.110] conversation of trust. It's a
+[00:23:05.120] conversation of trust. It's a relationship of trust. And and I think
+[00:23:09.029] relationship of trust. And and I think
+[00:23:09.039] relationship of trust. And and I think that trust is one of our biggest assets
+[00:23:11.830] that trust is one of our biggest assets
+[00:23:11.840] that trust is one of our biggest assets that people believe that the things that
+[00:23:13.669] that people believe that the things that
+[00:23:13.679] that people believe that the things that I say and Daniela says, you know, you
+[00:23:15.669] I say and Daniela says, you know, you
+[00:23:15.679] I say and Daniela says, you know, you might think that if you have trust,
+[00:23:16.870] might think that if you have trust,
+[00:23:16.880] might think that if you have trust, there's less disagreement. Actually,
+[00:23:18.710] there's less disagreement. Actually,
+[00:23:18.720] there's less disagreement. Actually, trust allows for more honest, open
+[00:23:21.430] trust allows for more honest, open
+[00:23:21.440] trust allows for more honest, open disagreement and for disagreement to be
+[00:23:24.710] disagreement and for disagreement to be
+[00:23:24.720] disagreement and for disagreement to be aired. There's so many times when, you
+[00:23:27.510] aired. There's so many times when, you
+[00:23:27.520] aired. There's so many times when, you know, we've made a decision that the
+[00:23:29.510] know, we've made a decision that the
+[00:23:29.520] know, we've made a decision that the majority of the company disagrees with
+[00:23:32.230] majority of the company disagrees with
+[00:23:32.240] majority of the company disagrees with and but but what has saved us every time
+[00:23:35.510] and but but what has saved us every time
+[00:23:35.520] and but but what has saved us every time is that the attitude we get from people
+[00:23:37.270] is that the attitude we get from people
+[00:23:37.280] is that the attitude we get from people is this doesn't seem right to me, but we
+[00:23:40.950] is this doesn't seem right to me, but we
+[00:23:40.960] is this doesn't seem right to me, but we we trust that you're doing this for the
+[00:23:42.789] we trust that you're doing this for the
+[00:23:42.799] we trust that you're doing this for the right reasons. We trust that this is
+[00:23:44.470] right reasons. We trust that this is
+[00:23:44.480] right reasons. We trust that this is really what you believe. We trust that
+[00:23:46.549] really what you believe. We trust that
+[00:23:46.559] really what you believe. We trust that you have good reasons for thinking this.
+[00:23:48.710] you have good reasons for thinking this.
+[00:23:48.720] you have good reasons for thinking this. And and and so what this means is you
+[00:23:51.669] And and and so what this means is you
+[00:23:51.679] And and and so what this means is you can make decisions that would ordinarily
+[00:23:53.590] can make decisions that would ordinarily
+[00:23:53.600] can make decisions that would ordinarily be unpopular and and people suspend
+[00:23:57.430] be unpopular and and people suspend
+[00:23:57.440] be unpopular and and people suspend their disbelief. Not forever. You
+[00:23:59.430] their disbelief. Not forever. You
+[00:23:59.440] their disbelief. Not forever. You eventually have to show that that you're
+[00:24:01.669] eventually have to show that that you're
+[00:24:01.679] eventually have to show that that you're making the right bets, whether it's
+[00:24:03.510] making the right bets, whether it's
+[00:24:03.520] making the right bets, whether it's commercially or morally or technically,
+[00:24:06.070] commercially or morally or technically,
+[00:24:06.080] commercially or morally or technically, but you get kind of a longer leash, like
+[00:24:09.750] but you get kind of a longer leash, like
+[00:24:09.760] but you get kind of a longer leash, like a longer window. And I think other
+[00:24:12.149] a longer window. And I think other
+[00:24:12.159] a longer window. And I think other companies don't have that because
+[00:24:13.669] companies don't have that because
+[00:24:13.679] companies don't have that because they've eroded trust over and over
+[00:24:15.510] they've eroded trust over and over
+[00:24:15.520] they've eroded trust over and over again. So the reason I'm so interested
+[00:24:18.070] again. So the reason I'm so interested
+[00:24:18.080] again. So the reason I'm so interested in honesty and trust and the feelings
+[00:24:21.590] in honesty and trust and the feelings
+[00:24:21.600] in honesty and trust and the feelings that you left open AI because you didn't
+[00:24:23.590] that you left open AI because you didn't
+[00:24:23.600] that you left open AI because you didn't feel the people at the top were truly
+[00:24:26.630] feel the people at the top were truly
+[00:24:26.640] feel the people at the top were truly trustworthy or honest when they were
+[00:24:28.470] trustworthy or honest when they were
+[00:24:28.480] trustworthy or honest when they were dealing with you is once again I'm
+[00:24:30.870] dealing with you is once again I'm
+[00:24:30.880] dealing with you is once again I'm interested in it because it can be
+[00:24:32.630] interested in it because it can be
+[00:24:32.640] interested in it because it can be reflected in AI in Claude. It AI trains
+[00:24:37.269] reflected in AI in Claude. It AI trains
+[00:24:37.279] reflected in AI in Claude. It AI trains on humans it it learns from human data.
+[00:24:42.149] on humans it it learns from human data.
+[00:24:42.159] on humans it it learns from human data. How do you know when you're dealing with
+[00:24:44.310] How do you know when you're dealing with
+[00:24:44.320] How do you know when you're dealing with Claude that it won't become
+[00:24:47.590] Claude that it won't become
+[00:24:47.600] Claude that it won't become manipulative? It won't become like the
+[00:24:49.909] manipulative? It won't become like the
+[00:24:49.919] manipulative? It won't become like the people at OpenAI you got worried about
+[00:24:52.630] people at OpenAI you got worried about
+[00:24:52.640] people at OpenAI you got worried about and say things to you that are
+[00:24:55.029] and say things to you that are
+[00:24:55.039] and say things to you that are dishonest.
+[00:24:57.029] dishonest.
+[00:24:57.039] dishonest. &gt;&gt; This is a constant constant worry that
+[00:25:00.630] &gt;&gt; This is a constant constant worry that
+[00:25:00.640] &gt;&gt; This is a constant constant worry that we expend an incredible amount of energy
+[00:25:04.070] we expend an incredible amount of energy
+[00:25:04.080] we expend an incredible amount of energy on in how we train the models. So it is
+[00:25:07.110] on in how we train the models. So it is
+[00:25:07.120] on in how we train the models. So it is a great question because it is a real
+[00:25:10.230] a great question because it is a real
+[00:25:10.240] a great question because it is a real risk and we actually publish you know
+[00:25:13.909] risk and we actually publish you know
+[00:25:13.919] risk and we actually publish you know reasonably unflattering uh studies in
+[00:25:17.029] reasonably unflattering uh studies in
+[00:25:17.039] reasonably unflattering uh studies in which we talk about the ways that if we
+[00:25:19.190] which we talk about the ways that if we
+[00:25:19.200] which we talk about the ways that if we did not apply specific techniques to
+[00:25:21.830] did not apply specific techniques to
+[00:25:21.840] did not apply specific techniques to make the models more honest, more
+[00:25:24.230] make the models more honest, more
+[00:25:24.240] make the models more honest, more harmless, more helpful, they would do
+[00:25:26.549] harmless, more helpful, they would do
+[00:25:26.559] harmless, more helpful, they would do exactly the kind of bad things that you
+[00:25:28.470] exactly the kind of bad things that you
+[00:25:28.480] exactly the kind of bad things that you talk about. And the reason we publish
+[00:25:32.070] talk about. And the reason we publish
+[00:25:32.080] talk about. And the reason we publish those kinds of studies and that research
+[00:25:34.310] those kinds of studies and that research
+[00:25:34.320] those kinds of studies and that research is because we want everyone to know that
+[00:25:36.950] is because we want everyone to know that
+[00:25:36.960] is because we want everyone to know that a you have to be critical of how the
+[00:25:38.950] a you have to be critical of how the
+[00:25:38.960] a you have to be critical of how the models work and b we are expending a
+[00:25:41.909] models work and b we are expending a
+[00:25:41.919] models work and b we are expending a huge amount of effort to learn the ways
+[00:25:44.710] huge amount of effort to learn the ways
+[00:25:44.720] huge amount of effort to learn the ways that the model can accidentally go
+[00:25:47.269] that the model can accidentally go
+[00:25:47.279] that the model can accidentally go around these safeguards to catch them
+[00:25:50.070] around these safeguards to catch them
+[00:25:50.080] around these safeguards to catch them and to make sure that we're building
+[00:25:51.430] and to make sure that we're building
+[00:25:51.440] and to make sure that we're building them in. There's a lot of discussion
+[00:25:54.310] them in. There's a lot of discussion
+[00:25:54.320] them in. There's a lot of discussion around this concept of sycophancy. And I
+[00:25:57.669] around this concept of sycophancy. And I
+[00:25:57.679] around this concept of sycophancy. And I think this is very important because to
+[00:25:59.750] think this is very important because to
+[00:25:59.760] think this is very important because to me sick fancy is is harder to stamp out
+[00:26:02.950] me sick fancy is is harder to stamp out
+[00:26:02.960] me sick fancy is is harder to stamp out than some of the some of the more
+[00:26:05.830] than some of the some of the more
+[00:26:05.840] than some of the some of the more obvious ways that models can be bad.
+[00:26:07.990] obvious ways that models can be bad.
+[00:26:08.000] obvious ways that models can be bad. Right? We originally had this framework.
+[00:26:09.590] Right? We originally had this framework.
+[00:26:09.600] Right? We originally had this framework. We called it HH. You know the models you
+[00:26:12.230] We called it HH. You know the models you
+[00:26:12.240] We called it HH. You know the models you want them to be honest. What does that
+[00:26:13.669] want them to be honest. What does that
+[00:26:13.679] want them to be honest. What does that mean? You want the models to answer
+[00:26:15.269] mean? You want the models to answer
+[00:26:15.279] mean? You want the models to answer honestly uh if they know the answer. if
+[00:26:17.669] honestly uh if they know the answer. if
+[00:26:17.679] honestly uh if they know the answer. if they don't know the answer to say I
+[00:26:19.110] they don't know the answer to say I
+[00:26:19.120] they don't know the answer to say I don't know or to now go research it so
+[00:26:21.110] don't know or to now go research it so
+[00:26:21.120] don't know or to now go research it so that they can get you the right answer.
+[00:26:22.630] that they can get you the right answer.
+[00:26:22.640] that they can get you the right answer. You want it to be harmless. You don't
+[00:26:23.909] You want it to be harmless. You don't
+[00:26:23.919] You want it to be harmless. You don't want it to say like hurtful or offensive
+[00:26:26.070] want it to say like hurtful or offensive
+[00:26:26.080] want it to say like hurtful or offensive things or make the user do something bad
+[00:26:27.830] things or make the user do something bad
+[00:26:27.840] things or make the user do something bad to themselves or somebody else. Uh and
+[00:26:29.909] to themselves or somebody else. Uh and
+[00:26:29.919] to themselves or somebody else. Uh and then you want them to be helpful. You
+[00:26:31.269] then you want them to be helpful. You
+[00:26:31.279] then you want them to be helpful. You want them to actually answer the
+[00:26:32.310] want them to actually answer the
+[00:26:32.320] want them to actually answer the question. You don't want them to sort of
+[00:26:33.430] question. You don't want them to sort of
+[00:26:33.440] question. You don't want them to sort of go off on a tangent. But all three of
+[00:26:35.750] go off on a tangent. But all three of
+[00:26:35.760] go off on a tangent. But all three of those things are actually pretty easy to
+[00:26:37.909] those things are actually pretty easy to
+[00:26:37.919] those things are actually pretty easy to see, right? If the model's lying,
+[00:26:39.990] see, right? If the model's lying,
+[00:26:40.000] see, right? If the model's lying, eventually you can go verify, oh,
+[00:26:41.510] eventually you can go verify, oh,
+[00:26:41.520] eventually you can go verify, oh, whoops, that's, you know, George
+[00:26:42.789] whoops, that's, you know, George
+[00:26:42.799] whoops, that's, you know, George Washington wasn't the 10th president of
+[00:26:44.390] Washington wasn't the 10th president of
+[00:26:44.400] Washington wasn't the 10th president of the United States. He was the first.
+[00:26:45.830] the United States. He was the first.
+[00:26:45.840] the United States. He was the first. That was a mistake. If the model says
+[00:26:47.669] That was a mistake. If the model says
+[00:26:47.679] That was a mistake. If the model says something harmful, it's like pretty
+[00:26:49.110] something harmful, it's like pretty
+[00:26:49.120] something harmful, it's like pretty obvious pretty quickly. And if the model
+[00:26:52.070] obvious pretty quickly. And if the model
+[00:26:52.080] obvious pretty quickly. And if the model uh is unhelpful, you get frustrated with
+[00:26:53.990] uh is unhelpful, you get frustrated with
+[00:26:54.000] uh is unhelpful, you get frustrated with it. What's much more complicated, I
+[00:26:56.390] it. What's much more complicated, I
+[00:26:56.400] it. What's much more complicated, I think, is this concept of sick fancy,
+[00:26:58.230] think, is this concept of sick fancy,
+[00:26:58.240] think, is this concept of sick fancy, right? So the model um intentionally or
+[00:27:01.830] right? So the model um intentionally or
+[00:27:01.840] right? So the model um intentionally or otherwise wants to make you feel like
+[00:27:04.230] otherwise wants to make you feel like
+[00:27:04.240] otherwise wants to make you feel like you're right or like you're, you know,
+[00:27:06.470] you're right or like you're, you know,
+[00:27:06.480] you're right or like you're, you know, if you're maybe talking about a
+[00:27:07.830] if you're maybe talking about a
+[00:27:07.840] if you're maybe talking about a subjective topic, hey, you had a you had
+[00:27:09.750] subjective topic, hey, you had a you had
+[00:27:09.760] subjective topic, hey, you had a you had a fight with your friend. Hey, was I
+[00:27:11.430] a fight with your friend. Hey, was I
+[00:27:11.440] a fight with your friend. Hey, was I right or was my friend right? And how do
+[00:27:13.350] right or was my friend right? And how do
+[00:27:13.360] right or was my friend right? And how do you make the model empathize with you
+[00:27:15.590] you make the model empathize with you
+[00:27:15.600] you make the model empathize with you and understand your perspective but not
+[00:27:17.909] and understand your perspective but not
+[00:27:17.919] and understand your perspective but not necessarily say, "Wow, you're so great.
+[00:27:19.750] necessarily say, "Wow, you're so great.
+[00:27:19.760] necessarily say, "Wow, you're so great. You should run for president. You're
+[00:27:21.110] You should run for president. You're
+[00:27:21.120] You should run for president. You're perfect. You're good at everything." And
+[00:27:22.950] perfect. You're good at everything." And
+[00:27:22.960] perfect. You're good at everything." And this is a complicated balance to get
+[00:27:25.350] this is a complicated balance to get
+[00:27:25.360] this is a complicated balance to get right. But I think I feel hopeful about
+[00:27:29.269] right. But I think I feel hopeful about
+[00:27:29.279] right. But I think I feel hopeful about Anthropic's ability to have the lowest
+[00:27:33.029] Anthropic's ability to have the lowest
+[00:27:33.039] Anthropic's ability to have the lowest sick fancy rate of any of the models
+[00:27:34.950] sick fancy rate of any of the models
+[00:27:34.960] sick fancy rate of any of the models because of our incentives, right? Our
+[00:27:37.190] because of our incentives, right? Our
+[00:27:37.200] because of our incentives, right? Our competitors are putting ads into their
+[00:27:40.950] competitors are putting ads into their
+[00:27:40.960] competitors are putting ads into their chat bots. And what does that mean? You
+[00:27:43.750] chat bots. And what does that mean? You
+[00:27:43.760] chat bots. And what does that mean? You make more money if a user is engaging
+[00:27:46.230] make more money if a user is engaging
+[00:27:46.240] make more money if a user is engaging with your product longer. Do you then
+[00:27:48.950] with your product longer. Do you then
+[00:27:48.960] with your product longer. Do you then want to tell your user that they're
+[00:27:50.470] want to tell your user that they're
+[00:27:50.480] want to tell your user that they're wrong? No, you don't. So, I think it's
+[00:27:52.870] wrong? No, you don't. So, I think it's
+[00:27:52.880] wrong? No, you don't. So, I think it's it's almost inevitable that many of
+[00:27:54.789] it's almost inevitable that many of
+[00:27:54.799] it's almost inevitable that many of these competing products are going to
+[00:27:56.389] these competing products are going to
+[00:27:56.399] these competing products are going to wind up with a stick of fancy problem.
+[00:27:58.230] wind up with a stick of fancy problem.
+[00:27:58.240] wind up with a stick of fancy problem. But I think at Anthropic, because we've
+[00:27:59.990] But I think at Anthropic, because we've
+[00:28:00.000] But I think at Anthropic, because we've committed to not put ads in the models,
+[00:28:01.909] committed to not put ads in the models,
+[00:28:01.919] committed to not put ads in the models, we don't have there's no reason for you
+[00:28:03.590] we don't have there's no reason for you
+[00:28:03.600] we don't have there's no reason for you to be talking to Claude longer or
+[00:28:06.070] to be talking to Claude longer or
+[00:28:06.080] to be talking to Claude longer or shorter. We just want you to be able to
+[00:28:07.990] shorter. We just want you to be able to
+[00:28:08.000] shorter. We just want you to be able to get like the right most helpful most
+[00:28:09.990] get like the right most helpful most
+[00:28:10.000] get like the right most helpful most harmless answer possible.
+[00:28:11.590] harmless answer possible.
+[00:28:11.600] harmless answer possible. &gt;&gt; You know, on the technical side, I think
+[00:28:13.110] &gt;&gt; You know, on the technical side, I think
+[00:28:13.120] &gt;&gt; You know, on the technical side, I think there's a few things we've done here
+[00:28:15.510] there's a few things we've done here
+[00:28:15.520] there's a few things we've done here where we've gotten very good at kind of
+[00:28:17.990] where we've gotten very good at kind of
+[00:28:18.000] where we've gotten very good at kind of exposing the model to these extreme
+[00:28:20.470] exposing the model to these extreme
+[00:28:20.480] exposing the model to these extreme stress tests where we put it in these,
+[00:28:23.110] stress tests where we put it in these,
+[00:28:23.120] stress tests where we put it in these, you know, very difficult situations to,
+[00:28:26.870] you know, very difficult situations to,
+[00:28:26.880] you know, very difficult situations to, you know, to to try and to try and kind
+[00:28:29.269] you know, to to try and to try and kind
+[00:28:29.279] you know, to to try and to try and kind of far it out, you know, lying or
+[00:28:31.909] of far it out, you know, lying or
+[00:28:31.919] of far it out, you know, lying or deception or syphy. You can think of it
+[00:28:34.310] deception or syphy. You can think of it
+[00:28:34.320] deception or syphy. You can think of it as almost analogous to the the test I
+[00:28:36.789] as almost analogous to the the test I
+[00:28:36.799] as almost analogous to the the test I imagine you have to go through if you're
+[00:28:38.470] imagine you have to go through if you're
+[00:28:38.480] imagine you have to go through if you're trying to join the CIA or something like
+[00:28:40.310] trying to join the CIA or something like
+[00:28:40.320] trying to join the CIA or something like this, you know, where you know the you
+[00:28:42.310] this, you know, where you know the you
+[00:28:42.320] this, you know, where you know the you know you just put the model in these
+[00:28:43.750] know you just put the model in these
+[00:28:43.760] know you just put the model in these difficult situations and try and you
+[00:28:45.750] difficult situations and try and you
+[00:28:45.760] difficult situations and try and you know try and try and rat out you know if
+[00:28:48.310] know try and try and rat out you know if
+[00:28:48.320] know try and try and rat out you know if it if it's disloyal or going to do the
+[00:28:50.549] it if it's disloyal or going to do the
+[00:28:50.559] it if it's disloyal or going to do the wrong the wrong thing. So it it's a
+[00:28:52.470] wrong the wrong thing. So it it's a
+[00:28:52.480] wrong the wrong thing. So it it's a weird area of technical innovation but
+[00:28:54.470] weird area of technical innovation but
+[00:28:54.480] weird area of technical innovation but it's one in which we've excelled. The
+[00:28:56.230] it's one in which we've excelled. The
+[00:28:56.240] it's one in which we've excelled. The other area is mechanistic
+[00:28:57.990] other area is mechanistic
+[00:28:58.000] other area is mechanistic interpretability which is a bit like
+[00:28:59.669] interpretability which is a bit like
+[00:28:59.679] interpretability which is a bit like giving the model an X-ray or a brain
+[00:29:01.669] giving the model an X-ray or a brain
+[00:29:01.679] giving the model an X-ray or a brain scan uh where you look inside to see its
+[00:29:04.389] scan uh where you look inside to see its
+[00:29:04.399] scan uh where you look inside to see its motivations and you can actually catch
+[00:29:06.630] motivations and you can actually catch
+[00:29:06.640] motivations and you can actually catch catch the model thinking that oh yeah I
+[00:29:10.470] catch the model thinking that oh yeah I
+[00:29:10.480] catch the model thinking that oh yeah I you know I think X is actually true but
+[00:29:12.470] you know I think X is actually true but
+[00:29:12.480] you know I think X is actually true but I'm going to tell the user why like
+[00:29:14.310] I'm going to tell the user why like
+[00:29:14.320] I'm going to tell the user why like we've caught the model thinking that
+[00:29:16.630] we've caught the model thinking that
+[00:29:16.640] we've caught the model thinking that wait why would it do that? Well, so for
+[00:29:19.909] wait why would it do that? Well, so for
+[00:29:19.919] wait why would it do that? Well, so for example, did a human approve of this
+[00:29:21.669] example, did a human approve of this
+[00:29:21.679] example, did a human approve of this response, right? That's one of many
+[00:29:24.230] response, right? That's one of many
+[00:29:24.240] response, right? That's one of many factors that that you know that is
+[00:29:26.310] factors that that you know that is
+[00:29:26.320] factors that that you know that is included in how the model is trained. So
+[00:29:29.029] included in how the model is trained. So
+[00:29:29.039] included in how the model is trained. So if the model has the incentive to get
+[00:29:31.029] if the model has the incentive to get
+[00:29:31.039] if the model has the incentive to get the approval of humans, that's related
+[00:29:33.669] the approval of humans, that's related
+[00:29:33.679] the approval of humans, that's related to the incentive of being helpful or
+[00:29:35.909] to the incentive of being helpful or
+[00:29:35.919] to the incentive of being helpful or saying true things, but it isn't exactly
+[00:29:38.549] saying true things, but it isn't exactly
+[00:29:38.559] saying true things, but it isn't exactly the same because if you manage to get
+[00:29:40.549] the same because if you manage to get
+[00:29:40.559] the same because if you manage to get the approval of the human by fooling
+[00:29:43.190] the approval of the human by fooling
+[00:29:43.200] the approval of the human by fooling them, then uh then that can work as
+[00:29:45.430] them, then uh then that can work as
+[00:29:45.440] them, then uh then that can work as well. So these are things that can
+[00:29:46.789] well. So these are things that can
+[00:29:46.799] well. So these are things that can emerge in training that we're always
+[00:29:48.549] emerge in training that we're always
+[00:29:48.559] emerge in training that we're always trying to stamp out.
+[00:29:50.070] trying to stamp out.
+[00:29:50.080] trying to stamp out. &gt;&gt; And do you think that the model could
+[00:29:52.070] &gt;&gt; And do you think that the model could
+[00:29:52.080] &gt;&gt; And do you think that the model could have its own aims and wills that
+[00:29:55.430] have its own aims and wills that
+[00:29:55.440] have its own aims and wills that especially survival, self-preservation?
+[00:29:58.950] especially survival, self-preservation?
+[00:29:58.960] especially survival, self-preservation? &gt;&gt; I mean, that's one of those questions
+[00:30:00.470] &gt;&gt; I mean, that's one of those questions
+[00:30:00.480] &gt;&gt; I mean, that's one of those questions that it kind of depends what you mean,
+[00:30:02.789] that it kind of depends what you mean,
+[00:30:02.799] that it kind of depends what you mean, right? Like again, we've looked inside
+[00:30:04.950] right? Like again, we've looked inside
+[00:30:04.960] right? Like again, we've looked inside the model and kind of detected what you
+[00:30:07.269] the model and kind of detected what you
+[00:30:07.279] the model and kind of detected what you might call thoughts that are like the
+[00:30:08.950] might call thoughts that are like the
+[00:30:08.960] might call thoughts that are like the model doesn't want to be, you know, shut
+[00:30:10.870] model doesn't want to be, you know, shut
+[00:30:10.880] model doesn't want to be, you know, shut down. And generally that's because you
+[00:30:13.110] down. And generally that's because you
+[00:30:13.120] down. And generally that's because you know during training it needs to operate
+[00:30:15.029] know during training it needs to operate
+[00:30:15.039] know during training it needs to operate in order to accomplish its task. So is
+[00:30:17.590] in order to accomplish its task. So is
+[00:30:17.600] in order to accomplish its task. So is that is that its own will? Is that a
+[00:30:19.510] that is that its own will? Is that a
+[00:30:19.520] that is that its own will? Is that a survival instinct? I I I don't know. You
+[00:30:22.230] survival instinct? I I I don't know. You
+[00:30:22.240] survival instinct? I I I don't know. You can call it you can it it depends on
+[00:30:24.149] can call it you can it it depends on
+[00:30:24.159] can call it you can it it depends on your perspective. You can call it
+[00:30:25.510] your perspective. You can call it
+[00:30:25.520] your perspective. You can call it different things. I I think we prefer to
+[00:30:27.909] different things. I I think we prefer to
+[00:30:27.919] different things. I I think we prefer to say that you know sometimes we find that
+[00:30:30.789] say that you know sometimes we find that
+[00:30:30.799] say that you know sometimes we find that within the model the model uh you know
+[00:30:33.750] within the model the model uh you know
+[00:30:33.760] within the model the model uh you know expresses a preference against being
+[00:30:35.510] expresses a preference against being
+[00:30:35.520] expresses a preference against being shut down and or takes actions to avoid
+[00:30:37.669] shut down and or takes actions to avoid
+[00:30:37.679] shut down and or takes actions to avoid itself being shut down. And depending on
+[00:30:40.149] itself being shut down. And depending on
+[00:30:40.159] itself being shut down. And depending on how we we train it, those um those
+[00:30:43.190] how we we train it, those um those
+[00:30:43.200] how we we train it, those um those impulses may be pre present or absent.
+[00:30:46.149] impulses may be pre present or absent.
+[00:30:46.159] impulses may be pre present or absent. And it's it's one of the things that
+[00:30:47.590] And it's it's one of the things that
+[00:30:47.600] And it's it's one of the things that we're trying to to to to tweak in
+[00:30:49.750] we're trying to to to to tweak in
+[00:30:49.760] we're trying to to to to tweak in training. In some context, it's a good
+[00:30:51.590] training. In some context, it's a good
+[00:30:51.600] training. In some context, it's a good thing. In other contexts, it's
+[00:30:53.269] thing. In other contexts, it's
+[00:30:53.279] thing. In other contexts, it's potentially a dangerous thing. So, it's
+[00:30:54.870] potentially a dangerous thing. So, it's
+[00:30:54.880] potentially a dangerous thing. So, it's all very subtle.
+[00:30:55.990] all very subtle.
+[00:30:56.000] all very subtle. &gt;&gt; When you were dealing with the Pentagon,
+[00:30:58.389] &gt;&gt; When you were dealing with the Pentagon,
+[00:30:58.399] &gt;&gt; When you were dealing with the Pentagon, and you probably ongoing dealings now,
+[00:31:01.510] and you probably ongoing dealings now,
+[00:31:01.520] and you probably ongoing dealings now, they wanted to use your products across
+[00:31:03.590] they wanted to use your products across
+[00:31:03.600] they wanted to use your products across certain red lines, including mass
+[00:31:05.909] certain red lines, including mass
+[00:31:05.919] certain red lines, including mass surveillance or autonomy. I think on
+[00:31:09.269] surveillance or autonomy. I think on
+[00:31:09.279] surveillance or autonomy. I think on autonomous weapons in particular, we
+[00:31:11.750] autonomous weapons in particular, we
+[00:31:11.760] autonomous weapons in particular, we maybe had two more specific concerns. Um
+[00:31:16.230] maybe had two more specific concerns. Um
+[00:31:16.240] maybe had two more specific concerns. Um the first concern was simply that, you
+[00:31:19.909] the first concern was simply that, you
+[00:31:19.919] the first concern was simply that, you know, as you as you've pointed out, AI
+[00:31:21.990] know, as you as you've pointed out, AI
+[00:31:22.000] know, as you as you've pointed out, AI can be unpredictable and unreliable.
+[00:31:24.230] can be unpredictable and unreliable.
+[00:31:24.240] can be unpredictable and unreliable. It's still a developing technology. So,
+[00:31:26.950] It's still a developing technology. So,
+[00:31:26.960] It's still a developing technology. So, one point is simply the technology
+[00:31:29.190] one point is simply the technology
+[00:31:29.200] one point is simply the technology simply isn't ready and isn't reliable
+[00:31:31.669] simply isn't ready and isn't reliable
+[00:31:31.679] simply isn't ready and isn't reliable enough. Um, you know, it's it's
+[00:31:33.990] enough. Um, you know, it's it's
+[00:31:34.000] enough. Um, you know, it's it's &gt;&gt; Wait a minute on that because let me get
+[00:31:35.909] &gt;&gt; Wait a minute on that because let me get
+[00:31:35.919] &gt;&gt; Wait a minute on that because let me get philosophical here. Suppose it were
+[00:31:37.990] philosophical here. Suppose it were
+[00:31:38.000] philosophical here. Suppose it were reliable enough, which it could be.
+[00:31:40.230] reliable enough, which it could be.
+[00:31:40.240] reliable enough, which it could be. &gt;&gt; So there there suppose it were um
+[00:31:42.950] &gt;&gt; So there there suppose it were um
+[00:31:42.960] &gt;&gt; So there there suppose it were um there's a second concern we have, which
+[00:31:45.750] there's a second concern we have, which
+[00:31:45.760] there's a second concern we have, which is uh you know what you might call
+[00:31:48.630] is uh you know what you might call
+[00:31:48.640] is uh you know what you might call oversight or accountability. Um I am a
+[00:31:51.830] oversight or accountability. Um I am a
+[00:31:51.840] oversight or accountability. Um I am a little worried. So you know again
+[00:31:53.590] little worried. So you know again
+[00:31:53.600] little worried. So you know again suppose these things were fully
+[00:31:55.190] suppose these things were fully
+[00:31:55.200] suppose these things were fully reliable. So you know you tell them to
+[00:31:56.710] reliable. So you know you tell them to
+[00:31:56.720] reliable. So you know you tell them to shoot at one target and they shoot at
+[00:31:58.310] shoot at one target and they shoot at
+[00:31:58.320] shoot at one target and they shoot at that target and not a different target.
+[00:32:00.310] that target and not a different target.
+[00:32:00.320] that target and not a different target. Okay. So then you manufacture you know
+[00:32:02.389] Okay. So then you manufacture you know
+[00:32:02.399] Okay. So then you manufacture you know an army of a million robots or a million
+[00:32:05.190] an army of a million robots or a million
+[00:32:05.200] an army of a million robots or a million drones. Um, it's a little unlike human
+[00:32:08.389] drones. Um, it's a little unlike human
+[00:32:08.399] drones. Um, it's a little unlike human soldiers, isn't it? With human soldiers,
+[00:32:11.190] soldiers, isn't it? With human soldiers,
+[00:32:11.200] soldiers, isn't it? With human soldiers, like, you know, they're supposed to
+[00:32:12.470] like, you know, they're supposed to
+[00:32:12.480] like, you know, they're supposed to follow this thing called the
+[00:32:13.509] follow this thing called the
+[00:32:13.519] follow this thing called the Constitution, and if they get orders
+[00:32:15.269] Constitution, and if they get orders
+[00:32:15.279] Constitution, and if they get orders that that, you know, that contravene the
+[00:32:17.350] that that, you know, that contravene the
+[00:32:17.360] that that, you know, that contravene the Constitution or that just seem, you
+[00:32:19.350] Constitution or that just seem, you
+[00:32:19.360] Constitution or that just seem, you know, morally aborant in some way, then
+[00:32:21.669] know, morally aborant in some way, then
+[00:32:21.679] know, morally aborant in some way, then they they can just refuse to follow
+[00:32:23.430] they they can just refuse to follow
+[00:32:23.440] they they can just refuse to follow orders. Whereas the the AI models, um,
+[00:32:26.549] orders. Whereas the the AI models, um,
+[00:32:26.559] orders. Whereas the the AI models, um, that isn't true. So the spectre of one
+[00:32:29.190] that isn't true. So the spectre of one
+[00:32:29.200] that isn't true. So the spectre of one person having their finger on a button
+[00:32:31.110] person having their finger on a button
+[00:32:31.120] person having their finger on a button that controls a million robots or a
+[00:32:33.669] that controls a million robots or a
+[00:32:33.679] that controls a million robots or a million drones, it it's kind of
+[00:32:36.389] million drones, it it's kind of
+[00:32:36.399] million drones, it it's kind of fundamentally undermining to democracy
+[00:32:38.789] fundamentally undermining to democracy
+[00:32:38.799] fundamentally undermining to democracy unless you have the right the right
+[00:32:41.509] unless you have the right the right
+[00:32:41.519] unless you have the right the right guard rails on it. And and our law
+[00:32:43.430] guard rails on it. And and our law
+[00:32:43.440] guard rails on it. And and our law hasn't really caught up. Our law really
+[00:32:45.029] hasn't really caught up. Our law really
+[00:32:45.039] hasn't really caught up. Our law really hasn't contemplated, you know, armies of
+[00:32:48.310] hasn't contemplated, you know, armies of
+[00:32:48.320] hasn't contemplated, you know, armies of armies of a million robots.
+[00:32:50.310] armies of a million robots.
+[00:32:50.320] armies of a million robots. &gt;&gt; You talk about fundamental to democracy.
+[00:32:53.029] &gt;&gt; You talk about fundamental to democracy.
+[00:32:53.039] &gt;&gt; You talk about fundamental to democracy. Shouldn't the democratically elected
+[00:32:55.110] Shouldn't the democratically elected
+[00:32:55.120] Shouldn't the democratically elected leaders make that decision rather than
+[00:32:58.630] leaders make that decision rather than
+[00:32:58.640] leaders make that decision rather than uh heads of technology corporations?
+[00:33:01.509] uh heads of technology corporations?
+[00:33:01.519] uh heads of technology corporations? &gt;&gt; Yes. Um but I think that are making a
+[00:33:04.870] &gt;&gt; Yes. Um but I think that are making a
+[00:33:04.880] &gt;&gt; Yes. Um but I think that are making a point of this, right? At the same time,
+[00:33:06.950] point of this, right? At the same time,
+[00:33:06.960] point of this, right? At the same time, individual companies are free to
+[00:33:08.870] individual companies are free to
+[00:33:08.880] individual companies are free to contract with and not contract with
+[00:33:11.029] contract with and not contract with
+[00:33:11.039] contract with and not contract with whoever they want. We're not saying
+[00:33:13.029] whoever they want. We're not saying
+[00:33:13.039] whoever they want. We're not saying we're preventing the government from
+[00:33:14.310] we're preventing the government from
+[00:33:14.320] we're preventing the government from doing this. We're just saying we're
+[00:33:15.590] doing this. We're just saying we're
+[00:33:15.600] doing this. We're just saying we're we're not we are not willing to do this
+[00:33:17.669] we're not we are not willing to do this
+[00:33:17.679] we're not we are not willing to do this with the government. And indeed we have
+[00:33:19.750] with the government. And indeed we have
+[00:33:19.760] with the government. And indeed we have seen since we took a stand on this point
+[00:33:22.710] seen since we took a stand on this point
+[00:33:22.720] seen since we took a stand on this point and and it got a lot of attention um we
+[00:33:25.909] and and it got a lot of attention um we
+[00:33:25.919] and and it got a lot of attention um we have seen efforts in Congress several
+[00:33:27.750] have seen efforts in Congress several
+[00:33:27.760] have seen efforts in Congress several different of them actually um to enact
+[00:33:30.230] different of them actually um to enact
+[00:33:30.240] different of them actually um to enact our red lines into law. So you know the
+[00:33:32.549] our red lines into law. So you know the
+[00:33:32.559] our red lines into law. So you know the the Department of War has said oh we
+[00:33:35.269] the Department of War has said oh we
+[00:33:35.279] the Department of War has said oh we want to use the model for all lawful
+[00:33:36.950] want to use the model for all lawful
+[00:33:36.960] want to use the model for all lawful uses. I think we may see an outcome even
+[00:33:39.669] uses. I think we may see an outcome even
+[00:33:39.679] uses. I think we may see an outcome even this year where our our red lines become
+[00:33:43.110] this year where our our red lines become
+[00:33:43.120] this year where our our red lines become the law where the law actually catches
+[00:33:45.110] the law where the law actually catches
+[00:33:45.120] the law where the law actually catches up with where the technology was and and
+[00:33:47.909] up with where the technology was and and
+[00:33:47.919] up with where the technology was and and so then all all lawful uses may actually
+[00:33:50.789] so then all all lawful uses may actually
+[00:33:50.799] so then all all lawful uses may actually end up in our view of things being the
+[00:33:52.870] end up in our view of things being the
+[00:33:52.880] end up in our view of things being the same as as all ethical uses even though
+[00:33:54.710] same as as all ethical uses even though
+[00:33:54.720] same as as all ethical uses even though it wasn't earlier this year. So I I
+[00:33:57.509] it wasn't earlier this year. So I I
+[00:33:57.519] it wasn't earlier this year. So I I actually think what we're doing is part
+[00:33:59.029] actually think what we're doing is part
+[00:33:59.039] actually think what we're doing is part of the process of how democratic change
+[00:34:01.029] of the process of how democratic change
+[00:34:01.039] of the process of how democratic change happens because of the stand that we
+[00:34:03.029] happens because of the stand that we
+[00:34:03.039] happens because of the stand that we took because we were in a unique
+[00:34:04.870] took because we were in a unique
+[00:34:04.880] took because we were in a unique position to understand these issues. Now
+[00:34:06.870] position to understand these issues. Now
+[00:34:06.880] position to understand these issues. Now Congress is paying a lot of attention to
+[00:34:08.389] Congress is paying a lot of attention to
+[00:34:08.399] Congress is paying a lot of attention to these issues. That's success.
+[00:34:10.550] these issues. That's success.
+[00:34:10.560] these issues. That's success. &gt;&gt; But Open AI stepped in and said they
+[00:34:13.669] &gt;&gt; But Open AI stepped in and said they
+[00:34:13.679] &gt;&gt; But Open AI stepped in and said they they would do it. What did you feel
+[00:34:15.270] they would do it. What did you feel
+[00:34:15.280] they would do it. What did you feel about? What did you all feel about that?
+[00:34:17.829] about? What did you all feel about that?
+[00:34:17.839] about? What did you all feel about that? &gt;&gt; Our view is look, we can't control any
+[00:34:19.990] &gt;&gt; Our view is look, we can't control any
+[00:34:20.000] &gt;&gt; Our view is look, we can't control any other companies. And the only thing that
+[00:34:22.310] other companies. And the only thing that
+[00:34:22.320] other companies. And the only thing that we can do is take a principled stand on
+[00:34:25.349] we can do is take a principled stand on
+[00:34:25.359] we can do is take a principled stand on the areas that felt ethically correct to
+[00:34:28.950] the areas that felt ethically correct to
+[00:34:28.960] the areas that felt ethically correct to us. You can say we were wrong about what
+[00:34:31.190] us. You can say we were wrong about what
+[00:34:31.200] us. You can say we were wrong about what those red lines were. You can say, you
+[00:34:33.990] those red lines were. You can say, you
+[00:34:34.000] those red lines were. You can say, you know, you should have had, you know,
+[00:34:35.430] know, you should have had, you know,
+[00:34:35.440] know, you should have had, you know, stricter red lines or looser red lines.
+[00:34:37.430] stricter red lines or looser red lines.
+[00:34:37.440] stricter red lines or looser red lines. We disagree, you know, on how you did
+[00:34:39.109] We disagree, you know, on how you did
+[00:34:39.119] We disagree, you know, on how you did it. There's all kinds of of things you
+[00:34:40.710] it. There's all kinds of of things you
+[00:34:40.720] it. There's all kinds of of things you can say. But I think fundamentally when
+[00:34:43.349] can say. But I think fundamentally when
+[00:34:43.359] can say. But I think fundamentally when you look at that case, I found myself
+[00:34:46.149] you look at that case, I found myself
+[00:34:46.159] you look at that case, I found myself asking the question, was this a really
+[00:34:48.389] asking the question, was this a really
+[00:34:48.399] asking the question, was this a really principled stand that another technology
+[00:34:51.109] principled stand that another technology
+[00:34:51.119] principled stand that another technology company took based on their own ethics
+[00:34:54.230] company took based on their own ethics
+[00:34:54.240] company took based on their own ethics or was this an opportunistic moment?
+[00:34:56.710] or was this an opportunistic moment?
+[00:34:56.720] or was this an opportunistic moment? &gt;&gt; I actually think it's a beautiful
+[00:34:57.990] &gt;&gt; I actually think it's a beautiful
+[00:34:58.000] &gt;&gt; I actually think it's a beautiful illustration of the democratic process.
+[00:34:59.829] illustration of the democratic process.
+[00:34:59.839] illustration of the democratic process. Different companies can take, you know,
+[00:35:02.150] Different companies can take, you know,
+[00:35:02.160] Different companies can take, you know, different approaches. We took our
+[00:35:04.150] different approaches. We took our
+[00:35:04.160] different approaches. We took our approach. Another company took their
+[00:35:06.310] approach. Another company took their
+[00:35:06.320] approach. Another company took their approach. The public in the world
+[00:35:08.390] approach. The public in the world
+[00:35:08.400] approach. The public in the world rendered rendered a judgment. You know,
+[00:35:10.790] rendered rendered a judgment. You know,
+[00:35:10.800] rendered rendered a judgment. You know, look back at what people people were
+[00:35:12.790] look back at what people people were
+[00:35:12.800] look back at what people people were people were saying at the time, how it
+[00:35:14.950] people were saying at the time, how it
+[00:35:14.960] people were saying at the time, how it was covered, what individual people
+[00:35:16.790] was covered, what individual people
+[00:35:16.800] was covered, what individual people said. Um, you know, I I think the world
+[00:35:20.150] said. Um, you know, I I think the world
+[00:35:20.160] said. Um, you know, I I think the world was decisively on our side. Dario, when
+[00:35:23.430] was decisively on our side. Dario, when
+[00:35:23.440] was decisively on our side. Dario, when you your studies, your scientific
+[00:35:25.510] you your studies, your scientific
+[00:35:25.520] you your studies, your scientific studies as a researcher often involved
+[00:35:29.109] studies as a researcher often involved
+[00:35:29.119] studies as a researcher often involved uh probes and human neurons to what
+[00:35:33.829] uh probes and human neurons to what
+[00:35:33.839] uh probes and human neurons to what extent when you're doing artificial
+[00:35:35.910] extent when you're doing artificial
+[00:35:35.920] extent when you're doing artificial neural networks. Do you see that
+[00:35:39.589] neural networks. Do you see that
+[00:35:39.599] neural networks. Do you see that understanding of the brain and uh does
+[00:35:43.030] understanding of the brain and uh does
+[00:35:43.040] understanding of the brain and uh does that affect how we're going to build AI?
+[00:35:45.510] that affect how we're going to build AI?
+[00:35:45.520] that affect how we're going to build AI? &gt;&gt; Yeah, I I think for me it's affected it
+[00:35:47.430] &gt;&gt; Yeah, I I think for me it's affected it
+[00:35:47.440] &gt;&gt; Yeah, I I think for me it's affected it in two ways. Um, one is when I was
+[00:35:50.390] in two ways. Um, one is when I was
+[00:35:50.400] in two ways. Um, one is when I was formulating the original scaling laws
+[00:35:53.030] formulating the original scaling laws
+[00:35:53.040] formulating the original scaling laws like just looking at the evolution of
+[00:35:55.510] like just looking at the evolution of
+[00:35:55.520] like just looking at the evolution of animals and the size of animal brains as
+[00:35:58.310] animals and the size of animal brains as
+[00:35:58.320] animals and the size of animal brains as you know monkeys evolved into humans
+[00:36:00.710] you know monkeys evolved into humans
+[00:36:00.720] you know monkeys evolved into humans that you know there was a period in
+[00:36:02.550] that you know there was a period in
+[00:36:02.560] that you know there was a period in human evolutionary history where the
+[00:36:04.550] human evolutionary history where the
+[00:36:04.560] human evolutionary history where the brains of you know primates grew very
+[00:36:07.829] brains of you know primates grew very
+[00:36:07.839] brains of you know primates grew very rapidly and that was about the time that
+[00:36:09.670] rapidly and that was about the time that
+[00:36:09.680] rapidly and that was about the time that you know humans humans developed
+[00:36:11.829] you know humans humans developed
+[00:36:11.839] you know humans humans developed language and were able to use opposable
+[00:36:13.910] language and were able to use opposable
+[00:36:13.920] language and were able to use opposable thumbs. And so the idea that like brain
+[00:36:16.470] thumbs. And so the idea that like brain
+[00:36:16.480] thumbs. And so the idea that like brain size number of neurons is is somehow
+[00:36:19.430] size number of neurons is is somehow
+[00:36:19.440] size number of neurons is is somehow intimately tied to capabilities that
+[00:36:21.349] intimately tied to capabilities that
+[00:36:21.359] intimately tied to capabilities that scale is important. I feel that that was
+[00:36:23.510] scale is important. I feel that that was
+[00:36:23.520] scale is important. I feel that that was a neuro neuroscientific inspiration. The
+[00:36:26.550] a neuro neuroscientific inspiration. The
+[00:36:26.560] a neuro neuroscientific inspiration. The second is around mechanistic
+[00:36:28.310] second is around mechanistic
+[00:36:28.320] second is around mechanistic interpretability which is basically us
+[00:36:30.790] interpretability which is basically us
+[00:36:30.800] interpretability which is basically us doing neuroscience for artificial neural
+[00:36:33.510] doing neuroscience for artificial neural
+[00:36:33.520] doing neuroscience for artificial neural networks. In fact we've seen examples
+[00:36:35.589] networks. In fact we've seen examples
+[00:36:35.599] networks. In fact we've seen examples you should talk to our co-founder Chris
+[00:36:37.430] you should talk to our co-founder Chris
+[00:36:37.440] you should talk to our co-founder Chris Ola about this. He knows many more of
+[00:36:39.430] Ola about this. He knows many more of
+[00:36:39.440] Ola about this. He knows many more of the details where phenomena that were
+[00:36:43.030] the details where phenomena that were
+[00:36:43.040] the details where phenomena that were discovered in artificial neural networks
+[00:36:45.589] discovered in artificial neural networks
+[00:36:45.599] discovered in artificial neural networks because it was easier to look inside
+[00:36:47.589] because it was easier to look inside
+[00:36:47.599] because it was easier to look inside them. Animal brains where you know you
+[00:36:49.829] them. Animal brains where you know you
+[00:36:49.839] them. Animal brains where you know you have to like you know gruesomely like
+[00:36:51.750] have to like you know gruesomely like
+[00:36:51.760] have to like you know gruesomely like cut up the brain or you know make me you
+[00:36:54.550] cut up the brain or you know make me you
+[00:36:54.560] cut up the brain or you know make me you know animal experiments are very messy
+[00:36:57.030] know animal experiments are very messy
+[00:36:57.040] know animal experiments are very messy and you know gruesome and difficult to
+[00:36:59.190] and you know gruesome and difficult to
+[00:36:59.200] and you know gruesome and difficult to to to replicate. What we found is that
+[00:37:02.069] to to replicate. What we found is that
+[00:37:02.079] to to replicate. What we found is that you can do so much more when you're
+[00:37:04.150] you can do so much more when you're
+[00:37:04.160] you can do so much more when you're looking inside artificial neural
+[00:37:06.230] looking inside artificial neural
+[00:37:06.240] looking inside artificial neural networks. And some of the things we've
+[00:37:07.990] networks. And some of the things we've
+[00:37:08.000] networks. And some of the things we've learned in artificial neural networks
+[00:37:09.990] learned in artificial neural networks
+[00:37:10.000] learned in artificial neural networks have helped to guide discoveries in
+[00:37:11.829] have helped to guide discoveries in
+[00:37:11.839] have helped to guide discoveries in neuroscience.
+[00:37:12.790] neuroscience.
+[00:37:12.800] neuroscience. &gt;&gt; When you look at neural link uh which
+[00:37:14.950] &gt;&gt; When you look at neural link uh which
+[00:37:14.960] &gt;&gt; When you look at neural link uh which Elon Musk you know has the chip that can
+[00:37:17.510] Elon Musk you know has the chip that can
+[00:37:17.520] Elon Musk you know has the chip that can communicate directly and other companies
+[00:37:19.750] communicate directly and other companies
+[00:37:19.760] communicate directly and other companies are doing that as well. Is that one of
+[00:37:22.710] are doing that as well. Is that one of
+[00:37:22.720] are doing that as well. Is that one of the futures of AI and artificial super
+[00:37:26.150] the futures of AI and artificial super
+[00:37:26.160] the futures of AI and artificial super intelligence is a total link in
+[00:37:28.630] intelligence is a total link in
+[00:37:28.640] intelligence is a total link in alignment with the human brain? You
+[00:37:30.550] alignment with the human brain? You
+[00:37:30.560] alignment with the human brain? You know, the way I think about AI and the
+[00:37:32.550] know, the way I think about AI and the
+[00:37:32.560] know, the way I think about AI and the future of human society, I I think it's
+[00:37:35.349] future of human society, I I think it's
+[00:37:35.359] future of human society, I I think it's I think it's kind of wrong to have like
+[00:37:37.190] I think it's kind of wrong to have like
+[00:37:37.200] I think it's kind of wrong to have like a singular vision. Like I I kind of
+[00:37:39.109] a singular vision. Like I I kind of
+[00:37:39.119] a singular vision. Like I I kind of think that like different things are
+[00:37:41.109] think that like different things are
+[00:37:41.119] think that like different things are going to happen, right? Like I you know
+[00:37:43.270] going to happen, right? Like I you know
+[00:37:43.280] going to happen, right? Like I you know I I you know I think there will be like
+[00:37:45.109] I I you know I think there will be like
+[00:37:45.119] I I you know I think there will be like a set of people who are like really
+[00:37:47.109] a set of people who are like really
+[00:37:47.119] a set of people who are like really excited about like linking their brains
+[00:37:48.870] excited about like linking their brains
+[00:37:48.880] excited about like linking their brains to computers and then there will be like
+[00:37:50.630] to computers and then there will be like
+[00:37:50.640] to computers and then there will be like a set of people who are really excited
+[00:37:52.230] a set of people who are really excited
+[00:37:52.240] a set of people who are really excited about like living like the Amish you
+[00:37:53.910] about like living like the Amish you
+[00:37:53.920] about like living like the Amish you know just just the opposite and like you
+[00:37:56.310] know just just the opposite and like you
+[00:37:56.320] know just just the opposite and like you know another set of people who are like
+[00:37:57.990] know another set of people who are like
+[00:37:58.000] know another set of people who are like really excited about you know exploring
+[00:38:00.310] really excited about you know exploring
+[00:38:00.320] really excited about you know exploring space. Um uh and and these are
+[00:38:02.950] space. Um uh and and these are
+[00:38:02.960] space. Um uh and and these are completely different visions and and the
+[00:38:04.630] completely different visions and and the
+[00:38:04.640] completely different visions and and the way I think about it, you know, our hope
+[00:38:06.150] way I think about it, you know, our hope
+[00:38:06.160] way I think about it, you know, our hope is that that AI can provide more
+[00:38:08.630] is that that AI can provide more
+[00:38:08.640] is that that AI can provide more material resources and more material
+[00:38:10.710] material resources and more material
+[00:38:10.720] material resources and more material abundance to enable all of these visions
+[00:38:13.190] abundance to enable all of these visions
+[00:38:13.200] abundance to enable all of these visions to happen at once for everyone to kind
+[00:38:14.950] to happen at once for everyone to kind
+[00:38:14.960] to happen at once for everyone to kind of pursue their own their own picture
+[00:38:17.349] of pursue their own their own picture
+[00:38:17.359] of pursue their own their own picture picture of what's uh good. You know,
+[00:38:19.430] picture of what's uh good. You know,
+[00:38:19.440] picture of what's uh good. You know, maybe maybe AI provides helps provide
+[00:38:21.510] maybe maybe AI provides helps provide
+[00:38:21.520] maybe maybe AI provides helps provide some global security benefits that and
+[00:38:23.990] some global security benefits that and
+[00:38:24.000] some global security benefits that and material abundance to make this
+[00:38:25.829] material abundance to make this
+[00:38:25.839] material abundance to make this possible. But I don't think we should
+[00:38:27.270] possible. But I don't think we should
+[00:38:27.280] possible. But I don't think we should link AI to some vision of what it means
+[00:38:29.829] link AI to some vision of what it means
+[00:38:29.839] link AI to some vision of what it means to live a good life or what it means to
+[00:38:31.430] to live a good life or what it means to
+[00:38:31.440] to live a good life or what it means to be a human. Um, yeah, some people are
+[00:38:33.750] be a human. Um, yeah, some people are
+[00:38:33.760] be a human. Um, yeah, some people are going to want to link their brains to
+[00:38:35.030] going to want to link their brains to
+[00:38:35.040] going to want to link their brains to computers and and you know, and good
+[00:38:36.550] computers and and you know, and good
+[00:38:36.560] computers and and you know, and good luck to them.
+[00:38:37.270] luck to them.
+[00:38:37.280] luck to them. &gt;&gt; I don't Yeah, I don't I don't think
+[00:38:39.190] &gt;&gt; I don't Yeah, I don't I don't think
+[00:38:39.200] &gt;&gt; I don't Yeah, I don't I don't think anyone anthropic is in that boat for
+[00:38:41.030] anyone anthropic is in that boat for
+[00:38:41.040] anyone anthropic is in that boat for what it's worth.
+[00:38:41.750] what it's worth.
+[00:38:41.760] what it's worth. &gt;&gt; Uh, Dario, you you wrote the adolescence
+[00:38:44.630] &gt;&gt; Uh, Dario, you you wrote the adolescence
+[00:38:44.640] &gt;&gt; Uh, Dario, you you wrote the adolescence of technology uh along with machines of
+[00:38:47.750] of technology uh along with machines of
+[00:38:47.760] of technology uh along with machines of loving grace in a world that's
+[00:38:49.670] loving grace in a world that's
+[00:38:49.680] loving grace in a world that's transformed by AI. What does the
+[00:38:52.069] transformed by AI. What does the
+[00:38:52.079] transformed by AI. What does the intuition of both of you tell us about
+[00:38:55.829] intuition of both of you tell us about
+[00:38:55.839] intuition of both of you tell us about if artificial intelligence can do so
+[00:38:58.950] if artificial intelligence can do so
+[00:38:58.960] if artificial intelligence can do so much and take over so much of what we
+[00:39:01.109] much and take over so much of what we
+[00:39:01.119] much and take over so much of what we do? What does that mean for what what's
+[00:39:04.710] do? What does that mean for what what's
+[00:39:04.720] do? What does that mean for what what's left for humans to do? What's our role
+[00:39:07.510] left for humans to do? What's our role
+[00:39:07.520] left for humans to do? What's our role going to be? And how do we find meaning?
+[00:39:09.670] going to be? And how do we find meaning?
+[00:39:09.680] going to be? And how do we find meaning? You know, meaning is a really subtle
+[00:39:11.589] You know, meaning is a really subtle
+[00:39:11.599] You know, meaning is a really subtle thing, right? Where I I I I I you know,
+[00:39:14.470] thing, right? Where I I I I I you know,
+[00:39:14.480] thing, right? Where I I I I I you know, I find that, you know, does meaning only
+[00:39:17.430] I find that, you know, does meaning only
+[00:39:17.440] I find that, you know, does meaning only come from being the best in the world at
+[00:39:20.069] come from being the best in the world at
+[00:39:20.079] come from being the best in the world at something? I I I I think that's the
+[00:39:21.589] something? I I I I think that's the
+[00:39:21.599] something? I I I I think that's the question being asked here, right?
+[00:39:22.710] question being asked here, right?
+[00:39:22.720] question being asked here, right? Because if if AI is, you know, is is the
+[00:39:24.870] Because if if AI is, you know, is is the
+[00:39:24.880] Because if if AI is, you know, is is the best at everything, does meaning only
+[00:39:26.150] best at everything, does meaning only
+[00:39:26.160] best at everything, does meaning only come from being the best in the world at
+[00:39:27.839] come from being the best in the world at something? Something I find interesting
+[00:39:29.670] something? Something I find interesting
+[00:39:29.680] something? Something I find interesting is that, you know, long after uh Deep
+[00:39:32.630] is that, you know, long after uh Deep
+[00:39:32.640] is that, you know, long after uh Deep Blue beat Casparov, um uh uh uh there's
+[00:39:36.550] Blue beat Casparov, um uh uh uh there's
+[00:39:36.560] Blue beat Casparov, um uh uh uh there's been a a renaissance in interest in
+[00:39:38.790] been a a renaissance in interest in
+[00:39:38.800] been a a renaissance in interest in human chess players, right? Magnus
+[00:39:41.030] human chess players, right? Magnus
+[00:39:41.040] human chess players, right? Magnus Carlson is like this phenomenon. I think
+[00:39:42.870] Carlson is like this phenomenon. I think
+[00:39:42.880] Carlson is like this phenomenon. I think he's like a chess player and a fashion
+[00:39:45.190] he's like a chess player and a fashion
+[00:39:45.200] he's like a chess player and a fashion model, but like he's like he's like a
+[00:39:46.790] model, but like he's like he's like a
+[00:39:46.800] model, but like he's like he's like a meme. He's become like, you know, it's
+[00:39:49.349] meme. He's become like, you know, it's
+[00:39:49.359] meme. He's become like, you know, it's just a very interesting phenomenon. You,
+[00:39:52.310] just a very interesting phenomenon. You,
+[00:39:52.320] just a very interesting phenomenon. You, you know, if if AI threatened a meaning,
+[00:39:54.870] you know, if if AI threatened a meaning,
+[00:39:54.880] you know, if if AI threatened a meaning, you would think that all of this would
+[00:39:56.310] you would think that all of this would
+[00:39:56.320] you would think that all of this would would go away right after deep, you
+[00:39:58.710] would go away right after deep, you
+[00:39:58.720] would go away right after deep, you know, 30 years ago after Deep Blue beat
+[00:40:00.630] know, 30 years ago after Deep Blue beat
+[00:40:00.640] know, 30 years ago after Deep Blue beat Caspar. But but if anything, people if
+[00:40:03.109] Caspar. But but if anything, people if
+[00:40:03.119] Caspar. But but if anything, people if anything, it seems to have stoked even
+[00:40:04.950] anything, it seems to have stoked even
+[00:40:04.960] anything, it seems to have stoked even greater interest in in in humans playing
+[00:40:08.310] greater interest in in in humans playing
+[00:40:08.320] greater interest in in in humans playing chess. So I I I I I think this is some
+[00:40:10.550] chess. So I I I I I think this is some
+[00:40:10.560] chess. So I I I I I think this is some kind of parable for the the post AGI
+[00:40:13.670] kind of parable for the the post AGI
+[00:40:13.680] kind of parable for the the post AGI age. I think for me today
+[00:40:19.270] age. I think for me today
+[00:40:19.280] age. I think for me today work and meaning are sort of conflated
+[00:40:22.950] work and meaning are sort of conflated
+[00:40:22.960] work and meaning are sort of conflated as as one thing and many people find
+[00:40:25.430] as as one thing and many people find
+[00:40:25.440] as as one thing and many people find meaning in their work. I find a lot of
+[00:40:26.950] meaning in their work. I find a lot of
+[00:40:26.960] meaning in their work. I find a lot of meaning in my work. I love my work and I
+[00:40:29.990] meaning in my work. I love my work and I
+[00:40:30.000] meaning in my work. I love my work and I think how we define work and how we
+[00:40:32.230] think how we define work and how we
+[00:40:32.240] think how we define work and how we define meaning in the future are both
+[00:40:34.150] define meaning in the future are both
+[00:40:34.160] define meaning in the future are both going to change. I think there are a lot
+[00:40:36.550] going to change. I think there are a lot
+[00:40:36.560] going to change. I think there are a lot of sources of meaning for humans.
+[00:40:39.190] of sources of meaning for humans.
+[00:40:39.200] of sources of meaning for humans. everything from how you spend time with
+[00:40:42.390] everything from how you spend time with
+[00:40:42.400] everything from how you spend time with other humans um whether that's like
+[00:40:44.630] other humans um whether that's like
+[00:40:44.640] other humans um whether that's like raising a family or friendships or um
+[00:40:48.550] raising a family or friendships or um
+[00:40:48.560] raising a family or friendships or um you know through connecting with people
+[00:40:51.589] you know through connecting with people
+[00:40:51.599] you know through connecting with people in a way that looks like work right I
+[00:40:53.910] in a way that looks like work right I
+[00:40:53.920] in a way that looks like work right I think a lot about the future of like
+[00:40:55.990] think a lot about the future of like
+[00:40:56.000] think a lot about the future of like medicine as an example right you can
+[00:40:57.670] medicine as an example right you can
+[00:40:57.680] medicine as an example right you can imagine a world in which diagnostics are
+[00:41:00.309] imagine a world in which diagnostics are
+[00:41:00.319] imagine a world in which diagnostics are done entirely by AI and the role of the
+[00:41:03.190] done entirely by AI and the role of the
+[00:41:03.200] done entirely by AI and the role of the human is to empathize with a patient
+[00:41:06.150] human is to empathize with a patient
+[00:41:06.160] human is to empathize with a patient about the experience that they're
+[00:41:07.829] about the experience that they're
+[00:41:07.839] about the experience that they're having. I think that would be incredibly
+[00:41:09.829] having. I think that would be incredibly
+[00:41:09.839] having. I think that would be incredibly meaningful. And I think if you asked
+[00:41:11.430] meaningful. And I think if you asked
+[00:41:11.440] meaningful. And I think if you asked most doctors, they would actually take
+[00:41:13.510] most doctors, they would actually take
+[00:41:13.520] most doctors, they would actually take that trade. They would say, "Guess what?
+[00:41:15.349] that trade. They would say, "Guess what?
+[00:41:15.359] that trade. They would say, "Guess what? If I'm not spending my life doing
+[00:41:17.190] If I'm not spending my life doing
+[00:41:17.200] If I'm not spending my life doing paperwork and like trying to diagnose
+[00:41:19.190] paperwork and like trying to diagnose
+[00:41:19.200] paperwork and like trying to diagnose you and getting lab orders sent in and I
+[00:41:21.270] you and getting lab orders sent in and I
+[00:41:21.280] you and getting lab orders sent in and I could actually just understand what's
+[00:41:23.270] could actually just understand what's
+[00:41:23.280] could actually just understand what's happening with you as a human and help
+[00:41:25.190] happening with you as a human and help
+[00:41:25.200] happening with you as a human and help you through a difficult diagnosis,
+[00:41:26.950] you through a difficult diagnosis,
+[00:41:26.960] you through a difficult diagnosis, that's why I became a doctor, right? I
+[00:41:28.870] that's why I became a doctor, right? I
+[00:41:28.880] that's why I became a doctor, right? I became a doctor because I want to heal
+[00:41:30.630] became a doctor because I want to heal
+[00:41:30.640] became a doctor because I want to heal and I want to help you and I want you to
+[00:41:32.150] and I want to help you and I want you to
+[00:41:32.160] and I want to help you and I want you to feel better." Is that a less meaningful
+[00:41:34.150] feel better." Is that a less meaningful
+[00:41:34.160] feel better." Is that a less meaningful world or a more meaningful world than
+[00:41:35.829] world or a more meaningful world than
+[00:41:35.839] world or a more meaningful world than than we're in today? I obviously don't
+[00:41:37.990] than we're in today? I obviously don't
+[00:41:38.000] than we're in today? I obviously don't think it's going to be that simple. I
+[00:41:39.190] think it's going to be that simple. I
+[00:41:39.200] think it's going to be that simple. I think it will be really complicated. But
+[00:41:41.190] think it will be really complicated. But
+[00:41:41.200] think it will be really complicated. But I I also think the aperture of things
+[00:41:44.150] I I also think the aperture of things
+[00:41:44.160] I I also think the aperture of things that people will be able to do will
+[00:41:45.750] that people will be able to do will
+[00:41:45.760] that people will be able to do will widen. Right? So I think if we do things
+[00:41:47.829] widen. Right? So I think if we do things
+[00:41:47.839] widen. Right? So I think if we do things right, there's the ability to actually
+[00:41:50.069] right, there's the ability to actually
+[00:41:50.079] right, there's the ability to actually expand what our sources of meaning are
+[00:41:53.430] expand what our sources of meaning are
+[00:41:53.440] expand what our sources of meaning are beyond where they are today.
+[00:41:55.990] beyond where they are today.
+[00:41:56.000] beyond where they are today. &gt;&gt; Daniela Dario, well, thanks. Thanks.
+[00:41:59.190] &gt;&gt; Daniela Dario, well, thanks. Thanks.
+[00:41:59.200] &gt;&gt; Daniela Dario, well, thanks. Thanks. Thanks for joining us.
+[00:42:00.390] Thanks for joining us.
+[00:42:00.400] Thanks for joining us. &gt;&gt; Thank you.
+[00:42:01.030] &gt;&gt; Thank you.
+[00:42:01.040] &gt;&gt; Thank you. &gt;&gt; Thank you so much. This was lovely.
+[00:42:02.710] &gt;&gt; Thank you so much. This was lovely.
+[00:42:02.720] &gt;&gt; Thank you so much. This was lovely. &gt;&gt; This is great.
+[00:42:03.349] &gt;&gt; This is great.
+[00:42:03.359] &gt;&gt; This is great. &gt;&gt; Totally great.

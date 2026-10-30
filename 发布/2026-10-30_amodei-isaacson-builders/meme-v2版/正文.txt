@@ -1,0 +1,11 @@
+Anthropic 创始人 Dario 和 Daniela Amodei 兄妹上了 Walter Isaacson（《乔布斯传》作者）的新访谈。最让我停下来的一段，是 Dario 讲 2019 年 GPT-2 出来时身边人的反应：大概一成的人被吓到了，九成的人看了看就耸耸肩走了，因为它翻译一般、总结一般、写代码也一般。
+
+Dario 说这一幕现在还在每个行业重演：六个月后，现在难的事会变容易；十二个月后，现在不可能的事，模型会例行公事地做。前几天聊 a16z 那期播客时，Andreessen 讲的差距以周为单位拉开，说的也是同一件事。
+
+我三年前第一次用 GPT 写婚礼誓词，就知道这东西不一样，但那几年一直在观望。今天能不能看见已经不是门槛，拉开距离的是看见之后做了什么。
+
+你第一次觉得「这东西不一样」，是在什么时候？
+
+访谈：Walter Isaacson《The Builders》第一期，对谈 Dario Amodei、Daniela Amodei，约 42 分钟。
+
+#Anthropic #AI #人工智能 #Claude #Dario #AI创业
