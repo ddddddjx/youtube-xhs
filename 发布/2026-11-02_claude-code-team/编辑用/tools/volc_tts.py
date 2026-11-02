@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 """火山豆包声音复刻 2.0 合成：用户自己的音色念一句旁白。
 Key 不在这里：云端环境 Network secrets 里配了 openspeech.bytedance.com 的 X-Api-Key，代理自动加头。
-  python volc_tts.py "要念的话" out.wav [speech_rate]
+  python volc_tts.py "要念的话" out.wav [speech_rate] [fidelity 1/0]
 """
 import base64, json, sys, uuid, urllib.request
 
 SPEAKER = "S_DRo7Kc2k2"
 text, out = sys.argv[1], sys.argv[2]
 rate = int(sys.argv[3]) if len(sys.argv) > 3 else 0
+fidelity = (sys.argv[4] != "0") if len(sys.argv) > 4 else True
 body = {"user": {"uid": "krypto"},
-        "req_params": {"text": text, "speaker": SPEAKER, "model": "seed-tts-2.0-expressive", "tone_fidelity": True,
+        "req_params": {"text": text, "speaker": SPEAKER, "model": "seed-tts-2.0-expressive", "tone_fidelity": fidelity,
                        "audio_params": {"format": "pcm", "sample_rate": 48000, "speech_rate": rate}}}
 req = urllib.request.Request("https://openspeech.bytedance.com/api/v3/tts/unidirectional", json.dumps(body).encode(),
                              {"Content-Type": "application/json", "X-Api-Resource-Id": "seed-icl-2.0",
