@@ -41,12 +41,14 @@ def configure_backend(config):
 
 
 def load_env():
-    from capabilities import credentials, effective
+    """鉴权头：app_token / api_key / proxy 三种，见 capabilities.auth_mode。"""
+    from capabilities import auth_headers, effective
     config = ACTIVE_CONFIG or effective()[0]
-    appid, token = credentials(config)
-    if not appid or not token:
-        sys.exit("缺少凭证；请配置环境变量或明确指定的env_file（不会扫描其他.env）")
-    return appid, token
+    headers = auth_headers(config)
+    if headers is None:
+        sys.exit("缺少凭证；请配置环境变量或明确指定的env_file（不会扫描其他.env）；"
+                 "云端代理注入Key时设 VOLC_SPEECH_AUTH=proxy")
+    return headers
 
 
 def _session():
@@ -61,9 +63,8 @@ def _session():
 def api(path, resource_id, payload, stream=False, retries=1):
     # POST超时可能已经被接受/计费；不重新生成request_id盲目重试。
     import requests
-    appid, token = load_env()
     headers = {
-        "X-Api-App-Id": appid, "X-Api-Access-Key": token,
+        **load_env(),
         "X-Api-Resource-Id": resource_id, "X-Api-Request-Id": str(uuid.uuid4()),
         "Content-Type": "application/json",
     }

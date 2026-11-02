@@ -27,6 +27,8 @@ Content-Type:      application/json
 
 Host 一律 `https://openspeech.bytedance.com`。
 
+**鉴权（2026-11-02 补）**：旧版控制台给 APP ID + Access Token，头是 `X-Api-App-Id` / `X-Api-Access-Key`；新版控制台只给 API Key，头是 `X-Api-Key`（无前缀）。`koubo.py` 用 `bindings.volcengine.auth`（`app_token` / `api_key` / `proxy`）或环境变量 `VOLC_SPEECH_AUTH` 选；`proxy` 是不带凭证、交给网络代理加头。新版控制台的音色 ID 也是 `S_` 开头，控制台里显示的中文是名称不是 ID，拿名称去查会报 `55000000 resource ID is mismatched with speaker related resource`。
+
 ### 训练
 
 ```json

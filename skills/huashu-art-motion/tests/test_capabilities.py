@@ -130,10 +130,22 @@ class MediaConfigTests(unittest.TestCase):
     def test_network_timeout_is_not_retried(self):
         import requests
         cfg=self.clone_config();koubo.configure_backend(cfg)
-        with patch.object(koubo,'load_env',return_value=('test','test')),patch.object(koubo,'_session') as session:
+        with patch.object(koubo,'load_env',return_value={'X-Api-App-Id':'test','X-Api-Access-Key':'test'}),patch.object(koubo,'_session') as session:
             session.return_value.post.side_effect=requests.exceptions.Timeout()
             with self.assertRaisesRegex(SystemExit,'outcome_unknown'):koubo.api('/test','resource',{})
             self.assertEqual(session.return_value.post.call_count,1)
+
+    def test_auth_modes_build_headers(self):
+        cfg=self.clone_config()
+        with patch.dict(os.environ,{'VOLC_SPEECH_AUTH':'proxy'}):
+            self.assertEqual(c.auth_headers(cfg),{})
+        cfg['bindings']['volcengine']['auth']='api_key'
+        with patch.dict(os.environ,{'VOLC_SPEECH_API_KEY':'k'},clear=False):
+            self.assertEqual(c.auth_headers(cfg),{'X-Api-Key':'k'})
+        with patch.dict(os.environ,{},clear=True):
+            self.assertIsNone(c.auth_headers(cfg))
+        with patch.dict(os.environ,{'VOLC_SPEECH_AUTH':'bogus'}):
+            with self.assertRaises(c.ConfigError):c.auth_headers(cfg)
 
     def test_proxy_setting_respects_user(self):
         cfg=self.clone_config();cfg['bindings']['volcengine']['trust_env']=True;koubo.configure_backend(cfg)

@@ -27,6 +27,8 @@
   },
   "bindings": {
     "volcengine": {
+      "auth": "app_token",
+      "api_key_env": "VOLC_SPEECH_API_KEY",
       "appid_env": "VOLC_SPEECH_APPID",
       "token_env": "VOLC_SPEECH_TOKEN",
       "env_file": "",
