@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """合成成片：动画层 renders/anim.mp4 + 原片窗口（圆角遮罩，按 rects.json 放）+ 旁白 + 原声 + 配乐。
   python compose.py            → renders/final.mp4
-先跑：build_timeline.py → node render.js（出 anim.mp4）。配乐 audio/bgm_bright.wav（tools/bgm_drive.py bright，原创无版权；11-02 用户嫌 lo-fi 太平、要全程垫着）。
+先跑：build_timeline.py → node render.js（出 anim.mp4）。配乐 audio/bgm_voxel.wav（11-02 用户从 5 首候选里选 04：Kevin MacLeod《Voxel Revolution》，CC BY 4.0，正文.txt 末尾署名；原曲 2:10，首尾 2 秒交叉淡化循环一次）。
 原片窗口里有剪口的（C4 / C6 / C7），剪口后那段画面放大 7%，当成轻推镜遮住跳切。
 """
 import json, subprocess
@@ -56,8 +56,8 @@ for ai, a in enumerate(tl["audio"]):
     fc.append(f"[{ii}:a]aresample=48000,aformat=channel_layouts=stereo,volume={g},adelay={ms}|{ms}[a{ai}]"); alabels.append(f"[a{ai}]")
 fc.append(f"{''.join(alabels)}amix=inputs={len(alabels)}:normalize=0,apad,atrim=0:{dur}[voice]")
 fc.append("[voice]asplit=2[vo][vkey]")
-bi = add("-i", str(P / "audio/bgm_bright.wav"))   # 11-02 用户：配乐音量放大 15%（-13 dB → -11.8 dB）
-fc.append(f"[{bi}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{dur},volume=-11.8dB,afade=t=out:st={dur - 3}:d=3[b0]")
+bi = add("-i", str(P / "audio/bgm_voxel.wav"))   # 11-02 用户：配乐 +15%（-13 → -11.8 dB），换曲后再 +10%（→ -11.0 dB）
+fc.append(f"[{bi}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{dur},volume=-11.0dB,afade=t=out:st={dur - 3}:d=3[b0]")
 fc.append("[b0][vkey]sidechaincompress=threshold=0.06:ratio=2.5:attack=40:release=400[bgm]")   # 只轻压，人说话时配乐仍听得见
 fc.append("[vo][bgm]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[aout]")
 
