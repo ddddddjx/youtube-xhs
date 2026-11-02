@@ -8,10 +8,11 @@ import base64, json, sys, uuid, urllib.request
 SPEAKER = "S_DRo7Kc2k2"
 text, out = sys.argv[1], sys.argv[2]
 # 11-02 用户试听三版选 C：语速 40、还原模式关（开着太平）
-rate = int(sys.argv[3]) if len(sys.argv) > 3 else 40
+rate = int(sys.argv[3]) if len(sys.argv) > 3 else 15   # 11-02 v4：用户嫌快，40 → 15
 fidelity = (sys.argv[4] != "0") if len(sys.argv) > 4 else False
 # 11-02 用户定：加语气指令（豆包 2.0 的 additions.context_texts），不加太平
-CTX = "你是一个科技 AI 博主，正在讲一个令人兴奋的发现，语气要有惊讶、有强调、有起伏"
+# 11-02 v4：「兴奋、惊讶」那条像在表演，AI 感重；用户试听三版选 A（聊天语气）
+CTX = "像在跟朋友聊一件自己觉得有意思的事，语气自然、放松，不要播音腔，也不要刻意兴奋，说到关键处稍微放慢"
 ctx = (sys.argv[5] if len(sys.argv) > 5 else CTX)
 ctx = "" if ctx == "-" else ctx
 body = {"user": {"uid": "krypto"},

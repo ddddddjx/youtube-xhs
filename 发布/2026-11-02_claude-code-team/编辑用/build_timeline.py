@@ -3,6 +3,7 @@
   python build_timeline.py
 """
 import json, re, wave
+import numpy as np
 from pathlib import Path
 
 P = Path(__file__).resolve().parent
@@ -55,6 +56,25 @@ def split_nar(text):
             out.append(p)
     return [o.strip().rstrip("，。；：") for o in out]
 
+def sentence_spans(k, n):
+    """11-02 v4：旁白按句合成、句间停 0.45 秒。从音频里找停顿，得到每句的 [起, 止]（秒）。"""
+    with wave.open(str(P / "narration" / f"{k}.wav")) as w:
+        sr = w.getframerate(); a = np.abs(np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)).astype(float)
+    hop = int(.01 * sr); env = np.array([a[i:i + hop].max() for i in range(0, len(a) - hop, hop)])
+    loud = env > 400; spans, start, quiet = [], None, 0
+    for i, v in enumerate(loud):
+        if v:
+            if start is None: start = i
+            quiet = 0
+        elif start is not None:
+            quiet += 1
+            if quiet >= 42:                       # 静音 ≥ 0.42 秒才算句间停顿（插入的是 0.45；句内冒号处的自然停顿约 0.3）
+                spans.append([start / 100, (i - quiet + 1) / 100]); start, quiet = None, 0
+    if start is not None: spans.append([start / 100, len(loud) / 100])
+    if len(spans) != n:                           # 对不上就退回整段一个区间
+        return None
+    return spans
+
 def weight(s):
     # 英文单词按 1.6 个汉字算
     return len(re.sub(r"[A-Za-z]+", "", s)) + 1.6 * len(re.findall(r"[A-Za-z]+", s))
@@ -73,16 +93,20 @@ BRIDGE_LABEL = {"C2": "Sid：从盯每一步，到只给目标"}
 t = 0.0
 segs, subs, windows, audio = [], [], [], []
 for kind, k, pad in PLAN:
-    t += pad
+    t += max(pad, .45) if kind != "bridge" and pad else pad   # 11-02 v4：段与段之间也多留一口气
     if kind == "nar":
         d = wav_dur(k)
         segs.append({"kind": "nar", "id": k, "t0": round(t, 3), "t1": round(t + d, 3)})
         audio.append({"src": f"narration/{k}.wav", "at": round(t, 3), "gain": 1.0})
-        rows = split_nar(lines[k]); tot = sum(weight(r) for r in rows); a = t
-        for r in rows:
-            b = a + d * weight(r) / tot
-            subs.append({"a": round(a, 3), "b": round(b - .05, 3), "zh": r, "kind": "nar"})
-            a = b
+        sents = [x for x in re.split(r"(?<=[。？！])", lines[k]) if x.strip()]
+        spans = sentence_spans(k, len(sents)) or [[0, d]]
+        if len(spans) != len(sents): sents = [lines[k]]
+        for sent, (sa, sb) in zip(sents, spans):       # 每句的字幕行只在这句的实际发声区间里按字数分
+            rows = split_nar(sent); tot = sum(weight(r) for r in rows); a = t + sa
+            for r in rows:
+                b = a + (sb - sa) * weight(r) / tot
+                subs.append({"a": round(a, 3), "b": round(b - .05, 3), "zh": r, "kind": "nar"})
+                a = b
         if k in OPEN_WIN:   # 开场三句：画面是原片（全景 → Thariq 近景 → Robert 和 Sid）
             src, rect, off = OPEN_WIN[k]
             nxt = PLAN[[p[1] for p in PLAN].index(k) + 1][2]
