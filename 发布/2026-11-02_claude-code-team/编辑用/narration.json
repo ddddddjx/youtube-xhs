@@ -1,6 +1,8 @@
 {"lines": [
- ["n1", "一年前用 Claude Code，是你说一句、它做一步。现在呢？"],
- ["n2", "Anthropic 官方放出一段对谈：Claude Code 团队的三位工程师，聊自己现在怎么用 Claude Code。一年里，有三个转变。"],
+ ["o1", "这是 Anthropic 官方放出的一段对谈，主角是 Claude Code 团队的三位工程师。"],
+ ["o2", "负责提问的是 Thariq。"],
+ ["o3", "另外两位是 Sid 和 Robert，Robert 正在做 Claude Tag。"],
+ ["o4", "一年前用 Claude Code，是你说一句、它做一步；一年后，他们的工作方式有了三个转变。"],
  ["n3", "第一，不盯过程，只给目标。Sid 七八成的工作，都在 Slack 里的 Claude Tag 上完成。"],
  ["n4", "第二，功能是临时的。"],
  ["n5", "底层模型，每两个月就换一次。Thariq 的说法是——"],

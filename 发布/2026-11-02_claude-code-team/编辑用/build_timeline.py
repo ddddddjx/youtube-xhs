@@ -15,12 +15,11 @@ def wav_dur(k):
 
 # 片段内字幕：片源秒数 → 中英
 CLIP_SUBS = {
-    "C2": [(98.2, 102.4, "caring about the transcript so much and like caring about each individual tool call", "以前特别在意对话记录，在意每一次工具调用、"),
+    "C2": [(100.4, 102.4, "caring about each individual tool call", "以前在意每一次工具调用、"),
            (102.4, 104.9, "and each individual decision that the model makes", "模型做的每一个决定；"),
            (104.9, 110.2, "to just zoomed out view of like, I have a goal and I'd like to achieve this goal.", "现在退远一步：我有一个目标，我想把它达成。"),
            (110.9, 114.5, "And you just kind of give that goal to the model to achieve for you.", "然后把这个目标交给模型，让它替你完成。")],
-    "C4": [(209.0, 212.3, "The models were not able to do any kind of long horizon work.", "那时的模型，做不了任何长线任务。"),
-           (212.8, 216.8, "You'd give it like five things to do and it would do three things and just give up.", "给它五件事，做完三件就放弃了。"),
+    "C4": [           (212.8, 216.8, "You'd give it like five things to do and it would do three things and just give up.", "给它五件事，做完三件就放弃了。"),
            (217.4, 220.8, "So we were like, oh, maybe you give it a to-do list and it'll do really well.", "我们就想：要不给它一张待办清单？效果很好。"),
            (227.2, 231.4, "But a year from then, it's disappeared. You don't really need the to-do list anymore.", "可一年后，它就消失了，待办清单已经用不上了。"),
            (236.2, 241.3, "…you got to be very unattached to the things you're building", "你得对自己做的东西毫不留恋，"),
@@ -60,9 +59,11 @@ def weight(s):
     # 英文单词按 1.6 个汉字算
     return len(re.sub(r"[A-Za-z]+", "", s)) + 1.6 * len(re.findall(r"[A-Za-z]+", s))
 
-PLAN = [("nar", "n1", .3), ("nar", "n2", .35), ("nar", "n3", .3), ("bridge", "C2", 0), ("clip", "C2", .1),
-        ("nar", "n4", .4), ("clip", "C4", .35), ("nar", "n5", .3), ("clip", "C5", .35), ("nar", "n6", .3),
-        ("clip", "C6", .35), ("nar", "n7", .3), ("clip", "C7", .4), ("nar", "n8", .3)]
+# 11-02 v2：开场换成原片画面 + 旁白快速交代背景和人物（o1–o3），再接「一年前」气泡（o4）；停顿收紧压回 2 分钟
+PLAN = [("nar", "o1", .25), ("nar", "o2", .15), ("nar", "o3", .15), ("nar", "o4", .3), ("nar", "n3", .25), ("bridge", "C2", 0), ("clip", "C2", .05),
+        ("nar", "n4", .3), ("clip", "C4", .25), ("nar", "n5", .25), ("clip", "C5", .25), ("nar", "n6", .25),
+        ("clip", "C6", .25), ("nar", "n7", .25), ("clip", "C7", .3), ("nar", "n8", .25)]
+OPEN_WIN = {"o1": ("WIDE", "wide", 2.0), "o2": ("THARIQ", "wide", 0.5), "o3": ("DUO", "wide", 0.3)}
 BRIDGE_LABEL = {"C2": "Sid：从盯每一步，到只给目标"}
 
 t = 0.0
@@ -78,11 +79,13 @@ for kind, k, pad in PLAN:
             b = a + d * weight(r) / tot
             subs.append({"a": round(a, 3), "b": round(b - .05, 3), "zh": r, "kind": "nar"})
             a = b
-        if k == "n2":   # 全景镜头放在这句的前 70%
-            windows.append({"src": "clips/WIDE.mov", "t0": round(t, 3), "t1": round(t + d * .7, 3), "off": 2.0, "rect": "wide", "mute": True})
+        if k in OPEN_WIN:   # 开场三句：画面是原片（全景 → Thariq 近景 → Robert 和 Sid）
+            src, rect, off = OPEN_WIN[k]
+            nxt = PLAN[[p[1] for p in PLAN].index(k) + 1][2]
+            windows.append({"src": f"clips/{src}.mov", "t0": round(t - (.25 if k == "o1" else 0), 3), "t1": round(t + d + (nxt if k != "o3" else 0), 3), "off": off, "rect": rect, "mute": True})
         t += d
     elif kind == "bridge":
-        d = 1.2
+        d = 1.0
         segs.append({"kind": "bridge", "id": k, "t0": round(t, 3), "t1": round(t + d, 3), "label": BRIDGE_LABEL[k]})
         windows.append({"src": f"clips/{k}.mov", "t0": round(t, 3), "t1": round(t + d, 3), "off": 0.0, "rect": "mini", "mute": True})
         t += d
@@ -95,7 +98,7 @@ for kind, k, pad in PLAN:
         for sa, sb, en, zh in CLIP_SUBS[k]:
             subs.append({"a": round(t + src_to_local(k, sa), 3), "b": round(t + src_to_local(k, sb), 3), "zh": zh, "en": en, "kind": "clip"})
         t += d
-t += 2.2   # 片尾停留
+t += 1.8   # 片尾停留
 tl = {"dur": round(t, 3), "segs": segs, "subs": subs, "windows": windows, "audio": audio}
 (P / "timeline.json").write_text(json.dumps(tl, ensure_ascii=False, indent=1), encoding="utf-8")
 print(f"total {t:.2f}s")

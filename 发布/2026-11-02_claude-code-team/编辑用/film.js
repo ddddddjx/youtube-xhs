@@ -110,22 +110,34 @@ function bubbles(t, x, top, bottom, scroll, collapse = 0, a = 1) {
 
 /* ---------- 各镜头 ---------- */
 const S = {};
-S.n1 = (t, s) => {                    // 一年前：说一句做一步
-  const p = (t - s.t0) / (s.t1 - s.t0);
-  chapter('一年前', C.dim);
-  bubbles(t, 180, 120, 900, Math.max(0, t) * 70, 0, win(t, 0, .6));
-  alpha(win(t, s.t1 - 1.6, .5), () => { text('现在？', 1450, 470, 150, C.gold); text('NOW', 1450, 600, 44, C.dim, 'center', 500, true); });
-};
-S.n2 = (t, s, seg) => {               // 对谈全景 + 三人 + 三个空位
-  const d = s.t1 - s.t0, vEnd = s.t0 + d * .7, R = RECTS.wide;
-  const k1 = 1 - win(t, vEnd - .2, .4);
-  alpha(k1, () => {
-    glowFrame(R, win(t, s.t0, .4), C.blue);
-    pill('Anthropic 官方对谈 · Claude Code 团队', W / 2, 92, 30, '', win(t, s.t0 + .2));
-    [['Thariq Shihipar', .2], ['Robert Boyce', .5], ['Sid Bidasaria', .8]].forEach(([n, f], i) =>
-      pill(n, R.x + R.w * f, R.y + R.h + 36, 26, '', win(t, s.t0 + 1 + i * .5), 'rgba(255,255,255,.5)'));
+/* 11-02 v2 开场：画面是原片（全景 → Thariq → Robert 和 Sid），旁白快速交代背景和人物；o4 再接「一年前」的气泡 */
+function openCard(t, k0) {
+  const R = RECTS.wide;
+  glowFrame(R, win(t, 0, .3), C.blue);
+  alpha(win(t, .1, .4), () => {
+    const a1 = 'Claude Code 团队，', a2 = '自己怎么用 Claude Code？', w1 = tw(a1, 52), w2 = tw(a2, 52), x0 = W / 2 - (w1 + w2) / 2;
+    text(a1, x0, 82, 52, C.text, 'left'); text(a2, x0 + w1, 82, 52, C.gold, 'left');
   });
-  ['①', '②', '③'].forEach((n, i) => alpha(win(t, vEnd + .1 + i * .35), () => {
+}
+S.o1 = (t, s) => {
+  chapter('Anthropic 官方对谈', C.blue); openCard(t);
+  pill('Claude Code 团队 · 三位工程师', W / 2, RECTS.wide.y + RECTS.wide.h + 46, 28, '', win(t, s.t0 + .8), 'rgba(255,255,255,.55)');
+};
+S.o2 = (t, s) => {
+  chapter('Anthropic 官方对谈', C.blue); openCard(t);
+  pill('Thariq Shihipar · 提问', W / 2, RECTS.wide.y + RECTS.wide.h + 46, 30, '', win(t, s.t0 + .1), C.gold);
+};
+S.o3 = (t, s) => {
+  chapter('Anthropic 官方对谈', C.blue); openCard(t);
+  const R = RECTS.wide;
+  pill('Sid Bidasaria', R.x + R.w * .74, R.y + R.h + 46, 30, '', win(t, s.t0 + .1), C.gold);
+  pill('Robert Boyce · 在做 Claude Tag', R.x + R.w * .26, R.y + R.h + 46, 30, '', win(t, s.t0 + 1.2), C.gold);
+};
+S.o4 = (t, s) => {                    // 一年前：说一句做一步 → 三个转变
+  const d = s.t1 - s.t0, mid = s.t0 + d * .5;
+  chapter(t < mid ? '一年前' : '一年后', t < mid ? C.dim : C.gold);
+  alpha(1 - win(t, mid, .4), () => bubbles(t, 610, 120, 900, Math.max(0, t - s.t0) * 90 + 300, 0, win(t, s.t0, .4)));
+  ['①', '②', '③'].forEach((n, i) => alpha(win(t, mid + .2 + i * .3), () => {
     const x = W / 2 + (i - 1) * 420, y = 500;
     card(x - 170, y - 150, 340, 300, 28, C.card, 'rgba(242,184,75,.6)'); text(n, x, y - 40, 96, C.gold); text('?', x, y + 80, 64, C.dim);
   }));
@@ -233,22 +245,21 @@ function clipSeg(t, s) {
   if (s.id === 'C6') panelC6(lt);
 }
 const PX = 1500;   // 右侧小图中心
-function panelC4(lt) {
-  const boxes = (k, all) => { for (let i = 0; i < 5; i++) { const y = 330 + i * 86; rr(PX - 150, y, 56, 56, 12); g.lineWidth = 4; g.strokeStyle = C.dim; g.stroke();
-    const done = i < 3 ? win(lt, 4.5 + i * .45, .3) : (all ? win(lt, 9.6 + (i - 3) * .5, .3) : 0); if (done > 0) check(PX - 122, y + 28, 46, C.teal, done);
+function panelC4(lt) {               // 11-02 v2：片段从「给它五件事」开始；剪口在 8.0（一年后）和 12.2（毫不留恋）
+  const boxes = all => { for (let i = 0; i < 5; i++) { const y = 330 + i * 86; rr(PX - 150, y, 56, 56, 12); g.lineWidth = 4; g.strokeStyle = C.dim; g.stroke();
+    const done = i < 3 ? win(lt, .7 + i * .45, .3) : (all ? win(lt, 5.8 + (i - 3) * .5, .3) : 0); if (done > 0) check(PX - 122, y + 28, 46, C.teal, done);
     rr(PX - 70, y + 20, 200 - i * 12, 16, 8); g.fillStyle = 'rgba(255,255,255,.25)'; g.fill(); } };
-  alpha(win(lt, .2) * (1 - win(lt, 3.5)), () => { card(PX - 220, 380, 440, 200, 24); text('长线任务', PX, 450, 38, C.text); cross(PX, 520, 50); });
-  alpha(win(lt, 3.8) * (1 - win(lt, 11.6)), () => {
+  alpha(win(lt, 0) * (1 - win(lt, 7.8)), () => {
     text('5 件事', PX, 270, 34, C.text);
-    boxes(1, lt > 8.4);
-    alpha(win(lt, 6.4) * (1 - win(lt, 8.4)), () => text('放弃', PX + 170, 330 + 3 * 86 + 28, 32, C.red));
-    alpha(win(lt, 8.4, .5), () => pill('待办清单', PX, 790, 30, 'to-do list', 1, C.gold));
+    boxes(lt > 4.6);
+    alpha(win(lt, 2.6) * (1 - win(lt, 4.6)), () => text('放弃', PX + 170, 330 + 3 * 86 + 28, 32, C.red));
+    alpha(win(lt, 4.6, .5), () => pill('待办清单', PX, 790, 30, 'to-do list', 1, C.gold));
   });
-  alpha(win(lt, 11.9) * (1 - win(lt, 16)), () => {
+  alpha(win(lt, 8.1) * (1 - win(lt, 12.2)), () => {
     g.save(); g.setLineDash([14, 12]); rr(PX - 200, 330, 400, 420, 24); g.lineWidth = 3; g.strokeStyle = 'rgba(255,255,255,.35)'; g.stroke(); g.restore();
     text('待办清单', PX, 520, 36, 'rgba(244,241,234,.35)'); text('一年后', PX, 270, 34, C.gold);
   });
-  alpha(win(lt, 16.3), () => { pill('毫不留恋', PX, 470, 40, 'unattached', 1, C.gold); text('做出来的东西，很快会消失', PX, 580, 28, C.dim, 'center', 500); });
+  alpha(win(lt, 12.5), () => { pill('毫不留恋', PX, 470, 40, 'unattached', 1, C.gold); text('做出来的东西，很快会消失', PX, 580, 28, C.dim, 'center', 500); });
 }
 function panelC6(lt) {
   const x = PX - 330, y = 250;

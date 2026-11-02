@@ -1,4 +1,22 @@
-# Claude Code 团队怎么用 Claude Code：解说片分镜（v2，待用户看）
+# Claude Code 团队怎么用 Claude Code：解说片分镜
+
+## v3 改动（11-02，用户看 v1 成片后两条）
+
+1. **声音太平** → 合成加语气指令（豆包 2.0 `additions.context_texts`）：「你是一个科技 AI 博主，正在讲一个令人兴奋的发现，语气要有惊讶、有强调、有起伏」，写进 `编辑用/tools/volc_tts.py` 默认值，全部旁白重配
+2. **开场学 Jim AI Notebook**：画面用原片，旁白快速交代背景和人物（替换原来的「一年前」气泡开场 + 交代句）：
+
+| 画面 | 旁白 |
+|---|---|
+| 原片全景嵌在卡片里，上方一行大标题「Claude Code 团队，自己怎么用 Claude Code？」 | 这是 Anthropic 官方放出的一段对谈，主角是 Claude Code 团队的三位工程师。 |
+| Thariq 近景（116.5 秒起）+ 名牌「Thariq Shihipar · 提问」 | 负责提问的是 Thariq。 |
+| Robert 和 Sid 双人镜头（44 秒起，左 Robert 右 Sid）+ 两个名牌 | 另外两位是 Sid 和 Robert，Robert 正在做 Claude Tag。 |
+| 「一年前」气泡往上刷 → 「一年后」①②③ 三个空位 | 一年前用 Claude Code，是你说一句、它做一步；一年后，他们的工作方式有了三个转变。 |
+
+为了压回 2 分钟：C2 从「在意每一次工具调用」开始（去掉「在意对话记录」半句），C4 去掉开头「那时的模型做不了任何长线任务」（跟「五件只做三件」重复），停顿收紧。总长 118.1 秒，旁白 45.3 秒、原声 ≈ 66 秒（含开场原片画面约 11 秒）。
+
+---
+
+以下是 v2 分镜（开场以上面为准）
 
 - 素材：Anthropic 官方对谈，Claude Code 团队 Thariq Shihipar / Sid Bidasaria / Robert Boyce（`编辑用/source.md`）
 - 规格：1920×1080 横版、30fps、成片 ≤ 2 分钟；旁白普通话，用户复刻音色（`编辑用/tools/volc_tts.py`，语速 40、还原模式关）；原声英文，配中英双语字幕
