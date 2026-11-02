@@ -79,6 +79,9 @@ git add 发布/<目录>/*/posted.json && git commit -m "发布记录" && git pus
 
 ## 第一次用（Mac 上做一次）
 
+**11-02 已在用户的 Mac mini 上配好**（仓库 `~/youtube-xhs`、公众号凭证、IP 白名单 119.247.152.228，check 通过）；X 四项还没配。下面留作换机器时参考。
+
+
 1. X 开发者后台建 App，权限改 **Read and write**，生成 Access Token。2026 年 2 月起 X 按量计费，开通前看一眼后台的单价和支出上限。
 2. 公众号后台 → 设置与开发 → 开发接口管理：复制 AppID / AppSecret。
 3. `cp skills/x-wechat/publish.env.example ~/.config/krypto-publish.env`，填好，`chmod 600`。
