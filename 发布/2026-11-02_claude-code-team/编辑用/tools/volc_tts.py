@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """火山豆包声音复刻 2.0 合成：用户自己的音色念一句旁白。
 Key 不在这里：云端环境 Network secrets 里配了 openspeech.bytedance.com 的 X-Api-Key，代理自动加头。
-  python volc_tts.py "要念的话" out.wav [speech_rate] [fidelity 1/0]
+  python volc_tts.py "要念的话" out.wav [speech_rate] [fidelity 1/0] [语气指令，传 - 表示不用]
 """
 import base64, json, sys, uuid, urllib.request
 
@@ -10,9 +10,14 @@ text, out = sys.argv[1], sys.argv[2]
 # 11-02 用户试听三版选 C：语速 40、还原模式关（开着太平）
 rate = int(sys.argv[3]) if len(sys.argv) > 3 else 40
 fidelity = (sys.argv[4] != "0") if len(sys.argv) > 4 else False
+# 11-02 用户定：加语气指令（豆包 2.0 的 additions.context_texts），不加太平
+CTX = "你是一个科技 AI 博主，正在讲一个令人兴奋的发现，语气要有惊讶、有强调、有起伏"
+ctx = (sys.argv[5] if len(sys.argv) > 5 else CTX)
+ctx = "" if ctx == "-" else ctx
 body = {"user": {"uid": "krypto"},
         "req_params": {"text": text, "speaker": SPEAKER, "model": "seed-tts-2.0-expressive", "tone_fidelity": fidelity,
                        "audio_params": {"format": "pcm", "sample_rate": 48000, "speech_rate": rate}}}
+if ctx: body["req_params"]["additions"] = json.dumps({"context_texts": [ctx]}, ensure_ascii=False)
 req = urllib.request.Request("https://openspeech.bytedance.com/api/v3/tts/unidirectional", json.dumps(body).encode(),
                              {"Content-Type": "application/json", "X-Api-Resource-Id": "seed-icl-2.0",
                               "X-Api-Request-Id": str(uuid.uuid4())})
