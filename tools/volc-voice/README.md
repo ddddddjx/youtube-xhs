@@ -5,7 +5,7 @@
 ## 已完成（用户在火山控制台做的）
 
 - 开通了「豆包声音复刻模型 2.0」和「音色槽位」
-- 在控制台体验页（https://console.volcengine.com/speech/new/experience/tts?projectName=default ）新增了音色。**音色 ID 不是 `S_` 开头**，具体格式等用户在新会话里贴出来再看（音色 ID 不是机密，可以在对话里发）
+- 在控制台体验页（https://console.volcengine.com/speech/new/experience/tts?projectName=default ）新增了音色。音色 ID 是 `S_DRo7Kc2k2`（11-02 确认，「本人」是名称）（音色 ID 不是机密，可以在对话里发）
 - 控制台是新版，只给 API Key，没有 APP ID + Access Token
 
 ## Key 怎么给 Claude
@@ -26,8 +26,9 @@ Key 不进对话、不进仓库、不进环境变量，存在云端环境的 **N
 ## 11-02 第一次验证记录
 
 - **Key 通了**：请求不带 Key 也没有 401 / 403，不同 Resource-Id 返回不同的授权结果（`volc.service_type.10029`、`volc.megatts.default` 报 `45000030 not granted`，`seed-icl-2.0` / `volc.megatts.voiceclone` 能进到音色校验），说明代理加头生效、账号被识别
-- **音色 ID 不对**：用户给的「本人」在 get_voice 和 unidirectional 都返回 `55000000 resource ID is mismatched with speaker related resource`，跟随手编的假 ID `S_notexist123` 返回一模一样，判断「本人」是控制台里音色的**名称**，不是 ID。待用户从控制台音色列表复制「音色 ID」那一列（通常是一串字母数字）
-- 拿到真 ID 后按上面第 1、2 步重跑：get_voice 用 `volc.megatts.voiceclone`，合成用 `seed-icl-2.0`
+- 「本人」是控制台里的音色名称，不是 ID，接口报 `55000000 resource ID is mismatched`（跟假 ID 返回一样）
+- **真音色 ID：`S_DRo7Kc2k2`**（新版控制台也是 `S_` 开头，之前「不是 S_ 开头」的记录不对）。get_voice 用 `volc.megatts.voiceclone` 或 `seed-icl-2.0` 都能查到：`status: 2`（可合成），1.0 和 2.0（`model_type: 5`，`ICL_uranus_…`）两版都训好了，剩余训练次数 14
+- **合成通了**：`/api/v3/tts/unidirectional`，Resource-Id `seed-icl-2.0`，请求体 `{"user":{"uid":"krypto"},"req_params":{"text":…,"speaker":"S_DRo7Kc2k2","audio_params":{"format":"mp3","sample_rate":48000}}}`，不带 Key、不传 model，流式每行 JSON 拼 `data` 的 base64，4.8 秒试听已发用户，像不像待用户听
 
 ## 还没做
 
