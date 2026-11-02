@@ -4,7 +4,8 @@
 用法: python3 prep_wechat.py <发布目录> [--author K说AI] [--no-comment] [--style zf]
 --style zf  学 Z Finance 深度稿的版式（11-02，对标/Z_Finance/拆解.md），换成本号主题色黄 #FFE600：
             `## 01 小标题` 出黄底黑字的编号块 + 黑色粗体结论句小标题，
-            正文行距加宽，图注灰色斜体（表格图下写「图表备注：……」）
+            正文行距加宽，图注灰色斜体（表格图下写「图表备注：……」）；正文最顶上自动放 K说AI 品牌横幅
+            （assets/banner.png，scripts/make_banner.js 生成），--no-banner 不放
 前提: 先跑过 meme-xhs 的 render_wechat.py，<发布目录>/公众号版/ 里有 正文.md、标题.txt、摘要.txt、封面.png
 出   公众号版/正文.html   带内联样式（公众号编辑器会删 <style>），图指向 upload/ 下的文件，浏览器打开就是预览
      公众号版/upload/     正文图压到 1MB 以内（uploadimg 的上限）、封面转 jpg
@@ -42,6 +43,8 @@ ZF = {
     "CAP": "margin:0 0 1.8em;font-size:13px;color:#999;text-align:center;line-height:1.7;font-style:italic;",
 }
 STYLE = "default"
+BANNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "banner.png")
+USE_BANNER = True
 
 
 def inline(s):
@@ -85,6 +88,13 @@ def to_html(md, root, up_dir, errs):
     if lines and lines[0].startswith("# "):
         lines = lines[1:]
     out, images, i = [], [], 0
+    if STYLE == "zf" and USE_BANNER:
+        if os.path.isfile(BANNER):
+            rel = shrink(BANNER, up_dir, "banner", MAX_BODY_IMG)
+            images.append(rel)
+            out.append(f'<p style="text-align:center;margin:0 0 0.8em;"><img src="{rel}" style="display:block;width:100%;height:auto;" alt="K说AI"></p>')
+        else:
+            errs.append("✗ 品牌横幅 assets/banner.png 不存在：先跑 node skills/x-wechat/scripts/make_banner.js")
     while i < len(lines):
         line = lines[i].strip()
         if not line:
@@ -143,7 +153,8 @@ def main(argv):
         sys.exit(__doc__)
     root = argv[0].rstrip("/")
     author = argv[argv.index("--author") + 1] if "--author" in argv else "K说AI"
-    global STYLE
+    global STYLE, USE_BANNER
+    USE_BANNER = "--no-banner" not in argv
     STYLE = argv[argv.index("--style") + 1] if "--style" in argv else "default"
     wx = os.path.join(root, "公众号版")
     need = ["正文.md", "标题.txt", "摘要.txt", "封面.png"]

@@ -5,13 +5,14 @@
   "html": "正文.html",
   "cover": "upload/cover.jpg",
   "images": [
-    "upload/img01.jpg",
+    "upload/banner.jpg",
     "upload/img02.jpg",
     "upload/img03.jpg",
     "upload/img04.jpg",
     "upload/img05.jpg",
     "upload/img06.jpg",
-    "upload/img07.jpg"
+    "upload/img07.jpg",
+    "upload/img08.jpg"
   ],
   "need_open_comment": 1
 }
