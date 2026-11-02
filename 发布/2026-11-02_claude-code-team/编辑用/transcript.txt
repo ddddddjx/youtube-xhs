@@ -1,0 +1,380 @@
+[    0.0-    2.8] Did you guys have any thoughts about your next year?
+[    3.1-    5.1] I feel like it's hard for me to think about the next two months.
+[    6.0-    7.4] I don't know the next year.
+[   20.5-   24.3] I don't know if you guys know, it's been almost a year since I joined Cloud Code.
+[   24.6-   32.5] It's crazy to think about how far we've come from like a year ago when we were like prompting Cloud Code, giving it feedback, accepting permission prompts to now.
+[   32.8-   35.5] So like tell me about how you work with Cloud Code right now.
+[   35.7-   39.0] Yeah, now I'm doing so much of my work through Cloud Tag actually.
+[   39.0-   54.2] And the kinds of problems I'm giving to Cloud Tag are just worlds more complicated and challenging than, you know, implement this class or write this function, which is kind of where things started at with Cloud Code.
+[   54.5-   66.7] I think that's really complimentary to sort of a shape of like Cloud Tag living in Slack as like a Slack native agent because it means they can go and look up all this additional context around like, hey, what's the product context?
+[   66.7-   70.4] Like what are the decisions that we as a team have made about what this product should be?
+[   70.7-   81.3] And that just makes its decision making a lot better, having access to all that information and understanding how to incorporate that into the choices that the agent is making.
+[   82.0-   86.3] Yeah, my work was pretty similar to I think 70 to 80% of my work happens on Cloud Tag now.
+[   86.7-   95.4] And for 20% of the work, I will maybe open up the TUI or the desktop app to like refine something or if I want to be micromanaging my Clods, I will do that.
+[   95.4-  110.0] I think we've gone from just, you know, caring about the transcript so much and like caring about each individual tool call and each individual decision that the model makes to just zoomed out view of like, I have a goal and I'd like to achieve this goal.
+[  111.0-  114.6] And you just kind of give that goal to the model to achieve for you.
+[  114.6-  136.7] You know, what I've been reflecting on is just how much the software development like lifecycle has changed and like how we've sort of like learned all these lessons along the way, you know, like building cloud code and building all these like primitives that like would tie together eventually into Cloud Tag, which is like, yeah, how we're doing everything from like verification to code review, like brainstorming, monitoring.
+[  137.3-  142.3] Tell me about how working on cloud code compares to working on previous software products.
+[  142.3-  151.7] I mean, there's always a shelf life on any product or the technology underneath the products rather. Yeah, I think the shelf life for the technology used to be in the order of years. Yeah, right.
+[  151.8-  160.5] It should be like, I'm going to make this product and I have high confidence that this is going to be a thing for, you know, a few years or more with models in the AI models.
+[  160.8-  168.5] It's like the technology fundamentally shifts underneath you every two months and it's like maybe it's getting compressed as time moves forward too.
+[  168.5-  177.5] And so it's kind of hard because you have to stay at the frontier and you have to kind of go past the frontier really to like feel that edge. Yeah.
+[  178.6-  193.9] But at the same time, you have to provide value to people using the models today and in the now. And so it's just like balancing act, which is like part art, part science of like, how do I build for this technology that's moving so fast underneath me?
+[  193.9-  199.0] So is there like a moment where you felt like you just caught the wave in the right part?
+[  199.5-  205.1] I think the first time I felt the right-the-wave feeling was maybe to-do lists. Oh, okay. Yeah.
+[  205.3-  212.7] Like that was this was like maybe Sonic 3.5 and the models were not able to do any kind of long horizon work. Yeah.
+[  212.8-  220.9] And it would give you give it like five things to do and it would do with three things and just give up. And so that's when we were like, oh, maybe you give it a to-do list and it'll do really well.
+[  220.9-  226.8] And it did really well. It was just like, whoa, this is exactly the thing we need for this moment in time.
+[  227.3-  235.5] But a year from then, it's disappeared. You don't really need the to-do list anymore. There's more complex memory states and things that you can rely on.
+[  236.3-  244.4] I think it's like the perfect example of how you got to be very unattached to the things you're building because they're going to go away fairly quickly.
+[  244.4-  259.1] I think that the fact that we build these things into the Cloud Code harness and a lot of that is just to cover for some of the failure modes that the current state of the model has.
+[  260.6-  269.0] And as the models get better, we have the freedom now to say like, oh, actually all these features that we built, it's not relevant anymore. We don't need those. We can get rid of them.
+[  269.0-  276.4] And the thing that balances that out is, OK, well, now we're doing even bigger, more challenging tasks in Cloud Code.
+[  276.7-  283.0] And what are the tools that the model needs to be able to stay coherent and do a good job on those even bigger tasks?
+[  283.4-  288.3] And the tools that we need to give it start to look different as the scope of the task changes.
+[  288.7-  297.1] A lot of people ask me, how does the Cloud Code team work? And I think one thing that's unique about the Cloud Code team is we have to keep up with the models really closely.
+[  297.1-  305.2] So we need to sometimes make big changes very quickly. We're like, oh, the model is so good. Now we need to make a whole new proactive agent.
+[  305.5-  312.9] And it needs to be a small team that does it while we're also rewriting the permission system and creating artifacts and things.
+[  313.0-  318.4] So I think in some ways, we're this hyperbolic time chamber of where software development is going.
+[  318.6-  324.5] I don't think most products have this as short a shelf life and have to keep up on the edge as much.
+[  324.5-  331.4] But definitely as an engineer, you kind of have to do some of this. You have to sort of understand where the capabilities are going.
+[  332.2-  335.4] And obviously, we try and help with that as much as possible through the product.
+[  335.8-  338.9] But yeah, it's also good to keep your mental model of Cloud as well.
+[  339.5-  345.6] I mean, I think when you added the Ask User Question tool, that was another kind of example of writing through the wave.
+[  346.4-  350.4] What were you thinking when you created that tool and what was going on through your head?
+[  350.4-  355.5] I wanted Cloud to be interactive. And initially, I had it after planning, basically.
+[  356.8-  359.6] And then everyone was like, oh, wait, what if it's just a tool that it can call?
+[  359.9-  365.1] And it took me so long to design the tool. It was really hard to get Cloud to call the tool well.
+[  366.4-  370.6] And then eventually, I designed it, and then it just started getting really good at calling the tool.
+[  371.1-  378.0] And then recently, I even used the tool as much. I just created an artifact, and the artifact asked me questions.
+[  378.0-  382.1] And it's like an HTML and has diagrams and mockups and things like that.
+[  382.2-  387.2] And it happened so quickly, where it was like, oh, the tool could barely do it, and now it can.
+[  387.6-  389.4] But yeah, I think this happens a lot in Cloud Code.
+[  389.5-  397.1] I think that the way I think we go about is we create these primitives, where it's like, okay, how do permissions work?
+[  397.3-  401.6] How do visualizations work? All of these things. And then they sort of layer together.
+[  401.9-  403.7] Tell me about loops. How do you use them?
+[  403.7-  408.6] Yeah, I mean, I think it's interesting to track the journey of how we arrived at loops in some ways.
+[  410.0-  416.3] I used to run everything locally on my laptop, and at some point, I had to go back home from the office.
+[  417.8-  422.1] And so I would have to shut down my laptop, and I'd be like, that sucks. My agents aren't running anymore.
+[  422.2-  424.0] Yeah, you didn't leave it open.
+[  424.2-  428.6] Yeah, I mean, you could do that, but then have to go to the parking lot, and people would look at me funny.
+[  430.4-  436.1] But what I started doing then was I started using our remote-hosted developer boxes.
+[  437.1-  441.3] And so those were my way of thinking, okay, I don't need my laptop on at all times.
+[  441.7-  445.1] It's running, and it's running in a hosted environment, so I can just do my thing.
+[  446.1-  451.6] But that's also unsatisfying in some ways, because then you've got to SSH into your environments
+[  451.6-  455.0] and kind of get back to your hosted surface.
+[  455.5-  459.7] And so that's when, I guess, like, Cloud Code on the web was created, right?
+[  459.8-  464.4] So it's like hosted containers that you have that can just keep running in the background.
+[  465.8-  473.6] But even then, it was a little tricky to get started, because if you want to use a container to host your dev environment,
+[  473.8-  476.0] you need to give it access to your dev environment.
+[  476.4-  480.3] And setting that up is a bit of a pain. It's totally worth it, in my opinion.
+[  480.3-  485.5] I think it's 10x to my productivity ever since we did that, but that was kind of the challenge there.
+[  486.1-  490.1] And so I think that's the original story of how we kind of came across this,
+[  490.5-  492.6] like, Cloud running locally to Cloud needs to run on the Cloud.
+[  493.1-  496.0] And now if it's running on the Cloud, you can do really interesting things.
+[  496.1-  503.0] You can have routines, and you can be like, every day, go and look at all the feedback that we're getting
+[  503.0-  511.2] and bucket them into buckets of importance and fix the ones that it actually has high confidence in fixing.
+[  511.4-  514.7] This is the whole loop journey that Boris talks about a lot, too.
+[  515.3-  523.2] You go from prompting a model in a session to breaking that boundary of a session
+[  523.2-  527.4] and instead prompting something that's one level above that,
+[  528.1-  532.4] that's then going and fixing bugs or doing your bidding for you.
+[  532.4-  536.0] I actually wanted to talk more about code review and security.
+[  536.6-  539.6] I think this is one of those things where you're writing a lot more code,
+[  539.9-  545.3] more code is being generated, and you don't want your job to be reviewing code.
+[  546.6-  549.4] Obviously, we have our code review bot right now.
+[  549.6-  554.4] But generally, I wanted to ask you guys about how code review has changed inside of the team
+[  554.4-  556.0] and how we do it right now.
+[  556.0-  559.0] I think one big thing actually has been,
+[  559.5-  565.5] Claude really helps human reviewers choose where to focus their time and energy.
+[  566.1-  571.8] I think a common thing that I saw happen in traditional human code review
+[  571.8-  575.3] is you would have someone go and review the code,
+[  575.5-  579.0] and they would pick out three little nitpicks to post.
+[  579.5-  583.3] It was kind of just like, I'm signaling to you that I read this code.
+[  583.3-  586.3] It's like, here's my three little things that I want to point out
+[  586.3-  588.8] to prove that I actually was reading through this carefully.
+[  589.4-  592.9] Now, A, you can have Claude figure out those little things
+[  592.9-  594.9] and address them autonomously.
+[  595.2-  598.1] That's not really the important part of human code review anymore.
+[  599.5-  602.3] What is important is understanding maybe the bigger picture.
+[  602.5-  605.3] It's like maybe Claude doesn't have a full understanding of
+[  605.3-  608.2] why is this API structured the way it is,
+[  608.4-  611.8] or the service boundaries are drawn in a particular spot
+[  611.8-  615.5] for a reason that maybe Claude hasn't fully internalized
+[  615.5-  616.5] when it was writing the PR.
+[  617.4-  622.2] Being able to pull information like that into code review
+[  622.9-  625.4] and then hand that information off to the human,
+[  625.6-  629.5] I think is a really valuable thing that Claude can do.
+[  629.9-  632.8] It keeps you from getting pulled into that little like,
+[  633.0-  635.3] oh, I'm just going to nitpick something
+[  635.3-  637.4] because I'm reading through the code line by line
+[  637.4-  640.8] and just level up the abstractions
+[  640.8-  642.5] that you're thinking about as a human code reviewer.
+[  642.9-  644.5] I think code review was the first time
+[  644.5-  646.5] where we did this big fan out,
+[  646.8-  650.0] where we're like, okay, how do you find every bug,
+[  650.9-  653.3] or how do you search across potential bugs,
+[  653.5-  656.5] and we do this big fan out and then coalesce it,
+[  656.6-  658.6] which is what we call test time compute,
+[  659.2-  661.5] how we use a lot of inference time
+[  661.5-  666.1] to put a lot of thought and compute into a problem.
+[  666.1-  668.1] This led to workflows.
+[  668.6-  671.3] Could you tell me about that and how you built workflows?
+[  671.7-  676.1] Code review was a big part of how workflows came about
+[  676.1-  676.9] in the first place.
+[  677.7-  679.5] We have this, as you were saying,
+[  679.8-  685.0] massive fan out thing where it was almost a custom harness
+[  685.0-  688.3] where you tell Claude to go out and fan out and find bugs
+[  688.3-  691.4] and then for each bug you might do an adversarial review
+[  691.4-  695.1] where you ask it to look at the bug from three different opinions
+[  695.1-  699.4] or perspectives and see if the bug is actually real.
+[  699.7-  702.5] What that does is it filters out all these bugs for you
+[  702.5-  704.9] and gives you just the most important ones
+[  704.9-  707.0] that require or need your attention.
+[  708.3-  709.5] It's not just code review.
+[  709.6-  712.6] You could do the same thing for many, many different types
+[  712.6-  713.9] or classes of problems.
+[  714.8-  716.9] You could do the same thing for performance bugs
+[  716.9-  718.0] or performance issues.
+[  718.8-  719.6] You could do the same thing
+[  719.6-  721.3] for just general purpose deep research.
+[  721.8-  724.9] I want to figure out, I'm taking my parents to Tahoe,
+[  724.9-  728.5] next week, where do I stay?
+[  728.8-  731.5] You could do a fan out there and that's helpful too.
+[  731.9-  734.7] Claude is actually really good at making its own harnesses.
+[  735.0-  738.4] Claude can figure out what this fan out should look like,
+[  738.5-  739.8] what the topology should look like,
+[  740.2-  743.6] how it should wire in the output of one agent
+[  743.6-  747.1] into the next level and then finally summarize it
+[  747.1-  748.0] and give it back to me.
+[  748.2-  750.2] That was the origin story of that.
+[  750.5-  752.8] An example is, you're planning a trip
+[  752.8-  755.9] so you do 10 different search requests
+[  755.9-  760.1] across Tahoe Bathhouse, Tahoe Hotel,
+[  760.4-  763.5] Tahoe Airbnb or something, places to go.
+[  764.1-  765.2] It gives you a bunch of results
+[  765.2-  768.4] and then you have some agents that sort of sort them
+[  768.4-  771.5] or figure out the most interesting results
+[  771.5-  773.9] and then maybe some agents who verify them,
+[  774.0-  774.4] is that right?
+[  774.5-  775.7] Then it gives you an end result.
+[  776.9-  779.9] The problem is really, it's like you're fanning out
+[  779.9-  783.2] and once you fan out, you just have so much information
+[  783.2-  785.6] that you need to then filter back.
+[  785.7-  786.8] It's like a MapReduce problem.
+[  787.7-  789.3] You need to filter back for human consumption
+[  789.3-  791.8] because if I read the fan out output app,
+[  792.0-  792.6] I'm going to go crazy.
+[  793.5-  796.8] You need something to help build confidence
+[  796.8-  799.9] and the way to build confidence in this case
+[  799.9-  802.3] is just to throw test time compute at the problem
+[  802.3-  804.7] and so you kind of build more confidence that way.
+[  805.0-  807.0] I think the other thing that's really interesting
+[  807.0-  810.5] about workflows is because the agent is writing code
+[  810.5-  813.2] to orchestrate the subagents,
+[  813.6-  817.1] it's this cool mix of sort of a deterministic code
+[  817.1-  822.1] defined behavior as well as the agentic LLM behavior.
+[  822.8-  825.3] I think that that helps give me confidence
+[  825.3-  827.5] when Claude writes a workflow to iterate.
+[  827.8-  829.8] It's like here's a for loop that's going to run over
+[  829.8-  830.7] these items.
+[  830.8-  832.0] I'm like oh yeah, the for loop,
+[  832.3-  833.9] it's not going to skip one of the items.
+[  834.2-  836.4] It's going to apply the same technique
+[  836.4-  837.8] to all of these things equally.
+[  838.8-  841.6] I find that that really improves my trust.
+[  841.8-  844.4] Oh, I know that Claude is doing what I want it to do here.
+[  845.1-  846.1] I want to talk about Claude Tag.
+[  846.5-  848.7] I know Robert, you're building Claude Tag right now.
+[  849.6-  850.6] But yeah, how are you using it?
+[  850.8-  851.3] Tell us about it.
+[  851.7-  853.7] Yeah, I think I mentioned earlier,
+[  853.8-  857.0] but we're using Claude Tag to build Claude Tag
+[  857.0-  857.6] really aggressively.
+[  858.8-  860.3] And that's actually been a lot of my focus
+[  860.3-  862.5] is making sure that Claude Tag is unblocked
+[  862.5-  864.7] on being able to develop Claude Tag itself,
+[  864.7-  867.4] making sure that the development environment
+[  867.4-  872.4] and dev loops are really easy for Claude to use.
+[  872.5-  874.5] It can just like do everything that I as a human
+[  874.5-  877.0] need to do to build the software
+[  877.0-  878.8] and test that it's working end to end.
+[  878.9-  881.5] As we build more and more complex,
+[  882.1-  883.6] heavily integrated pieces of software,
+[  883.9-  884.7] that job gets harder.
+[  885.9-  887.8] So that's making sure that Claude is able
+[  887.8-  891.4] to do that sort of thing has been a big focus for me.
+[  891.4-  896.3] This is the first time we've had the user interface
+[  897.0-  900.0] more fully decoupled from the transcript.
+[  900.8-  901.9] So it's like we're actually like,
+[  902.1-  904.5] we are working now at one level of abstraction
+[  904.5-  906.8] away from like the actual tokens
+[  906.8-  908.2] that are being output from Claude.
+[  908.8-  911.3] So when you see a message from Claude Tag in Slack,
+[  911.6-  914.2] it's calling a tool to send that message to you.
+[  914.4-  916.3] But its internal monologue essentially
+[  916.3-  918.3] is not visible to you in Slack.
+[  918.3-  921.5] Like there's a link to view the full transcript from Claude.
+[  922.0-  926.7] But the primary user interface is through a messaging tool.
+[  927.7-  929.9] And that abstraction was like a little scary
+[  929.9-  930.9] to get through at first.
+[  931.1-  932.2] We're like, oh, like I can't see everything
+[  932.2-  934.1] that Claude is like thinking as it's like thinking it.
+[  935.1-  937.5] But it's also been I think really freeing
+[  937.5-  941.1] in terms of just like, oh, Claude is choosing
+[  941.1-  943.0] what to say to me and when.
+[  943.6-  946.2] And I'm not thinking about the details of like,
+[  946.2-  947.5] which tools is it calling?
+[  947.7-  949.5] What parameters is it sending to the tools
+[  949.5-  950.6] as it's using them?
+[  951.8-  955.5] And like being forced even to let Claude cook.
+[  957.9-  960.6] And seeing that the models now are good enough
+[  960.6-  963.2] that I'm getting back good results
+[  963.2-  967.0] without needing to supervise the transcripts in detail
+[  967.9-  970.4] is like it has been a forcing function of like,
+[  970.5-  973.0] oh yeah, these models are actually getting really good now.
+[  973.2-  974.6] Claude Tag really clicked for me recently
+[  974.6-  976.3] because I've been developing like a new tool.
+[  976.7-  978.0] I actually need a lot of buying from people.
+[  978.1-  979.7] So the first thing I tried was like, hey,
+[  979.9-  982.8] like I'm thinking of this idea, like who should I talk to
+[  982.8-  987.5] who's like, you know, might be interested in it, right?
+[  987.7-  989.5] And then so I get these stakeholders
+[  989.5-  991.9] and then I do some mockups and it's all in Slack.
+[  992.1-  993.4] So I can like view it on my phone even,
+[  993.5-  994.9] like it makes mockups for me.
+[  995.5-  997.6] It does the implementation, you know?
+[  998.1-  999.5] And then, but the implementation is like,
+[  999.9- 1002.4] you know, I don't know if this tool really works or not.
+[ 1002.4- 1004.8] So I add like a lot of like events to it, right?
+[ 1005.4- 1007.5] And then I, you know, deploy it internally
+[ 1007.5- 1009.2] and see like kind of how people are using it.
+[ 1009.4- 1011.5] Then Claude Tag is like monitoring it for me.
+[ 1011.5- 1013.2] And I'm like, oh, hey, like, yeah,
+[ 1013.2- 1014.0] how are people using it?
+[ 1014.1- 1015.1] Is anyone giving me feedback?
+[ 1015.3- 1017.2] And then I can just like drop in instantly
+[ 1017.2- 1019.5] and be like, yes, like, you know, like Claude tags me
+[ 1019.5- 1021.4] when someone else gives me feedback about it.
+[ 1021.8- 1023.0] And so I can be like more responsive.
+[ 1023.1- 1025.3] I can be the higher confidence that it works, right?
+[ 1025.5- 1027.3] And then sometimes I was looking at the events
+[ 1027.3- 1029.0] and I wanted to improve some of the funnel.
+[ 1029.2- 1031.1] Like I felt like users weren't going all the way.
+[ 1031.9- 1033.7] And initially I was like, I have an idea.
+[ 1033.9- 1035.2] I'm going to like ask you to do this idea.
+[ 1035.2- 1037.1] But then I was like, wait, let me ask Claude
+[ 1037.1- 1038.1] to improve the funnel.
+[ 1038.7- 1040.1] You know, I'm going to like come up with some ideas here
+[ 1040.1- 1042.0] and maybe I can do my idea as an example,
+[ 1042.2- 1044.1] but I want to sort of like work with it at like
+[ 1044.1- 1045.2] that higher level.
+[ 1045.5- 1046.7] And that like really clicked for me.
+[ 1047.0- 1049.0] I think you're touching on some great points here, right?
+[ 1049.3- 1051.9] Because effectively there's verification.
+[ 1052.5- 1052.6] Yeah.
+[ 1052.8- 1053.8] There's code review.
+[ 1054.0- 1054.2] Totally.
+[ 1054.3- 1057.2] And there's getting feedback.
+[ 1057.5- 1059.9] So it's like connecting to your data store,
+[ 1059.9- 1062.1] your event store where you get feedback in some ways.
+[ 1062.2- 1064.3] Like maybe metrics or maybe it's a Slack.
+[ 1064.5- 1066.4] Maybe it's like GitHub issues, whatever else it is.
+[ 1066.9- 1069.0] And all three of these are primitives in Claude code.
+[ 1070.2- 1073.1] Like verification is so important because I think we,
+[ 1073.3- 1075.7] for our team especially, we have, you know,
+[ 1076.0- 1077.9] really paid a lot of attention to verification.
+[ 1078.3- 1078.4] Yeah.
+[ 1078.6- 1082.0] And so when Claude creates a PR for me for Claude code,
+[ 1082.7- 1083.8] it tests it.
+[ 1084.0- 1086.4] It sends me screenshots for what it will look like.
+[ 1087.5- 1089.6] And then you kind of get confidence.
+[ 1089.6- 1091.9] So in your case too, like when you were, you know,
+[ 1092.0- 1094.0] asking it to verify, like you didn't have,
+[ 1094.1- 1096.4] did you have to open up, did you open up the TUI I guess,
+[ 1096.6- 1097.7] like to, to.
+[ 1097.8- 1100.6] I'll leave to like, so first I asked it to record itself
+[ 1100.6- 1102.2] using the TUI, you know.
+[ 1102.5- 1104.2] And then after I did that, I was like, okay,
+[ 1104.4- 1106.7] I'll like clone it myself and try it out.
+[ 1107.0- 1107.6] Just for sanity's sake.
+[ 1107.8- 1109.0] I wanted to make sure that I liked it.
+[ 1109.6- 1109.9] Yeah.
+[ 1110.1- 1112.2] Just to like, you know, use it myself.
+[ 1112.4- 1112.5] Right.
+[ 1112.6- 1113.8] I feel like eventually, you know.
+[ 1113.8- 1114.1] Yeah.
+[ 1114.6- 1114.8] Yeah.
+[ 1114.8- 1116.7] Like, yeah, not even clone it.
+[ 1117.1- 1120.0] I think looking back at the evolution over the past year,
+[ 1120.1- 1122.0] to me, it's sort of like, we started with Claude code
+[ 1122.0- 1125.0] and then we sort of like started adding these primitives
+[ 1125.0- 1128.0] that would work like auto mode and memory and, you know,
+[ 1128.0- 1128.4] workflows.
+[ 1128.7- 1131.4] There was a lot to keep track of as a developer, right?
+[ 1131.5- 1134.0] To just be like, oh, like, what's like all this stuff
+[ 1134.0- 1134.7] happening, right?
+[ 1135.0- 1136.7] And, but you kind of have to do that.
+[ 1136.9- 1139.3] I do think that's like the hard part about being
+[ 1139.3- 1140.7] a software engineer these days is like,
+[ 1141.0- 1143.3] it's like freeing your mind to kind of like,
+[ 1143.3- 1146.3] like there's so much, I think you always had to do this.
+[ 1146.5- 1148.2] You always have to be like, okay, what is possible now?
+[ 1148.4- 1149.6] How do we like automate more?
+[ 1150.5- 1153.0] But I think like, how do we, you know,
+[ 1154.1- 1155.8] step back and think bigger, right?
+[ 1156.0- 1158.0] I think is a like really important part.
+[ 1158.5- 1160.8] But I am curious if there was like anything you guys
+[ 1161.7- 1164.3] miss about like the old part of software engineering,
+[ 1164.6- 1166.1] you know, and like how things used to work.
+[ 1166.4- 1169.2] For me, I used to get a lot of joy from performance
+[ 1169.2- 1169.8] engineering.
+[ 1170.1- 1170.2] Yeah.
+[ 1170.2- 1173.0] And so that means like really digging into a system
+[ 1173.0- 1174.3] and like increasing its performance.
+[ 1175.6- 1178.5] I think Claude is much better at that than I am now.
+[ 1179.2- 1181.0] But I still get to reap the benefits of the actual
+[ 1181.0- 1182.5] performance improvements, which is nice.
+[ 1183.4- 1185.6] The other thing that I think I've been focusing a lot on
+[ 1185.6- 1188.3] is just creating new ideas quicker.
+[ 1188.8- 1190.9] So if I have an idea, going from idea to prototype
+[ 1190.9- 1192.4] to production is much faster.
+[ 1192.9- 1195.1] And so I think more of my attention is now going on
+[ 1195.1- 1197.7] like new ideas and how quickly I can bring them to life.
+[ 1197.7- 1201.2] And so it's like I've had to shift my kind of like paradigm
+[ 1201.2- 1204.6] from, you know, getting really deep into the weeds
+[ 1204.6- 1206.5] to like more zoomed out over time.
+[ 1206.9- 1209.0] Yeah, like less mastering that like specific thing
+[ 1209.0- 1211.0] of like performance that you're spending a ton of time on.
+[ 1211.0- 1211.3] Exactly.
+[ 1212.6- 1214.9] I think kind of a similar thing for me.
+[ 1215.3- 1218.7] I'm a very like detail oriented,
+[ 1219.5- 1222.6] love to get into like the weeds of like UI design
+[ 1223.3- 1224.9] for my personal website.
+[ 1224.9- 1229.3] Like I made this like super detailed CSS recreation
+[ 1229.3- 1233.0] of the Mac OS 10.4 Aqua like buttons.
+[ 1233.4- 1235.3] And I probably spent like a day,
+[ 1235.6- 1239.0] like getting the exact layer of like radial gradients
+[ 1239.0- 1241.8] like stacked up to make this perfect recreation of it.
+[ 1242.2- 1243.7] And like that's the type of thing where I'm like,
+[ 1243.9- 1246.2] oh, Claude can just do that for me now.
+[ 1246.2- 1248.9] And like I wouldn't ever go and do that manually now.
+[ 1249.2- 1251.2] It kind of brought me back to thinking about
+[ 1251.2- 1253.7] when I was probably seven or eight,
+[ 1253.7- 1255.8] I really wanted to make a video game.
+[ 1256.6- 1258.0] And like I didn't know how to code yet,
+[ 1258.2- 1259.9] but I was just like, you know what,
+[ 1260.0- 1263.7] I have like PowerPoint and I can use like PowerPoint
+[ 1263.7- 1265.5] to like make like clickable things
+[ 1265.5- 1267.4] and like draw these shapes and stuff.
+[ 1267.8- 1270.7] Because like that was a tool that I was able to use
+[ 1270.7- 1271.5] at that age.
+[ 1271.9- 1274.8] Thinking now about how Claude kind of makes
+[ 1274.8- 1279.3] the entirety of software engineering accessible to me.
+[ 1279.3- 1281.7] It's like whatever idea I have,
+[ 1281.7- 1285.2] I don't have to be like, oh, I don't have the technical skills.
+[ 1285.4- 1287.7] Like I'm not able to solve this problem.
+[ 1288.5- 1290.5] Like I can say, here's what I want to accomplish.
+[ 1291.1- 1292.9] Let's like break it down and figure out
+[ 1292.9- 1295.1] how to like work with Claude to make it happen.
+[ 1296.1- 1298.8] Yeah, just everything kind of inside of that realm
+[ 1299.6- 1302.8] of software engineering feels like it's within my grasp.

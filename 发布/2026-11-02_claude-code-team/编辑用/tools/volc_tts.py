@@ -7,8 +7,9 @@ import base64, json, sys, uuid, urllib.request
 
 SPEAKER = "S_DRo7Kc2k2"
 text, out = sys.argv[1], sys.argv[2]
-rate = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-fidelity = (sys.argv[4] != "0") if len(sys.argv) > 4 else True
+# 11-02 用户试听三版选 C：语速 40、还原模式关（开着太平）
+rate = int(sys.argv[3]) if len(sys.argv) > 3 else 40
+fidelity = (sys.argv[4] != "0") if len(sys.argv) > 4 else False
 body = {"user": {"uid": "krypto"},
         "req_params": {"text": text, "speaker": SPEAKER, "model": "seed-tts-2.0-expressive", "tone_fidelity": fidelity,
                        "audio_params": {"format": "pcm", "sample_rate": 48000, "speech_rate": rate}}}
