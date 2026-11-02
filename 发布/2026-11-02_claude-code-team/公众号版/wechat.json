@@ -1,0 +1,17 @@
+{
+  "title": "对谈｜Claude Code 团队这一年：不再逐条下指令，人只管目标和大局",
+  "author": "Krypto说AI",
+  "digest": "模型每两个月变一次，围绕它搭的功能也跟着过期。Claude Code 团队三位工程师聊这一年：只给目标、功能随时准备删、人审代码只看大局。",
+  "html": "正文.html",
+  "cover": "upload/cover.jpg",
+  "images": [
+    "upload/img01.jpg",
+    "upload/img02.jpg",
+    "upload/img03.jpg",
+    "upload/img04.jpg",
+    "upload/img05.jpg",
+    "upload/img06.jpg",
+    "upload/img07.jpg"
+  ],
+  "need_open_comment": 1
+}
