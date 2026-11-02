@@ -66,3 +66,4 @@ python3 skills/huashu-art-motion/scripts/koubo.py say "一句旁白" --out 旁�
 - **用户试听定 C 版：`speech_rate` 40、`tone_fidelity` 关**（还原模式开着语气太平、语速太慢）。语速 25 以上时长几乎不再变短，要更快就混音时 atempo
 - 稿子多写问句和短句，起伏靠标点
 - 以后做成 skill 时把 volc_tts.py 挪到 `tools/volc-voice/`；`koubo.py` 没改（还是旧鉴权），用不上
+- **11-02 用户再定：加语气指令**（只调语速和还原模式还是太平）：`req_params.additions = json.dumps({"context_texts": ["你是一个科技 AI 博主，正在讲一个令人兴奋的发现，语气要有惊讶、有强调、有起伏"]})`，接口接受、时长有变化；效果要用户耳朵判断。还嫌平就请用户用兴奋的讲述状态重录 2 到 3 分钟参考音频，同槽位重训

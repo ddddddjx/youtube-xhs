@@ -46,14 +46,14 @@ def src_to_local(k, s):
 
 def split_nar(text):
     """旁白按句切成字幕行：句号 / 问号 / 冒号 / 破折号断开，过长的再按逗号断。"""
-    parts = [p for p in re.split(r"(?<=[。？！：—])", text) if p.strip()]
+    parts = [p for p in re.split(r"(?<=[。？！：；—])", text) if p.strip()]
     out = []
     for p in parts:
         if len(p) > 24 and "，" in p:
             out += [q for q in re.split(r"(?<=，)", p) if q.strip()]
         else:
             out.append(p)
-    return [o.strip().rstrip("，。") for o in out]
+    return [o.strip().rstrip("，。；") for o in out]
 
 def weight(s):
     # 英文单词按 1.6 个汉字算

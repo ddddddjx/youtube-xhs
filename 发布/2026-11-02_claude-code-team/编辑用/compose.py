@@ -52,7 +52,7 @@ alabels = []
 for ai, a in enumerate(tl["audio"]):
     ii = add("-i", str(P / a["src"]))
     ms = int(a["at"] * 1000)
-    g = 1.55 if a["src"].startswith("narration") else 1.0   # 旁白比原声低 1.5–2 dB，补上
+    g = 1.8 if a["src"].startswith("narration") else 1.0   # 旁白比原声低 1.5–2 dB，补上
     fc.append(f"[{ii}:a]aresample=48000,aformat=channel_layouts=stereo,volume={g},adelay={ms}|{ms}[a{ai}]"); alabels.append(f"[a{ai}]")
 fc.append(f"{''.join(alabels)}amix=inputs={len(alabels)}:normalize=0,apad,atrim=0:{dur}[voice]")
 fc.append("[voice]asplit=2[vo][vkey]")
