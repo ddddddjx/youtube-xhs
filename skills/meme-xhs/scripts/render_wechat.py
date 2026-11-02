@@ -128,7 +128,7 @@ def banner(meta, avatar, base, warn):
 
     kicker = meta.get("wechat_kicker") or meta.get("cover_kicker")
     badge_y = 52
-    draw_badge(im, d, avatar, meta.get("account", "Krypto说AI"), SQ_X0 + SAFE_PAD, badge_y)
+    draw_badge(im, d, avatar, meta.get("account", "K说AI"), SQ_X0 + SAFE_PAD, badge_y)
 
     top = badge_y + 72 + 40
     bottom = BH - BOTTOM_KEEP
@@ -299,7 +299,7 @@ def main(src, out):
     sq = ban.crop((SQ_X0, 0, SQ_X1, BH))
     ban.save(os.path.join(out, "封面.png"))
     sq.save(os.path.join(out, "封面_1x1预览.png"))
-    preview(ban, sq, title, digest, meta.get("account", "Krypto说AI"), avatar, os.path.join(out, "预览.jpg"))
+    preview(ban, sq, title, digest, meta.get("account", "K说AI"), avatar, os.path.join(out, "预览.jpg"))
     open(os.path.join(out, "标题.txt"), "w", encoding="utf-8").write(title + "\n")
     open(os.path.join(out, "摘要.txt"), "w", encoding="utf-8").write(digest + "\n")
     caption = os.path.join(os.path.dirname(base), "正文.txt")      # meme版/正文.txt

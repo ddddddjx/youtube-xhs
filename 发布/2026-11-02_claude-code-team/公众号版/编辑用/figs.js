@@ -1,4 +1,4 @@
-// 公众号版配图：封面海报 + 两张对照表 + 扇出流程图（Playwright 截图）
+// 公众号版配图（主题色：Krypto说AI 头像黄 #FFE600，用户 11-02 定）：封面海报 + 两张对照表 + 扇出流程图（Playwright 截图）
 // 用法：node figs.js   （在本目录跑，输出到 ../图/ 和 ../封面.png）
 const { chromium } = require('playwright');
 const path = require('path');
@@ -18,13 +18,13 @@ const torn = (() => { // 撕纸边：上下两条锯齿
 
 const cover = `
 <html><body style="margin:0;width:1800px;height:766px;overflow:hidden;font-family:${FONT}">
-<div style="position:absolute;inset:0;background:#D7000F"></div>
-<img src="${SHOT('t229.jpg')}" style="position:absolute;left:0;top:-120px;width:1800px;filter:grayscale(1) contrast(1.9) brightness(1.05);mix-blend-mode:multiply;opacity:.95">
-<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(215,0,15,0) 30%,rgba(120,0,8,.55) 100%)"></div>
-<div style="position:absolute;left:260px;top:228px;width:1280px;height:330px;background:#F3EEE4;clip-path:${torn};transform:rotate(-2.5deg);box-shadow:0 0 0 #000"></div>
+<div style="position:absolute;inset:0;background:#FFE600"></div>
+<img src="${SHOT('t229.jpg')}" style="position:absolute;left:0;top:-120px;width:1800px;filter:grayscale(1) contrast(1.7) brightness(1.1);mix-blend-mode:multiply;opacity:.9">
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 35%,rgba(0,0,0,.35) 100%)"></div>
+<div style="position:absolute;left:260px;top:228px;width:1280px;height:330px;background:#FFFDF3;clip-path:${torn};transform:rotate(-2.5deg);box-shadow:0 0 0 #000"></div>
 <div style="position:absolute;left:0;right:0;top:262px;text-align:center;transform:rotate(-2.5deg)">
   <div style="font-size:128px;font-weight:900;letter-spacing:-3px;color:#111;line-height:1">Claude Code</div>
-  <div style="margin-top:26px;font-size:46px;font-weight:900;color:#D7000F;letter-spacing:6px">团队这一年 · 只给目标</div>
+  <div style="margin-top:22px"><span style="font-size:46px;font-weight:900;color:#111;letter-spacing:6px;background:#FFE600;padding:6px 22px">团队这一年 · 只给目标</span></div>
 </div>
 </body></html>`;
 
@@ -57,7 +57,7 @@ const t2 = table('为补模型短板而做的功能，后来怎样了',
 
 const box = (txt, sub, bg = '#fff', fg = '#111', bd = '#222') =>
   `<div style="background:${bg};color:${fg};border:2px solid ${bd};border-radius:10px;padding:16px 18px;text-align:center;font-size:25px;font-weight:700;line-height:1.4">${txt}${sub ? `<div style="font-size:20px;font-weight:400;opacity:.75;margin-top:6px">${sub}</div>` : ''}</div>`;
-const arrow = `<div style="text-align:center;font-size:30px;color:#D7000F;line-height:1;margin:10px 0">▼</div>`;
+const arrow = `<div style="text-align:center;font-size:30px;color:#111;line-height:1;margin:10px 0">▼</div>`;
 const fan = `
 <html><body style="margin:0;background:#fff;font-family:${FONT}">
 <div id="t" style="width:1080px;padding:36px 60px 36px;box-sizing:border-box;background:#F7F7F7">
@@ -71,7 +71,7 @@ ${arrow}
 ${arrow}
 ${box('汇总、筛选', '确定性的代码编排：for 循环不漏任何一项')}
 ${arrow}
-${box('人只看真正需要关注的几条', '', '#D7000F', '#fff', '#D7000F')}
+${box('人只看真正需要关注的几条', '', '#FFE600', '#111', '#111')}
 </div></body></html>`;
 
 (async () => {
