@@ -8,5 +8,6 @@ Anthropic 官方放出的一段对谈：Claude Code 团队的三位工程师（T
 模型每两个月换一次，你搭的流程迟早要拆。能留下来的，只有你给它的那个目标。
 
 原声来自 Anthropic 官方视频，中文字幕和旁白为 AI 辅助制作。
+配乐：Kevin MacLeod《Voxel Revolution》，CC BY 4.0
 
 #ClaudeCode #Claude #Anthropic #AI编程 #AIAgent #AI工具
