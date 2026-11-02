@@ -41,6 +41,8 @@ ZF = {
     "NUMSPAN": "display:inline-block;background-color:#FFE600;color:#111;font-size:30px;font-weight:900;padding:6px 12px;font-family:'Arial Black',Arial,sans-serif;",
     "H": "margin:0.5em 0 1em;font-size:21px;font-weight:bold;color:#111;line-height:1.6;letter-spacing:1.5px;",
     "CAP": "margin:0 0 1.8em;font-size:13px;color:#999;text-align:center;line-height:1.7;font-style:italic;",
+    # 文末「引用：」和「[1] ……」出处行：灰色斜体左对齐（学 Z Finance 文末引用；不写「AI 辅助」声明，AI 标注只在后台勾选）
+    "REF": "margin:0 0 1em;font-size:14px;color:#999;text-align:left;line-height:1.8;font-style:italic;",
 }
 STYLE = "default"
 BANNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "banner.png")
@@ -144,7 +146,8 @@ def to_html(md, root, up_dir, errs):
             while i < len(lines) and lines[i].strip() and not re.match(r"!\[|\||---$|\*\*.+\*\*$|## ", lines[i].strip()):
                 para.append(lines[i].strip())
                 i += 1
-            out.append(f'<p style="{ZF["P"] if STYLE == "zf" else P}">{"<br>".join(inline(p) for p in para)}</p>')
+            is_ref = STYLE == "zf" and (para[0] in ("引用：", "引用:") or re.match(r"\[\d+\]", para[0]))
+            out.append(f'<p style="{ZF["REF"] if is_ref else (ZF["P"] if STYLE == "zf" else P)}">{"<br>".join(inline(p) for p in para)}</p>')
     return "\n".join(out), images
 
 
