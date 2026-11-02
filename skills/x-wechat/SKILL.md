@@ -61,7 +61,7 @@ python3 $W/scripts/thread_check.py 发布/<目录>
 
 ```bash
 python3 $M/scripts/render_wechat.py 发布/<目录>/meme版/编辑用/draft.md 发布/<目录>/公众号版
-python3 $W/scripts/prep_wechat.py 发布/<目录>          # --no-comment 关留言；--author 改作者名
+python3 $W/scripts/prep_wechat.py 发布/<目录>          # --no-comment 关留言；--author 改作者名；--style zf 用 Z Finance 深度稿版式（对标/Z_Finance/）
 ```
 
 第一行出封面、标题、摘要、正文.md（规则见 `$M/references/wechat_cover_guide.md`，Read `预览.jpg` 看三处场景）。第二行把正文.md 转成带内联样式的 `正文.html`（公众号编辑器会删 `<style>`）、正文图压到 1MB 以内放进 `upload/`、写 `wechat.json`。浏览器打开 `正文.html` 就是排版预览。

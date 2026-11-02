@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """公众号版 → 能直接推进草稿箱的包（云端跑，要 Pillow）。
 
-用法: python3 prep_wechat.py <发布目录> [--author Krypto说AI] [--no-comment]
+用法: python3 prep_wechat.py <发布目录> [--author Krypto说AI] [--no-comment] [--style zf]
+--style zf  学 Z Finance 深度稿的版式（11-02，对标/Z_Finance/拆解.md）：`## 01 小标题` 出灰色大号数字 + 红色结论句小标题，
+            正文行距加宽，图注灰色斜体（表格图下写「图表备注：……」）
 前提: 先跑过 meme-xhs 的 render_wechat.py，<发布目录>/公众号版/ 里有 正文.md、标题.txt、摘要.txt、封面.png
 出   公众号版/正文.html   带内联样式（公众号编辑器会删 <style>），图指向 upload/ 下的文件，浏览器打开就是预览
      公众号版/upload/     正文图压到 1MB 以内（uploadimg 的上限）、封面转 jpg
@@ -29,6 +31,15 @@ CAP = "margin:0 0 1.4em;font-size:13px;color:#888;text-align:center;line-height:
 HR = "border:0;border-top:1px solid #e5e5e5;margin:2em 0;"
 TD = "border:1px solid #ddd;padding:6px 8px;font-size:14px;line-height:1.6;color:#222;"
 HL = "background:#FFE14D;padding:0 2px;"
+
+# --style zf：Z Finance 深度稿版式
+ZF = {
+    "P": "margin:0 0 1.6em;font-size:16px;line-height:2;color:#333;letter-spacing:1px;text-align:justify;",
+    "NUM": "margin:2.4em 0 0;font-size:44px;font-weight:900;color:#cfcfcf;line-height:1;font-family:'Arial Black',Arial,sans-serif;",
+    "H": "margin:0.3em 0 1em;font-size:21px;font-weight:bold;color:#D7000F;line-height:1.6;letter-spacing:1.5px;",
+    "CAP": "margin:0 0 1.8em;font-size:13px;color:#999;text-align:center;line-height:1.7;font-style:italic;",
+}
+STYLE = "default"
 
 
 def inline(s):
@@ -88,7 +99,7 @@ def to_html(md, root, up_dir, errs):
                 images.append(rel)
                 out.append(f'<p style="text-align:center;margin:0;"><img src="{rel}" style="{IMGS}" alt="{html.escape(alt)}"></p>')
                 if alt:
-                    out.append(f'<p style="{CAP}">{html.escape(alt)}</p>')
+                    out.append(f'<p style="{ZF["CAP"] if STYLE == "zf" else CAP}">{html.escape(alt)}</p>')
             i += 1
         elif line == "---":
             out.append(f'<hr style="{HR}">')
@@ -108,7 +119,12 @@ def to_html(md, root, up_dir, errs):
             out.append(f'<table style="border-collapse:collapse;width:100%;margin:0 0 1.2em;"><tbody>{body}</tbody></table>')
         elif re.fullmatch(r"\*\*(.+)\*\*", line) or line.startswith("## "):
             text = re.sub(r"^##\s+|\*\*", "", line)
-            out.append(f'<h3 style="{H}">{inline(text)}</h3>')
+            m = re.match(r"(\d{2})\s+(.+)", text) if STYLE == "zf" else None
+            if m:
+                out.append(f'<p style="{ZF["NUM"]}">{m.group(1)}</p>')
+                out.append(f'<h3 style="{ZF["H"]}">{inline(m.group(2))}</h3>')
+            else:
+                out.append(f'<h3 style="{ZF["H"] if STYLE == "zf" else H}">{inline(text)}</h3>')
             i += 1
         else:
             para = [line]
@@ -116,7 +132,7 @@ def to_html(md, root, up_dir, errs):
             while i < len(lines) and lines[i].strip() and not re.match(r"!\[|\||---$|\*\*.+\*\*$|## ", lines[i].strip()):
                 para.append(lines[i].strip())
                 i += 1
-            out.append(f'<p style="{P}">{"<br>".join(inline(p) for p in para)}</p>')
+            out.append(f'<p style="{ZF["P"] if STYLE == "zf" else P}">{"<br>".join(inline(p) for p in para)}</p>')
     return "\n".join(out), images
 
 
@@ -125,6 +141,8 @@ def main(argv):
         sys.exit(__doc__)
     root = argv[0].rstrip("/")
     author = argv[argv.index("--author") + 1] if "--author" in argv else "Krypto说AI"
+    global STYLE
+    STYLE = argv[argv.index("--style") + 1] if "--style" in argv else "default"
     wx = os.path.join(root, "公众号版")
     need = ["正文.md", "标题.txt", "摘要.txt", "封面.png"]
     miss = [n for n in need if not os.path.isfile(os.path.join(wx, n))]
