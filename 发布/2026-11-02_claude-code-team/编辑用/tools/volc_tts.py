@@ -8,7 +8,7 @@ import base64, json, sys, uuid, urllib.request
 SPEAKER = "S_DRo7Kc2k2"
 text, out = sys.argv[1], sys.argv[2]
 # 11-02 用户试听三版选 C：语速 40、还原模式关（开着太平）
-rate = int(sys.argv[3]) if len(sys.argv) > 3 else 15   # 11-02 v4：用户嫌快，40 → 15
+rate = int(sys.argv[3]) if len(sys.argv) > 3 else 25   # 11-02：40 嫌快，15 又嫌慢，用户定 25
 fidelity = (sys.argv[4] != "0") if len(sys.argv) > 4 else False
 # 11-02 用户定：加语气指令（豆包 2.0 的 additions.context_texts），不加太平
 # 11-02 v4：「兴奋、惊讶」那条像在表演，AI 感重；用户试听三版选 A（聊天语气）
