@@ -1,0 +1,603 @@
+{
+ "title": "Claude Code 团队，自己怎么用 Claude Code",
+ "account": "Krypto说AI",
+ "slogan": "AI builder · 活全交给 AI 两年",
+ "source": "Anthropic",
+ "steps": [
+  "从盯过程到给目标",
+  "功能随时准备删",
+  "人最后还剩什么"
+ ],
+ "narration": {
+  "speaker": "S_DRo7Kc2k2",
+  "rate": 25,
+  "fidelity": false,
+  "pause": 0.45,
+  "ctx": "像在跟朋友聊一件自己觉得有意思的事，语气自然、放松，不要播音腔，也不要刻意兴奋，说到关键处稍微放慢"
+ },
+ "lines": [
+  [
+   "o1",
+   "这是 Anthropic 官方放出的一段对谈，主角是 Claude Code 团队的三位工程师。"
+  ],
+  [
+   "o2",
+   "负责提问的是 Thariq。"
+  ],
+  [
+   "o3",
+   "另外两位是 Sid 和 Robert，Robert 正在做 Claude Tag。"
+  ],
+  [
+   "q1",
+   "做 Claude Code 的人，自己怎么用 Claude Code？答案先放在前面：他们已经不给它下指令了，只给目标。"
+  ],
+  [
+   "q2",
+   "这句话站得住吗？站得住，但有一个前提：模型得先好到，让人敢放手。"
+  ],
+  [
+   "q3",
+   "分三步看：第一，人怎么从盯过程，变成只给目标；第二，做出来的功能，为什么要随时准备删；第三，人最后还剩什么。"
+  ],
+  [
+   "n3",
+   "第一步。Sid 七八成的工作，都在 Slack 里的 Claude Tag 上完成。"
+  ],
+  [
+   "r1",
+   "这一步只要记住一句：交给它一个目标，步骤让它自己排。"
+  ],
+  [
+   "n4",
+   "第二步，功能为什么要随时准备删。"
+  ],
+  [
+   "n5",
+   "底层模型，每两个月就换一次。Thariq 的说法是——"
+  ],
+  [
+   "r2",
+   "这一步记住一句：今天救命的功能，明年可能就是包袱。"
+  ],
+  [
+   "n6",
+   "第三步，人最后还剩什么。以前审代码是这样的——"
+  ],
+  [
+   "n7",
+   "现在，人只盯 Claude 没想明白的：接口怎么设计，边界划在哪。在 Claude Tag 里，连它每一步在想什么，都看不到了。"
+  ],
+  [
+   "n8",
+   "回到开头那个判断：站得住，因为模型已经好到让人敢放手。模型每两个月换一次，你搭的流程迟早要拆；能留下来的，只有你给它的那个目标。"
+  ]
+ ],
+ "clips": {
+  "HOOK": {
+   "segs": [
+    [
+     3.0,
+     7.6
+    ]
+   ],
+   "who": "Claude Code 团队",
+   "layout": "center",
+   "subs": [
+    [
+     3.1,
+     5.4,
+     "I feel like it's hard for me to think about the next two months.",
+     "我连接下来两个月都很难去想。"
+    ],
+    [
+     5.9,
+     7.6,
+     "I don't know the next year.",
+     "明年？真不知道。"
+    ]
+   ]
+  },
+  "WIDE": {
+   "segs": [
+    [
+     1286.0,
+     1300.0
+    ]
+   ],
+   "mute": true
+  },
+  "THARIQ": {
+   "segs": [
+    [
+     116.5,
+     123.5
+    ]
+   ],
+   "mute": true
+  },
+  "DUO": {
+   "segs": [
+    [
+     44.0,
+     50.0
+    ]
+   ],
+   "mute": true
+  },
+  "Q1": {
+   "segs": [
+    [
+     31.5,
+     41.0
+    ]
+   ],
+   "mute": true
+  },
+  "Q2": {
+   "segs": [
+    [
+     1174.0,
+     1181.8
+    ]
+   ],
+   "mute": true
+  },
+  "Q3": {
+   "segs": [
+    [
+     20.0,
+     32.0
+    ]
+   ],
+   "mute": true
+  },
+  "C2": {
+   "segs": [
+    [
+     100.3,
+     114.5
+    ]
+   ],
+   "who": "Sid Bidasaria",
+   "layout": "center",
+   "subs": [
+    [
+     100.4,
+     102.4,
+     "caring about each individual tool call",
+     "以前在意每一次工具调用、"
+    ],
+    [
+     102.4,
+     104.9,
+     "and each individual decision that the model makes",
+     "模型做的每一个决定；"
+    ],
+    [
+     104.9,
+     110.2,
+     "to just zoomed out view of like, I have a goal and I'd like to achieve this goal.",
+     "现在退远一步：我有一个目标，我想把它达成。"
+    ],
+    [
+     110.9,
+     114.5,
+     "And you just kind of give that goal to the model to achieve for you.",
+     "然后把这个目标交给模型，让它替你完成。"
+    ]
+   ]
+  },
+  "C4": {
+   "segs": [
+    [
+     212.8,
+     220.8
+    ],
+    [
+     227.2,
+     231.4
+    ],
+    [
+     236.2,
+     244.1
+    ]
+   ],
+   "who": "Sid Bidasaria",
+   "layout": "left",
+   "subs": [
+    [
+     212.8,
+     216.8,
+     "You'd give it like five things to do and it would do three things and just give up.",
+     "给它五件事，做完三件就放弃了。"
+    ],
+    [
+     217.4,
+     220.8,
+     "So we were like, oh, maybe you give it a to-do list and it'll do really well.",
+     "我们就想：要不给它一张待办清单？效果很好。"
+    ],
+    [
+     227.2,
+     231.4,
+     "But a year from then, it's disappeared. You don't really need the to-do list anymore.",
+     "可一年后，它就消失了，待办清单已经用不上了。"
+    ],
+    [
+     236.2,
+     241.3,
+     "…you got to be very unattached to the things you're building",
+     "你得对自己做的东西毫不留恋，"
+    ],
+    [
+     241.3,
+     244.1,
+     "because they're going to go away fairly quickly.",
+     "因为它们很快就会消失。"
+    ]
+   ]
+  },
+  "C5": {
+   "segs": [
+    [
+     312.9,
+     318.4
+    ]
+   ],
+   "who": "Thariq Shihipar",
+   "layout": "center",
+   "subs": [
+    [
+     312.9,
+     318.4,
+     "So I think in some ways, we're this hyperbolic time chamber of where software development is going.",
+     "某种程度上，我们就是软件开发未来的「精神时光屋」。"
+    ]
+   ]
+  },
+  "C6": {
+   "segs": [
+    [
+     575.4,
+     583.1
+    ],
+    [
+     589.3,
+     598.0
+    ]
+   ],
+   "who": "Robert Boyce",
+   "layout": "left",
+   "subs": [
+    [
+     575.4,
+     579.1,
+     "and they would pick out three little nitpicks to post.",
+     "审代码的人会挑出三个小毛病发上去，"
+    ],
+    [
+     579.4,
+     583.1,
+     "It was kind of just like, I'm signaling to you that I read this code.",
+     "其实就是在告诉你：这段代码我看过了。"
+    ],
+    [
+     589.3,
+     594.7,
+     "Now, you can have Claude figure out those little things and address them autonomously.",
+     "现在，这些小问题可以交给 Claude 自己找、自己改。"
+    ],
+    [
+     595.1,
+     598.0,
+     "That's not really the important part of human code review anymore.",
+     "这已经不是人审代码的重点了。"
+    ]
+   ]
+  },
+  "C7": {
+   "segs": [
+    [
+     927.6,
+     934.1
+    ],
+    [
+     951.7,
+     955.5
+    ]
+   ],
+   "who": "Robert Boyce",
+   "layout": "center",
+   "subs": [
+    [
+     927.6,
+     930.9,
+     "And that abstraction was like a little scary to get through at first.",
+     "这层抽象，一开始有点吓人。"
+    ],
+    [
+     931.0,
+     934.1,
+     "I can't see everything that Claude is thinking as it's thinking it.",
+     "我看不到 Claude 当下在想的每一件事。"
+    ],
+    [
+     951.7,
+     955.5,
+     "And like being forced even to let Claude cook.",
+     "就像被逼着放手，让它自己发挥。"
+    ]
+   ]
+  }
+ },
+ "plan": [
+  [
+   "clip",
+   "HOOK",
+   0
+  ],
+  [
+   "nar",
+   "o1"
+  ],
+  [
+   "nar",
+   "o2"
+  ],
+  [
+   "nar",
+   "o3"
+  ],
+  [
+   "nar",
+   "q1"
+  ],
+  [
+   "nar",
+   "q2"
+  ],
+  [
+   "nar",
+   "q3"
+  ],
+  [
+   "nar",
+   "n3"
+  ],
+  [
+   "bridge",
+   "C2",
+   0,
+   "Sid：从盯每一步，到只给目标"
+  ],
+  [
+   "clip",
+   "C2"
+  ],
+  [
+   "nar",
+   "r1"
+  ],
+  [
+   "nar",
+   "n4",
+   0.5
+  ],
+  [
+   "clip",
+   "C4"
+  ],
+  [
+   "nar",
+   "n5"
+  ],
+  [
+   "clip",
+   "C5"
+  ],
+  [
+   "nar",
+   "r2"
+  ],
+  [
+   "nar",
+   "n6",
+   0.5
+  ],
+  [
+   "clip",
+   "C6"
+  ],
+  [
+   "nar",
+   "n7"
+  ],
+  [
+   "clip",
+   "C7"
+  ],
+  [
+   "nar",
+   "n8"
+  ]
+ ],
+ "footage": {
+  "o1": [
+   "WIDE",
+   "wide",
+   2.0
+  ],
+  "o2": [
+   "THARIQ",
+   "wide",
+   0.5
+  ],
+  "o3": [
+   "DUO",
+   "wide",
+   0.3
+  ],
+  "q1": [
+   "Q1",
+   "left",
+   0.0
+  ],
+  "q2": [
+   "Q2",
+   "left",
+   0.0
+  ],
+  "q3": [
+   "Q3",
+   "left",
+   0.0
+  ]
+ },
+ "scenes": {
+  "o1": {
+   "type": "intro",
+   "chapter": "Anthropic 官方对谈",
+   "headline": [
+    "Claude Code 团队，",
+    "自己怎么用 Claude Code？"
+   ],
+   "names": [
+    [
+     "Claude Code 团队 · 三位工程师",
+     0.5,
+     0.8
+    ]
+   ]
+  },
+  "o2": {
+   "type": "intro",
+   "chapter": "Anthropic 官方对谈",
+   "headline": [
+    "Claude Code 团队，",
+    "自己怎么用 Claude Code？"
+   ],
+   "names": [
+    [
+     "Thariq Shihipar · 提问",
+     0.5,
+     0.1
+    ]
+   ]
+  },
+  "o3": {
+   "type": "intro",
+   "chapter": "Anthropic 官方对谈",
+   "headline": [
+    "Claude Code 团队，",
+    "自己怎么用 Claude Code？"
+   ],
+   "names": [
+    [
+     "Sid Bidasaria",
+     0.74,
+     0.1
+    ],
+    [
+     "Robert Boyce · 在做 Claude Tag",
+     0.26,
+     1.2
+    ]
+   ]
+  },
+  "q1": {
+   "type": "answer",
+   "headline": [
+    "做 Claude Code 的人，",
+    "自己怎么用 Claude Code？"
+   ],
+   "answer": [
+    "不下指令，",
+    "只给目标"
+   ],
+   "card": "目标",
+   "cue_answer": "^答案",
+   "cue_card": "下指令"
+  },
+  "q2": {
+   "type": "judgment",
+   "headline": "这句话站得住吗？",
+   "card": "目标",
+   "card_sub": "不下指令，只给目标",
+   "stamp": "站得住",
+   "premise": [
+    "前提：模型得先好到",
+    "让人敢放手"
+   ],
+   "cue_stamp": "^站得住",
+   "cue_premise": "^模型得先"
+  },
+  "q3": {
+   "type": "roadmap"
+  },
+  "n3": {
+   "type": "pill",
+   "step": 0,
+   "pill": [
+    "目标",
+    "goal"
+   ]
+  },
+  "r1": {
+   "type": "recap",
+   "step": 0,
+   "sentence": "交给它一个目标，步骤让它自己排"
+  },
+  "n4": {
+   "type": "pill",
+   "step": 1,
+   "pill": [
+    "随时准备删",
+    "temporary"
+   ]
+  },
+  "n5": {
+   "type": "pill",
+   "step": 1,
+   "pill": [
+    "每 2 个月",
+    "every two months"
+   ]
+  },
+  "r2": {
+   "type": "recap",
+   "step": 1,
+   "sentence": "今天救命的功能，明年可能就是包袱"
+  },
+  "n6": {
+   "type": "pill",
+   "step": 2,
+   "pill": [
+    "人还剩什么",
+    "big picture"
+   ]
+  },
+  "n7": {
+   "type": "pill",
+   "step": 2,
+   "pill": [
+    "接口和边界",
+    ""
+   ]
+  },
+  "n8": {
+   "type": "ending",
+   "card": "目标",
+   "stamp": "站得住",
+   "line": "因为模型已经好到，让人敢放手",
+   "cue": "^站得住"
+  }
+ },
+ "bgm": {
+  "file": "audio/bgm.wav",
+  "gain_db": -11.0,
+  "title": "Voxel Revolution",
+  "credit": "配乐：Kevin MacLeod《Voxel Revolution》，CC BY 4.0"
+ },
+ "tail": 2.5
+}
