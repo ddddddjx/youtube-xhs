@@ -23,6 +23,12 @@ Key 不进对话、不进仓库、不进环境变量，存在云端环境的 **N
 2. 通了再合成一句 5 秒左右的试听（会产生少量费用，先跟用户说一声），用 `/api/v3/tts/unidirectional`，Resource-Id `seed-icl-2.0`，`sample_rate` 显式传 48000。发给用户听像不像
 3. 新版控制台的音色 ID 格式和旧文档不同，Resource-Id 和请求体字段如有出入，以接口返回的错误信息为准调整，接口细节参考 `skills/huashu-art-motion/references/口播API.md`（那份是旧版 APP ID + Token 鉴权的实测记录）
 
+## 11-02 第一次验证记录
+
+- **Key 通了**：请求不带 Key 也没有 401 / 403，不同 Resource-Id 返回不同的授权结果（`volc.service_type.10029`、`volc.megatts.default` 报 `45000030 not granted`，`seed-icl-2.0` / `volc.megatts.voiceclone` 能进到音色校验），说明代理加头生效、账号被识别
+- **音色 ID 不对**：用户给的「本人」在 get_voice 和 unidirectional 都返回 `55000000 resource ID is mismatched with speaker related resource`，跟随手编的假 ID `S_notexist123` 返回一模一样，判断「本人」是控制台里音色的**名称**，不是 ID。待用户从控制台音色列表复制「音色 ID」那一列（通常是一串字母数字）
+- 拿到真 ID 后按上面第 1、2 步重跑：get_voice 用 `volc.megatts.voiceclone`，合成用 `seed-icl-2.0`
+
 ## 还没做
 
 - `skills/huashu-art-motion/scripts/koubo.py` 只支持 APP ID + Access Token 鉴权（`X-Api-App-Id` / `X-Api-Access-Key`），要改成「无凭证也能发、交给代理加头」，验证通了再改
