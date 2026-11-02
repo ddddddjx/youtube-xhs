@@ -1,60 +1,69 @@
 {
- "dur": 158.234,
+ "dur": 162.834,
  "segs": [
+  {
+   "kind": "clip",
+   "id": "HOOK",
+   "t0": 0.0,
+   "t1": 4.6,
+   "who": "Claude Code 团队",
+   "layout": "center",
+   "cuts": []
+  },
   {
    "kind": "nar",
    "id": "o1",
-   "t0": 0.45,
-   "t1": 5.813
+   "t0": 5.05,
+   "t1": 10.413
   },
   {
    "kind": "nar",
    "id": "o2",
-   "t0": 6.263,
-   "t1": 7.964
+   "t0": 10.863,
+   "t1": 12.564
   },
   {
    "kind": "nar",
    "id": "o3",
-   "t0": 8.414,
-   "t1": 12.262
+   "t0": 13.014,
+   "t1": 16.862
   },
   {
    "kind": "nar",
    "id": "q1",
-   "t0": 12.712,
-   "t1": 19.852
+   "t0": 17.312,
+   "t1": 24.452
   },
   {
    "kind": "nar",
    "id": "q2",
-   "t0": 20.302,
-   "t1": 26.136
+   "t0": 24.902,
+   "t1": 30.736
   },
   {
    "kind": "nar",
    "id": "q3",
-   "t0": 26.586,
-   "t1": 37.458
+   "t0": 31.186,
+   "t1": 42.058
   },
   {
    "kind": "nar",
    "id": "n3",
-   "t0": 37.908,
-   "t1": 42.841
+   "t0": 42.508,
+   "t1": 47.441
   },
   {
    "kind": "bridge",
    "id": "C2",
-   "t0": 42.841,
-   "t1": 43.841,
+   "t0": 47.441,
+   "t1": 48.441,
    "label": "Sid：从盯每一步，到只给目标"
   },
   {
    "kind": "clip",
    "id": "C2",
-   "t0": 44.291,
-   "t1": 58.491,
+   "t0": 48.891,
+   "t1": 63.091,
    "who": "Sid Bidasaria",
    "layout": "center",
    "cuts": []
@@ -62,38 +71,38 @@
   {
    "kind": "nar",
    "id": "r1",
-   "t0": 58.941,
-   "t1": 63.113
+   "t0": 63.541,
+   "t1": 67.713
   },
   {
    "kind": "nar",
    "id": "n4",
-   "t0": 63.613,
-   "t1": 66.339
+   "t0": 68.213,
+   "t1": 70.939
   },
   {
    "kind": "clip",
    "id": "C4",
-   "t0": 66.789,
-   "t1": 86.889,
+   "t0": 71.389,
+   "t1": 91.489,
    "who": "Sid Bidasaria",
    "layout": "left",
    "cuts": [
-    74.789,
-    78.989
+    79.389,
+    83.589
    ]
   },
   {
    "kind": "nar",
    "id": "n5",
-   "t0": 87.339,
-   "t1": 91.701
+   "t0": 91.939,
+   "t1": 96.301
   },
   {
    "kind": "clip",
    "id": "C5",
-   "t0": 92.151,
-   "t1": 97.651,
+   "t0": 96.751,
+   "t1": 102.251,
    "who": "Thariq Shihipar",
    "layout": "center",
    "cuts": []
@@ -101,498 +110,520 @@
   {
    "kind": "nar",
    "id": "r2",
-   "t0": 98.101,
-   "t1": 102.224
+   "t0": 102.701,
+   "t1": 106.824
   },
   {
    "kind": "nar",
    "id": "n6",
-   "t0": 102.724,
-   "t1": 106.956
+   "t0": 107.324,
+   "t1": 111.556
   },
   {
    "kind": "clip",
    "id": "C6",
-   "t0": 107.406,
-   "t1": 123.806,
+   "t0": 112.006,
+   "t1": 128.406,
    "who": "Robert Boyce",
    "layout": "left",
    "cuts": [
-    115.106
+    119.706
    ]
   },
   {
    "kind": "nar",
    "id": "n7",
-   "t0": 124.256,
-   "t1": 134.21
+   "t0": 128.856,
+   "t1": 138.81
   },
   {
    "kind": "clip",
    "id": "C7",
-   "t0": 134.66,
-   "t1": 144.96,
+   "t0": 139.26,
+   "t1": 149.56,
    "who": "Robert Boyce",
    "layout": "center",
    "cuts": [
-    141.16
+    145.76
    ]
   },
   {
    "kind": "nar",
    "id": "n8",
-   "t0": 145.41,
-   "t1": 155.734
+   "t0": 150.01,
+   "t1": 160.334
   }
  ],
  "subs": [
   {
-   "a": 0.47,
-   "b": 2.872,
+   "a": 0.1,
+   "b": 2.4,
+   "zh": "我连接下来两个月都很难去想。",
+   "en": "I feel like it's hard for me to think about the next two months.",
+   "kind": "clip"
+  },
+  {
+   "a": 2.9,
+   "b": 4.6,
+   "zh": "明年？真不知道。",
+   "en": "I don't know the next year.",
+   "kind": "clip"
+  },
+  {
+   "a": 5.07,
+   "b": 7.472,
    "zh": "这是 Anthropic 官方放出的一段对谈",
    "kind": "nar"
   },
   {
-   "a": 2.922,
-   "b": 5.76,
+   "a": 7.522,
+   "b": 10.36,
    "zh": "主角是 Claude Code 团队的三位工程师",
    "kind": "nar"
   },
   {
-   "a": 6.283,
-   "b": 7.913,
+   "a": 10.883,
+   "b": 12.513,
    "zh": "负责提问的是 Thariq",
    "kind": "nar"
   },
   {
-   "a": 8.434,
-   "b": 10.411,
+   "a": 13.034,
+   "b": 15.011,
    "zh": "另外两位是 Sid 和 Robert",
    "kind": "nar"
   },
   {
-   "a": 10.461,
-   "b": 12.204,
+   "a": 15.061,
+   "b": 16.804,
    "zh": "Robert 正在做 Claude Tag",
    "kind": "nar"
   },
   {
-   "a": 12.732,
-   "b": 13.935,
+   "a": 17.332,
+   "b": 18.535,
    "zh": "做 Claude Code 的人",
    "kind": "nar"
   },
   {
-   "a": 13.985,
-   "b": 15.462,
+   "a": 18.585,
+   "b": 20.062,
    "zh": "自己怎么用 Claude Code？",
    "kind": "nar"
   },
   {
-   "a": 16.042,
-   "b": 17.151,
+   "a": 20.642,
+   "b": 21.751,
    "zh": "答案先放在前面",
    "kind": "nar"
   },
   {
-   "a": 17.201,
-   "b": 19.802,
+   "a": 21.801,
+   "b": 24.402,
    "zh": "他们已经不给它下指令了，只给目标",
    "kind": "nar"
   },
   {
-   "a": 20.322,
-   "b": 21.292,
+   "a": 24.922,
+   "b": 25.892,
    "zh": "这句话站得住吗？",
    "kind": "nar"
   },
   {
-   "a": 21.862,
-   "b": 23.753,
+   "a": 26.462,
+   "b": 28.353,
    "zh": "站得住，但有一个前提",
    "kind": "nar"
   },
   {
-   "a": 23.803,
-   "b": 26.082,
+   "a": 28.403,
+   "b": 30.682,
    "zh": "模型得先好到，让人敢放手",
    "kind": "nar"
   },
   {
-   "a": 26.606,
-   "b": 27.424,
+   "a": 31.206,
+   "b": 32.024,
    "zh": "分三步看",
    "kind": "nar"
   },
   {
-   "a": 27.474,
-   "b": 31.113,
+   "a": 32.074,
+   "b": 35.713,
    "zh": "第一，人怎么从盯过程，变成只给目标",
    "kind": "nar"
   },
   {
-   "a": 31.163,
-   "b": 35.236,
+   "a": 35.763,
+   "b": 39.836,
    "zh": "第二，做出来的功能，为什么要随时准备删",
    "kind": "nar"
   },
   {
-   "a": 35.286,
-   "b": 37.406,
+   "a": 39.886,
+   "b": 42.006,
    "zh": "第三，人最后还剩什么",
    "kind": "nar"
   },
   {
-   "a": 37.928,
-   "b": 38.438,
+   "a": 42.528,
+   "b": 43.038,
    "zh": "第一步",
    "kind": "nar"
   },
   {
-   "a": 39.008,
-   "b": 40.255,
+   "a": 43.608,
+   "b": 44.855,
    "zh": "Sid 七八成的工作",
    "kind": "nar"
   },
   {
-   "a": 40.305,
-   "b": 42.788,
+   "a": 44.905,
+   "b": 47.388,
    "zh": "都在 Slack 里的 Claude Tag 上完成",
    "kind": "nar"
   },
   {
-   "a": 44.391,
-   "b": 46.391,
+   "a": 48.991,
+   "b": 50.991,
    "zh": "以前在意每一次工具调用、",
    "en": "caring about each individual tool call",
    "kind": "clip"
   },
   {
-   "a": 46.391,
-   "b": 48.891,
+   "a": 50.991,
+   "b": 53.491,
    "zh": "模型做的每一个决定；",
    "en": "and each individual decision that the model makes",
    "kind": "clip"
   },
   {
-   "a": 48.891,
-   "b": 54.191,
+   "a": 53.491,
+   "b": 58.791,
    "zh": "现在退远一步：我有一个目标，我想把它达成。",
    "en": "to just zoomed out view of like, I have a goal and I'd like to achieve this goal.",
    "kind": "clip"
   },
   {
-   "a": 54.891,
-   "b": 58.491,
+   "a": 59.491,
+   "b": 63.091,
    "zh": "然后把这个目标交给模型，让它替你完成。",
    "en": "And you just kind of give that goal to the model to achieve for you.",
    "kind": "clip"
   },
   {
-   "a": 58.961,
-   "b": 60.467,
+   "a": 63.561,
+   "b": 65.067,
    "zh": "这一步只要记住一句",
    "kind": "nar"
   },
   {
-   "a": 60.517,
-   "b": 63.061,
+   "a": 65.117,
+   "b": 67.661,
    "zh": "交给它一个目标，步骤让它自己排",
    "kind": "nar"
   },
   {
-   "a": 63.633,
-   "b": 66.283,
+   "a": 68.233,
+   "b": 70.883,
    "zh": "第二步，功能为什么要随时准备删",
    "kind": "nar"
   },
   {
-   "a": 66.789,
-   "b": 70.789,
+   "a": 71.389,
+   "b": 75.389,
    "zh": "给它五件事，做完三件就放弃了。",
    "en": "You'd give it like five things to do and it would do three things and just give up.",
    "kind": "clip"
   },
   {
-   "a": 71.389,
-   "b": 74.789,
+   "a": 75.989,
+   "b": 79.389,
    "zh": "我们就想：要不给它一张待办清单？效果很好。",
    "en": "So we were like, oh, maybe you give it a to-do list and it'll do really well.",
    "kind": "clip"
   },
   {
-   "a": 74.789,
-   "b": 78.989,
+   "a": 79.389,
+   "b": 83.589,
    "zh": "可一年后，它就消失了，待办清单已经用不上了。",
    "en": "But a year from then, it's disappeared. You don't really need the to-do list anymore.",
    "kind": "clip"
   },
   {
-   "a": 78.989,
-   "b": 84.089,
+   "a": 83.589,
+   "b": 88.689,
    "zh": "你得对自己做的东西毫不留恋，",
    "en": "…you got to be very unattached to the things you're building",
    "kind": "clip"
   },
   {
-   "a": 84.089,
-   "b": 86.889,
+   "a": 88.689,
+   "b": 91.489,
    "zh": "因为它们很快就会消失。",
    "en": "because they're going to go away fairly quickly.",
    "kind": "clip"
   },
   {
-   "a": 87.359,
-   "b": 89.659,
+   "a": 91.959,
+   "b": 94.259,
    "zh": "底层模型，每两个月就换一次",
    "kind": "nar"
   },
   {
-   "a": 90.239,
-   "b": 91.479,
+   "a": 94.839,
+   "b": 96.079,
    "zh": "Thariq 的说法是—",
    "kind": "nar"
   },
   {
-   "a": 91.529,
-   "b": 91.649,
+   "a": 96.129,
+   "b": 96.249,
    "zh": "—",
    "kind": "nar"
   },
   {
-   "a": 92.151,
-   "b": 97.651,
+   "a": 96.751,
+   "b": 102.251,
    "zh": "某种程度上，我们就是软件开发未来的「精神时光屋」。",
    "en": "So I think in some ways, we're this hyperbolic time chamber of where software development is going.",
    "kind": "clip"
   },
   {
-   "a": 98.121,
-   "b": 99.319,
+   "a": 102.721,
+   "b": 103.919,
    "zh": "这一步记住一句",
    "kind": "nar"
   },
   {
-   "a": 99.369,
-   "b": 102.171,
+   "a": 103.969,
+   "b": 106.771,
    "zh": "今天救命的功能，明年可能就是包袱",
    "kind": "nar"
   },
   {
-   "a": 102.744,
-   "b": 104.714,
+   "a": 107.344,
+   "b": 109.314,
    "zh": "第三步，人最后还剩什么",
    "kind": "nar"
   },
   {
-   "a": 105.284,
-   "b": 106.752,
+   "a": 109.884,
+   "b": 111.352,
    "zh": "以前审代码是这样的—",
    "kind": "nar"
   },
   {
-   "a": 106.802,
-   "b": 106.904,
+   "a": 111.402,
+   "b": 111.504,
    "zh": "—",
    "kind": "nar"
   },
   {
-   "a": 107.406,
-   "b": 111.106,
+   "a": 112.006,
+   "b": 115.706,
    "zh": "审代码的人会挑出三个小毛病发上去，",
    "en": "and they would pick out three little nitpicks to post.",
    "kind": "clip"
   },
   {
-   "a": 111.406,
-   "b": 115.106,
+   "a": 116.006,
+   "b": 119.706,
    "zh": "其实就是在告诉你：这段代码我看过了。",
    "en": "It was kind of just like, I'm signaling to you that I read this code.",
    "kind": "clip"
   },
   {
-   "a": 115.106,
-   "b": 120.506,
+   "a": 119.706,
+   "b": 125.106,
    "zh": "现在，这些小问题可以交给 Claude 自己找、自己改。",
    "en": "Now, you can have Claude figure out those little things and address them autonomously.",
    "kind": "clip"
   },
   {
-   "a": 120.906,
-   "b": 123.806,
+   "a": 125.506,
+   "b": 128.406,
    "zh": "这已经不是人审代码的重点了。",
    "en": "That's not really the important part of human code review anymore.",
    "kind": "clip"
   },
   {
-   "a": 124.276,
-   "b": 127.074,
+   "a": 128.876,
+   "b": 131.674,
    "zh": "现在，人只盯 Claude 没想明白的",
    "kind": "nar"
   },
   {
-   "a": 127.124,
-   "b": 129.416,
+   "a": 131.724,
+   "b": 134.016,
    "zh": "接口怎么设计，边界划在哪",
    "kind": "nar"
   },
   {
-   "a": 129.996,
-   "b": 131.501,
+   "a": 134.596,
+   "b": 136.101,
    "zh": "在 Claude Tag 里",
    "kind": "nar"
   },
   {
-   "a": 131.551,
-   "b": 133.208,
+   "a": 136.151,
+   "b": 137.808,
    "zh": "连它每一步在想什么",
    "kind": "nar"
   },
   {
-   "a": 133.258,
-   "b": 134.156,
+   "a": 137.858,
+   "b": 138.756,
    "zh": "都看不到了",
    "kind": "nar"
   },
   {
-   "a": 134.66,
-   "b": 137.96,
+   "a": 139.26,
+   "b": 142.56,
    "zh": "这层抽象，一开始有点吓人。",
    "en": "And that abstraction was like a little scary to get through at first.",
    "kind": "clip"
   },
   {
-   "a": 138.06,
-   "b": 141.16,
+   "a": 142.66,
+   "b": 145.76,
    "zh": "我看不到 Claude 当下在想的每一件事。",
    "en": "I can't see everything that Claude is thinking as it's thinking it.",
    "kind": "clip"
   },
   {
-   "a": 141.16,
-   "b": 144.96,
+   "a": 145.76,
+   "b": 149.56,
    "zh": "就像被逼着放手，让它自己发挥。",
    "en": "And like being forced even to let Claude cook.",
    "kind": "clip"
   },
   {
-   "a": 145.43,
-   "b": 146.746,
+   "a": 150.03,
+   "b": 151.346,
    "zh": "回到开头那个判断",
    "kind": "nar"
   },
   {
-   "a": 146.796,
-   "b": 149.65,
+   "a": 151.396,
+   "b": 154.25,
    "zh": "站得住，因为模型已经好到让人敢放手",
    "kind": "nar"
   },
   {
-   "a": 150.22,
-   "b": 153.161,
+   "a": 154.82,
+   "b": 157.761,
    "zh": "模型每两个月换一次，你搭的流程迟早要拆",
    "kind": "nar"
   },
   {
-   "a": 153.211,
-   "b": 155.68,
+   "a": 157.811,
+   "b": 160.28,
    "zh": "能留下来的，只有你给它的那个目标",
    "kind": "nar"
   }
  ],
  "windows": [
   {
+   "src": "clips/HOOK.mov",
+   "t0": 0.0,
+   "t1": 4.6,
+   "off": 0.0,
+   "rect": "center",
+   "mute": false
+  },
+  {
    "src": "clips/WIDE.mov",
-   "t0": 0.2,
-   "t1": 5.963,
+   "t0": 4.8,
+   "t1": 10.563,
    "off": 2.0,
    "rect": "wide",
    "mute": true
   },
   {
    "src": "clips/THARIQ.mov",
-   "t0": 6.263,
-   "t1": 8.114,
+   "t0": 10.863,
+   "t1": 12.714,
    "off": 0.5,
    "rect": "wide",
    "mute": true
   },
   {
    "src": "clips/DUO.mov",
-   "t0": 8.414,
-   "t1": 12.262,
+   "t0": 13.014,
+   "t1": 16.862,
    "off": 0.3,
    "rect": "wide",
    "mute": true
   },
   {
    "src": "clips/Q1.mov",
-   "t0": 12.712,
-   "t1": 20.152,
+   "t0": 17.312,
+   "t1": 24.752,
    "off": 0.0,
    "rect": "left",
    "mute": true
   },
   {
    "src": "clips/Q2.mov",
-   "t0": 20.302,
-   "t1": 26.436,
+   "t0": 24.902,
+   "t1": 31.036,
    "off": 0.0,
    "rect": "left",
    "mute": true
   },
   {
    "src": "clips/Q3.mov",
-   "t0": 26.586,
-   "t1": 37.458,
+   "t0": 31.186,
+   "t1": 42.058,
    "off": 0.0,
    "rect": "left",
    "mute": true
   },
   {
    "src": "clips/C2.mov",
-   "t0": 42.841,
-   "t1": 43.841,
+   "t0": 47.441,
+   "t1": 48.441,
    "off": 0.0,
    "rect": "mini",
    "mute": true
   },
   {
    "src": "clips/C2.mov",
-   "t0": 44.291,
-   "t1": 58.491,
+   "t0": 48.891,
+   "t1": 63.091,
    "off": 0.0,
    "rect": "center",
    "mute": false
   },
   {
    "src": "clips/C4.mov",
-   "t0": 66.789,
-   "t1": 86.889,
+   "t0": 71.389,
+   "t1": 91.489,
    "off": 0.0,
    "rect": "left",
    "mute": false
   },
   {
    "src": "clips/C5.mov",
-   "t0": 92.151,
-   "t1": 97.651,
+   "t0": 96.751,
+   "t1": 102.251,
    "off": 0.0,
    "rect": "center",
    "mute": false
   },
   {
    "src": "clips/C6.mov",
-   "t0": 107.406,
-   "t1": 123.806,
+   "t0": 112.006,
+   "t1": 128.406,
    "off": 0.0,
    "rect": "left",
    "mute": false
   },
   {
    "src": "clips/C7.mov",
-   "t0": 134.66,
-   "t1": 144.96,
+   "t0": 139.26,
+   "t1": 149.56,
    "off": 0.0,
    "rect": "center",
    "mute": false
@@ -600,98 +631,103 @@
  ],
  "audio": [
   {
+   "src": "clips/HOOK.mov",
+   "at": 0.0,
+   "gain": 1.0
+  },
+  {
    "src": "narration/o1.wav",
-   "at": 0.45,
+   "at": 5.05,
    "gain": 1.0
   },
   {
    "src": "narration/o2.wav",
-   "at": 6.263,
+   "at": 10.863,
    "gain": 1.0
   },
   {
    "src": "narration/o3.wav",
-   "at": 8.414,
+   "at": 13.014,
    "gain": 1.0
   },
   {
    "src": "narration/q1.wav",
-   "at": 12.712,
+   "at": 17.312,
    "gain": 1.0
   },
   {
    "src": "narration/q2.wav",
-   "at": 20.302,
+   "at": 24.902,
    "gain": 1.0
   },
   {
    "src": "narration/q3.wav",
-   "at": 26.586,
+   "at": 31.186,
    "gain": 1.0
   },
   {
    "src": "narration/n3.wav",
-   "at": 37.908,
+   "at": 42.508,
    "gain": 1.0
   },
   {
    "src": "clips/C2.mov",
-   "at": 44.291,
+   "at": 48.891,
    "gain": 1.0
   },
   {
    "src": "narration/r1.wav",
-   "at": 58.941,
+   "at": 63.541,
    "gain": 1.0
   },
   {
    "src": "narration/n4.wav",
-   "at": 63.613,
+   "at": 68.213,
    "gain": 1.0
   },
   {
    "src": "clips/C4.mov",
-   "at": 66.789,
+   "at": 71.389,
    "gain": 1.0
   },
   {
    "src": "narration/n5.wav",
-   "at": 87.339,
+   "at": 91.939,
    "gain": 1.0
   },
   {
    "src": "clips/C5.mov",
-   "at": 92.151,
+   "at": 96.751,
    "gain": 1.0
   },
   {
    "src": "narration/r2.wav",
-   "at": 98.101,
+   "at": 102.701,
    "gain": 1.0
   },
   {
    "src": "narration/n6.wav",
-   "at": 102.724,
+   "at": 107.324,
    "gain": 1.0
   },
   {
    "src": "clips/C6.mov",
-   "at": 107.406,
+   "at": 112.006,
    "gain": 1.0
   },
   {
    "src": "narration/n7.wav",
-   "at": 124.256,
+   "at": 128.856,
    "gain": 1.0
   },
   {
    "src": "clips/C7.mov",
-   "at": 134.66,
+   "at": 139.26,
    "gain": 1.0
   },
   {
    "src": "narration/n8.wav",
-   "at": 145.41,
+   "at": 150.01,
    "gain": 1.0
   }
  ]

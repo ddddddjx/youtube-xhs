@@ -25,6 +25,9 @@ CLIP_SUBS = {
            (227.2, 231.4, "But a year from then, it's disappeared. You don't really need the to-do list anymore.", "可一年后，它就消失了，待办清单已经用不上了。"),
            (236.2, 241.3, "…you got to be very unattached to the things you're building", "你得对自己做的东西毫不留恋，"),
            (241.3, 244.1, "because they're going to go away fairly quickly.", "因为它们很快就会消失。")],
+    # 11-02 用户：片头先放 3–5 秒原片当钩子，一个人把一句完整的话说完，再接旁白
+    "HOOK": [(3.1, 5.4, "I feel like it's hard for me to think about the next two months.", "我连接下来两个月都很难去想。"),
+             (5.9, 7.6, "I don't know the next year.", "明年？真不知道。")],
     "C5": [(312.9, 318.4, "So I think in some ways, we're this hyperbolic time chamber of where software development is going.", "某种程度上，我们就是软件开发未来的「精神时光屋」。")],
     "C6": [(575.4, 579.1, "and they would pick out three little nitpicks to post.", "审代码的人会挑出三个小毛病发上去，"),
            (579.4, 583.1, "It was kind of just like, I'm signaling to you that I read this code.", "其实就是在告诉你：这段代码我看过了。"),
@@ -34,8 +37,8 @@ CLIP_SUBS = {
            (931.0, 934.1, "I can't see everything that Claude is thinking as it's thinking it.", "我看不到 Claude 当下在想的每一件事。"),
            (951.7, 955.5, "And like being forced even to let Claude cook.", "就像被逼着放手，让它自己发挥。")],
 }
-WHO = {"C2": "Sid Bidasaria", "C4": "Sid Bidasaria", "C5": "Thariq Shihipar", "C6": "Robert Boyce", "C7": "Robert Boyce"}
-LAYOUT = {"C2": "center", "C4": "left", "C5": "center", "C6": "left", "C7": "center"}
+WHO = {"HOOK": "Claude Code 团队", "C2": "Sid Bidasaria", "C4": "Sid Bidasaria", "C5": "Thariq Shihipar", "C6": "Robert Boyce", "C7": "Robert Boyce"}
+LAYOUT = {"HOOK": "center", "C2": "center", "C4": "left", "C5": "center", "C6": "left", "C7": "center"}
 
 def src_to_local(k, s):
     off = 0.0
@@ -81,7 +84,7 @@ def weight(s):
 
 # 11-02 v2：开场换成原片画面 + 旁白快速交代背景和人物（o1–o3），再接「一年前」气泡（o4）；停顿收紧压回 2 分钟
 # 11-02 v4：学 Jim 的旁白形式——人物介绍 → 问题 + 答案前置 → 判断 → 三步路线图 → 每步回顾一句 → 片尾回到判断；不卡 2 分钟
-PLAN = [("nar", "o1", .25), ("nar", "o2", .15), ("nar", "o3", .15), ("nar", "q1", .35), ("nar", "q2", .3), ("nar", "q3", .3),
+PLAN = [("clip", "HOOK", 0), ("nar", "o1", .45), ("nar", "o2", .15), ("nar", "o3", .15), ("nar", "q1", .35), ("nar", "q2", .3), ("nar", "q3", .3),
         ("nar", "n3", .4), ("bridge", "C2", 0), ("clip", "C2", .05), ("nar", "r1", .3),
         ("nar", "n4", .5), ("clip", "C4", .25), ("nar", "n5", .25), ("clip", "C5", .25), ("nar", "r2", .3),
         ("nar", "n6", .5), ("clip", "C6", .25), ("nar", "n7", .25), ("clip", "C7", .3), ("nar", "n8", .4)]

@@ -111,10 +111,10 @@ function bubbles(t, x, top, bottom, scroll, collapse = 0, a = 1) {
 /* ---------- 各镜头 ---------- */
 const S = {};
 /* 11-02 v2 开场：画面是原片（全景 → Thariq → Robert 和 Sid），旁白快速交代背景和人物；o4 再接「一年前」的气泡 */
-function openCard(t, k0) {
-  const R = RECTS.wide;
-  glowFrame(R, win(t, 0, .3), C.blue);
-  alpha(win(t, .1, .4), () => {
+function openCard(t) {
+  const R = RECTS.wide, t0 = window.TL.segs.find(x => x.id === 'o1').t0;   // 片头钩子之后才进开场卡
+  glowFrame(R, win(t, t0 - .3, .3), C.blue);
+  alpha(win(t, t0 - .2, .4), () => {
     const a1 = 'Claude Code 团队，', a2 = '自己怎么用 Claude Code？', w1 = tw(a1, 52), w2 = tw(a2, 52), x0 = W / 2 - (w1 + w2) / 2;
     text(a1, x0, 82, 52, C.text, 'left'); text(a2, x0 + w1, 82, 52, C.gold, 'left');
   });
