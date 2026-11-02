@@ -57,3 +57,12 @@ python3 skills/huashu-art-motion/scripts/koubo.py say "一句旁白" --out 旁�
 ## 还没做
 
 - 横版还是竖版、要不要固化成 skill，用户还没定（见 CLAUDE.md 摘要 10-30 Jim AI Notebook 条）
+
+## 11-02 已验证（这一节以下以此为准）
+
+- 音色 ID `S_DRo7Kc2k2`（用户在控制台新增的，就是 `S_` 开头；之前说「不是 S_ 开头」是看错了地方）。`get_voice` 用 `X-Api-Resource-Id: volc.megatts.voiceclone` 或 `seed-icl-2.0` 都能查，返回 status 2，1.0 和 2.0 两版都在，还剩 14 次训练
+- 代理加头可用：会话里不带 Key 直接请求 `openspeech.bytedance.com`，没有鉴权错误
+- 合成脚本：`发布/2026-11-02_claude-code-team/编辑用/tools/volc_tts.py`（urllib，`/api/v3/tts/unidirectional`，Resource-Id `seed-icl-2.0`，model `seed-tts-2.0-expressive`，pcm 48k → wav）
+- **用户试听定 C 版：`speech_rate` 40、`tone_fidelity` 关**（还原模式开着语气太平、语速太慢）。语速 25 以上时长几乎不再变短，要更快就混音时 atempo
+- 稿子多写问句和短句，起伏靠标点
+- 以后做成 skill 时把 volc_tts.py 挪到 `tools/volc-voice/`；`koubo.py` 没改（还是旧鉴权），用不上
