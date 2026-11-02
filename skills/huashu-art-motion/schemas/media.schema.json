@@ -143,6 +143,18 @@
         "volcengine": {
           "type": "object",
           "properties": {
+            "auth": {
+              "type": "string",
+              "enum": [
+                "app_token",
+                "api_key",
+                "proxy"
+              ]
+            },
+            "api_key_env": {
+              "type": "string",
+              "pattern": "[A-Za-z_][A-Za-z0-9_]*"
+            },
             "appid_env": {
               "type": "string",
               "pattern": "[A-Za-z_][A-Za-z0-9_]*"

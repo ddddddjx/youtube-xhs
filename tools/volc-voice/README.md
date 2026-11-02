@@ -30,8 +30,30 @@ Key 不进对话、不进仓库、不进环境变量，存在云端环境的 **N
 - **真音色 ID：`S_DRo7Kc2k2`**（新版控制台也是 `S_` 开头，之前「不是 S_ 开头」的记录不对）。get_voice 用 `volc.megatts.voiceclone` 或 `seed-icl-2.0` 都能查到：`status: 2`（可合成），1.0 和 2.0（`model_type: 5`，`ICL_uranus_…`）两版都训好了，剩余训练次数 14
 - **合成通了**：`/api/v3/tts/unidirectional`，Resource-Id `seed-icl-2.0`，请求体 `{"user":{"uid":"krypto"},"req_params":{"text":…,"speaker":"S_DRo7Kc2k2","audio_params":{"format":"mp3","sample_rate":48000}}}`，不带 Key、不传 model，流式每行 JSON 拼 `data` 的 base64，4.8 秒试听已发用户，像不像待用户听
 
+## 用 koubo.py 合成旁白（11-02 起支持代理鉴权）
+
+`skills/huashu-art-motion/scripts/koubo.py` 加了三种鉴权（`bindings.volcengine.auth`，或环境变量 `VOLC_SPEECH_AUTH` 覆盖）：
+
+- `app_token`（默认）：旧版控制台 APP ID + Access Token
+- `api_key`：新版控制台 API Key，从环境变量 `VOLC_SPEECH_API_KEY` 读，发成 `X-Api-Key`（Mac 本地用）
+- `proxy`：请求不带凭证，由云端代理注入 `X-Api-Key`（**云端会话用这个**）
+
+云端每次是新容器，`~/.config/huashu/media.json` 和 `~/.koubo/voices.json` 都不在，按下面建一次：
+
+```bash
+mkdir -p ~/.config/huashu ~/.koubo
+echo '{"default":"本人","voices":{"本人":{"speaker_id":"S_DRo7Kc2k2"}}}' > ~/.koubo/voices.json
+echo '{"bindings":{"volcengine":{"auth":"proxy"}},"preferences":{"voice":{"mode":"clone"}}}' > ~/.config/huashu/media.json
+```
+
+```bash
+export REQUESTS_CA_BUNDLE=/root/.ccr/ca-bundle.crt
+python3 skills/huashu-art-motion/scripts/koubo.py voices --check --allow-cloud
+python3 skills/huashu-art-motion/scripts/koubo.py say "一句旁白" --out 旁白/01.wav --allow-cloud --allow-paid-api
+```
+
+11-02 实测：`voices --check` 返回 status=2；`say` 用默认 `seed-tts-2.0-expressive` + 还原模式合成成功（48 kHz wav）。用户听试听后确认「像」。
+
 ## 还没做
 
-- `skills/huashu-art-motion/scripts/koubo.py` 只支持 APP ID + Access Token 鉴权（`X-Api-App-Id` / `X-Api-Access-Key`），要改成「无凭证也能发、交给代理加头」，验证通了再改
-- 用户在控制台训练时用的录音是哪段，没确认；如果是随手录的短样本，不像的话请用户按 `对标/Jim_AI_Notebook/` 那次对话给的约 450 字朗读稿重录 2 到 3 分钟，在同一槽位重训
 - 横版还是竖版、要不要固化成 skill，用户还没定（见 CLAUDE.md 摘要 10-30 Jim AI Notebook 条）

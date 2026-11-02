@@ -175,9 +175,36 @@ def save_patch(path, patch, expected=None, reset=None):
         return {'status': 'saved', 'revision': updated['revision'], 'path': str(path)}
 
 
+def auth_mode(config):
+    """app_token：旧版控制台 APP ID + Access Token；api_key：新版控制台 API Key（X-Api-Key）；
+    proxy：请求不带凭证，由网络代理注入 X-Api-Key（云端环境的 Network secrets）。
+    环境变量 VOLC_SPEECH_AUTH 可覆盖配置。"""
+    mode = os.getenv('VOLC_SPEECH_AUTH') or config['bindings']['volcengine'].get('auth', 'app_token')
+    if mode not in ('app_token', 'api_key', 'proxy'):
+        raise ConfigError('VOLC_SPEECH_AUTH只能是app_token / api_key / proxy')
+    return mode
+
+
+def auth_headers(config):
+    """返回鉴权请求头；凭证缺失返回None。proxy模式返回空字典。"""
+    mode = auth_mode(config)
+    if mode == 'proxy':
+        return {}
+    if mode == 'api_key':
+        name = config['bindings']['volcengine'].get('api_key_env', 'VOLC_SPEECH_API_KEY')
+        key = _env_values(config, (name,))[0]
+        return {'X-Api-Key': key} if key else None
+    appid, token = credentials(config)
+    return {'X-Api-App-Id': appid, 'X-Api-Access-Key': token} if appid and token else None
+
+
 def credentials(config):
     binding = config['bindings']['volcengine']
-    names = (binding['appid_env'], binding['token_env'])
+    return _env_values(config, (binding['appid_env'], binding['token_env']))
+
+
+def _env_values(config, names):
+    binding = config['bindings']['volcengine']
     values = {n: os.getenv(n) for n in names}
     env_path = os.getenv('KOUBO_ENV') or binding.get('env_file')
     if env_path and not all(values.values()):
@@ -244,8 +271,7 @@ def resolve(config, mode=None, audio=None, operation='synthesize', grants=(), vo
     pending = [key for key in needs if config['policy'][key] != 'allow' and key not in grants]
     if pending:
         return dict(result, status='needs_permission', reasons=['需要本次授权：' + ', '.join(pending)])
-    appid, token = credentials(config)
-    if not appid or not token:
+    if auth_headers(config) is None:
         result['reasons'].append('缺少所选供应商凭证；仅检查已指定环境/凭证文件')
     if operation == 'synthesize' and not speaker(config, voice):
         result['reasons'].append('没有可用音色绑定；可绑定已有ID，无须重训')
