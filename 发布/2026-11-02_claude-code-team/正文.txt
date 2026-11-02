@@ -8,7 +8,7 @@ Claude Code 团队自己怎么用 Claude Code？Anthropic 官方放出的这段�
 
 模型每两个月换一次，你搭的流程迟早要拆。能留下来的，只有你给它的那个目标。
 
-你现在给 AI 的，是一步一步的指令，还是一个目标？指令打 A，目标打 B，评论区打 A 或 B。
+你现在给 AI 的，是一步一步的指令，还是一个目标？评论区打 A 或 B（A 是指令，B 是目标）。
 
 原声来自 Anthropic 官方视频，中文字幕和旁白为 AI 辅助制作。
 配乐：Kevin MacLeod《Voxel Revolution》，CC BY 4.0
