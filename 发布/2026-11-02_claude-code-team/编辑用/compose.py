@@ -56,8 +56,8 @@ for ai, a in enumerate(tl["audio"]):
     fc.append(f"[{ii}:a]aresample=48000,aformat=channel_layouts=stereo,volume={g},adelay={ms}|{ms}[a{ai}]"); alabels.append(f"[a{ai}]")
 fc.append(f"{''.join(alabels)}amix=inputs={len(alabels)}:normalize=0,apad,atrim=0:{dur}[voice]")
 fc.append("[voice]asplit=2[vo][vkey]")
-bi = add("-i", str(P / "audio/bgm_bright.wav"))
-fc.append(f"[{bi}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{dur},volume=-13dB,afade=t=out:st={dur - 3}:d=3[b0]")
+bi = add("-i", str(P / "audio/bgm_bright.wav"))   # 11-02 用户：配乐音量放大 15%（-13 dB → -11.8 dB）
+fc.append(f"[{bi}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{dur},volume=-11.8dB,afade=t=out:st={dur - 3}:d=3[b0]")
 fc.append("[b0][vkey]sidechaincompress=threshold=0.06:ratio=2.5:attack=40:release=400[bgm]")   # 只轻压，人说话时配乐仍听得见
 fc.append("[vo][bgm]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[aout]")
 
