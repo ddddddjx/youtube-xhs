@@ -1,4 +1,5 @@
-# 按句合成 + 句间停顿，测试自然度：python tts_nat.py "全文" out.wav rate fidelity(0/1) ctx|- pause
+# 按句合成 + 句间停顿（11-02 用户选 A：rate 15、还原模式关、聊天语气、停 0.45 秒）
+#   python tts_nat_test.py "全文" out.wav rate fidelity(0/1) ctx|- pause
 import base64, json, re, sys, uuid, urllib.request, wave, time
 import numpy as np
 text, out, rate, fid, ctx, pause = sys.argv[1], sys.argv[2], int(sys.argv[3]), sys.argv[4] == "1", sys.argv[5], float(sys.argv[6])
