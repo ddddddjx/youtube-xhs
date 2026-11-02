@@ -53,17 +53,21 @@ def split_nar(text):
             out += [q for q in re.split(r"(?<=，)", p) if q.strip()]
         else:
             out.append(p)
-    return [o.strip().rstrip("，。；") for o in out]
+    return [o.strip().rstrip("，。；：") for o in out]
 
 def weight(s):
     # 英文单词按 1.6 个汉字算
     return len(re.sub(r"[A-Za-z]+", "", s)) + 1.6 * len(re.findall(r"[A-Za-z]+", s))
 
 # 11-02 v2：开场换成原片画面 + 旁白快速交代背景和人物（o1–o3），再接「一年前」气泡（o4）；停顿收紧压回 2 分钟
-PLAN = [("nar", "o1", .25), ("nar", "o2", .15), ("nar", "o3", .15), ("nar", "o4", .3), ("nar", "n3", .25), ("bridge", "C2", 0), ("clip", "C2", .05),
-        ("nar", "n4", .3), ("clip", "C4", .25), ("nar", "n5", .25), ("clip", "C5", .25), ("nar", "n6", .25),
-        ("clip", "C6", .25), ("nar", "n7", .25), ("clip", "C7", .3), ("nar", "n8", .25)]
-OPEN_WIN = {"o1": ("WIDE", "wide", 2.0), "o2": ("THARIQ", "wide", 0.5), "o3": ("DUO", "wide", 0.3)}
+# 11-02 v4：学 Jim 的旁白形式——人物介绍 → 问题 + 答案前置 → 判断 → 三步路线图 → 每步回顾一句 → 片尾回到判断；不卡 2 分钟
+PLAN = [("nar", "o1", .25), ("nar", "o2", .15), ("nar", "o3", .15), ("nar", "q1", .35), ("nar", "q2", .3), ("nar", "q3", .3),
+        ("nar", "n3", .4), ("bridge", "C2", 0), ("clip", "C2", .05), ("nar", "r1", .3),
+        ("nar", "n4", .5), ("clip", "C4", .25), ("nar", "n5", .25), ("clip", "C5", .25), ("nar", "r2", .3),
+        ("nar", "n6", .5), ("clip", "C6", .25), ("nar", "n7", .25), ("clip", "C7", .3), ("nar", "n8", .4)]
+OPEN_WIN = {"o1": ("WIDE", "wide", 2.0), "o2": ("THARIQ", "wide", 0.5), "o3": ("DUO", "wide", 0.3),
+            # 11-02 用户：问题 / 判断 / 路线图这三段画面上也要带原片（左卡片原片，右边答案卡、盖章、路线图）
+            "q1": ("Q1", "left", 0.0), "q2": ("Q2", "left", 0.0), "q3": ("Q3", "left", 0.0)}
 BRIDGE_LABEL = {"C2": "Sid：从盯每一步，到只给目标"}
 
 t = 0.0
@@ -82,7 +86,7 @@ for kind, k, pad in PLAN:
         if k in OPEN_WIN:   # 开场三句：画面是原片（全景 → Thariq 近景 → Robert 和 Sid）
             src, rect, off = OPEN_WIN[k]
             nxt = PLAN[[p[1] for p in PLAN].index(k) + 1][2]
-            windows.append({"src": f"clips/{src}.mov", "t0": round(t - (.25 if k == "o1" else 0), 3), "t1": round(t + d + (nxt if k != "o3" else 0), 3), "off": off, "rect": rect, "mute": True})
+            windows.append({"src": f"clips/{src}.mov", "t0": round(t - (.25 if k == "o1" else 0), 3), "t1": round(t + d + (nxt if k not in ("o3", "q3") else 0), 3), "off": off, "rect": rect, "mute": True})
         t += d
     elif kind == "bridge":
         d = 1.0
@@ -98,7 +102,7 @@ for kind, k, pad in PLAN:
         for sa, sb, en, zh in CLIP_SUBS[k]:
             subs.append({"a": round(t + src_to_local(k, sa), 3), "b": round(t + src_to_local(k, sb), 3), "zh": zh, "en": en, "kind": "clip"})
         t += d
-t += 1.8   # 片尾停留
+t += 2.5   # 片尾停留
 tl = {"dur": round(t, 3), "segs": segs, "subs": subs, "windows": windows, "audio": audio}
 (P / "timeline.json").write_text(json.dumps(tl, ensure_ascii=False, indent=1), encoding="utf-8")
 print(f"total {t:.2f}s")

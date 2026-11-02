@@ -133,18 +133,77 @@ S.o3 = (t, s) => {
   pill('Sid Bidasaria', R.x + R.w * .74, R.y + R.h + 46, 30, '', win(t, s.t0 + .1), C.gold);
   pill('Robert Boyce · 在做 Claude Tag', R.x + R.w * .26, R.y + R.h + 46, 30, '', win(t, s.t0 + 1.2), C.gold);
 };
-S.o4 = (t, s) => {                    // 一年前：说一句做一步 → 三个转变
-  const d = s.t1 - s.t0, mid = s.t0 + d * .5;
-  chapter(t < mid ? '一年前' : '一年后', t < mid ? C.dim : C.gold);
-  alpha(1 - win(t, mid, .4), () => bubbles(t, 610, 120, 900, Math.max(0, t - s.t0) * 90 + 300, 0, win(t, s.t0, .4)));
-  ['①', '②', '③'].forEach((n, i) => alpha(win(t, mid + .2 + i * .3), () => {
-    const x = W / 2 + (i - 1) * 420, y = 500;
-    card(x - 170, y - 150, 340, 300, 28, C.card, 'rgba(242,184,75,.6)'); text(n, x, y - 40, 96, C.gold); text('?', x, y + 80, 64, C.dim);
+/* 11-02 v4：学 Jim 的旁白形式。q1 问题 + 答案前置，q2 判断（盖章），q3 三步路线图，r1/r2 每步回顾一句，n8 回到判断 */
+const STEPS = ['从盯过程到给目标', '功能随时准备删', '人最后还剩什么'];
+const PX = 1500;   // 右侧小图 / 右栏中心
+const subsOf = s => window.TL.subs.filter(x => x.a >= s.t0 - .01 && x.a < s.t1);
+const subAt = (s, re, dflt) => { const x = subsOf(s).find(x => re.test(x.zh)); return x ? x.a : s.t0 + dflt; };   // 按字幕内容找时间点，不按行号
+function stamp(x, y, k, s1 = '站得住', col = C.teal) {       // 判断的「章」
+  if (k <= 0) return;
+  g.save(); g.translate(x, y); g.rotate(-.12); const sc = lerp(1.8, 1, back(k)); g.scale(sc, sc); g.globalAlpha *= clamp(k * 2);
+  rr(-130, -50, 260, 100, 16); g.lineWidth = 6; g.strokeStyle = col; g.stroke(); text(s1, 0, 2, 50, col); g.restore();
+}
+function roadmap(t, active, done, y = 520, sc = 1, a = 1, t0 = 0) {   // 三步路线图
+  alpha(a, () => STEPS.forEach((n, i) => {
+    const x = W / 2 + (i - 1) * 520 * sc, on = i === active, ok = i < done;
+    alpha(win(t, t0 + i * .25), () => {
+      card(x - 230 * sc, y - 110 * sc, 460 * sc, 220 * sc, 26 * sc, on ? 'rgba(242,184,75,.16)' : C.card, on ? C.gold : ok ? 'rgba(60,200,180,.7)' : 'rgba(255,255,255,.22)');
+      text(['①', '②', '③'][i], x, y - 42 * sc, 64 * sc, on ? C.gold : ok ? C.teal : C.dim);
+      text(n, x, y + 48 * sc, 36 * sc, on || ok ? C.text : 'rgba(244,241,234,.6)');
+    });
+  }));
+}
+/* 11-02 用户：q1–q3 画面上也要带原片。版式：顶部一行问题，左卡片原片（compose 叠进 RECTS.left），右边答案卡 / 盖章 / 竖排路线图 */
+function headline(t, a1, a2, t0) {
+  alpha(win(t, t0, .4), () => { const w1 = tw(a1, 50), w2 = a2 ? tw(a2, 50) : 0, x0 = W / 2 - (w1 + w2) / 2;
+    text(a1, x0, 82, 50, a2 ? C.text : C.gold, 'left'); if (a2) text(a2, x0 + w1, 82, 50, C.gold, 'left'); });
+}
+S.q1 = (t, s) => {                    // 问题 → 答案先放在前面
+  const ans = subAt(s, /^答案/, 2.5), col = subAt(s, /下指令/, 4);
+  chapter('答案先放在前面', C.gold);
+  headline(t, '做 Claude Code 的人，', '自己怎么用 Claude Code？', s.t0);
+  glowFrame(RECTS.left, win(t, s.t0, .3), C.blue);
+  alpha(win(t, ans, .4), () => text('答案先放在前面', PX, 290, 32, C.dim, 'center', 600));
+  goalCard(PX, 440, lerp(.6, 1, ease((t - col) / .7)), win(t, col, .5));
+  alpha(win(t, col + .6, .5), () => { text('不下指令，', PX, 590, 44, C.text); text('只给目标', PX, 652, 44, C.gold); });
+};
+S.q2 = (t, s) => {                    // 判断：站得住，前提是模型够好
+  const yes = subAt(s, /^站得住/, 1.6), pre = subAt(s, /^模型得先/, 3);
+  chapter('判断', C.gold);
+  headline(t, '这句话站得住吗？', '', s.t0);
+  glowFrame(RECTS.left, 1, C.blue);
+  goalCard(PX, 390, .9, 1); text('不下指令，只给目标', PX, 500, 32, C.text);
+  stamp(PX + 150, 300, (t - yes) / .45);
+  alpha(win(t, pre, .4), () => { pill('前提：模型得先好到', PX, 640, 34, '', 1, C.teal); text('让人敢放手', PX, 730, 40, C.teal); });
+};
+S.q3 = (t, s) => {                    // 三步路线图（竖排），随旁白依次点亮
+  let active = -1;
+  [/^第一/, /^第二/, /^第三/].forEach((re, i) => { if (t >= subAt(s, re, 1e9)) active = i; });
+  chapter('分三步看', C.gold);
+  headline(t, '分三步看', '', s.t0);
+  glowFrame(RECTS.left, 1, C.blue);
+  STEPS.forEach((n, i) => alpha(win(t, s.t0 + .2 + i * .25), () => {
+    const y = 300 + i * 190, on = i === active;
+    card(PX - 300, y - 75, 600, 150, 24, on ? 'rgba(242,184,75,.16)' : C.card, on ? C.gold : 'rgba(255,255,255,.22)');
+    text(['①', '②', '③'][i], PX - 220, y, 56, on ? C.gold : C.dim);
+    text(n, PX + 40, y, 38, on ? C.text : 'rgba(244,241,234,.6)');
   }));
 };
+function recap(t, s, sentence, step) {   // 每步结尾：这一步只要记住一句
+  chapter(`第${'一二三'[step]}步 · ${STEPS[step]}`, C.gold);
+  roadmap(t, -1, step + 1, 170, .55, win(t, s.t0, .4));
+  alpha(win(t, s.t0 + .1, .4), () => {
+    card(W / 2 - 640, 360, 1280, 400, 32, 'rgba(22,26,56,.95)', C.gold);
+    text('这一步只要记住一句', W / 2, 440, 34, C.dim, 'center', 600);
+  });
+  const parts = sentence.split('，');
+  parts.forEach((p, i) => alpha(win(t, s.t0 + .6 + i * .5, .4), () => text(p + (i < parts.length - 1 ? '，' : ''), W / 2, 560 + i * 92, 64, i === parts.length - 1 ? C.gold : C.text)));
+}
+S.r1 = (t, s) => recap(t, s, '交给它一个目标，步骤让它自己排', 0);
+S.r2 = (t, s) => recap(t, s, '今天救命的功能，明年可能就是包袱', 1);
 S.n3 = (t, s) => {                    // ① 不盯过程，只给目标
   const p = clamp((t - s.t0) / (s.t1 - s.t0));
-  chapter('① 不盯过程，只给目标');
+  chapter('第一步 · ' + STEPS[0]);
   pill('目标', W / 2, 150, 40, 'goal', win(t, s.t0));
   const col = ease((t - s.t0 - .3) / 1.4);
   bubbles(t, 160, 240, 900, 1200 + (t - s.t0) * 70, col, 1 - col * .3);
@@ -158,15 +217,15 @@ S.n3 = (t, s) => {                    // ① 不盯过程，只给目标
   alpha(win(t, s.t0 + 3), () => { text('70–80%', 1480, 680, 80, C.gold); text('Sid 的工作在 Claude Tag 上完成', 1480, 760, 28, C.dim, 'center', 500); });
 };
 S.bridge = (t, s) => {                // 过桥：动画卡缩到左边 + 原片小窗 + 一行要点
-  chapter('① 不盯过程，只给目标');
+  chapter('第一步 · ' + STEPS[0]);
   const k = win(t, s.t0, .5);
   alpha(1, () => { card(lerp(1050, 200, k), lerp(260, 330, k), lerp(700, 560, k), lerp(560, 400, k), 22); goalCard(lerp(1480, 480, k), 530, .85); });
   glowFrame(RECTS.mini, k);
   alpha(k, () => text(s.label, RECTS.mini.x + RECTS.mini.w / 2, RECTS.mini.y + RECTS.mini.h + 50, 32, C.text));
 };
 S.n4 = (t, s) => {                    // ② 功能是临时的
-  chapter('② 功能是临时的');
-  pill('临时', W / 2, 150, 40, 'temporary', win(t, s.t0));
+  chapter('第二步 · ' + STEPS[1]);
+  pill('随时准备删', W / 2, 150, 40, 'temporary', win(t, s.t0));
   alpha(win(t, s.t0 + .2), () => {
     card(W / 2 - 260, 300, 520, 520, 26);
     text('待办清单', W / 2, 360, 38, C.text);
@@ -176,7 +235,7 @@ S.n4 = (t, s) => {                    // ② 功能是临时的
     const a = (t - s.t0) * 4; g.strokeStyle = C.text; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(0, 0); g.lineTo(38 * Math.sin(a), -38 * Math.cos(a)); g.moveTo(0, 0); g.lineTo(0, -26); g.stroke(); g.restore(); });
 };
 S.n5 = (t, s) => {                    // 每两个月换一次
-  chapter('② 功能是临时的');
+  chapter('第二步 · ' + STEPS[1]);
   pill('每 2 个月', W / 2, 150, 40, 'every two months', win(t, s.t0));
   const y = 640, x0 = 240, x1 = 1680;
   alpha(win(t, s.t0 + .1), () => { g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = 4; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); });
@@ -189,8 +248,8 @@ S.n5 = (t, s) => {                    // 每两个月换一次
   }
 };
 S.n6 = (t, s) => {                    // ③ 人只看大局：以前审代码
-  chapter('③ 人只看大局');
-  pill('大局', W / 2, 150, 40, 'big picture', win(t, s.t0));
+  chapter('第三步 · ' + STEPS[2]);
+  pill('人还剩什么', W / 2, 150, 40, 'big picture', win(t, s.t0));
   codeBlock(W / 2 - 420, 260, 840, 600, win(t, s.t0 + .1));
   [[.3, 3], [.9, 6], [1.5, 9]].forEach(([d, line]) => circle(W / 2 - 420, 260, line, win(t, s.t0 + d, .3)));
 };
@@ -208,7 +267,7 @@ function circle(x, y, line, k, col = C.red) {
   g.save(); g.strokeStyle = col; g.lineWidth = 6; g.beginPath(); g.ellipse(cx, cy, 150, 30, -.05, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * k); g.stroke(); g.restore();
 }
 S.n7 = (t, s) => {                    // 拉远成服务地图：只盯接口和边界；盖住思考过程
-  chapter('③ 人只看大局');
+  chapter('第三步 · ' + STEPS[2]);
   const d = s.t1 - s.t0, z = ease((t - s.t0) / 1.2);
   alpha(1 - z, () => codeBlock(W / 2 - 420, 260, 840, 600, 1));
   const nodes = [[560, 380, 'API'], [960, 330, '订单'], [1360, 380, '支付'], [700, 650, '用户'], [1220, 650, '通知']];
@@ -223,16 +282,14 @@ S.n7 = (t, s) => {                    // 拉远成服务地图：只盯接口和
   alpha(veil, () => { rr(380, 200, 1160, 640, 30); g.fillStyle = 'rgba(13,18,48,.86)'; g.fill(); text('思考过程', W / 2, 470, 44, C.dim, 'center', 500); text('· · ·', W / 2, 540, 44, C.dim); });
   alpha(win(t, s.t0 + d * .62 + .5), () => { card(W / 2 - 150, 640, 300, 100, 20, 'rgba(60,200,180,.2)', C.teal); text('结果', W / 2 - 20, 690, 36, C.text); check(W / 2 + 70, 690, 44, C.teal, 1); });
 };
-S.n8 = (t, s, seg, tl) => {           // 收尾：指令线被三个转变砍成一张目标卡
-  const T0 = s.t0, end = tl.dur;
-  const items = ['只给目标', '功能是临时的', '人只看大局'];
-  items.forEach((n, i) => alpha(win(t, T0 + .2 + i * .45) * (1 - win(t, T0 + 3.4, .5)), () => {
-    const x = W / 2 + (i - 1) * 470; card(x - 200, 120, 400, 110, 24, C.card, C.gold); text(['①', '②', '③'][i] + ' ' + n, x, 175, 34, C.text);
-  }));
-  const col = ease((t - T0 - .5) / 2.2);
-  alpha(1 - win(t, T0 + 2.7, .5), () => bubbles(t, 610, 280, 860, 2600 + (t - T0) * 40, col, 1));
-  goalCard(W / 2, 560, lerp(.6, 1.5, ease((t - T0 - 2.4) / 1.2)), win(t, T0 + 2.4, .6));
-  alpha(win(t, end - 2.6, .6), () => { text('Krypto说AI', W - 90, H - 120, 34, C.text, 'right'); text('AI builder · 活全交给 AI 两年', W - 90, H - 76, 22, C.dim, 'right', 500); });
+S.n8 = (t, s, seg, tl) => {           // 收尾：回到开头那个判断（目标卡 + 章），三步全亮
+  const end = tl.dur, because = subAt(s, /^站得住/, 1.5);
+  chapter('回到开头的判断', C.gold);
+  roadmap(t, -1, 3, 170, .55, win(t, s.t0, .4));
+  goalCard(W / 2, 520, 1.3, win(t, s.t0 + .1, .5));
+  stamp(W / 2 + 360, 430, (t - because) / .45);
+  alpha(win(t, because + .4, .5), () => text('因为模型已经好到，让人敢放手', W / 2, 720, 40, C.teal));
+  alpha(win(t, end - 2.8, .6), () => { text('Krypto说AI', W - 90, H - 120, 34, C.text, 'right'); text('AI builder · 活全交给 AI 两年', W - 90, H - 76, 22, C.dim, 'right', 500); });
 };
 
 /* ---------- 原声段（含右侧小图） ---------- */
@@ -244,7 +301,6 @@ function clipSeg(t, s) {
   if (s.id === 'C4') panelC4(lt);
   if (s.id === 'C6') panelC6(lt);
 }
-const PX = 1500;   // 右侧小图中心
 function panelC4(lt) {               // 11-02 v2：片段从「给它五件事」开始；剪口在 8.0（一年后）和 12.2（毫不留恋）
   const boxes = all => { for (let i = 0; i < 5; i++) { const y = 330 + i * 86; rr(PX - 150, y, 56, 56, 12); g.lineWidth = 4; g.strokeStyle = C.dim; g.stroke();
     const done = i < 3 ? win(lt, .7 + i * .45, .3) : (all ? win(lt, 5.8 + (i - 3) * .5, .3) : 0); if (done > 0) check(PX - 122, y + 28, 46, C.teal, done);
