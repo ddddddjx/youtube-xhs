@@ -267,7 +267,7 @@ function film(spec) {
     if (look.grain > 0) { out.globalCompositeOperation = 'overlay'; out.globalAlpha = look.grain; out.imageSmoothingEnabled = true; out.drawImage(grains[fr.frame % grains.length], 0, 0, W, H); out.globalCompositeOperation = 'source-over'; out.globalAlpha = 1; }
   }
   /* 音效事件表：把全片每帧过一遍，只收集、不出图 */
-  function events() { SFX.length = 0; collecting = true; const keep = F.L; for (let i = 0; i <= spec.dur * fps; i++) { fr.t = i / fps; fr.frame = i; fr.x = keep.getContext('2d'); fr.look = { bgo: {} }; try { spec.draw(fr, i / fps); } catch (e) { } } collecting = false; const seen = new Set(), uniq = []; SFX.forEach(e => { const k = e[0] + e[1]; if (!seen.has(k)) { seen.add(k); uniq.push(e); } }); uniq.sort((a, b) => a[0] - b[0]); return uniq; }
+  function events() { SFX.length = 0; collecting = true; fr.collecting = true;   /* 11-03：film 可以看 fr.collecting 跳过画面，只登记音效（特效重的片子不然要跑十几分钟） */ const keep = F.L; for (let i = 0; i <= spec.dur * fps; i++) { fr.t = i / fps; fr.frame = i; fr.x = keep.getContext('2d'); fr.look = { bgo: {} }; try { spec.draw(fr, i / fps); } catch (e) { } } collecting = false; fr.collecting = false; const seen = new Set(), uniq = []; SFX.forEach(e => { const k = e[0] + e[1]; if (!seen.has(k)) { seen.add(k); uniq.push(e); } }); uniq.sort((a, b) => a[0] - b[0]); return uniq; }
 
   G.seek = seek; G.draw = seek; G.END = spec.dur; G.FPS = fps; G.events = events; G.META = spec.meta || {}; G.W = W; G.H = H;
   const three = () => !G.VK_THREE || G.THREE ? Promise.resolve() : new Promise(r => G.addEventListener('three', r, { once: true }));   // 3D 片：等 Three.js 载入
