@@ -1,1 +1,4 @@
 render.log
+project/audio/*.wav
+project/renders/
+project/*.zip
