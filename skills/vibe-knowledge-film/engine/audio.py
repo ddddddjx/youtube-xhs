@@ -3,12 +3,16 @@
   python audio.py <工程目录>                       # 读 audio/events.json → audio/score.wav → renders/final.mp4
   python audio.py <工程目录> --bgm 曲子.mp3 [-8]   # 用现成配乐垫底（默认 -8 dB），事件音照样叠上去
   python audio.py <工程目录> --wav-only            # 只出 wav，不合成
+  python audio.py <工程目录> --bgm 曲子.mp3 -8 --from 12.37   # 11-03：从第 12.37 秒（beat.py 算出的乐句起点）截取配乐
+  python audio.py <工程目录> --bgm audio/music.wav 0          # 用 score.py 合成的配乐（已经按分镜做了强弱，0 dB）
+混音最后过一道限幅（alimiter），峰值压在 -1 dBTP 以下，不爆音。
 
 事件表由 render.py --events 导出：film.js 里每个 fr.sfx(时刻, 名字, 参数) 就是一条。
 声音的写法学自参考片（C 家族）：
   低频长音垫底 · 每章开头一记带泛音的钟/垫和弦（约 8 秒衰减）· 屏幕上每打一个字一声"嗒" ·
   提问处一个上滑音 · 说到噪声就真的铺噪声 · 定理落地的那一下之后留 2–3 秒彻底静音（hush）。
 事件名：tick / soft / chord / bloom / rise / thud / tock / stamp / shimmer / hush（参数 dur，秒）
+     11-03 加：hit（重击：低频冲击 + 一层噪声，揭晓、落字用）/ whoosh（呼啸：带通噪声扫频，转场、推拉用，参数 dur）/ ping（提示音：清亮的两声，"你猜？"、数字跳出来用）
 META（film.js 的 meta）：{ root: 半音偏移, noise: [[起,止,强度0..1],...], silence: [[起,止],...], drone: 0..1 }
 """
 import json, subprocess, sys
@@ -85,7 +89,24 @@ def ev_shimmer(rng, p):
     n = int(2.4 * SR); t = np.arange(n) / SR; out = np.zeros(n)
     for k in range(7): out += np.sin(2 * np.pi * hz(24 + PENTA[k + 2]) * t + rng.uniform(0, 6)) * np.exp(-((t - .25 - k * .06) / .5) ** 2)
     return pan(out * .035 * p.get("gain", 1), 0)
-EV = dict(tick=ev_tick, soft=ev_soft, chord=ev_chord, bloom=ev_bloom, rise=ev_rise, thud=ev_thud, tock=ev_tock, stamp=ev_stamp, shimmer=ev_shimmer)
+def ev_hit(rng, p):                                   # 重击：比 thud 更重，有一层空气感
+    n = int(1.4 * SR); t = np.arange(n) / SR; f = 70 * np.exp(-t * 7) + 38
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * env_exp(n, .32, .001)
+    crack = highpass(rng.standard_normal(n), 1200) * env_exp(n, .03, .0005) * .5
+    air = lowpass(rng.standard_normal(n), 900) * env_exp(n, .5, .01) * .25
+    return pan((body * .75 + crack + air) * .55 * p.get("gain", 1), 0)
+def ev_whoosh(rng, p):                                # 呼啸：低频段和高频段两层噪声交叉，听起来像往上扫再落回
+    dur = p.get("dur", .9); n = int(dur * SR); t = np.arange(n) / SR; k = t / dur; ns = rng.standard_normal(n)
+    bl, al = butter(2, [250 / (SR / 2), 900 / (SR / 2)], "band"); bh, ah = butter(2, [1400 / (SR / 2), 4200 / (SR / 2)], "band")
+    w = np.sin(np.pi * k) ** 2; out = lfilter(bl, al, ns) * (1 - w) + lfilter(bh, ah, ns) * w * 1.3
+    e = np.sin(np.pi * k) ** 1.4
+    return np.stack([out * e * (1 - .35 * k), out * e * (.65 + .35 * k)], 1) * .5 * p.get("gain", 1)
+def ev_ping(rng, p):                                  # 提示音：两声清亮的正弦，第二声高五度
+    a = tone(hz(PENTA[int(p.get("pitch", 3)) % len(PENTA)] + 24), .9, .22, ((1, 1), (2.0, .18), (3.01, .05)), attack=.002)
+    b = tone(hz(PENTA[int(p.get("pitch", 3)) % len(PENTA)] + 31), .9, .26, ((1, 1), (2.0, .15)), attack=.002)
+    x = np.zeros(int(1.1 * SR)); x[:len(a)] += a; i = int(.12 * SR); x[i:i + len(b)] += b[:len(x) - i] * .8
+    return pan(x * .14 * p.get("gain", 1), 0)
+EV = dict(hit=ev_hit, whoosh=ev_whoosh, ping=ev_ping, tick=ev_tick, soft=ev_soft, chord=ev_chord, bloom=ev_bloom, rise=ev_rise, thud=ev_thud, tock=ev_tock, stamp=ev_stamp, shimmer=ev_shimmer)
 
 def reverb(x, rng, t60=3.6, wet=.42):
     n = int(t60 * SR); t = np.arange(n) / SR
@@ -131,10 +152,12 @@ if __name__ == "__main__":
     wav = proj / "audio/score.wav"; write_wav(wav, x); print("score:", wav, f"{len(x) / SR:.1f}s", len(spec["events"]), "events")
     if "--wav-only" in a: sys.exit()
     raw, out, end = proj / "renders/raw.mp4", proj / "renders/final.mp4", spec["end"]
-    if bgm:   # 现成配乐：垫底 + 事件音；整体到 -14 LUFS
-        fc = f"[2:a]atrim=0:{end},volume={bgm_db}dB,afade=t=in:d=0.4,afade=t=out:st={end - 1.5}:d=1.5[b];[1:a][b]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]"
+    lim = "alimiter=limit=0.89:attack=5:release=60:level=disabled"   # 11-03：限幅，峰值不过 -1 dBFS
+    if bgm:   # 现成配乐：从 --from 秒起截（beat.py 给的乐句起点），垫底 + 事件音；结尾 2.5 秒淡出；整体到 -14 LUFS
+        st = float(a[a.index("--from") + 1]) if "--from" in a else 0.0; fo = min(2.5, end / 4)
+        fc = f"[2:a]atrim={st}:{st + end},asetpts=PTS-STARTPTS,volume={bgm_db}dB,afade=t=in:d=0.08,afade=t=out:st={end - fo}:d={fo}[b];[1:a][b]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11,{lim}[a]"
         cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(wav), "-stream_loop", "-1", "-i", bgm, "-filter_complex", fc]
     else:     # 合成配乐本来就安静、动态大：只到 -18 LUFS，别压扁
-        cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(wav), "-filter_complex", "[1:a]loudnorm=I=-18:TP=-1.5:LRA=14[a]"]
+        cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(wav), "-filter_complex", f"[1:a]loudnorm=I=-18:TP=-1.5:LRA=14,{lim}[a]"]
     subprocess.run(cmd + ["-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest", str(out)], check=True)
     print("done", out)

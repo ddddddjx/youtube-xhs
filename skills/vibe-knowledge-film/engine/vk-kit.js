@@ -16,30 +16,93 @@ const PAL = {
  * 一条：{ a, b, zh, en?, big?, tone? }；zh 里 {词} = 金色关键词，{!词} = 红色关键词。
  * gilt：逐字"模糊→清晰"，约 0.085s/字；flat：逐字亮起，不虚；night：整行淡入，英文晚 0.18s。 */
 function parseMark(s) { const out = []; let tone = null, i = 0; const cs = Array.from(s); while (i < cs.length) { const c = cs[i]; if (c === '{') { tone = 'gold'; if (cs[i + 1] === '!') { tone = 'red'; i++; } } else if (c === '}') tone = null; else out.push({ ch: c, tone }); i++; } return out; }
-const SUB = {
-  gilt:  { font: 'serif', size: 54, big: 74, huge: 94, track: .11, y: 915, stagger: .085, rise: .34, shadow: .6 },
-  flat:  { font: 'sans',  size: 48, big: 56, huge: 64, track: .07, y: 966, stagger: .07,  rise: .16, shadow: .75 },
-  night: { font: 'serifr', size: 41, big: 46, huge: 52, track: .12, y: 939, enY: 995, enSize: 29 },
+const PORTRAIT = H > W;   // 竖屏（1080×1920）：字幕抬到 72%，避开抖音 / 小红书底部的标题和按钮
+const SUB = PORTRAIT ? {
+  gilt:  { font: 'serif', size: 54, big: 66, huge: 80, track: .09, y: Math.round(H * .72), stagger: .085, rise: .34, shadow: .6, lineH: 76 },
+  flat:  { font: 'sans',  size: 52, big: 60, huge: 70, track: .06, y: Math.round(H * .72), stagger: .07,  rise: .16, shadow: .75, lineH: 72 },
+  night: { font: 'serifr', size: 46, big: 52, huge: 58, track: .1, y: Math.round(H * .72), enY: Math.round(H * .72) + 58, enSize: 28, lineH: 66 },
+} : {
+  gilt:  { font: 'serif', size: 54, big: 74, huge: 94, track: .11, y: 915, stagger: .085, rise: .34, shadow: .6, lineH: 76 },
+  flat:  { font: 'sans',  size: 48, big: 56, huge: 64, track: .07, y: 966, stagger: .07,  rise: .16, shadow: .75, lineH: 66 },
+  night: { font: 'serifr', size: 41, big: 46, huge: 52, track: .12, y: 939, enY: 995, enSize: 29, lineH: 58 },
 };
+/* zh 里用 | 手动断成两行（竖屏一行放不下时用）；一行超过画面宽 90% 时自动缩字号 */
 function subs(fr, t, list, style) {
   const st = SUB[style] || SUB.gilt, pal = PAL[style] || PAL.gilt;
   for (const s of list) {
     if (t < s.a || t > s.b) continue;
-    const cs = parseMark(s.zh), str = cs.map(c => c.ch).join('');
-    const size = s.big === 2 ? st.huge : s.big ? st.big : st.size, y = s.y || st.y;
+    const lines = s.zh.split('|').map(parseMark), all = [].concat(...lines);
+    let size = s.big === 2 ? st.huge : s.big ? st.big : st.size;
+    for (const cs of lines) { const w = fr.measure(cs.map(c => c.ch).join(''), { font: st.font, size, track: size * st.track }); if (w > W * .9) size = Math.floor(size * W * .9 / w); }
+    const y0 = (s.y || st.y) - (lines.length - 1) * st.lineH * (size / st.size) / 2;
     if (style === 'night') {
       const k = fade(t, s.a, s.b, .55, .5);
-      fr.chars(str, W / 2, y, { font: st.font, size, track: size * st.track, color: pal.sub, a: k, glow: 6, glowA: .25 }, i => cs[i].tone ? { color: cs[i].tone === 'red' ? pal.rose : pal.gold } : null);
+      lines.forEach((cs, li) => fr.chars(cs.map(c => c.ch).join(''), W / 2, y0 + li * st.lineH * size / st.size, { font: st.font, size, track: size * st.track, color: pal.sub, a: k, glow: 6, glowA: .25 }, i => cs[i].tone ? { color: cs[i].tone === 'red' ? pal.rose : pal.gold } : null));
       if (s.en) fr.text(s.en, W / 2, s.enY || st.enY, { font: 'lora', size: st.enSize, color: pal.en, a: fade(t, s.a + .18, s.b, .55, .45) });
       continue;
     }
-    const n = cs.length, stg = Math.min(st.stagger, .95 / n), out = 1 - ss(t, s.b - .38, s.b);   // 整句约 0.7–1s 显完，句子越长每字越快
-    const base = s.tone === 'gold' ? pal.gold : pal.ink;
-    fr.chars(str, W / 2, y, { font: st.font, size, track: size * st.track, color: base, shadow: st.shadow, shadowBlur: style === 'flat' ? 10 : 20, shadowY: style === 'flat' ? 3 : 2 }, i => {
-      const k = seg(t, s.a + i * stg, s.a + i * stg + st.rise), tone = cs[i].tone;
-      return { a: smooth(k) * out, blur: style === 'gilt' ? (1 - k) * 9 + (1 - out) * 7 : 0, color: tone === 'red' ? pal.red : tone === 'gold' ? pal.gold : base };
+    const n = all.length, stg = Math.min(st.stagger, .95 / n), out = 1 - ss(t, s.b - .38, s.b);   // 整句约 0.7–1s 显完，句子越长每字越快
+    const base = s.tone === 'gold' ? pal.gold : pal.ink; let off = 0;
+    lines.forEach((cs, li) => {
+      const o0 = off; off += cs.length;
+      fr.chars(cs.map(c => c.ch).join(''), W / 2, y0 + li * st.lineH * size / st.size, { font: st.font, size, track: size * st.track, color: base, shadow: st.shadow, shadowBlur: style === 'flat' ? 10 : 20, shadowY: style === 'flat' ? 3 : 2 }, i => {
+        const k = s.a <= .05 ? 1 : seg(t, s.a + (o0 + i) * stg, s.a + (o0 + i) * stg + st.rise), tone = cs[i].tone;   // 第 0 秒的字幕直接满亮：第一帧不能是空的
+        return { a: smooth(k) * out, blur: style === 'gilt' ? (1 - k) * 9 + (1 - out) * 7 : 0, color: tone === 'red' ? pal.red : tone === 'gold' ? pal.gold : base };
+      });
     });
   }
+}
+
+/* ---------- 顶部常驻钩子标题（11-03 起每条片都有）----------
+ * 整条片顶部一行，从第 0 帧就满亮，到 end 才退。text 里 {词} 金色、{!词} 红色。
+ * o: { style: 'gilt'|'flat'|'night', y, size, end, a } */
+function hookBar(fr, t, text, o = {}) {
+  const style = o.style || 'gilt', pal = PAL[style] || PAL.gilt, cs = parseMark(text), str = cs.map(c => c.ch).join('');
+  const a = (o.a == null ? 1 : o.a) * (o.end ? 1 - ss(t, o.end - .5, o.end) : 1); if (a <= 0) return;
+  let size = o.size || (PORTRAIT ? 46 : 38); const font = style === 'flat' ? 'sans' : 'serif', track = size * .12;
+  const w = fr.measure(str, { font, size, track }); if (w > W * .86) size = Math.floor(size * W * .86 / w);
+  const y = o.y || (PORTRAIT ? Math.round(H * .085) : 70), ww = Math.min(W * .9, fr.measure(str, { font, size, track: size * .12 }) + size * 2.2);
+  const ink = style === 'night' ? pal.ink : pal.ink, gold = pal.gold, red = pal.red || pal.rose;
+  fr.line(W / 2 - ww / 2, y + size * .78, W / 2 + ww / 2, y + size * .78, { w: 1.2, color: gold, a: .45 * a, cap: 'butt' });
+  fr.chars(str, W / 2, y, { font, size, track: size * .12, color: ink, a, shadow: .7, shadowBlur: 14, glow: style === 'flat' ? 0 : 8, glowColor: gold, glowA: .18 },
+    i => cs[i].tone ? { color: cs[i].tone === 'red' ? red : gold } : null);
+}
+
+/* ---------- 大字（0–2 秒的钩子大字、转折处的"你猜？"）----------
+ * 第 0 帧就要有画面和大字：a0 <= 0 时不做淡入，直接满亮。金色竖向渐变，可以逐字显影。
+ * o: { cy, size, track, a0, a1（退场时刻）, gold: true|false, color, sub（下面一行小字）} */
+function headline(fr, t, str, o = {}) {
+  const pal = PAL.gilt, cs = parseMark(str), plain = cs.map(c => c.ch).join(''), a0 = o.a0 == null ? 0 : o.a0;
+  let size = o.size || (PORTRAIT ? 120 : 132); const track = o.track == null ? size * .06 : o.track;
+  const w = fr.measure(plain, { font: 'serifh', size, track }); if (w > W * .9) size = Math.floor(size * W * .9 / w);
+  const cy = o.cy || H * (PORTRAIT ? .36 : .42), out = o.a1 ? 1 - ss(t, o.a1 - .4, o.a1) : 1; if (t < a0 || out <= 0) return;
+  const gold = [[0, '#F7E8C2'], [.38, '#E2C07A'], [.62, '#C39A52'], [1, '#8E6A2F']], red = [[0, '#F6B39A'], [1, '#D9583C']];
+  fr.chars(plain, W / 2, cy, { font: 'serifh', size, track: size * .06, grad: o.gold === false ? null : gold, color: o.color || pal.ivory, glow: 22, glowColor: '#B8873C', glowA: .38, shadow: .6, shadowBlur: 24 },
+    i => { const k = a0 <= 0 ? 1 : seg(t, a0 + i * .06, a0 + i * .06 + .3); return { a: smooth(k) * out, blur: (1 - k) * 12, grad: cs[i].tone === 'red' ? red : undefined }; });
+  if (o.sub) fr.text(o.sub, W / 2, cy + size * .95, { font: 'serifm', size: Math.round(size * .3), track: size * .06, color: pal.dim, a: (a0 <= 0 ? 1 : ss(t, a0 + .4, a0 + .9)) * out });
+}
+
+/* ---------- 景深：前景 / 中景 / 背景（11-03 起每个场景都要分层）----------
+ * depth：背景 0.2、中景 0.6、前景 1.4。镜头漂移 drift(t) 返回 [dx, dy]，离得越近移得越多、略放大。
+ *   K.depth(fr, t, .2, () => 远山());  K.depth(fr, t, .6, () => 主体());  K.depth(fr, t, 1.4, () => 前景的草(), { blur: 3 }); */
+function depth(fr, t, d, fn, o = {}) {
+  const dr = o.drift ? o.drift(t) : [Math.sin(t * .21) * 18, Math.cos(t * .17) * 10];
+  const s = 1 + (d - .6) * (o.zoom == null ? .02 : o.zoom);
+  fr.g({ at: [W / 2 + dr[0] * d, H / 2 + dr[1] * d], s, blur: o.blur, a: o.a }, () => fr.g({ at: [-W / 2, -H / 2] }, fn));
+}
+
+/* ---------- Three.js（要 3D 物体时用）----------
+ * index.html 设 window.VK_THREE = true 并打开那行 module 引入；然后在场景里：
+ *   const g3 = K.three(W, H);                 // 只建一次（缓存），返回 { renderer, THREE }
+ *   ... 按 t 摆好 scene / camera（不要用 clock、不要 requestAnimationFrame）...
+ *   g3.renderer.render(scene, camera); fr.x.drawImage(g3.renderer.domElement, 0, 0);
+ * 画面完全由 t 决定，所以 3D 物体的位置、旋转都写成 t 的函数。 */
+let _three = null;
+function three(w = W, h = H) {
+  if (_three) return _three; const T3 = G.THREE; if (!T3) throw new Error('没有载入 Three.js：index.html 里设 VK_THREE 并打开 module 那行');
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const renderer = new T3.WebGLRenderer({ canvas: c, antialias: true, alpha: true, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(w, h, false);
+  return (_three = { renderer, THREE: T3, canvas: c });
 }
 
 /* ---------- A：年份里程表 + 地点·人物 + 出处 + 朱印 ----------
@@ -290,5 +353,5 @@ function noiseOverlay(fr, k, colors = ['#E84B75', '#64B8F6', '#FFFFFF']) { if (k
 /* 章与章之间"暗一下"：返回 0..1 的亮度系数，乘到底和内容上。times = 每次最暗的时刻 */
 function dips(t, times, half = .55) { let k = 1; for (const c of times) k = Math.min(k, 1 - (1 - smooth(clamp(Math.abs(t - c) / half))) ); return k; }
 
-G.VKit = { gauge, flash, ripple, sepia, noiseOverlay, dips, PAL, SUB, parseMark, subs, track, odometer, hudYear, seal, chapterMark, rays, titleGilt, dustText, titleNight, M3, die, dieFace, meander, numberLine, bellPts };
+G.VKit = { PORTRAIT, hookBar, headline, depth, three, gauge, flash, ripple, sepia, noiseOverlay, dips, PAL, SUB, parseMark, subs, track, odometer, hudYear, seal, chapterMark, rays, titleGilt, dustText, titleNight, M3, die, dieFace, meander, numberLine, bellPts };
 })(window);

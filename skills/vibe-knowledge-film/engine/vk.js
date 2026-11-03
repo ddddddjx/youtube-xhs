@@ -1,6 +1,7 @@
-/* vk.js — 引擎核心：一张 1920×1080 的 Canvas，每一帧都是 t 的纯函数。
+/* vk.js — 引擎核心：一张 Canvas（默认 1920×1080 横屏；index.html 里设 window.VK_SIZE = [1080, 1920] 就是竖屏），每一帧都是 t 的纯函数。
  *
- *   VK.film({ dur, theme, draw(fr, t) })   →  window.seek(t) / window.END / window.SFX
+ *   VK.film({ dur, theme, draw(fr, t) })   →  window.draw(t)（= seek）/ window.END / window.SFX
+ *   需要 Three.js 时 index.html 设 window.VK_THREE = true：等 window.THREE 载入后才 READY（见 references/engine.md）。
  *
  * 画面分两层：底（bg：渐变、星点/尘埃、暗角）和光（L：一切内容）。
  * 出帧时 L 叠到底上，再把 L 模糊两遍用加法叠回去 —— 所有亮的东西自带辉光。
@@ -8,7 +9,7 @@
  */
 (function (G) {
 'use strict';
-const W = 1920, H = 1080;
+const W = (G.VK_SIZE || [1920, 1080])[0], H = (G.VK_SIZE || [1920, 1080])[1];   // Krypto说AI 11-03：横竖屏都支持
 
 /* ---------- 时间与数学 ---------- */
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -167,7 +168,7 @@ class Frame {
       const col = p.color || o.color || '#fff'; const gl = p.glow == null ? o.glow : p.glow;
       if (gl) { x.shadowColor = rgba(p.glowColor || col, o.glowA == null ? .85 : o.glowA); x.shadowBlur = gl; }
       else if (o.shadow) { x.shadowColor = rgba('#000', o.shadow); x.shadowBlur = o.shadowBlur || 14; x.shadowOffsetY = o.shadowY || 2; }
-      const s = o.size || 48; x.fillStyle = (o.grad && !p.color) ? this.grad(0, py - s * .52, 0, py + s * .52, o.grad) : rgba(col, 1);
+      const s = o.size || 48, gr = p.grad || (!p.color && o.grad); x.fillStyle = gr ? this.grad(0, py - s * .52, 0, py + s * .52, gr) : rgba(col, 1);
       if (p.s != null && p.s !== 1) { x.translate(c.cx, py); x.scale(p.s, p.s); x.translate(-c.cx, -py); }
       x.fillText(c.ch, c.x, py + (p.dy || 0)); x.restore();
     });
@@ -181,7 +182,7 @@ const BG = {
   gilt(x, t, o = {}) {
     const warm = o.warm == null ? 1 : o.warm, base = mix('#030306', '#070401', warm), mid = mix('#10131C', '#271B10', warm);
     x.fillStyle = base; x.fillRect(0, 0, W, H);
-    let g = x.createRadialGradient(W * .5, H * (o.cy == null ? .34 : o.cy), 0, W * .5, H * .34, W * .62);
+    let g = x.createRadialGradient(W * .5, H * (o.cy == null ? .34 : o.cy), 0, W * .5, H * .34, Math.max(W, H) * .62);
     g.addColorStop(0, rgba(mid, .95 * (o.pool == null ? 1 : o.pool))); g.addColorStop(.55, rgba(mid, .3)); g.addColorStop(1, rgba(mid, 0)); x.fillStyle = g; x.fillRect(0, 0, W, H);
     const fl = o.floor || 0;
     if (fl > 0) { g = x.createRadialGradient(W * .5, H * 1.02, 0, W * .5, H * 1.02, W * .55); g.addColorStop(0, rgba('#4A2710', .85 * fl)); g.addColorStop(.5, rgba('#2A1609', .5 * fl)); g.addColorStop(1, rgba('#2A1609', 0)); x.fillStyle = g; x.fillRect(0, 0, W, H); }
@@ -201,7 +202,7 @@ const BG = {
   /* B 扁平插画：场景自己画底，这里只给一张干净的底色 */
   flat(x, t, o = {}) { x.fillStyle = o.color || '#0C0705'; x.fillRect(0, 0, W, H); },
 };
-function vignette(x, k) { const g = x.createRadialGradient(W / 2, H / 2, H * .45, W / 2, H / 2, W * .72); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${k})`); x.fillStyle = g; x.fillRect(0, 0, W, H); }
+function vignette(x, k) { const M = Math.max(W, H), m = Math.min(W, H); const g = x.createRadialGradient(W / 2, H / 2, m * .45, W / 2, H / 2, M * .72); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${k})`); x.fillStyle = g; x.fillRect(0, 0, W, H); }
 /* 失焦的尘埃：慢慢漂，大小不一，越大越虚 */
 function dust(x, t, n, color, k) {
   if (k <= 0) return; x.save(); x.globalCompositeOperation = 'lighter';
@@ -268,8 +269,9 @@ function film(spec) {
   /* 音效事件表：把全片每帧过一遍，只收集、不出图 */
   function events() { SFX.length = 0; collecting = true; const keep = F.L; for (let i = 0; i <= spec.dur * fps; i++) { fr.t = i / fps; fr.frame = i; fr.x = keep.getContext('2d'); fr.look = { bgo: {} }; try { spec.draw(fr, i / fps); } catch (e) { } } collecting = false; const seen = new Set(), uniq = []; SFX.forEach(e => { const k = e[0] + e[1]; if (!seen.has(k)) { seen.add(k); uniq.push(e); } }); uniq.sort((a, b) => a[0] - b[0]); return uniq; }
 
-  G.seek = seek; G.END = spec.dur; G.FPS = fps; G.events = events; G.META = spec.meta || {};
-  document.fonts.ready.then(() => Promise.all(Object.values(FONTS).map(f => document.fonts.load(`${f[0]} 40px ${f[1].split(',')[0]}`, '运A1')))).then(() => { G.READY = true; seek(+(new URLSearchParams(location.search).get('t') || 0)); });
+  G.seek = seek; G.draw = seek; G.END = spec.dur; G.FPS = fps; G.events = events; G.META = spec.meta || {}; G.W = W; G.H = H;
+  const three = () => !G.VK_THREE || G.THREE ? Promise.resolve() : new Promise(r => G.addEventListener('three', r, { once: true }));   // 3D 片：等 Three.js 载入
+  document.fonts.ready.then(() => Promise.all(Object.values(FONTS).map(f => document.fonts.load(`${f[0]} 40px ${f[1].split(',')[0]}`, '运A1')))).then(three).then(() => { G.READY = true; seek(+(new URLSearchParams(location.search).get('t') || 0)); });
   /* 预览：?play 实时播，←/→ 步进 */
   if (new URLSearchParams(location.search).has('play')) { let t0 = performance.now(); const loop = () => { seek(((performance.now() - t0) / 1000) % spec.dur); requestAnimationFrame(loop); }; document.fonts.ready.then(() => requestAnimationFrame(loop)); }
   return F;
