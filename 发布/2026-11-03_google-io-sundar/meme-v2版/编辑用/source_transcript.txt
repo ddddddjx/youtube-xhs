@@ -1,0 +1,428 @@
+[00:00] Hello to everyone watching from around the world.
+[00:04] Excited to be back for this year's I.O.
+[00:07] I think it's been an incredible year.
+[00:09] All of the relentless shipping, the rapid advances in technology.
+[00:15] It's been a period of hyper progress.
+[00:18] I've definitely felt it myself.
+[00:20] It's been an intense year.
+[00:22] Here's a look at what I've been up to.
+[00:30] Okay, I wish this was my year.
+[00:33] Actually, the one of me plugging in the TPU is pretty accurate.
+[00:39] So there's still more work to do before it's in space.
+[00:41] We are working on that.
+[00:44] On a serious note, it's been an extraordinary moment.
+[00:48] It's been 10 years since we pivoted the company to be AI first.
+[00:52] We knew how profound AI would be to advancing our mission
+[00:56] and improving people's lives at scale.
+[01:00] This is why we are taking a differentiated,
+[01:03] full-stack approach to AI innovation.
+[01:06] From our custom silicon and secure foundation, to our world-class research and models, to our products and platforms that reach billions of people.
+[01:17] This approach enables us to iterate and innovate faster, and it's lighting up every part of the company.
+[01:24] What's really incredible is how people are using our AI.
+[01:27] Students prepping for final exams with the Gemini app.
+[01:31] Musicians and artists using generative AI models like Liria and Veo
+[01:35] as part of their creative flow.
+[01:38] Developers coding and bringing their ideas to life.
+[01:42] I've been using Gemini in a myriad of ways.
+[01:45] Recently, I've been turning to Gemini to make sense of my parents' doctor visits.
+[01:49] I'm sure many of you have done a version of that.
+[01:52] These stories of how people are using AI are the best measure of progress.
+[01:57] To understand the scale at which people are adopting AI,
+[02:00] there's another great proxy, tokens.
+[02:03] The fundamental units of data are models process,
+[02:06] many representing a problem being solved.
+[02:09] Two years, we were processing 9.7 trillion tokens a month
+[02:13] across the surface as a huge number.
+[02:16] Last year at I.O., that grew to about 480 trillion tokens.
+[02:21] And fast forward to today,
+[02:22] that number has jumped seven times
+[02:24] to 3.2 quadrillion tokens per month.
+[02:34] Never imagined I'd say quadrillion in an I.O. keynote.
+[02:37] But here we are.
+[02:38] Now, some out there might call this token maxing.
+[02:41] And there's probably some truth to it.
+[02:45] I still think it tells an important story
+[02:48] about our products and how others are building as well,
+[02:52] especially our developers.
+[02:55] Over 8.5 million of you are now building new apps
+[02:58] and experiences with our models monthly.
+[03:01] And our model APIs are now processing
+[03:04] around 19 billion tokens per minute.
+[03:07] Over the past 12 months, over 375 customers each process more than 1 trillion tokens,
+[03:16] representing incredible demand for AI across the industry.
+[03:20] We are, of course, also seeing incredible demand across our products.
+[03:24] We now have 13 products with over a billion users each.
+[03:28] Five of those have more than 3 billion users.
+[03:31] Our Gemini models are a big reason more people are using our products
+[03:42] and why they are using our products more.
+[03:45] It all starts with Search,
+[03:47] which is bringing the benefits of generative AI
+[03:49] to more people than any other product in the world.
+[03:52] AI Overviews now has over 2.5 billion monthly users.
+[03:57] And AI mode has been a revelation,
+[03:59] our biggest upgrade to Search ever.
+[04:01] People love it.
+[04:02] In just a year, it's already surpassed 1 billion monthly users.
+[04:06] When people use our AI-powered features in Search,
+[04:10] they use Search more.
+[04:11] I love how search has become less about individual queries
+[04:14] and feels more like an ongoing conversation,
+[04:18] giving you deeper insights
+[04:20] and connecting you with the vastness of the web.
+[04:23] Another place we've been rapidly innovating
+[04:25] is in the Gemini app.
+[04:27] Last year at I.O., the Gemini app
+[04:29] had 400 million monthly active users.
+[04:32] Today, we have surpassed 900 million
+[04:33] more than doubling in a year.
+[04:35] In that same time, daily requests have grown over seven times.
+[04:45] It's incredible growth.
+[04:47] We've been adding a lot of unique features like personal intelligence,
+[04:50] which makes responses more customized and helpful.
+[04:54] And to date, more than 50 billion images have been generated with our nano banana models.
+[04:59] It was a breakout start this past year.
+[05:01] I know you all have been having a lot of fun with it.
+[05:05] Beyond the Gemini app, we are also having much more natural conversations with Gemini
+[05:10] directly inside many of our products.
+[05:13] Recently, Maps got its biggest upgrade in a decade.
+[05:16] including a new feature called Ask Maths.
+[05:19] People are using it to ask more complex and much longer questions.
+[05:25] Here is a real query from a parent.
+[05:27] My kid just fell into the duck pond,
+[05:30] and the wedding starts in 30 minutes.
+[05:33] Where can I walk and buy her a new dress?
+[05:36] I'd like to hear how that turned out.
+[05:38] We're also bringing this conversational AI to two more products.
+[05:43] First, ask YouTube.
+[05:46] People come to YouTube every day to ask a lot of questions.
+[05:50] There's a lot of great videos.
+[05:52] Sometimes it's hard to know where to start.
+[05:55] Ask YouTube entirely reimagines the experience.
+[05:59] Say you want to teach your three-year-old how to ride a pedal bike,
+[06:02] and they already know how to ride a balanced bike.
+[06:06] Just ask YouTube.
+[06:08] You will see a couple of differences in results.
+[06:11] The information is digestible and easy to navigate.
+[06:14] You get an overview and helpful tips.
+[06:18] You will see videos that best match your interest,
+[06:21] so if you want to try a specific method of teaching,
+[06:23] you can go deeper there.
+[06:25] And best of all, it jumps right to the part of the video
+[06:28] most relevant for you.
+[06:30] Brings back memories of teaching my kids to ride.
+[06:34] It remembers the context,
+[06:35] so you can follow up with questions like,
+[06:37] should I buy one with handbrakes or pedal brakes?
+[06:40] Making it an ongoing conversation.
+[06:43] It even lays out the information in a table,
+[06:45] so it's easy to compare.
+[06:48] We are starting to test Ask YouTube now,
+[06:50] and it will roll out broadly in the U.S. this summer.
+[06:55] So far, we have shown conversational text queries.
+[07:05] For a lot of times, I want to get things done
+[07:07] at the speed of my voice.
+[07:09] There is much more possible today
+[07:10] thanks to technical leaps in our audio models.
+[07:14] A new feature called Docs Live takes this to another level.
+[07:18] To create a doc with Gemini before, you'd have to type up a really precise prompt.
+[07:23] With DocsLive, you can just verbally brain dump whatever is on your mind and let Gemini do the rest.
+[07:30] Let's see it in action with a demo from our product team.
+[07:33] This is all in real time, not sped up.
+[07:39] All right, let's try this out.
+[07:41] So I just remembered I'm doing an alumni talk for my high school's career day tomorrow.
+[07:47] I need to come up with some talking points to explain what I do for a living as a software
+[07:50] engineer, but I'm not really sure where to start.
+[07:53] Oh, actually, can you just pull my resume from Drive?
+[07:57] Although that might be boring.
+[08:00] Maybe can you come up with some funny analogies so it'll be more of an engaging talk for the
+[08:04] students?
+[08:05] Oh, and also, I think the school sent me an email.
+[08:09] I think the subject is something like career day logistics.
+[08:12] Maybe just grab the details from there, throw them at the top of the doc so I know where
+[08:15] go and what time to get there. Let's just update those requirements and turn this straight into a
+[08:20] draft. This is cool but it's a little dense. Maybe format the analogies as a table so it's a little
+[08:35] easier for me to scan and also add a note to tell the story about how my brother inspired me to
+[08:39] become a software engineer sort of at the top of my doc and bold it so I don't miss it. Yeah,
+[08:52] that looks great. In the future you'll be able to create new docs and edit them directly all with
+[09:05] with your voice.
+[09:07] DocsLive is rolling out for pro and ultra subscribers
+[09:10] this summer, and the same powerful voice capabilities
+[09:13] will come to Gmail and Google Keep then, too.
+[09:22] Incredible to see the pace of innovation rolling out
+[09:24] across our products.
+[09:26] Supporting all of this at scale for our users,
+[09:29] while also serving enterprises and developers
+[09:32] around the world, requires massive investments
+[09:35] in infrastructure.
+[09:36] And we have been investing for today and for the future.
+[09:40] In 2022, we were spending $31 billion annually in CapEx.
+[09:44] This year, we expect that number to be about six times that,
+[09:48] approximately $180 to $190 billion.
+[09:53] A key part of this investment is our custom silicon.
+[09:57] A decade ago, we announced our very first commercial
+[10:00] Tensor Processing Unit, or TPU, on this I.O. stage.
+[10:04] Since then, we have transformed how the industry builds for AI.
+[10:08] We recently announced our eighth generation of TPUs at Cloud Next.
+[10:13] For the first time, we have taken a dual-chip approach
+[10:15] with specialized architectures for training and inference,
+[10:19] TPU-AT and 8i.
+[10:21] While they may look similar, they're actually pretty different.
+[10:25] AT is optimized for large-scale pre-training,
+[10:27] and it's nearly three times the raw computing power
+[10:31] of our previous generation.
+[10:33] We have taken a fundamentally different approach
+[10:35] with our training infrastructure,
+[10:37] With jacks and pathways, our training is no longer constrained
+[10:40] by the limits of a single massive data center.
+[10:44] Instead, we can now seamlessly distribute training across multiple sites,
+[10:49] scaling across more than 1 million TPUs globally.
+[10:52] This gives us the ability to create the largest training cluster in the world.
+[10:57] For model builders, this means training larger, more capable models
+[11:01] in weeks rather than months.
+[11:04] TPU 8i is designed for inference.
+[11:08] We have dramatically improved speed at every step
+[11:10] because if we learn anything in 27 years of working on search,
+[11:14] it's that latency matters.
+[11:16] To give you a live sense of what the speed feels like,
+[11:20] here's a prompt on an upcoming flash model
+[11:23] if it were running on 8i.
+[11:25] I'll ask it to create a Chrome dino game, Push Submit.
+[11:29] The response is generated in real time.
+[11:33] As you watch, take a look at the tokens per second in the top right corner.
+[11:38] The speed is pretty incredible, nearly 1,500 tokens per second.
+[11:44] It almost took longer to write out the request, and the game is pretty fun too.
+[11:51] In addition to speed, we are also thinking about scaling sustainably.
+[11:59] Both chips are more energy efficient, delivering up to two times better performance per watt.
+[12:06] TPUs have been hard at work training for IO this year.
+[12:10] I'm told we have a behind-the-scenes look.
+[12:25] Hey, did we go?
+[12:26] Yeah, just folded proteins across rare oncology data sets.
+[12:30] You?
+[12:30] Simulated the next 50 years of climate data for the-
+[12:32] I made a picture of a pug.
+[12:34] What?
+[12:35] You ever see a pug dressed like an accountant?
+[12:38] No.
+[12:39] You wanna?
+[12:41] Uh...
+[12:41] All right, listen up, TPUs.
+[12:44] IO's starting soon, and we got a job to do.
+[12:47] Actually, we got trillions of jobs to do.
+[12:49] So clear cash.
+[12:50] Damn me.
+[12:51] Dry your fans.
+[12:53] Let's fight it up.
+[13:20] Yeah, well, how about you montage your way down here and help out?
+[13:23] What? Like now?
+[13:25] All right, coming.
+[13:34] I bet Timmy TP you will be ready to teraflop right into bed after I.O.
+[13:48] Our compute innovations enable our advances.
+[13:51] There are three areas where I want to go deeper today to show you the progress in each.
+[13:56] Models, coding, and agents.
+[14:00] Let's start with the exciting progress in world models.
+[14:04] With world models, AI is moving from predicting text
+[14:08] to simulating reality.
+[14:10] Demis and the team at Google DeepMind
+[14:12] have been working to push the boundaries
+[14:15] of what these models can do.
+[14:17] Let me invite Demis out to share more.
+[14:32] Hi, everyone.
+[14:33] It's really great to be here.
+[14:35] Over the past year, AI capabilities have leaped forwards.
+[14:39] We now have agents that can plan and act on our behalf,
+[14:42] and artificial general intelligence is just a few years away.
+[14:47] Today, I'm excited to share the progress we've made
+[14:49] towards building AGI.
+[14:52] Last year, I outlined our vision of extending
+[14:54] Gemini's incredible multimodal capabilities
+[14:57] to become a world model.
+[15:00] AI that can understand and simulate the world.
+[15:04] This is a crucial aspect of achieving AGI,
+[15:06] and will be important for everything
+[15:09] from building AI assistants to training robots.
+[15:13] Now we're taking the next big step.
+[15:15] I'm excited to announce Gemini Omni,
+[15:24] our new model that can create anything from any input.
+[15:28] It combines Gemini's intelligence
+[15:30] with the best of our generative media models
+[15:33] for a new level of world understanding,
+[15:35] multi-modality, and editing.
+[15:38] Models like Veo, Nanobanana, and Genie are able to create extremely realistic videos, images, and interactive simulations.
+[15:46] Although not perfect, they already demonstrate some impressive notions of intuitive physics.
+[15:52] And with Omni, we've now made even more progress.
+[15:55] It's a step change in simulating things like kinetic energy and gravity.
+[16:00] Previous systems would have found these concepts difficult.
+[16:04] Gemini's world knowledge and reasoning really shine in Omni.
+[16:08] It can translate complex ideas into highly accurate videos.
+[16:13] So for example, you can give it a simple prompt like make a claymation explainer of protein folding and get this.
+[16:20] Proteins start as chains of amino acids.
+[16:22] They fold into patterns like the alpha helix and flat sections called beta sheets, forming a perfect three-dimensional shape.
+[16:31] But the initial generation is just the start.
+[16:33] The creative process is rarely a single step.
+[16:36] It's usually iterative.
+[16:37] Just like Nana Banana redefined image editing, Omni gives you a more natural way to edit video with conversational language.
+[16:46] What's really cool is you can give it your own videos, for example, this selfie, and change reality in a really fun way.
+[16:57] You can easily adjust the details and style or even add elements.
+[17:03] And the whole scene walks in to reflect your new idea.
+[17:06] A simple circle turns into a black hole, or an evening stroll comes to life.
+[17:17] Anything becomes a canvas for creating entirely new realities.
+[17:21] Let's take a look at what Omni can do.
+[18:07] We're starting with video, but over time, Omni will be able to generate any output from any input.
+[18:14] This was always our goal with Gemini, and why we built it to be multimodal from the very start.
+[18:20] It was a harder path, but the foundation is now paying off.
+[18:24] Today, we're launching the first model in the Omni family, Gemini Omni Flash.
+[18:29] It's now available across our products, and you'll hear more about this later.
+[18:34] We're excited with the progress we're making, and we'll be able to share more about Omni Pro soon.
+[18:40] We can't wait to see what you create. Back to you, Sundar.
+[18:51] Thanks, Demis. This is huge progress.
+[18:54] As generative AI gets better, so does the need for greater transparency.
+[19:00] Research shows people can correctly identify high-quality deepfake videos
+[19:04] only about a quarter of the time.
+[19:07] Three years ago, we launched SynthID, our watermark that is invisible to the naked eye.
+[19:13] Since launch, SynthID has now watermarked over 100 billion images and videos,
+[19:18] along with 60,000 years of audio assets.
+[19:22] Millions of people are using our SynthID detector in the Gemini app
+[19:26] to verify AI-generated content.
+[19:29] We are now going a step further
+[19:30] and adding content credentials verification across products.
+[19:36] This will show you if the origin of the content was AI or a camera
+[19:41] and if it's been edited with generative AI tools.
+[19:44] In this example, Gemini can tell this photo was captured with a pixel camera
+[19:49] and then edited with Google Photos.
+[19:53] We want more people to have easy access to these tools,
+[19:57] So we are expanding both Synth ID and content credentials verification to search in Chrome.
+[20:03] You can simply circle to search or right-click in Chrome and ask, was this generated with AI?
+[20:15] And you'll get a clear response along with other helpful context.
+[20:19] For example, this image was making the rounds on social media last year.
+[20:24] It's obviously fake. I don't eat hamburgers.
+[20:28] It might not be as clear to everyone else.
+[20:32] that's where these tools can be really useful.
+[20:36] Of course, this only works at scale
+[20:38] if more partners decide to watermark their own AI-generated content.
+[20:43] NVIDIA signed on to SynthID last year,
+[20:46] and today I'm thrilled to announce that OpenAI, Kakao, and Levin Labs
+[20:50] are adopting SynthID, too.
+[20:53] It's great to see the cross-industry collaboration.
+[21:02] We are looking forward to expanding to more partners
+[21:05] and setting the standard of transparency for the AI era.
+[21:10] That's a look at the progress we are making with world models.
+[21:13] Now, let's talk about what's next for our Gemini 3 family.
+[21:17] Gemini 3 launched a few months ago with a full family of models.
+[21:22] It's been our most adopted series yet.
+[21:25] We have loved seeing developers use Flash as their daily driver
+[21:28] and build incredible experiences with pros, deep reasoning, and multimodal capabilities.
+[21:33] We've been hard at work on improving these models,
+[21:37] especially focused on agentic coding,
+[21:40] long-horizon tasks, and real-world workflows.
+[21:44] And today, I'm excited to introduce Gemini 3.5 Flash,
+[21:49] our first in a series of models
+[21:51] combining frontier intelligence with action.
+[21:56] Two things I would highlight.
+[21:58] First, when compared to 3.1 Pro,
+[22:02] Flash is better across the board,
+[22:04] almost all benchmarks.
+[22:06] It's made huge progress in coding,
+[22:08] and look at that extraordinary jump in GDPVal,
+[22:11] a benchmark that captures many real-world economically valuable tasks.
+[22:17] Second, 3.5 Flash is a very capable model at the frontier
+[22:22] and comparable to the best models, but much, much faster,
+[22:27] which is why when you look at the intelligence versus output speed,
+[22:30] it's in a whole league of its own in the top right quadrant.
+[22:34] When looking at output tokens per second,
+[22:37] It's four times faster than other Frontier models,
+[22:40] and it's an incredible delight to use.
+[22:43] The new model has been a game-changer for us internally at Google.
+[22:47] We've been using 3.5 Flash
+[22:49] with the reimagined version
+[22:51] of our agent-first development platform, Antigravity,
+[22:54] and it's dramatically accelerated how we built.
+[22:57] In March, we were processing half a trillion tokens a day
+[23:01] internally for our developers.
+[23:03] We've been doubling every few weeks,
+[23:06] And now we are processing more than 3 trillion tokens a day.
+[23:10] This scale has created a powerful feedback loop, helping us improve 3.5.
+[23:17] And of course, we are bringing it today to developers in anti-gravity.
+[23:20] Varun is going to share more.
+[23:23] It's truly an amazing time to be a builder.
+[23:33] We move beyond AI tools that help us write to agents that help us act.
+[23:38] These agents have lowered the barrier to development so much
+[23:41] that anyone can be a builder, even busy CEOs.
+[23:45] In fact, Sundar used Google Antigravity last week
+[23:48] to fix a bug in the Google code base.
+[23:53] When we launched the Antigravity ID in November,
+[23:56] we made sure to nail the core agent-powered ID experience
+[23:59] and added an experimental first-of-its-kind agent-first surface
+[24:03] as a glimpse of where we were heading.
+[24:06] Millions of you already actively use Antigravity,
+[24:08] and so we're excited to bring you even more today.
+[24:12] We've seen the diversity of tasks, preferences,
+[24:15] and frankly, product feedback.
+[24:17] We've taken all of these learnings,
+[24:19] and now, Antigravity is massively expanding
+[24:22] its suite of agentic capabilities, surfaces,
+[24:25] integrations, and product features.
+[24:28] To start, we're launching a full CLI experience,
+[24:32] an Antigravity SDK,
+[24:34] native voice support with Gemini Audio Models,
+[24:37] and integrations with many services and platforms like Android, Firebase, and Google AI Studio.
+[24:44] All of this is available for you to try today.
+[24:55] But most importantly, at the core, is Antigravity 2.0,
+[24:59] a new standalone desktop application that delivers fully on that original glimpse
+[25:04] of a truly agent-optimized experience.
+[25:07] The new Antigravity is unabashedly agent-first,
+[25:11] focused, focusing on the core agent conversations, agent produced artifacts, and multi-agent
+[25:16] orchestration. Like I said, unabashedly agent first. As Sundar mentioned, this is the exact
+[25:24] experience teams here at Google have been using to drive massive value. The anti-gravity agent
+[25:30] harness, the invisible framework for Gemini to perform real-world tasks, has become much more
+[25:35] powerful with new core primitives such as sub-agents, hooks, and asynchronous task
+[25:40] management. And underpinning all of this are the Gemini models, with Gemini 3.5 Flash having been
+[25:47] co-optimized with the anti-gravity harness. Of course, being engineers, we were curious to see
+[25:54] how far we could push the limits of what was possible with these agents and models. So using
+[26:00] the new anti-gravity and Gemini 3.5 Flash, we asked our agents to take on what we consider to
+[26:05] a highly complex and impressive task. Build a working operating system from scratch.
+[26:12] We were surprised by what we found. Asynchronously, anti-gravity broke down the challenge into a
+[26:18] cohesive plan, tackled tasks via parallel sub-agents, generated, executed, and iterated
+[26:24] over its very own tests. Over 12 hours, 93 sub-agents working in parallel made over 15,000
+[26:32] model requests and processed 2.6 billion tokens to take an initially empty project to the core
+[26:39] of a functioning operating system. This was not possible. This was not possible on Gemini 3.1 Pro.
+[26:54] But thanks to the performance and cost efficiency of Gemini 3.5 Flash,
+[26:59] building an entirely functional operating system consumed less than a thousand dollars of API
+[27:04] credits. The antigravity agents wrote every line of code, from the scheduler to the memory
+[27:17] management to the file system, generated, audited, and tested entirely by an autonomous team of
+[27:23] agents. To put this in context, developing an OS from scratch is both notoriously brutal and can
+[27:30] take many months to build. We weren't just building an application, but a fully functioning operating
+[27:35] system that applications can run on. Let's take this live and actually show this operating system
+[27:40] in action. So here, I'm actually in a terminal window in the OS that antigravity built. Now,
+[27:48] it's not super easy to demo a working operating system. So let's try something fun to see
+[27:52] if it works. One interesting utility that you can install is SL, a common typo for LS.
+[27:59] Without spoiling it, here it goes. It works. You could see a cool locomotive passing through
+[28:07] the screen with the antigravity logo on it. But clearly, this isn't a real OS, unless
+[28:14] I can play Doom.
+[28:18] Now if I try running Doom right now,
+[28:20] it just doesn't work.
+[28:22] Turns out that the OS is currently missing
+[28:24] some necessary video and keyboard drivers.
+[28:26] So let's just try and fix it in the new Antigravity.
+[28:30] I have a prompt prepared, I'm gonna paste it in.
+[28:34] While it's running, let's take a tour of Antigravity 2.0.
+[28:38] As you can see, Antigravity 2.0 is very much agent first
+[28:42] with all of your conversations on the left side panel
+[28:44] and all of your projects.
+[28:46] Let's take a peek at one of the conversations
+[28:47] that I previously had.
+[28:50] I was curious for this demo
+[28:51] about some fun facts about Doom.
+[28:53] So I asked the agent to do some research.
+[28:55] It generated some plots on the right side panel.
+[28:58] And then finally, it also generated
+[29:00] a cool artifact for me.
+[29:02] It even generated an infographic using Nano Banana Pro.
+[29:06] It generated some graphs using the code it just wrote.
+[29:09] And then afterwards, it generated some cool tables.
+[29:12] As you can see, Antiravity 2.0
+[29:15] is unabashedly agent first
+[29:17] and has been optimized to be the best surface
+[29:20] for you to interact with agents.
+[29:22] Let's take a look at the previous conversation
+[29:24] to see how it's going.
+[29:26] Antigravity ended up doing a whole host of research
