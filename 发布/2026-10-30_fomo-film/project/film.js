@@ -332,7 +332,7 @@ VK.film({
     fr.look.bgo = { color: '#100C14' };
     const sh = SHOTS.find(s => t >= s[0] && t < s[1]) || SHOTS[SHOTS.length - 1];
     const cut = Math.min(ss(t, sh[0], sh[0] + (sh[0] ? .25 : .5)), 1 - ss(t, sh[1] - (sh[1] >= T.end ? .6 : .25), sh[1]));
-    fr.g({ a: cut }, () => {
+    if (!fr.collecting) fr.g({ a: cut }, () => {   // 导出音效时跳过画面
       sh[2](fr, t);
       const x = fr.x, g = x.createRadialGradient(W / 2, 520, H * .55, W / 2, 520, W * .72); g.addColorStop(0, 'rgba(20,10,10,0)'); g.addColorStop(1, 'rgba(20,10,10,.45)'); fr.rect(0, 0, W, H, { fill: g });
       const b = x.createLinearGradient(0, 820, 0, H); b.addColorStop(0, 'rgba(16,12,20,0)'); b.addColorStop(.5, 'rgba(16,12,20,.75)'); b.addColorStop(1, 'rgba(16,12,20,.9)'); fr.rect(0, 820, W, 260, { fill: b });
@@ -340,7 +340,7 @@ VK.film({
     /* 常驻：错过感仪表（钩子里） */
     const ga = Math.max(ss(t, .8, 1.4) * (1 - ss(t, T.title - .4, T.title)), ss(t, 83.8, 84.3) * (1 - ss(t, 87.6, 88.0)), ss(t, 129.0, 129.5) * (1 - ss(t, 152.2, 152.6)), ss(t, 153.0, 153.5) * (1 - ss(t, 157.0, 157.4)));
     const gv = t < 60 ? missAt(t) : K.track([[83.6, 99], [86.0, 140], [88, 140], [129, 128], [137.0, 128], [139.4, 80], [143.0, 45], [150, 20], [157.4, 20]], t);
-    if (ga > 0) K.gauge(fr, 45, 35, { value: gv, max: 150, redFrom: 100, label: '错过感', zone: '超标', caption: '示意', a: ga });
+    if (ga > 0 && !fr.collecting) K.gauge(fr, 45, 35, { value: gv, max: 150, redFrom: 100, label: '错过感', zone: '超标', caption: '示意', a: ga });
     /* 声音 */
     fr.sfx(.3, 'chord', { root: 0, gain: .5 });
     fr.sfx(4.2, 'soft', { gain: .8 }); fr.sfx(8.3, 'soft', { gain: .8 });
@@ -356,7 +356,7 @@ VK.film({
     fr.sfx(111.6, 'shimmer', { gain: .8 }); fr.sfx(116.2, 'rise', { dur: 1.6, gain: .35 });
     fr.sfx(124.9, 'stamp', { gain: .7 }); fr.sfx(137.0, 'soft', { gain: .7 }); fr.sfx(145.0, 'soft', { gain: .5 });
     fr.sfx(153.2, 'chord', { root: 0, gain: .55 }); fr.sfx(157.6, 'stamp', { gain: .6 }); fr.sfx(163.9, 'bloom', { gain: .7 });
-    K.subs(fr, t, SUBS, 'flat');
+    if (!fr.collecting && !/clean/.test(location.search)) K.subs(fr, t, SUBS, 'flat');   // ?clean：不带字幕的干净画面（做封面用）
   },
 });
 })();
