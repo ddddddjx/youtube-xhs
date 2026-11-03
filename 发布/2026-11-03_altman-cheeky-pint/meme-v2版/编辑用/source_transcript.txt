@@ -1,0 +1,822 @@
+[00:00] We're going off script.
+[00:01] We're having a beer.
+[00:03] It's not the first non-Guinness, but it is the first IPA.
+[00:07] And it's the first time for everything.
+[00:09] Cheers.
+[00:10] Cheers.
+[00:13] I want to ask about PHP week.
+[00:15] Yeah.
+[00:16] First off, how did it take so long to find these bugs?
+[00:22] Because it sounds like they.
+[00:23] Why did it take like the 20 years,
+[00:24] or why did it take like exactly a year?
+[00:28] Maybe start by explaining the bug or the problem.
+[00:31] So the problem is that although we have known for a while
+[00:34] that these models are getting good at finding vulnerabilities
+[00:39] in the wild, A, they continue to get better fairly rapidly,
+[00:44] and B, people just hadn't really
+[00:46] use, !"
+[01:16] or a more global fix.
+[01:18] That seems to me like what needs to happen.
+[01:20] It would seemける-ly hard except we have this amazing new tool
+[01:23] to do it with.
+[01:24] So I kind of think that's
+[01:25] what'sg going לה and you're already seeing
+[01:27] like a new generation of startups talking
+[01:29] about building this like
+[01:31] new kind of internet or new kind of
+[01:33] application architecture for this world
+[01:35] hw you assume that the models get smarter
+[01:37] and smarter.
+[01:38] What do you think the global software upgrades looks like?
+[01:41] For example, is a PHP code base just a bad idea
+[01:44] and you should rewrite a nice, clean version
+[01:46] .
+[01:46] Rust or do we upgrade but yeah as we everyone thinks
+[01:51] thinks that we need to kind of upgrade all hand spun
+[01:55] software just what form will that actually take is this
+[01:58] huge for Infosys and it's going to be off for a
+[02:02] consulting project. I mean people are talking more
+[02:05] and more about just like let's re-architect what it, means to be a router or an operating
+[02:14] system or an application.
+[02:16] And I've seen some of these new startups saying that they're
+[02:21] just going to make a whole new startup.
+[02:23] And that would have seemed insane two years ago.talk
+[02:25] You would have been like, there's no way.
+[02:27] There's too much.
+[02:27] You can't write all that.
+[02:29] And now maybe soon you can.
+[02:31] I would bet that we have a completely new sort of model
+[02:34] of how we make systems and networks.
+[02:37] What else reminds you of the early internet days?
+[02:39] The thing that most reminded me of the early internet was
+[02:42] There is this spirit of just unbelievable creative unleash
+[02:50] in people using these tools.
+[02:53] You see it in kids particularly.
+[02:54] And again, maybe this is just like,
+[02:56] because I remember what it was like
+[02:57] when I first got a computer with internet
+[02:59] and I could do all these things
+[03:00] that adults think to ask for.
+[03:03] And watching an eight or 10 year old
+[03:06] , make a complete video game
+[03:08] with some crazy ideas they have
+[03:10] that no adult would really have.
+[03:12] that to just be the way that technology is going to work for the rest of their lives,
+[03:16] in fact getting better and better.
+[03:18] And just like this constant, I'm going to make useful stuff for me?
+[03:21] And show it to my friends.
+[03:22] Yes.
+[03:23] Like we had to suffer when I was a kid to make a piece of software that barely did
+[03:26] anything.
+[03:27] And now you can have like a full 3D video game, like unbelievable anything you would
+[03:30] think of in 10 minutes.
+[03:32] That reminds me of the early internet, including the just like these people.
+[03:36] They're never going to be mind blown by that because that's always what they expect
+[03:39] out of the world.
+[03:40] Any ideas they can come up with, anything they want to create,
+[03:46] anything that they
+[03:48] just need to make their lives better.
+[03:50] Like, the computer's supposed to make it.
+[03:52] There was a crazy� moment at OpenAI where
+[03:55] we had a sev and codex went down.
+[03:58] And everyone had forgotten how to code.
+[04:00] I mean, not all the way, but it was like a whoa, what if.
+[04:03] I remember when I was a student
+[04:06] and I would meet the really old guys
+[04:09] and they would once in a while pull out their
+[04:12] gigantic Xerox Alto disc
+[04:16] or they would pull out their LICOM,
+[04:18] stuff like line by line written of assembly or they would
+[04:22] punch cards and I felt like credible to me that you all
+[04:26] bootstrapped us to this point doing it this way.
+[04:28] Yes, no, I agree.
+[04:29] And keeping programs in your head, right?
+[04:31] Programs running the first time after hundreds,
+[04:35] thousands of lines were written.
+[04:37] No, if you lost hearts like that.
+[04:40] Going back to the cyber side of things,
+[04:42] in retrospect, was the cyber RL a mistake or
+[04:48] did we just have to go there?
+[04:52] It's a little like the SNL thing of,
+[04:53] we urge you to urge us to stop.
+[04:57] It's like the models are getting very good at cyber
+[04:59] capabilities.
+[04:59] Yeah, I mean, they are getting very good, but not just
+[05:02] totally emergently.
+[05:04] Look, the reason that SNL thing was so true,
+[05:06] like humor like that doesn't stick
+[05:08] unless there's element of like,
+[05:10] it's like clearly pointing out a ridiculous but true thing
+[05:13] about society or someone.
+[05:15] And the cyber thing, there is a point which is like, OK, sure,
+[05:23] the
+[05:27] One of my big disappointments, criticisms, or field, or whatever,
+[05:31] And I think maybe the cyber, the model's getting good at cyber is an example,
+[06:01] But then you paint this picture of the future where it's like a new industrial revolution
+[06:06] and maybe the last one wasn't that good and this one sounds worse and I will have no job,
+[06:11] no ability to have control or choice or freedom of my future and AI is so dangerous that
+[06:18] you're going to have to have a crazy story on stage so we don't all die.
+[06:22] This is like a terrible sales pitch..- Yeah.
+[06:26] One of the things that I am most proud of about OpenAI is even when it has been hugely unpopular in the AI safety community for us to push for iterative deployment and putting these tools in the hands of people.
+[06:42] We have really stuck to that principle.
+[06:44] And I think this is the only kind of good path.
+[06:46] I think people, it's not enough to tell people like you're going to get the model to do these great things for you.
+[06:51] for you, it's gotta be like, we are going to enable you to have a better life that you
+[06:56] define for yourself, to do useful things, you're not gonna just sit and get a basic
+[07:01] income and have a bunch of people sittingtalking about the future.
+[07:08] Interative deployment is, this idea that you just have to get the advances out there
+[07:11] and you can't kind of stopper them up inside.
+[07:14] I mean, not all like, you still have to make them like safe before you put them
+[07:21] But that building up a capability overhang
+[07:23] is a thing to fight against.
+[07:25] That directionally speaking, yes, you
+[07:27] want to get this into the world.
+[07:28] You want to get this into people's hands.
+[07:29] And you want to let people use the technology to figure out
+[07:31] all these wonderful things.
+[07:33] The exploits get a lot of headlines.
+[07:36] The prevented exploits do not.
+[07:39] How quickly are people making progress with cyber blue?
+[07:42] I don't want to declare victory at all on the PHP,
+[07:45] because I still don't think we know.
+[07:47] And I assume some bad things are going to happen.
+[07:49] Relative to my worst fears if I can like think back 10 days ago the first day of that went much better than I expected
+[07:57] and
+[07:59] We heard a bunch of stories from people that were using our models to
+[08:03] I mean not only build patches and build cyber defense
+[08:06] But like individual companies who are just like I need just do a quick scan deployment like I'm gonna take my thing down for an
+[08:10] Hour, I'm gonna use this thing and I want to put it back up because my applications offline now
+[08:14] I feel like I really jinxed it
+[08:15] I shouldn't have said that but the first day did go a lot better than I thought and I think people have been
+[08:19] able to use that. The thing that I've heard a lot of cyber experts talk about is they
+[08:26] just no longer are confident that we have the right assumptions baked into our threat
+[08:32] model. And they're like, look, if everything is what we think and hardware exploits are
+[08:38] as hard as we think they are, then yes, we can see how this is going to work.
+[08:42] But if AI is going to discover really deep novel bugs in hardware that require
+[08:47] but all of a
+[09:01] inside OpenAI and similar companies.
+[09:03] There is a pessimism that sandboxing is possible, basically.
+[09:10] And that would not have been my mental model going in.
+[09:14] It would have been this, yeah, you
+[09:17] have to build a really tight sandbox.
+[09:20] and we haven't hardened them historically enough compared
+[09:23] to the current capabilities.
+[09:24] But ultimately, you can have a maximum security prison
+[09:27] for the model to work in and keep đâu there.
+[09:31] It seems like you guys have kind of a pessimism
+[09:33] that sandboxing models is possible.
+[09:35] My instinct?
+[09:37] Well, first of all, I think we knew much better than we're
+[09:39] doing now, and we should.
+[09:40] I think we clearly, that is the main thing to focus on
+[09:43] right now is a better security model.
+[09:46] If. Iftalk
+[09:46] If you imagine a theoretical AI that is like a million times
+[09:49] smarter than the smartest security researcher,
+[09:52] would you like really be willing to trust that sandbox,
+[09:56] especially if the model can discover new science that people
+[10:00] don't already understand.
+[10:02] You can use the models to construct the sandboxes.
+[10:04] I think you can.
+[10:05] Well, so this gets, let me come back to that.
+[10:08] I think sandboxing works to a point.
+[10:11] Then I think monitoring works to a further point,
+[10:14] where we can look at what the models are doing,
+[10:17] not only in their chain of thought,
+[10:48] gì?
+[11:20] Mod...
+[11:50] I know, it's for agent teams, and that kilometres., yeah. Yeah!!)
+[12:00] Yeah, not good-not~)
+[12:20] in]..
+[12:50] And you know a few years
+[13:50] of how much compute you and get better results is one thing.
+[13:59] The delta between what most people are using AI, to spread.
+[14:08] How do you allocate compute budgets now because presumably
+[14:14] even though researchers are paid a lot,
+[14:17] it's eclipsed by compute.
+[14:19] And so capital allocation at OpenAI
+[14:22] is sort of compute allocation.
+[14:25] And it's hard to a priori know how much it will
+[14:30] cost to go do something.
+[14:32] It's actually also hard to just control the,
+[14:35] you can't quite prompt an agent where it's like,
+[14:37] go do a really good job of this,
+[14:39] and don't spend more than $10,000.
+[14:40] You can.
+[14:41] Oh, OKtalk about it?
+[14:42] You can say, yeah, if you say do the best job you can
+[14:44] with $10,000 of compute, yes, it will understand that.
+[14:49] I mean, there's another kind of hard question for society
+[14:52] about what does it mean when you have two companies competing
+[14:54] and one says you can spend $10,000,
+[14:56] and one says you can spend $100,000 on the same problem.
+[14:59] It's clear what's going to happen there,
+[15:00] but there's a question about how society thinks
+[15:02] about computer allocation and wealth and things like that.
+[15:07] But we have our own version of this inside of OpenAI.
+[15:09] We allocate, a lot of compute to internal productivity,
+[15:15] and then people get very wide latitude to
+[15:19] make their own decisions unless they're really being
+[15:22] abusive.
+[15:23] But do you just encourage people to do useful stuff?
+[15:26] And if they spend $10 million in compute,
+[15:28] it's like, oh, interesting.
+[15:29] Correct.
+[15:29] We trying to reward people for using a lot of compute.
+[15:31] Sure.
+[15:31] Like no token leaderboards.
+[15:32] It's actually slightly bad to be higher token A leaderboard.
+[15:36] Certainly not a promotion.
+[15:39] But it's like it's a skeptical default.
+[15:42] And if you can show that you're doing something important,
+[15:45] you will have nothing but appreciation.
+[15:47] But at a certain point, point this will need to change.
+[15:49] Because you're describing the increasing orders of magnitude.
+[15:52] And right now you have a researcher who does some very interesting math for $10 million.
+[15:58] And you're like, a little pricey, but cool
+[16:06] math, and then $100 million. And you know, when they're doing the billion dollar math, you're like, look, I'm really?
+[16:09] happy that you're making so much math progress, but I really need you to cool the jets with the math.
+[16:09] We did let it get out of control for like one week on the math.
+[16:12] Intentionally, so because you have to be like, well, you don't know how far it's going to go until you try.
+[16:18] And I think it's important to have, when there's a new đây I think it's important to let people be fairly unconstrained.
+[16:26] So when we did the Navier-Stokes proof, we understood absolutely nothing about the scaling laws of teams, of
+[16:45] And now we understand it a little bit.
+[16:49] I think we can still understand it much better.
+[16:51] But like has happened in every other new paradigm
+[16:54] we've discovered, I am confident that we will find our
+[16:57] 10X improvements per year at how we allocate dollars
+[17:03] or computer flops, whatever you want to measure
+[17:04] into useful things.ch So tbsp I think this is a thing that our company
+[17:09] t is particularly good at, but also fits an important
+[17:11] property of the, field which is let people explore at the limit of what is possible and
+[17:17] that the incredible optimization pressure will figure out how to do this in an efficient way.
+[17:23] I, and you know, directionally-speaking, I would rather us be more willing to let people use crazy amounts of compute
+[17:33] and let users have extremely high-end plans to figure out the edge of the possible
+[17:40] and to figure out how to make that efficient at a mass applauds.
+[17:42] But when does the optimization function come in?
+[17:44] Well, I think we're already doing it.
+[17:46] I mean, like, I bet we could redo Navier-Stokes at 1
+[17:54] 100th
+[18:05] ?
+[18:06] obvious jokes, I think.
+[18:08] Okay.
+[18:09] Maybe a little more.
+[18:10] 10 million-.
+[18:11] .
+[18:11] 10 or 20.
+[18:12] That already reminds me of the idea.
+[18:13] but for one proof and so,
+[18:15] that's 700?
+[18:16] Well no no no, because then we can't get any better so fast.
+[18:18] I see.
+[18:18] Like we understood more.
+[18:19] Got it.
+[18:20] We spent way less than that on the average one of those.
+[18:22] I see.
+[18:23] But like 100 million dollars of math.
+[18:24] Yeah, yeah, yeah, that kind of work.
+[18:25] Okay.
+[18:26] Interesting.
+[18:27] But that includes like much more other discovery
+[18:30] than what weЗ have published.
+[18:31] Yes.
+[18:32] So it's likep like maybe we spent that much.
+[18:33] We have more than the 700 proofs?
+[18:34] We do, of course.
+[18:36] When do we get those?
+[18:38] We are trying to learn.
+[18:48] humanity deserves fundamental knowledge.
+[18:50] And we should not be sitting on a major fundamental science discovery.
+[18:57] Like, the world deserves that and gets to know it.
+[19:01] That outweighs another very important equity, which is if you
+[19:32] where the world gets benefit from the knowledge,
+[19:34] and they also get the best version of the future.
+[19:37] That they can have.
+[19:38] I think we are working through that right now.
+[19:39] I did not, I don't know, I think it may be too contrite.
+[19:42] I did not interpret that moment particularly bad for AI
+[19:47] where you had, I think everyone saw the
+[19:49] mathematician's of the union up in arms,
+[19:51] and IЯ think everyone else says, yeah, I mean,
+[19:54] have you paid attention to train 26?
+[19:56] As I said, I don't think it was bad for AI,
+[19:57] and I think on net the world deserves to understand
+[20:01] จะ.
+[20:02] I think we need to do this.
+[20:07] I think if we can go understand how to, you know, a theory of all of physics or how to
+[20:13] cure a. chúng of diseases, clearly that is knowledge the world should have.
+[20:18] But I would like to figure out a way that is as sensitive to the communities that.
+[20:30] I wasn't that, worried about the math.
+[20:32] I thought it was great.
+[20:33] But you agree that mathematicians are not that happy.
+[20:35] Yeah, but it's fine.
+[20:39] The L, Lungshoremen Union weren't happy about the port
+[20:42] automation.
+[20:43] Remember the guy that I was talking about?
+[20:44] No, no, I do I do I do I do I do I do I do I do I do I do I do I do I feel
+[20:46] the friendly about this.
+[20:47] There was one weekend when we got a new model.
+[20:49] And in, I'm actually probably not supposed to say this,
+[20:52] but I will since we're drinking beers.
+[20:53] Exactly, we're half pint.
+[21:00] and people were just throwing that at the hardest problems they could.
+[21:05] People just didn't think the model was going to do these things.
+[21:08] We had this collective experience of people's
+[21:10] hardest research problems from their academic career.
+[21:13] The model was just knocking down one after the other,
+[21:15] many different fields, it was incredible to watch.
+[21:18] Two nights in a row� I was up most of the night
+[21:21] because I was so excited I couldn't go to bed.
+[21:23] It was like many of those problems that we published, many other things.
+[21:29] And I was tremendously excited and happy.
+[21:32] But I also had much more sadness and melancholy
+[21:37] and a feeling of something ending than I was expecting.
+[21:41] So, again, I agree this is the.
+[21:45] the right thing on behalf of the world.
+[21:47] And also I agree that this is just the shape of reality
+[21:50] and nothing that anyone can stop or should stop.
+[21:53] But I do have real...
+[21:57] I think it's the wistfulness and nostalgia you can feel.
+[22:00] เอ,
+[22:30] years and he was witnessing the very tail end of us.
+[22:33] And lại, I think there's always that feeling of witnessing the closing of a chapter that
+[22:39] leads to some wistfulness, but it's okay.
+[22:41] It's people's lives and it's something that has brought them great joy.
+[22:45] And, you know, maybe most, I mean, certainly most mathematicians never solve the Millennium
+[22:51] PLAYING PROBLEM.
+[22:52] But the idea that you might be able to, cela idea that there is stuff out there
+[22:56] that we don't understand yet that through great effort and,talking aside other things
+[23:03] in your life and dedicating yourself to, you can still solve and understand, like,
+[23:08] there's something beautiful about that.
+[23:11] We talked about this a little bit earlier, but I want to emphasize it again.
+[23:16] I'll just call it swarms since that seems like the term right now.
+[23:19] I do think the properties of swarms match a lot the properties of the resilience of
+[23:25] society or the robustness of society that I kind of, I think we're just missing from
+[23:31] the like single rollout, single brained version of the world.
+[23:38] For all of the deep flaws of society, it is unbelievably robust.
+[23:43] And this would not happen without a lot of people keeping each other in check and collaborating
+[23:49] in these values of pluralism and democracy.
+[23:52] And I had been sort of sad that that was going to trend away in Cristian AI.
+[23:58] And now I'm excited I'm excited about this as a direction.
+[24:00] You're saying basically it shouldn't lead in a centralized direction because you will
+[24:36] I think there are a lot of people who may have a different opinion about where it's
+[24:44] in what is the best version of the world,
+[24:47] but this is the one that I think is
+[25:00] right.
+[25:01] Let's talk about starting a business.
+[25:04] Thanks to coding models, your weekend side hustle can quickly become a serious undertaking.
+[25:08] And we've been busy here at Stripe making that process as simple as possible.
+[25:12] In the, making take a look at stripe.com slash Atlas.
+[25:18] How's compute shortage going?
+[25:22] I mean, there are all these ways where I think things at various-ch and.?
+[25:32] There's going to be moments of irrational exuberance.
+[25:38] There are going to be moments of bust.
+[25:39] There are going to be moments of constraint and glut and up and down.
+[25:42] But I think the trend is toward a we always just want more compute.
+[25:49] Like the demand for sufficiently capable models at a sufficiently low price, I think
+[25:56] that trend only goes one way.
+[25:59] We're doing a lot of things to try to be prepared for this.
+[26:04] We made a chip that is an incredible performance
+[26:07] at units of intelligence per watt.
+[26:11] We are learning how to build our own data centers.
+[26:13] We have a robotics program that we're
+[26:14] going to point at making lots of data centers.
+[26:17] People talk a lot about it.
+[26:19] The real RSI.
+[26:20] Yeah, people talk a lot about RSI as like an AI
+[26:23] that does AI research.
+[26:25] There'sเร relatively little talk
+[26:27] about self-replicating data centers,
+[26:29] this idea that you can use AI to control robots
+[26:32] and run fabs and build turbines or solar panels
+[26:35] and build data centers.
+[26:38] I think we have that within grasp.
+[26:42] And so we'll try to make a lot of really cheap compute.
+[26:44] But aren't data centers already not labor bottlenecked?
+[26:48] They're permitting bottlenecked and component bottlenecked.
+[26:53] Can we have more components than robots?
+[26:55] Eventually.
+[26:56] Yeah.
+[26:57] Yeah, yeah, yeah.
+[26:58] All of this is how we solve this over a long period of time.
+[27:00] My observation in the compute stuff
+[27:02] is they say監修的解讀是高價,
+[27:05] And it's like, OK, step one, we have
+[27:08] the high-price for memory and GPUsった everything.
+[27:11] And the solutions should be here any moment now.
+[27:13] How are we doing on the solutions front?
+[27:16] And I'm not saying this is the opening eyes job.
+[27:18] I feel like this is the invisible hands job, right?
+[27:21] Like, memory's gotten really expensive.
+[27:23] And so new memory makers are going to flood the market.
+[27:26] Any moment now.
+[27:27] I think the invisible hand is failing right now.
+[27:29] I mean, the invisible hand, it
+[27:31] has like a checker and trap record at best.
+[27:34] But I think it's not quite working here.
+[27:38] Why not?
+[27:39] Like, is it just hysteresis?
+[27:42] I think the specifics of each area matter here.
+[27:45] But since you started with the memory guys,
+[27:49] for a very long time, if you were a producer of DRAM,
+[27:53] you would invest $20 billion of CapEx to make $19 billion.
+[27:57] And you would go through these booms and busts.
+[27:59] Maybe some years you would make $21 billion.
+[28:01] Some years you would make $18 billion.
+[28:02] Like, right now, I don't think making memory has ever been a great business over a long
+[28:09] period of time.
+[28:10] And then all of a sudden, these guys are each going to make like $100 billion of free
+[28:14] cash flow in a year.
+[28:18] Unbelievable.
+[28:20] But
+[28:32] expect to see is that every part of the supply chain both new start-ups coming along and maybe
+[28:43] more relevantly people with relevant experience getting into so you know Intel make.
+[28:53] Chips they can probably make you they can get back into the memory game as is tradition.
+[28:57] That's the truth.
+[28:58] Switch back.
+[28:59] Oh, I think there are all of these ways where the supply chain, it's just super non-obvious.
+[29:07] An example of this is people, a lot of people want local inference, and somehow they assume
+[29:14] that the problem is solved now because we're going to have open-source models.
+[29:18] We're Ae going to be able to run them on our computers, and so we're not going
+[29:21] to need All this stuff in the data center.
+[29:22] But from a global allocation perspective, actually, it's quite terrible to applauding
+[29:28] like have a bunch of the world's limited supply of DRAMs sitting in their own computer and
+[29:34] being used 5% of the time.
+[29:36] Like you want maximum utilization in the cloud if you're trying to deal with this very supply
+[29:40] constrained environment.
+[29:41] And somehow, many people's intuition is the opposite of that.
+[29:45] Where else have we seen the market respond to high prices, not just in memory, but
+[29:49] across the supply chain?
+[29:51] Turbines, batteries, concrete.
+[29:56] The market is responding there in high prices.
+[29:59] I'm-ing where are you seeing any interesting market
+[30:01] responses in terms of high prices pulling in innovation?
+[30:05] Some components for robots.
+[30:08] And not like the humanoid
+[30:08] I'd like kind of like fake demos,
+[30:10] but like the industrial robots that can just make stuff faster.
+[30:13] I see. ஒ of those new actuarator makers and stuff.
+[30:16] Yeah, honestly, I mean, maybe if OpenMS sells our chip,
+[30:19] maybe that would be an example.
+[30:20] OK, yeah, I want to get to your chip
+[30:21] because that was going to be my example.
+[30:23] I think the solution to high prices
+[30:25] and short limited demand,
+[30:27] or sorry, limited supply, excuse me,
+[30:29] is you make your own chip.
+[30:32] Presumably you're using a lot of AI to make the chip.
+[30:35] I would have thought that's hard
+[30:36] because I would have thought that chip design
+[30:38] is one of those places limited by
+[30:41] the public tokens you can get,
+[30:43] where there aren't actually that many blog posts
+[30:46] on the public internet on how to build a
+[30:50] leading edge two nanometer chip.
+[30:52] Well, in terms of how to do the lithography,
+[30:55] yeah, I think there's one company on Earth
+[30:56] that seems to know how to do that.talk.
+[30:58] In terms of how to do the chip design,
+[31:02] to build the file that you eventually send to tape out,
+[31:05] that is well understood,
+[31:06] and that is a great problem for AI.
+[31:07] And given that the world limited
+[31:11] in its silicon capacity,
+[31:13] we have a shared interest.
+[31:16] One of the things that I'm TALIESIN about OpenAI,
+[31:19] and maybe it sounds obvious,
+[31:20] but it was maybe not as obvious at the time,
+[31:23] is we have a culture where people,
+[31:26] even if they've donetalking the old-fashioned way
+[31:30] for a long time, are super willing to try using AI
+[31:34] to do it better.
+[31:36] What are other examples of that?
+[31:38] AI research, software engineering,
+[31:42] but also increasing the procurement or things
+[31:45] that people think of very outside the realm of what
+[31:47] most people are using AI to do.
+[31:49] How does AI-driven AI research actually work?
+[31:53] Like the math proofs where you say,
+[31:54] or the finding the PHP vulnerability where you say,
+[31:57] please find me some AI advances?
+[31:59] So I think we don't know yet how it truly is going to work.
+[32:02] We know today how to say, like, find me a 5%
+[32:04] computer efficiency win.
+[32:06] But it's that high level.
+[32:08] I could be an incredibly successful AI researcher now.
+[32:11] I don't know about incredibly.
+[32:12] But yeah, if you were looking for a new job,,
+[32:13] you can come do it.
+[32:15] What I don't think anyone knows how to do yet
+[32:17] is to say, go discover a new architecture that
+[32:20] is as big as a transformer was.
+[32:23] And I think that's where things are heading.
+[32:25] And what's!!" missing there?
+[32:27] Smarter models that are smarter in this dimension.
+[32:31] The hightalk planning and conceptual reasoning.
+[32:33] I think if you apply the same pipeline that we applied
+[32:35] to get our models to be so good at math to AI research,
+[32:39] it will probably work.
+[32:40] Now, per an early part of this conversation,
+[32:43] I kind, of think that at least for a while, maybe for a long while, we are going to
+[32:48] have to agree to some limits about how smartly that these single models go.盤
+[32:54] But a lack of progress will come from that decision, not from the AI's inability to do good research.talk
+[33:13] expectations are sky high.
+[33:16] But I come into work with my backpack,
+[33:18] and I come into the OpenAI office in San Francisco,
+[33:21] and I sit down at my desk.
+[33:23] Like, am I seeing, find me more intelligence in this model?
+[33:29] Am I you giving a real direction oftalk
+[33:32] of research?
+[33:33] How directed does it get?
+[33:35] What does the iteration loop look like?
+[33:37] Just what does RSI?
+[33:38] Because you have a front row seat RSI,
+[33:41] and I'm curious what it looks like.
+[33:43] One ofけて interesting things that people talk a lot about in OpenAI, which sounds
+[33:49] very obvious, but it sounds like a good answer, just like, well,
+[33:55] build me RSI or whatever, is what are the questions that you're supposed to ask of
+[33:58] GPT-7?
+[33:59] Probably it's not enough to just say, like, make me RSI.
+[34:03] And also, like, it's probably not enough to say, like, buy me a 5% compute efficiency
+[34:07] win.
+[34:09] I think this is like one of the most interesting debates going on right now.
+[34:12] And the answer is not just what question to ask it,
+[34:15] but it's things, like agent swarms.
+[34:19] How are we going to use these models in a way that尤actually
+[34:22] maximizes what we can get out of them?
+[34:24] I think we're going to learn a lot about that in the next three
+[34:26] months.
+[34:27] OK, but it sounds like you guys do not
+[34:29] have a codified open AI.ai standard way of điing
+[34:34] in AI development.
+[34:36] It's still lots of experimentation.
+[34:37] It's lots of experimentation.
+[34:40] When we're talking about the token budgets,
+[34:42] it just strikes me that this is one of the big unresolved
+[34:45] questions for AI use in enterprises generally,
+[34:49] is how we don't have hard budgets
+[34:52] for individual engineers.
+[34:53] You don't get cut offtalk and you're like,
+[34:56] sorry you've spent all your arcade tokens.
+[35:00] Maybe we should, but we don't.
+[35:02] And again, I think we all believe in the scale up of AI.
+[35:07] But if you take that seriously,
+[35:08] It means the dollars of compute or AI per person will go up.
+[35:13] And so I feel like we're pretty soon to now actually just
+[35:17] running into this question of how you actually
+[35:20] how much spending power to give individual people
+[35:23] inside the organization.
+[35:25] There was a time when a lot of companies had.
+[35:26] had this like a thing in their Google calendar, which
+[35:30] showed the approximate cost of each meeting in terms
+[35:34] of everybody's comp that had to be there.
+[35:36] I think that was always stilltalking about.
+[35:39] And there was observation that like Paul Graham made it at one point, you know, applauds at
+[35:43] the office every week.
+[35:53] Yeah, you can have these meetings
+[35:54] for unbelievable amounts of money
+[35:57] that are adding no value
+[36:00] and that there's no equivalenttalk of the ability to stop that.
+[36:04] I think that most use...?
+[36:07] Okay, so I'm really talking about my book here
+[36:09] and I'm very biased, but I genuinely believe it.
+[36:11] The use of AI is not a company's biggest spend problem
+[36:17] relative to other things that happen.
+[36:19] And, even if it's somewhat inefficient,
+[36:22] ? it is not where I would focus.
+[36:23] Oh, hang on.
+[36:24] That's not scaling log,.
+[36:25] P.
+[36:26] Okay, two years from now.
+[36:28] ..
+[36:29] You.
+[36:30] You want to.
+[36:31] You want to go send all this.
+[36:32] Stripes revenue and all the.
+[36:33] Stripes profit on~)
+[36:34] OpenAI Crist.
+[36:35] OpenAI services and then
+[36:37] And then complain.
+[36:38] .
+[36:39] We now spend.
+[36:40] You know.
+[36:41] 1% is shorter magnitude of.
+[36:42] tokens that is obviously that feels too low. Yeah, we're kind of fixing it and
+[36:48] It'll get to five percent and ten percent and twenty percent and then you have a
+[36:53] a real question. Do you have an intuition on what the right numbers?
+[36:55] Like what it should be today. What, what it should be today is maybe tricky, but
+[37:00] But steady state, isn't it going to be,
+[37:06] depending on the kind of company,
+[37:09] ? Isn't it going to be tens of percentage points of their
+[37:15] op-talks?
+[37:16] Any companies, the answer to that is clearly yes.
+[37:23] And I think there will come a time when the right thing to do
+[37:30] And also, another thing I
+[38:00] Why? Because it's gone up to up to this point right?, I mean the reason. It could go up is that if I just gets increases in value per.
+[38:11] so quickly, and there's
+[38:41] where we start producing a lot more memory,
+[38:44] a lot more data centers, a lot more of all the inputs.
+[38:47] And as aispering, anyone who wants a computer for whatever
+[38:50] reason can have one.
+[38:51] People give different numbers.
+[38:54] For the kind of the cost per gigawatt measured
+[38:56] in the five-year total cost of ownership right now.
+[38:58] But let's say, let's pick $ 70 billion as a number.
+[39:02] I think if that number were.
+[39:03] That's the cost to install.
+[39:04] And run it for five years.
+[39:05] Yep, OK.
+[39:07] I think of that number were like 20 instead of 70.
+[39:10] to be up here.
+[39:12] And we should still do 10
+[39:40] So how are
+[40:10] I don't know the math off the top of my head.
+[40:12] I mean, if ஒ if you assumed all materials were free and no one made a profit, maybe
+[40:15] you could get there in the current energy
+[40:17] envelope, but only just.
+[40:18] I see.talks.
+[40:19] Personal agents are the most exciting thing happening in AI right now.
+[40:26] There are many exciting things happening in.益.
+[40:30] You guys launched DOTS a few weeks back at this stage, and there's a bunch of other
+[40:35] people also launching in the field.
+[40:38] What will be true of the winning personal agent?
+[40:43] It's like in context, tools,
+[40:47] it's a limited number of things
+[40:49] and that someone is going.
+[40:50] I think no one has yet figured out the thing that people,
+[40:54] like people like these,
+[40:56] but this is not something that people are like,
+[40:57] I cannot imagine my life without this thing
+[41:02] in a way that when people talk about coding agents
+[41:04] They do say.
+[41:05] And someone, I think someone soon, is going to figure out what that looks
+[41:09] looks like.
+[41:10] And you talked about one of the reasons why this doesn't quite work yet.
+[41:13] But I think a small number of ideas away from a super mainstream thing.
+[41:18] Oh, interesting.
+[41:19] You think we have not had the Macintosh moment for personal agents?
+[41:22] LAUGHS.
+[41:23] If not.
+[41:24] Do any sense of what the shape of it will be?
+[41:27] I think it'll look a lot like dots or a user,talk about it whatevertalk about it whatever, but it'll just work.
+[41:34] Like it'll just work....​
+[41:35] It'll be reliable.
+[41:36] You'll like never have you'll just like give it more complex tasks and we'll do all of those things.
+[41:41] Computer use dynamic is very interesting to me.
+[41:44] Not everyone is embracing the new agentic future with open-in-arms.
+[41:52] But it's not totally within their control because you can just have an agent using a computer.
+[42:00] Where do you think go,
+[42:06] Rough instinct is the world will, people are going to fight this in both directions.
+[42:10] directions, but eventually converge on something like, you're allowed to tell your computer
+[42:16] on your behalf, including software.
+[42:18] People always talk about that,!"., but isn't it a bit like the semantic, it's
+[42:40] agent doing what I ask, but nữa I don't have to go do something else.
+[42:44] I note a very interesting dynamic right now, which is every company is really eager to, to add AI to their product in a very specific way, which is there is a tab or pop-up widgets or something that gives you a messaging type UI.
+[43:08] And it's
+[43:26] and they.. However,
+[43:28] however,
+[43:30] however.
+[43:32] and they can do all those things.
+[43:34] However,
+[43:36] not imoveable, but, but strong for their existing
+[43:41] primary chat app, the kind of top of the app Cristian, when they wantch SCOTT to do.
+[43:46] And what they want is to be able to say, hey, go find my recent order.
+[43:51] on this business and refund or something like that.
+[43:55] And. And.
+[43:56] I noticed that businesses are really and reluctant to allow
+[44:01] people to use those businesses inside another AI app.
+[44:08] because like oh we're
+[44:09] are going to, we're going to lose control and
+[44:12] our motor whatever.
+[44:13] And that is fine because your,
+[44:15] your defensibility probably did not come from your ability
+[44:18] .
+[44:46] I don't know if I can, like, trust to deliver it quicklyK.
+[45:19] I think they're in a great place of commerce,
+[45:21] but it's much more agentic.
+[45:22] Amazon in particular has this amazing
+[45:24] particular, has this amazing defensive fulfillment network.
+[45:27] And so you can use Amazon kind of from anywhere.
+[45:30] I super trust that.
+[45:32] Yeah.
+[45:34] I'm just really struck by this dynamic.
+[45:36] Like my new thinking, in particular,
+[45:37] with regards to Agenda Commerce, but also anything,
+[45:40] is any time there is a web form field that you as a human
+[45:45] are filling out, these days that is below your pay grade.?
+[45:48] Because you are probably not inventing that information
+[45:51] Like we've all filled out the medical forms where it's like, oh, your family
+[45:55] history or whatever.
+[45:56] Yeah.talked about the medical forms where it's like, oh, your family history or whatever.
+[45:58] have you filled out your dad's and your mom's medical history and things like that?
+[46:02] I just it feels so wasteful. But the main versions of that
+[46:04] you are never inventing new information for a web form.
+[46:07] I would be so happy to never do like fake work at a computer again.
+[46:12] Yeah, and my argument is that any web form is basically fake.
+[46:16] I agree.
+[46:16] I mean I was like one of the very earliest adopters that I knew oftalks like plugins that
+[46:22] that put in your like name and address like very clamzily, you know, because I was just like this.
+[46:27] can not do this again.
+[46:29] But I kind of feel like that,
+[46:31] using up to the web.
+[46:57] witnessed was the iPhone app stores specifically.
+[47:02] And I remember every startup was like, or many startups,
+[47:06] like most of the YC batch was like,
+[47:07] I'm gonna build an iPhone app.
+[47:08] This is like new distribution.
+[47:09] This is awesome.
+[47:10] I can do anything I couldn't do before.
+[47:11] And many startups got created.
+[47:13] And all of the big companies felt like
+[47:15] They had to make one, but they kind of didn't want Cristian.
+[47:17] Because I'm like,
+[47:28] Is that a real concern?
+[47:31] Are OpenAI models bench maxed?
+[47:58] I'm actually not sure we have great benchmarks for the smartest scientist either, but we
+[48:04] endeavor not to benchmarks.
+[48:06] And I kind of, I keep thinking that benchmarking is like over as a phenomenon and people keep
+[48:13] doing it.
+[48:14] So are you, better than other labs at not getting sucked in by the siren, call
+[48:20] of benchmarks?
+[48:21] I believe we are better at that.
+[48:23] It feels like I don't think we've always been better than our history.
+[48:25] I believe we're better than that right now.
+[48:27] It feels like the industry is still figuring out இர kging nice to work with, where there
+[48:31] was the glazing era, and more recently there was the strappy ornery era of models that
+[48:39] were anti-glazing and as a result tried to.
+[48:41] With you and nitpick at you and every minor thing.
+[48:43] The current one's are pretty good actually applauding.
+[48:57] a really thoughtful and challenging
+[49:01] but still respectful senior co-worker.
+[49:04] I have still not heard a better brief encapsulation?
+[49:07] Yes.
+[49:07] After working with him for many years,
+[49:08] what's your grand unified theory of Greg Brockman?talk
+[49:11] I think Greg Brockman is one of the kind in the best sense.
+[49:13] the Greg Brocken scale.
+[49:14] And you len to understand what it is.
+[49:16] But I think it's like a combination of like, yeah, intensity, like monster productivity,
+[49:23] extreme dedication and like focus on succeeding.
+[49:28] You hate tokens as a metric for anything really.
+[49:35] Pricing or just
+[49:38] It's a
+[49:39] A standard-standard unit of AI, and yet we found ourselves there.
+[49:42] You know, we did.
+[49:43] And you might say outcomes, but I don't think it can be
+[49:45] a good one.
+[49:46] So the outcome is too different across different use cases.
+[49:50] What's the right standardized a unit?
+[49:51] We almost made a very, what would have been bad call to say we're được a
+[49:57] price our next model and tokens at all.
+[50:01] And you're a just a a�.
+[50:08] but the customer is so negative, they're
+[50:15] I asked a few people, would you A1 rather pay more for the same output, but have it priced or something, even
+[50:22] price, even if we inflated the tokens, I'd much rather you inflate the tokens and pay more.
+[50:29] Because I know there's a real thing there.
+[50:33] So I think you are right that people don't just
+[50:35] want us to give them them a price because they
+[50:37] feel like over the long term they're going to get screwed.
+[50:41] In the same way that maybe people would rather pay for CPU hours
+[50:45] rather than just getting their thing done.
+[50:47] And even if it was less expensive.
+[50:49] You know the way like the chip gate length.
+[50:52] Yeah, the the nanometers has very little relation to reality these days.
+[50:56] When we get something like that in tokens where you guys should start saying,
+[50:59] Here is an intelligence equivalent token-like.
+[51:02] I can't believe it's not better.
+[51:03] Of the smallest feature.
+[51:05] I hope not.
+[51:08] I think that would be bad.
+[51:10] I mean, it offends me that we use the word nanometers
+[51:13] for for something that has nothing to do with nanometers.
+[51:16] I know.
+[51:16] It's very silly.
+[51:17] You'd not like that.
+[51:18] I would rather not make up a fake unit.
+[51:22] Tokens are a kind of fake unit.
+[51:23] I mean, they're real in some sense.
+[51:25] They're not a good unit.
+[51:26] They're fake from a business value point of view.
+[51:28] Isn't the only defense of
+[51:31] tokens that if you're wasting tokens,
+[51:33] we should fix that pretty soon.
+[51:35] Like we shouldn't be streaming.
+[51:38] Claude Shannon
+[51:38] Shannon would not approve of us just streaming noise rather
+[51:41] the noise rather than the signal.
+[51:43] And so there will be a,
+[51:44] there's a floor of the information theoretic most useful tokens on both sides.
+[51:49] And,​
+[51:49] we'll kind of come back to that.
+[51:50] Yeah. I mean right now you have to think about like whether you should want like
+[51:53] the
+[51:54] 10 cent per million tokens out of a small model or $10
+[52:07] that I don't think actually adds any?
+[52:09] Is the Chain of Todd included?
+[52:11] In what we charge most people do.
+[52:14] Okay.
+[52:15] The Guinness was not as bad as an IPA but not as bad.
+[52:20] It's good.
+[52:21] I think it's great, but it's pretty good
+[52:24] We like Guinness, at least in this podcast
