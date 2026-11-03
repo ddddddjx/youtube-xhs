@@ -2,3 +2,6 @@ render.log
 project/audio/*.wav
 project/renders/
 project/*.zip
+project/review/s_*.png
+封面素材/clean_*.png
+封面素材/avatar.png
