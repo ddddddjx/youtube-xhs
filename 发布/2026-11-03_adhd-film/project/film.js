@@ -346,13 +346,13 @@ VK.film({
   draw(fr, t) {
     fr.look.bgo = { warm: 1, dust: .8 };
     const dim = K.dips(t, DIPS, .35);
-    fr.g({ a: dim }, () => {
+    if (!fr.collecting) fr.g({ a: dim }, () => {
       if (t < T.row || t >= T.desk2) sceneDesk(fr, t);
       else if (t < T.brain || (t >= T.row2 && t < T.desk2)) sceneRow(fr, t);
       else if (t < T.grid) sceneBrain(fr, t);
       else sceneGrid(fr, t);
     });
-    FX.leak(fr, t, DIPS);
+    if (!fr.collecting) FX.leak(fr, t, DIPS);
     /* 结尾那句：一道光从字上扫过 */
     if (t > 56 && t < 58.4) { const k = seg(t, 56, 58.4), x = lerp(300, 1620, E.io3(k)); fr.glow(x, 920, 180, '#FFE9B8', .22 * Math.sin(k * Math.PI)); }
     /* 音效：开头一声手电筒的咔哒 */
