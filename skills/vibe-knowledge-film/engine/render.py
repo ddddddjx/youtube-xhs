@@ -4,7 +4,8 @@
   python render.py <工程>                       全片 → <工程>/renders/raw.mp4（无声）
   python render.py <工程> --jobs 4              全片，分 4 段并行渲再无损拼起来（长片用这个）
   python render.py <工程> --stills 2.5 8.5 21   只截几帧 → <工程>/review/s_0002.50.png
-  python render.py <工程> --sheet 16            全片均匀取 16 帧拼一张 → review/sheet.jpg（开工后先看这个，再渲染）
+  python render.py <工程> --sheet               9 个关键时刻拼一张 → review/sheet.jpg（默认均匀 9 帧 3×3；自查文字遮挡、构图、曝光，至少改两轮再渲全片）
+  python render.py <工程> --sheet 16            全片均匀取 16 帧拼一张
   python render.py <工程> --sheet 3.5 9 21.5    指定时刻拼一张
   python render.py <工程> --motion 8.2 10.6     一段时间里均匀取 12 帧拼一张 → review/motion_8.2-10.6.jpg（看转场、看动作；后面可以再跟帧数）
   python render.py <工程> --clip 0 12 [名字]    只渲一段 → renders/<名字或_clip>.mp4
@@ -43,6 +44,10 @@ def open_page(p, url):
     # 关掉 LCD 次像素抗锯齿（跳着 seek 字边不抖）；每帧等合成器跑完再截；固定 sRGB
     # 本仓库改动（Krypto说AI 10-30）：云端没有 Google Chrome，设 VK_CHROME_PATH 时改用指定的 Chromium；不设则和上游一样用本机 Chrome
     _exe = os.environ.get("VK_CHROME_PATH")
+    if not _exe:   # 11-03：没设环境变量时自动找云端预装的 Chromium，找不到再用本机 Chrome
+        import glob
+        _c = sorted(glob.glob("/opt/pw-browsers/chromium-*/chrome-linux*/chrome"))
+        _exe = _c[-1] if _c else None
     _launch = {"executable_path": _exe} if _exe else {"channel": "chrome"}
     b = p.chromium.launch(**_launch, args=["--disable-lcd-text", "--run-all-compositor-stages-before-draw", "--force-color-profile=srgb"])
     pg = b.new_page(viewport={"width": 1920, "height": 1080}, device_scale_factor=1)
@@ -50,11 +55,13 @@ def open_page(p, url):
     pg.on("pageerror", lambda e: print("[pageerror]", e))
     pg.goto(url)
     pg.wait_for_function("window.READY === true", timeout=180000)
+    w, h = pg.evaluate("[window.W || 1920, window.H || 1080]")   # 11-03：竖屏 1080×1920 时把视口改成画布大小
+    if (w, h) != (1920, 1080): pg.set_viewport_size({"width": w, "height": h})
     return b, pg
 
-def shot(pg, t):
-    pg.evaluate(f"seek({t})")
-    return pg.screenshot(type="png")
+def shot(pg, t, fmt="png"):
+    pg.evaluate(f"draw({t})")
+    return pg.screenshot(type="jpeg", quality=95) if fmt == "jpeg" else pg.screenshot(type="png")
 
 def with_page(proj, fn):
     from playwright.sync_api import sync_playwright
@@ -77,8 +84,10 @@ def sheet(proj, args, name="sheet"):
     (proj / "review").mkdir(exist_ok=True)
     def go(pg):
         end = pg.evaluate("END")
-        ts = [float(x) for x in args] if len(args) > 1 else [round((i + .5) * end / int(args[0] if args else 16), 2) for i in range(int(args[0] if args else 16))]
-        cols = 4 if len(ts) > 6 else 2 if len(ts) > 1 else 1; tw = 1920 // cols; th = tw * 9 // 16
+        ts = [float(x) for x in args] if len(args) > 1 else [round((i + .5) * end / int(args[0] if args else 9), 2) for i in range(int(args[0] if args else 9))]
+        W, H = pg.evaluate("[window.W || 1920, window.H || 1080]"); portrait = H > W
+        cols = (3 if len(ts) in (3, 9) else 4 if len(ts) > 6 else 2 if len(ts) > 1 else 1) if not portrait else min(len(ts), 5 if len(ts) > 9 else 3 if len(ts) > 4 else len(ts))
+        tw = (1920 if not portrait else 1500) // cols; th = tw * H // W
         out = Image.new("RGB", (cols * tw, -(-len(ts) // cols) * th), (20, 20, 20)); d = ImageDraw.Draw(out)
         try: font = ImageFont.truetype(str(ENGINE / "fonts/JetBrainsMono.ttf"), 18)
         except Exception: font = ImageFont.load_default()
@@ -93,11 +102,11 @@ def frames(proj, out, a=0.0, b=None):
     def go(pg):
         end, fps = pg.evaluate("END"), pg.evaluate("FPS")
         bb = end if b is None else min(b, end)
-        ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "image2pipe", "-framerate", str(fps), "-i", "-",
+        ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "image2pipe", "-c:v", "mjpeg", "-framerate", str(fps), "-i", "-",
                                "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "14", "-preset", "medium", "-movflags", "+faststart", str(out)], stdin=subprocess.PIPE)
         n0, n1 = round(a * fps), round(bb * fps)
         for i in range(n0, n1):
-            ff.stdin.write(shot(pg, i / fps))
+            ff.stdin.write(shot(pg, i / fps, "jpeg"))   # 11-03：逐帧导出 jpg（q95）再编码
             if (i - n0) % 150 == 0: print(f"  {i - n0}/{n1 - n0}", flush=True)
         ff.stdin.close(); ff.wait(); print("done", out, f"{bb - a:.2f}s")
     with_page(proj, go)

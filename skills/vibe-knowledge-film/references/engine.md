@@ -1,6 +1,6 @@
 # 引擎
 
-一张 1920×1080 的 Canvas，一个 `seek(t)`。**每一帧只由时间 t 决定**：没有时间线对象，没有补间库，没有跨帧状态。
+一张 1920×1080（或竖屏 1080×1920）的 Canvas，一个 `window.draw(t)`（就是 `seek(t)`）。**每一帧只由时间 t 决定**：没有时间线对象，没有补间库，没有跨帧状态。
 这是参考片（C 家族）露出的源码里用的模型，也是能"只渲一段、只截几帧、乱序截"的前提。
 
 ```
@@ -34,6 +34,10 @@ python engine/render.py <工程> --jobs 4                 # 全片，分 4 段�
 python engine/render.py <工程> --events                 # 导出音效事件表 → audio/events.json
 python engine/audio.py  <工程>                          # 合成声音 + 合片 → renders/final.mp4
 python engine/audio.py  <工程> --bgm 曲子.mp3 -8        # 垫现成配乐（-8 dB），事件音照叠
+python engine/audio.py  <工程> --bgm 曲子.mp3 -8 --from 12.37   # 从原曲第 12.37 秒（乐句开头）截起，结尾淡出 2.5 秒
+python engine/beat.py   曲子.mp3 60 [--hit 秒] --out <工程>/audio/beat.json   # 测 BPM / 第一拍 / 小节线，给出建议片长和截取起点
+python engine/score.py  <工程>                          # 按 film.js 的 meta.music 合成配乐 → audio/music.wav（先跑 --events）
+python scripts/deliver.py <工程>                        # 查规格 + 成片总览图 renders/overview.jpg + 源码 <工程名>_source.zip
 ```
 
 渲染速度单路约每秒 3–6 帧（1080p，截 PNG），`--jobs 4` 大致快三倍。3 分钟的片子仍然要十几分钟——所以先看拼图，再渲片段，最后才渲全片。
@@ -241,6 +245,29 @@ function urn(fr, t) {
 
 货架就这么大。每条片各自的装置（陶瓮、信封、表格、DNA）在自己的 `film.js` 里用 `fr` 现画——
 一个装置通常 20–40 行。画之前先翻 `examples/` 里有没有相近的。
+
+## 11-03 加的件
+
+| | |
+|---|---|
+| `K.hookBar(fr, t, '为什么{合作}能赢？', { style, y, size, end })` | 顶部常驻钩子行：第 0 帧满亮，整条片都在。`style` 跟字幕一致（gilt / flat / night） |
+| `K.headline(fr, t, str, { a0, a1, cy, size, sub, gold })` | 大字（0–2 秒的钩子、"你猜？"）。不给 `a0` 就是第 0 帧满亮；`{!词}` 染红渐变 |
+| `K.depth(fr, t, d, fn, { drift, zoom, blur, a })` | 景深：`d` 背景 0.2 / 中景 0.6 / 前景 1.4；镜头漂移越近移得越多 |
+| `K.three(w, h)` | 返回缓存的 `{ renderer, THREE, canvas }`（WebGL，`preserveDrawingBuffer`）。在场景里按 t 摆好物体，`renderer.render(scene, cam)`，再 `fr.x.drawImage(canvas, x, y)` |
+| `K.PORTRAIT` | 竖屏时为 true；版式分支用 |
+| 字幕 `zh` 里的 `|` | 手动断成两行；一行超过画面宽 90% 时自动缩字号 |
+| 音效 `hit` / `whoosh`（`dur`）/ `ping`（`pitch`） | 重击 / 呼啸 / 提示音 |
+
+**竖屏**：`index.html` 里 `window.VK_SIZE = [1080, 1920]`（`new_film.py --portrait` 会写好）。`W`、`H` 跟着变，`render.py` 按画布大小截图，`--sheet` 自动按竖图排版。
+
+**Three.js**：`python engine/get_fonts.py --three` 把 three@0.160.0 的 `three.module.min.js` 放进 `engine/vendor/`（不进仓库）；`new_film.py --three` 会在 `index.html` 里设 `VK_THREE = true` 并用 module 引入，引擎等 `window.THREE` 到了才 READY。
+3D 物体的位置、旋转全部写成 t 的函数；不用 `THREE.Clock`、不用 `requestAnimationFrame`。云端 Chromium 用软件 WebGL，能渲，单帧慢一点。
+
+**逐帧导出**：全片和片段按 jpg（q95）逐帧截图再进 ffmpeg 编码 H.264（crf 14）；`--stills` 仍是 png。
+
+**合成配乐**：`film.js` 的 `meta.music = { bpm: 120, key: 0, sections: [[秒, 强度0..3], …], drop: [揭晓秒] }`。强度 0 只有低音垫，1 加脉冲低音，2 加鼓，3 加钢琴琶音；段落起点吸到小节线；`drop` 前一拍抽空、那一拍重击。
+
+**混音**：`audio.py` 最后一道 `alimiter`（峰值 0.89 ≈ −1 dBFS），在 loudnorm 之后。
 
 ## 容易踩的坑
 

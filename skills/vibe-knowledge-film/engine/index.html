@@ -11,9 +11,11 @@
 @font-face{font-family:"VK Mono"; src:url("engine/fonts/JetBrainsMono.ttf");font-weight:100 800}
 @font-face{font-family:"VK Type"; src:url("engine/fonts/CourierPrime-Regular.ttf")}
 html,body{margin:0;background:#000;overflow:hidden}
-canvas{display:block;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh}
+canvas{display:block;margin:0 auto;max-width:100vw;max-height:100vh;width:auto;height:auto}
 </style></head>
 <body><canvas id="stage"></canvas>
+<script>window.VK_SIZE = [1920, 1080];   /* 竖屏改成 [1080, 1920]；要 Three.js 再加 window.VK_THREE = true，并打开下面那行 */</script>
+<!-- <script type="module">import * as THREE from './engine/vendor/three.module.min.js'; window.THREE = THREE; dispatchEvent(new Event('three'));</script> -->
 <script src="engine/vk.js"></script>
 <script src="engine/vk-kit.js"></script>
 <!-- 长片按章拆文件：在这里加 <script src="ch1.js"></script> …，每个文件往 window.CH 上挂函数，film.js 里调用 -->

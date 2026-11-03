@@ -2,6 +2,7 @@
 """把引擎用到的字体下到 engine/fonts/（已有的跳过）。全部是 SIL OFL 1.1 授权的开源字体，来自 github.com/google/fonts。
   python get_fonts.py          缺哪个下哪个
   python get_fonts.py --check  只检查，不下载
+  python get_fonts.py --three  另外把 Three.js（three@0.160.0 的 build/three.module.min.js，MIT）放进 engine/vendor/（要 3D 时才需要；用 npm pack 下）
 中文两款各 20MB 左右，所以仓库里可以不带字体，装好 skill 后跑一次这个脚本。"""
 import sys, urllib.request
 from pathlib import Path
@@ -21,7 +22,19 @@ FONTS = {   # 本地文件名: 仓库路径
     "OFL-JetBrainsMono.txt": "jetbrainsmono/OFL.txt", "OFL-CourierPrime.txt": "courierprime/OFL.txt",
 }
 
+def get_three():
+    import subprocess, tarfile, tempfile
+    v = Path(__file__).resolve().parent / "vendor"; v.mkdir(exist_ok=True); dst = v / "three.module.min.js"
+    if dst.exists(): print("Three.js 已经有了"); return
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run(["npm", "pack", "three@0.160.0", "--silent"], cwd=tmp, check=True, capture_output=True)
+        with tarfile.open(Path(tmp) / "three-0.160.0.tgz") as tf:
+            dst.write_bytes(tf.extractfile("package/build/three.module.min.js").read())
+            (v / "LICENSE-three.txt").write_bytes(tf.extractfile("package/LICENSE").read())
+    print("Three.js →", dst)
+
 if __name__ == "__main__":
+    if "--three" in sys.argv: get_three()
     d = Path(__file__).resolve().parent / "fonts"; d.mkdir(exist_ok=True)
     missing = [k for k in FONTS if not (d / k).exists() or (d / k).stat().st_size < 1000]
     if "--check" in sys.argv:
