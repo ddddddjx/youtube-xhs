@@ -125,7 +125,7 @@ def synth(spec, bgm=False):
     if not bgm:                                       # 低频长音垫底：两个略微失谐的正弦 + 很慢的呼吸
         lv = .05 * meta.get("drone", 1)
         d = (np.sin(2 * np.pi * hz(root - 24) * t) + .6 * np.sin(2 * np.pi * hz(root - 24 + .08) * 2 * t) + .25 * np.sin(2 * np.pi * hz(root - 12 + 7) * t)) * (.75 + .25 * np.sin(2 * np.pi * t / 11))
-        air = lowpass(highpass(rng.standard_normal(n), 300), 1800) * .012 * (.6 + .4 * np.sin(2 * np.pi * t / 17))
+        air = lowpass(highpass(rng.standard_normal(n), 300), 1800) * .012 * (.6 + .4 * np.sin(2 * np.pi * t / 17)) * meta.get("air", meta.get("drone", 1))   # 11-03：drone 设 0 时连底噪一起关（ADHD 片开头的沙沙声就是它被响度归一放大了）
         out += np.stack([d * lv + air, d * lv + np.roll(air, 4000)], 1)
     for a, b, k in meta.get("noise", []):             # 文案说到噪声，配乐里就真的有噪声
         g = np.clip((t - a) / max(.01, b - a), 0, 1) ** 1.5 * (t <= b) * k
@@ -158,6 +158,7 @@ if __name__ == "__main__":
         fc = f"[2:a]atrim={st}:{st + end},asetpts=PTS-STARTPTS,volume={bgm_db}dB,afade=t=in:d=0.08,afade=t=out:st={end - fo}:d={fo}[b];[1:a][b]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11,{lim}[a]"
         cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(wav), "-stream_loop", "-1", "-i", bgm, "-filter_complex", fc]
     else:     # 合成配乐本来就安静、动态大：只到 -18 LUFS，别压扁
-        cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(wav), "-filter_complex", f"[1:a]loudnorm=I=-18:TP=-1.5:LRA=14,{lim}[a]"]
+        quiet = (spec.get("meta") or {}).get("drone", 1) == 0     # 只有音效、没有垫底：不做响度归一（会把静处的底噪抬上来），只限峰
+        cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(wav), "-filter_complex", f"[1:a]{'volume=-1dB' if quiet else 'loudnorm=I=-18:TP=-1.5:LRA=14'},{lim}[a]"]
     subprocess.run(cmd + ["-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest", str(out)], check=True)
     print("done", out)
