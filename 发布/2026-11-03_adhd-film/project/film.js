@@ -366,6 +366,7 @@ VK.film({
     if (t > 41.2) fr.sfx(41.2, 'tick', { pitch: 2 }); if (t > 42.6) fr.sfx(42.6, 'tick', { pitch: 5 });
     if (t > 47.6) fr.sfx(47.6, 'whoosh', { dur: .6 }); if (t > 48.2) fr.sfx(48.2, 'stamp', { gain: .7 }); if (t > 48.22) fr.sfx(48.22, 'shimmer', { gain: .5 });
     if (t > 49.6) fr.sfx(49.6, 'ping', { pitch: 5 }); if (t > 51.7) fr.sfx(51.7, 'ping', { pitch: 1, gain: .5 }); if (t > 54.0) fr.sfx(54.0, 'ping', { pitch: 7 }); if (t > 55.0) fr.sfx(55.0, 'soft', { gain: .8 });
+    if (fr.collecting) return;   // 导出音效时不画字（带阴影的字在软件渲染里一帧要 0.2 秒）
     K.hookBar(fr, t, HOOK, { style: 'gilt' });
     K.subs(fr, t, SUBS, 'gilt');
   },
