@@ -9,15 +9,17 @@ keyword: OpenAI
 keywords: OpenAI, 简历, 面试, 求职, 校招, agent
 headline: OpenAI招人：简历只看结果不看动作
 hero: tweet.jpg
-hero_after: 1
-hero_max: 820
+hero_after: 2
+hero_max: 560
 location: 香港
 account: Krypto说AI
 ---
 
 今年坐在校招面试官的位置上，我问的第一道题换了。
 
-以前我会请候选人讲一个自己做过的产品 feature，从需求到上线，遇到了什么问题，又是怎么解决的。现在我问的是：你做过什么 agent，搭过什么自动化工作流。前阵子聊 Anthropic 就业报告时提过，今年我们几乎没有招校招生。初级岗位越来越少，能走到面试这一轮的人，我要看的是会不会使用和管理 agent。
+以前我会请候选人讲一个自己做过的产品 feature，从需求到上线，遇到了什么问题，又是怎么解决的。现在我问的是：你做过什么 agent，搭过什么自动化工作流。
+
+前阵子聊 Anthropic 就业报告时提过，今年我们几乎没有招校招生。初级岗位越来越少，能走到面试这一轮的人，我要看的是会不会使用和管理 agent。
 
 这两周，OpenAI 的一位招聘经理在 X 上连发了几篇求职建议，讲的是同一张面试桌的另一头。
 
