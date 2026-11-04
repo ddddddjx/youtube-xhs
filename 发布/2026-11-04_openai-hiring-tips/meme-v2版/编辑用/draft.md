@@ -1,5 +1,5 @@
 ---
-title: OpenAI招人：简历只看结果不看动作
+title: 投AI岗前，先看OpenAI面试官这4条建议
 value: 信息 + 框架
 stance: AI 时代搭一个 agent、跑一套工作流已经是一个下午的事，动作人人写得出来；简历和面试里能把人区分开的，是你把哪一块工作交了出去、交出去以后结果是什么
 stance_line: 无
@@ -7,7 +7,7 @@ reader: 周末正在改简历、准备投一家 AI 公司的人
 cost: 无
 keyword: OpenAI
 keywords: OpenAI, 简历, 面试, 求职, 校招, agent
-headline: OpenAI招人：简历只看结果不看动作
+headline: 投AI岗前，|先看OpenAI面试官这4条建议
 hero: tweet.jpg
 hero_after: 2
 hero_max: 560
