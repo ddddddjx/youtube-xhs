@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>你在 AI 第几层</title>
+<style>
+  :root {
+    --yellow: #FFE600;
+    --ink: #111111;
+    --ink-2: #555555;
+    --ink-3: #999999;
+    --line: #E8E8E8;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --l1: #DADADA;
+    --l2: #B5B5B5;
+    --l3: #FFE600;
+    --l4: #111111;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { display: none; min-height: 100vh; padding: 64px 20px 32px; }
+  .page.on { display: block; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  /* 首页 */
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    background: var(--ink); color: var(--yellow); font-size: 13px; font-weight: 700;
+  }
+  h1 { font-size: 34px; line-height: 1.2; margin: 16px 0 10px; font-weight: 900; }
+  h1 .hl { background: linear-gradient(transparent 55%, var(--yellow) 55%); }
+  .lead { color: var(--ink-2); margin: 0 0 20px; font-size: 15px; }
+  .funnel { margin: 8px 0 24px; }
+  .tier {
+    margin: 0 auto 6px; padding: 10px 12px; border-radius: 10px; text-align: center;
+  }
+  .tier b { display: block; font-size: 17px; }
+  .tier span { display: block; font-size: 12.5px; color: var(--ink-2); }
+  .t1 { width: 100%; background: var(--l1); }
+  .t2 { width: 84%; background: var(--l2); }
+  .t3 { width: 68%; background: var(--l3); }
+  .t4 { width: 52%; background: var(--l4); color: #fff; }
+  .t4 span { color: #CCCCCC; }
+  .note { font-size: 12px; color: var(--ink-3); margin: 0 0 24px; }
+
+  .btn {
+    display: block; width: 100%; border: 0; border-radius: 14px; padding: 15px 16px;
+    font-size: 17px; font-weight: 800; cursor: pointer; font-family: inherit;
+    background: var(--ink); color: var(--yellow); margin-bottom: 12px;
+  }
+  .btn.sub { background: var(--card); color: var(--ink); border: 1.5px solid var(--ink); font-weight: 700; }
+  .btn.yellow { background: var(--yellow); color: var(--ink); }
+  .btn[disabled] { opacity: .45; }
+
+  /* 答题页 */
+  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--ink); transition: width .25s; }
+  .qmeta { font-size: 13px; color: var(--ink-3); margin-bottom: 8px; }
+  .qtext { font-size: 22px; line-height: 1.4; font-weight: 800; margin: 0 0 6px; }
+  .qhint { font-size: 13px; color: var(--ink-2); margin: 0 0 18px; min-height: 1em; }
+  .opt {
+    display: block; width: 100%; text-align: left; border: 1.5px solid var(--line);
+    background: var(--card); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+    font-size: 16px; line-height: 1.45; color: var(--ink); font-family: inherit; cursor: pointer;
+  }
+  .opt.pick { border-color: var(--ink); background: var(--yellow); font-weight: 700; }
+  .back { background: none; border: 0; color: var(--ink-3); font-size: 14px; padding: 8px 0; font-family: inherit; }
+
+  /* 结果页 */
+  .card-img { display: block; width: 100%; border-radius: 16px; box-shadow: 0 8px 28px rgba(0,0,0,.10); margin-bottom: 18px; background: #fff; }
+  .row { overflow: hidden; margin: 0 -6px; }
+  .row .btn { float: left; width: calc(50% - 12px); margin: 0 6px 12px; }
+  .follow {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: 16px; margin-top: 8px; overflow: hidden;
+  }
+  .follow p { margin: 0 0 12px; font-size: 14px; color: var(--ink-2); }
+  .follow p b { color: var(--ink); }
+  .follow .btn { margin-bottom: 0; }
+  .fstate { display: block; font-size: 12px; color: var(--ink-3); margin-top: 8px; text-align: center; min-height: 1em; }
+  .toast {
+    position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%);
+    background: rgba(17,17,17,.9); color: #fff; padding: 10px 16px; border-radius: 10px;
+    font-size: 14px; display: none; z-index: 9; max-width: 86%; text-align: center;
+  }
+  .toast.on { display: block; }
+</style>
+</head>
+<body>
+
+<section class="page on" id="pHome">
+  <div class="wrap">
+    <span class="badge">Krypto说AI · 10 题测试</span>
+    <h1>你在 AI 认知的<br><span class="hl">第几层？</span></h1>
+    <p class="lead">Karpathy 把用 AI 的人分成四层，越往下人越少。10 道题，2 分钟，看看你在哪层，以及往下一层怎么走。</p>
+    <div class="funnel">
+      <div class="tier t1"><b>第 1 层 · 60 亿人</b><span>几乎没碰过大模型</span></div>
+      <div class="tier t2"><b>第 2 层 · 10 到 20 亿</b><span>免费版，当好一点的搜索</span></div>
+      <div class="tier t3"><b>第 3 层 · 2000 万（0.2%）</b><span>用 agent 干活</span></div>
+      <div class="tier t4"><b>第 4 层 · 5000 人</b><span>实验室内部</span></div>
+    </div>
+    <p class="note">分层和人数出自 Andrej Karpathy 2026 年 10 月的推文，是他的粗算。</p>
+    <button class="btn" id="btnStart" type="button">开始测试</button>
+    <button class="btn sub" id="btnLast" type="button" style="display:none">看上次结果</button>
+  </div>
+</section>
+
+<section class="page" id="pQuiz">
+  <div class="wrap">
+    <div class="bar"><i id="bar"></i></div>
+    <div class="qmeta" id="qmeta"></div>
+    <p class="qtext" id="qtext"></p>
+    <p class="qhint" id="qhint"></p>
+    <div id="opts"></div>
+    <button class="back" id="btnBack" type="button">← 上一题</button>
+  </div>
+</section>
+
+<section class="page" id="pResult">
+  <div class="wrap">
+    <img class="card-img" id="cardImg" alt="测试结果卡">
+    <div class="row">
+      <button class="btn yellow" id="btnSave" type="button">存到相册</button>
+      <button class="btn" id="btnPost" type="button">发笔记晒结果</button>
+    </div>
+    <button class="btn sub" id="btnPk" type="button">带结果去评论区 PK</button>
+    <div class="follow" id="followBox">
+      <p><b>想往下走一层？</b>我每天写一件真用 AI 干的事，活基本全交给了 AI。</p>
+      <button class="btn" id="btnFollow" type="button">关注 Krypto说AI</button>
+      <span class="fstate" id="followState"></span>
+    </div>
+    <button class="back" id="btnAgain" type="button" style="margin-top:12px">↻ 重新测一次</button>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+<canvas id="cv" width="1080" height="1440" style="display:none"></canvas>
+<script src="./app.js"></script>
+</body>
+</html>
