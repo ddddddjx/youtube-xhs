@@ -99,7 +99,7 @@ def check_meta(meta, draft_dir):
     for k in ("stance", "stance_line", "reader", "keyword", "title"):
         if not meta.get(k):
             add("✗", f"front matter 缺 `{k}`")
-    if meta.get("stance_line") and meta["stance_line"][0] not in "ABCD":
+    if meta.get("stance_line") and meta["stance_line"][0] not in "ABCD" and not meta["stance_line"].startswith("无"):
         add("✗", f"stance_line 要是 A / B / C / D 之一，现在是「{meta['stance_line']}」")
     st = meta.get("stance", "")
     if st and re.search(GRADE, st):
