@@ -9,7 +9,7 @@ frame.json 结构:
 {
   "tag": "AI 与未来十年",                          # 主题 / 栏目，≤10 字，强调色
   "source": "2026 · Silicon Valley Girl 访谈",     # 来路：年份、节目 / 课程名、第几讲
-  "title": "李飞飞：<br>十年后只有两种打工人",      # 标题钩子，最多 2 行，每行 ≤11 字（超了自动缩字号）
+  "title": "李飞飞：<br>十年后只有两种打工人",      # 标题钩子，最多 2 行，每行 ≤11 字（超了自动缩字号）；黑体，第二行自动用强调色（11-08 起）
   "speaker": {"name": "李飞飞", "role": "斯坦福教授 · World Labs 创始人"},
   "credit": "字幕：Krypto说AI",                    # 可省；讲者卡右侧的小灰字
   "accent": "#FFD93B"                              # 可省；默认账号黄
@@ -44,9 +44,10 @@ body { font-family: "PingFang SC", "Noto Sans CJK SC", sans-serif; color: #fff;
 .tag { color: %(accent)s; font-size: 32px; font-weight: 800; letter-spacing: 1px; line-height: 1.25 }
 .src { font-family: Menlo, "SF Mono", "Courier New", "PingFang SC", monospace; font-size: 29px;
        color: #D6D6D6; line-height: 1.4; margin-top: 4px; white-space: nowrap; overflow: hidden }
-h1 { font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif; font-weight: 900;
-     font-size: %(fs)dpx; line-height: 1.16; margin-top: 14px; white-space: nowrap;
-     text-shadow: 0 3px 14px rgba(0,0,0,.65) }
+h1 { font-family: "PingFang SC", "Noto Sans CJK SC", sans-serif; font-weight: 800;
+     font-size: %(fs)dpx; line-height: 1.18; margin-top: 14px; white-space: nowrap;
+     letter-spacing: 1px; text-shadow: 0 3px 14px rgba(0,0,0,.65) }
+h1 .l2 { color: %(accent)s }
 .row { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px }
 .who { background: rgba(22,25,33,.92); border-left: 9px solid %(accent)s; padding: 12px 30px 14px 24px;
        box-shadow: 0 6px 18px rgba(0,0,0,.45); max-width: 100%% }
@@ -82,7 +83,7 @@ def frame_html(spec):
 <body><div class="top">
 <div class="tag">{html.escape(spec.get("tag", ""))}</div>
 <div class="src">{html.escape(spec.get("source", ""))}</div>
-<h1>{"<br>".join(html.escape(t) for t in lines)}</h1>
+<h1>{"<br>".join((f'<span class="l2">{html.escape(t)}</span>' if i == 1 else html.escape(t)) for i, t in enumerate(lines))}</h1>
 <div class="row">{who}{credit}</div>
 </div></body></html>"""
 
