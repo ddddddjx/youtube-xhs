@@ -94,10 +94,19 @@ def panel_html(spec, w, h):
 def shoot(htm, png, w, h, transparent=False):
     """transparent=True 时出透明底 PNG（render_frame.py 的竖版信息框要叠在视频上）"""
     chrome = find_chrome()
-    if not chrome:
+
+    def by_playwright():
         try:
             from playwright.sync_api import sync_playwright
         except ImportError:
+            if shutil.which("node"):   # 云端只有 Node 版 Playwright（预装 Chromium）
+                js = ("const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();"
+                      f"const p=await b.newPage({{viewport:{{width:{w},height:{h}}},deviceScaleFactor:1}});"
+                      f"await p.goto('file://'+process.argv[1]);await p.waitForTimeout(500);"
+                      f"await p.screenshot({{path:process.argv[2],omitBackground:{'true' if transparent else 'false'}}});"
+                      "await b.close();})();")
+                subprocess.run(["node", "-e", js, htm, png], check=True, cwd="/")
+                return
             sys.exit("找不到 Chrome，也没有 Playwright：分屏成片只能在本地完整模式做")
         with sync_playwright() as p:
             browser = p.chromium.launch()
@@ -106,6 +115,9 @@ def shoot(htm, png, w, h, transparent=False):
             page.wait_for_timeout(500)
             page.screenshot(path=png, omit_background=transparent)
             browser.close()
+
+    if not chrome:
+        by_playwright()
         return
     profile = tempfile.mkdtemp(prefix="xhs-panel-")
     proc = subprocess.Popen(
@@ -131,6 +143,8 @@ def shoot(htm, png, w, h, transparent=False):
         except subprocess.TimeoutExpired:
             proc.kill()
     shutil.rmtree(profile, ignore_errors=True)
+    if not os.path.exists(png) or os.path.getsize(png) == 0:   # 云端的无头 Chromium 常常截不出图（11-08），退到 Playwright
+        by_playwright()
 
 
 def main(spec_path, out_png, w=W, h=H):
