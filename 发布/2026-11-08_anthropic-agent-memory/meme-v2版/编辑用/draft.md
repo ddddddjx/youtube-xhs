@@ -8,9 +8,9 @@ cost: 规则文件越改越长，产出反而越来越不稳定，同一类任�
 keyword: Anthropic
 keywords: Anthropic, Claude, agent, 记忆, CLAUDE.md, 宝可梦, dreaming
 headline: Anthropic：规矩越长，AI越不听
-hero: vs.png
-hero_after: 2
-hero_max: 400
+hero: hero.png
+hero_after: 1
+hero_max: 600
 location: 香港
 account: Krypto说AI
 ---
@@ -50,8 +50,6 @@ Anthropic 还做了一组对照。给模型一条死规则「只记录失败」�
 4. 写错的一条，会被一直相信
 
 还有一件事比变长更麻烦：笔记里错的那条，它每次都会相信。游戏里有一段要穿过月见山，入口旁边有一道单向的悬崖，掉下去就回到来时的路。Claude 把地标记错了方向，写下「月见山已通过」，随后走下悬崖，还判断自己「走过头了」。同一道悬崖它掉了三次，第三次之后它写道，我打算停下来，不再循环了。
-
-![左边是带着错笔记的 Claude，右边是改过笔记之后](figs/ledge.png)
 
 Anthropic 的修法叫 dreaming，可以理解成让模型睡一觉：在没有任务的空闲时间，回头把笔记和当时的完整日志对一遍，错的改掉，重复的合并。做过这一步之后，Claude 一次就穿过了山。
 
