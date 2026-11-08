@@ -1,5 +1,5 @@
 ---
-title: Anthropic：规矩越长，AI越不听
+title: Anthropic：你给AI加的规矩在害它
 value: 信息 + 行动
 stance: 给 agent 写的规则文件只会越写越长，因为每一条都是上一次翻车的补丁；人该维护的只有两样，告诉它这份记忆是为了什么，再定期对着日志把错的和过时的删掉
 stance_line: D
@@ -7,7 +7,7 @@ reader: 刚在规则文件里又加了一条「以后不许这样」、发现它
 cost: 规则文件越改越长，产出反而越来越不稳定，同一类任务这次合格、下次返工
 keyword: Anthropic
 keywords: Anthropic, Claude, agent, 记忆, CLAUDE.md, 宝可梦, dreaming
-headline: Anthropic：规矩越长，AI越不听
+headline: Anthropic：你给AI加的规矩在害它
 hero: hero.png
 hero_after: 1
 hero_max: 600
