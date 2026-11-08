@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>冲下阿勒泰</title>
+<style>
+  :root {
+    --yellow: #FFE600;
+    --ink: #1A1A1A;
+    --ink-2: #4E5A60;
+    --ink-3: #8A979E;
+    --sky: #CDEBEE;
+    --card: #FFFFFF;
+    --top: 52px;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #EEF6F8; }
+  body {
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  #game { position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+
+  .layer { position: fixed; left: 0; top: 0; right: 0; bottom: 0; display: none; }
+  .layer.on { display: block; }
+
+  /* 首页 */
+  #menu .inner { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 24px 40px; text-align: center; }
+  .title {
+    font-size: 46px; line-height: 1.1; font-weight: 900; margin: 0 0 8px; letter-spacing: 2px;
+    color: var(--ink); text-shadow: 0 3px 0 #fff;
+  }
+  .sub {
+    display: inline-block; padding: 4px 14px; border: 2px solid var(--ink); border-radius: 999px;
+    background: #fff; font-size: 14px; font-weight: 700; margin-bottom: 16px;
+  }
+  .how { font-size: 14px; color: var(--ink-2); margin: 0 0 18px; line-height: 1.6; }
+  .best { font-size: 14px; color: var(--ink-2); margin: 0 0 12px; min-height: 1.4em; }
+  .best b { color: var(--ink); }
+
+  .btn {
+    display: block; width: 100%; max-width: 360px; margin: 0 auto 12px; border: 3px solid var(--ink);
+    border-radius: 16px; padding: 14px 16px; font-size: 19px; font-weight: 900; letter-spacing: 1px;
+    background: var(--yellow); color: var(--ink); font-family: inherit; cursor: pointer;
+    box-shadow: 0 5px 0 var(--ink);
+  }
+  .btn:active { -webkit-transform: translateY(3px); transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
+  .btn.white { background: #fff; }
+  .btn.dark { background: var(--ink); color: var(--yellow); }
+  .btn.small { font-size: 16px; padding: 11px 12px; box-shadow: 0 4px 0 var(--ink); }
+
+  /* 游戏中 HUD */
+  #hud { pointer-events: none; }
+  #hud .bar { position: absolute; left: 14px; top: var(--top); }
+  .chip {
+    display: inline-block; margin-right: 8px; padding: 5px 12px; border: 2px solid var(--ink); border-radius: 999px;
+    background: rgba(255,255,255,.92); font-size: 16px; font-weight: 900;
+  }
+  .chip.y { background: var(--yellow); }
+  #tip {
+    position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; font-size: 15px; font-weight: 700;
+    color: var(--ink-2); transition: opacity .6s;
+  }
+
+  /* 结果页 */
+  #result { overflow-y: auto; -webkit-overflow-scrolling: touch; background: #EEF6F8; padding: var(--top) 18px 32px; }
+  #result .wrap { max-width: 460px; margin: 0 auto; }
+  .card-img { display: block; width: 100%; border-radius: 18px; border: 3px solid var(--ink); background: #fff; margin-bottom: 18px; }
+  .row { overflow: hidden; margin: 0 -6px; }
+  .row .btn { float: left; width: calc(50% - 12px); margin: 0 6px 14px; }
+  .panel {
+    background: var(--card); border: 2px solid var(--ink); border-radius: 16px; padding: 14px 16px; margin: 4px 0 14px;
+  }
+  .panel h3 { margin: 0 0 8px; font-size: 16px; }
+  .panel p { margin: 0 0 12px; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+  .rank { margin: 0; padding: 0; list-style: none; font-size: 14px; }
+  .rank li { overflow: hidden; padding: 6px 0; border-bottom: 1px solid #EEF1F3; }
+  .rank li:last-child { border-bottom: 0; }
+  .rank .n { float: left; width: 28px; font-weight: 900; }
+  .rank .s { float: right; font-weight: 700; }
+  .rank .me { background: #FFF7B3; }
+  .muted { color: var(--ink-3); font-size: 13px; }
+  .fstate { display: block; font-size: 12px; color: var(--ink-3); margin-top: 8px; text-align: center; min-height: 1em; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 40px; -webkit-transform: translateX(-50%); transform: translateX(-50%);
+    background: rgba(26,26,26,.9); color: #fff; padding: 10px 16px; border-radius: 10px;
+    font-size: 14px; display: none; z-index: 9; max-width: 86%; text-align: center;
+  }
+  .toast.on { display: block; }
+</style>
+</head>
+<body>
+
+<canvas id="game"></canvas>
+
+<section class="layer on" id="menu">
+  <div class="inner">
+    <h1 class="title">冲下阿勒泰</h1>
+    <div class="sub">禾木 · 喀纳斯 · 将军山</div>
+    <p class="how">手指左右拖，躲开云杉、石头和木屋<br>沿路捡雪花，越滑越快</p>
+    <p class="best" id="bestLine"></p>
+    <button class="btn" id="btnStart" type="button">开 始 滑 雪</button>
+  </div>
+</section>
+
+<section class="layer" id="hud">
+  <div class="bar">
+    <span class="chip y" id="hudDist">0 米</span><span class="chip" id="hudFlake">❄ 0</span>
+  </div>
+  <div id="tip">← 左右拖动 →</div>
+</section>
+
+<section class="layer" id="result">
+  <div class="wrap">
+    <img class="card-img" id="cardImg" alt="滑雪成绩卡">
+    <div class="row">
+      <button class="btn small" id="btnSave" type="button">存到相册</button>
+      <button class="btn small dark" id="btnPost" type="button">发笔记晒成绩</button>
+    </div>
+    <button class="btn small white" id="btnPk" type="button">带成绩去评论区 PK</button>
+    <div class="panel" id="rankBox" style="display:none">
+      <h3>本周排行</h3>
+      <ul class="rank" id="rankList"></ul>
+      <div class="muted" id="myRank"></div>
+    </div>
+    <div class="panel" id="followBox">
+      <p><b>喜欢这个小游戏？</b>关注我，看更多用 AI 做出来的小东西。</p>
+      <button class="btn small dark" id="btnFollow" type="button">关注 Krypto说AI</button>
+      <span class="fstate" id="followState"></span>
+    </div>
+    <button class="btn" id="btnAgain" type="button">再 滑 一 次</button>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+<canvas id="cardCanvas" width="1080" height="1440" style="display:none"></canvas>
+<script src="./app.js"></script>
+</body>
+</html>
