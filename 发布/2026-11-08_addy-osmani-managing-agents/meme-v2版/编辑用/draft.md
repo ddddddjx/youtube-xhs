@@ -1,5 +1,5 @@
 ---
-title: Claude团队：用AI的人，早就是经理
+title: Claude官方：人人都是经理
 value: 信息 + 框架
 stance: 带 agent 的人拉开差距的地方不是提示词，是有没有给它一个自己能跑的验收；注意力扩不了，每多开一个 agent 分走的比上一个更多，能扩的只有检查
 stance_line: D
@@ -7,7 +7,7 @@ reader: 一下午开着四五个 Claude Code 窗口，到晚上发现自己一�
 cost: 多个 agent 并行时，一个跑完弹回来，我手上正在想的念头就丢了
 keyword: Claude
 keywords: Claude Code, Anthropic, agent, Addy Osmani, 管理, CLAUDE.md, 多agent
-headline: Claude团队：|用AI的人，早就是经理
+headline: Claude官方：|人人都是经理
 hero: shots/cover.jpg
 hero_after: 2
 hero_max: 400
