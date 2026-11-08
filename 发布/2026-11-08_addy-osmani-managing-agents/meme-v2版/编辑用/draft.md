@@ -21,7 +21,7 @@ account: Krypto说AI
 
 我每天开着四五个 Claude Code 窗口并行，看到这句心里一紧😅。这篇把管理的老规矩和 Claude Code 团队这一年的做法对了一遍，排在前面的几条，我一条一条对着自己看。
 
-![Addy Osmani，Anthropic，Claude Code 团队](shots/addy_wide.jpg)
+![经理的六件事，带 agent 的人一件没少](manage.png)
 
 1、先给它一个自己能跑的验收
 
