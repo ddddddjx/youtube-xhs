@@ -1,0 +1,12 @@
+<html><head><meta charset="utf-8"><style>body{margin:0;width:970px;background:#fffdf5;font-family:"Noto Sans CJK SC",sans-serif;color:#111}.w{padding:36px 46px}h1{font-size:38px;margin:0 0 8px}.sub{font-size:21px;color:#777;margin-bottom:22px}hl{background:linear-gradient(transparent 58%,#FFE03D 58%,#FFE03D 92%,transparent 92%);font-weight:800}.row{display:flex;gap:18px;align-items:stretch}.box{flex:1;border:3px solid #111;border-radius:16px;background:#fff;padding:18px 22px}.t{font-size:26px;font-weight:900;margin-bottom:8px}.d{font-size:21px;line-height:1.55}.big{font-size:96px;font-weight:900;line-height:1;letter-spacing:-2px}.lab{font-size:22px;color:#555;margin-top:4px}.y{background:#FFE600}.k{background:#111;color:#fff}.q{margin-top:18px;background:#111;color:#fff;border-radius:14px;padding:14px 22px;font-size:21px;line-height:1.5}.q b{color:#FFE600}.n{display:inline-block;width:44px;height:44px;border-radius:50%;background:#FFE600;border:3px solid #111;text-align:center;line-height:44px;font-weight:900;font-size:23px;margin-right:12px;vertical-align:middle}.arrow{font-size:40px;color:#999;align-self:center}.bar{height:34px;border-radius:8px;background:#111;display:inline-block;vertical-align:middle}.bl{font-size:20px;margin:8px 0}</style><style>.r{margin:10px 0 16px}.r .nm{font-size:22px;font-weight:900;margin-bottom:4px}.r .ex{font-size:19px;color:#555;margin-left:12px;font-weight:400}</style></head><body><div class="w">
+<h1>给它一条死规则「只记录失败」，<hl>提升丢了多少</hl></h1><div class="sub">CL-Bench 数据库任务，Anthropic 的对照实验（有记忆 vs 没记忆的分差）</div>
+<div class="box">
+<div class="r"><div class="nm">Opus 5 <span class="ex">本来 +0.26，加了死规则后 −0.23</span></div><span class="bar" style="width:700px"></span>&nbsp;<b>几乎全丢</b></div>
+<div class="r"><div class="nm">Opus 4.7 <span class="ex">本来 +0.32，加了死规则后 −0.15</span></div><span class="bar" style="width:400px;background:#666"></span>&nbsp;<b>丢了一半</b></div>
+<div class="r" style="margin-bottom:4px"><div class="nm">Sonnet 4.6 <span class="ex">−0.02</span></div><span class="bar" style="width:50px;background:#bbb"></span>&nbsp;<b>基本没变</b></div>
+</div>
+<div class="row" style="margin-top:16px">
+<div class="box"><div class="t">老模型 Sonnet 4.6</div><div class="d">本来不太读自己的笔记。被要求「先读笔记、再验证猜想」之后，分数从 0.33 涨到 0.64，几乎翻倍</div></div>
+<div class="box" style="background:#FFE600"><div class="t">Anthropic 的结论</div><div class="d">告诉 Claude 记忆是干什么用的，不告诉它怎么用。手把手只对老模型有效，对强模型是拖累</div></div>
+</div>
+</div></body></html>
