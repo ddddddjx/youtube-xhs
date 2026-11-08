@@ -1,0 +1,104 @@
+===  a.wav
+[   0.0-   3.3] Here's the simplest way I know to actually get your life together.
+[   3.3-   7.2] Figure out the one thing that's making everything else harder, and stop trying to fix your entire
+[   7.2-   8.3] life at once.
+[   8.3-  12.8] Because every January, or every time we decide we're entering our winter arc, we do the exact
+[  12.8-  14.2] same thing.
+[  14.2-  17.7] We look at our life, and suddenly become painfully aware of everything that's wrong
+[  17.7-  18.7] with it.
+[  18.7-  22.9] And because all of those things feel important, you try to change all of them at the same
+[  22.9-  23.9] time.
+[  23.9-  24.8] For a little while, it works.
+[  24.8-  27.2] You feel like you've finally taken control of your life.
+[  27.2-  30.8] When you miss one workout, stay up late one night, waste a couple hours scrolling, then
+[  30.8-  33.2] suddenly the entire thing starts breaking down.
+[  33.2-  38.2] And I think this is where we misunderstand what it actually means to get your life together.
+[  38.2-  43.3] When something in your life keeps going wrong, your first instinct is usually to blame yourself.
+[  43.3-  45.5] Calling yourself lazy, that you have no discipline.
+[  45.5-  49.5] But those are descriptions of what happened, not explanations for why it happened.
+[  49.5-  53.5] If you keep procrastinating, the useful question probably isn't, why am I so lazy?
+[  53.5-  55.3] It's, why do I keep doing this?
+[  55.3-  57.5] Maybe you're exhausted or overwhelmed.
+[  57.5-  60.3] Or maybe you're avoiding something you don't want to deal with.
+[  60.3-  64.6] The shift from judging yourself to understanding yourself changes the way you look at your
+[  64.6-  66.2] entire life.
+[  66.2-  68.6] Because your life is constantly giving you information.
+[  68.6-  70.9] If you're always exhausted, that's information.
+[  70.9-  72.7] Behind on work, that's information.
+[  72.7-  76.7] If you keep making the same promise to yourself and breaking it, that's information too.
+[  76.7-  80.7] The mistake is treating each of these things like another character flaw that needs to
+[  80.7-  81.7] be fixed.
+[  81.7-  86.1] Sometimes, what looks like five different problems is actually just one problem.
+[  86.1-  88.4] Now, I want you to think about sleep.
+[  88.4-  92.7] If your sleep is completely fucked, waking up becomes harder, working becomes harder, exercising
+[  92.7-  96.9] becomes harder, eating properly becomes harder, and suddenly, you think you have five different
+[  96.9-  98.3] problems to solve.
+[  98.3-  99.3] But do you?
+[  99.3- 100.5] Let me give you another example.
+[ 100.5- 105.3] If you're constantly exhausted, you can't focus, which means you procrastinate.
+[ 105.3- 108.6] Which means you fall behind, which makes you stress, which makes you stay up even
+[ 108.6- 109.9] later trying to catch up.
+[ 109.9- 112.4] And now, you're even more exhausted the next day.
+[ 112.4- 114.0] See where I'm going with this?
+[ 114.0- 116.9] From the outside, it looks like all these problems, but they're all connected.
+===  b.wav
+[   0.0-   1.6] independently from the others.
+[   1.6-   3.1] Your sleep affects your energy.
+[   3.1-   4.6] Your energy affects your work.
+[   4.6-   6.2] Your work affects your stress.
+[   6.2-   7.8] Your stress affects your sleep.
+[   7.8-  10.1] And now you realize that not every problem
+[  10.1-  11.8] deserves the same amount of attention.
+[  11.8-  13.4] Some problems are isolated.
+[  13.4-  15.7] You're not reading enough, so you read a little more.
+[  15.7-  16.9] You haven't been working out,
+[  16.9-  18.3] so you start working out again.
+[  18.3-  19.6] But then there are problems
+[  19.6-  21.1] that spread into everything else.
+[  21.1-  23.4] Those are the problems you wanna pay attention to.
+[  23.4-  25.2] So sit down with a pen and paper
+[  25.2-  26.9] and ask yourself just two questions.
+[  26.9-  29.1] First, what am I constantly trying to fix
+[  29.1-  30.8] that somehow keep coming back to?
+[  30.8-  32.0] It could be anything, right?
+[  32.0-  34.9] Second, if I could only solve one thing right now,
+[  34.9-  37.2] what would make the biggest difference to everything else?
+[  37.2-  39.1] It doesn't have to be profound answer.
+[  39.1-  41.0] Maybe you're saying yes to so many things
+[  41.0-  42.2] that you don't have enough time
+[  42.2-  44.1] for the things you actually care about.
+[  44.1-  45.8] Maybe your phone has made it impossible
+[  45.8-  48.3] for you to focus on anything for more than 10 minutes.
+[  48.3-  49.5] The point is to find the thing
+[  49.5-  51.9] that has the most influence over everything else.
+[  51.9-  53.4] Because once you know what that is,
+[  53.4-  55.0] you can stop spreading your energy
+[  55.0-  56.7] across six different problems
+[  56.7-  58.3] and actually give your attention
+[  58.3-  60.6] to the one thing that might change the rest.
+[  60.6-  63.6] And this is where I think priority gets misunderstood.
+[  63.6-  65.4] Most people know what a priority is.
+[  65.4-  67.5] They just want everything to be one.
+[  67.5-  69.3] But you only have so much attention.
+[  69.3-  71.0] So if you've identified the thing
+[  71.0-  72.4] making everything else harder,
+[  72.4-  74.3] you have to be willing to let some other things
+[  74.3-  75.8] stay imperfect for a while.
+[  75.8-  78.6] If your sleep is destroying your energy and everything else,
+[  78.6-  80.0] maybe your priority for a while
+[  80.0-  82.4] isn't becoming the most productive person alive,
+[  82.4-  84.6] just fix the damn sleep first.
+[  84.6-  86.7] Then build your life around that priority.
+[  86.7-  88.8] Make the thing you care about easier to do.
+[  88.8-  90.6] Remove the things that keep getting in the way
+[  90.6-  93.4] and stop expecting one huge burst of motivation
+[  93.4-  95.8] to turn you into a completely different person overnight.
+[  95.8-  98.3] Because the goal isn't to create a perfect life
+[  98.3- 100.8] where nothing ever goes wrong, shit happens.
+[ 101.7- 102.8] Or make a mistake again.
+[ 103.9- 106.6] Yeah, you will, but not cause you're you,
+[ 106.6- 108.9] just cause shit happens.
+[ 108.9- 111.1] You're going to fuck things up sometimes.
+[ 111.1- 113.7] The difference is that when you understand your life,
+[ 113.7- 115.7] you don't have to interpret every setback
+[ 115.7- 117.9] as proof that you're back at square one.
