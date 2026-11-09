@@ -1,0 +1,1630 @@
+Chapter 1: Teaser
+0:00
+0 seconds
+The model isn't predictable. It's kind of like Snape's potions class. You can put all the ingredients in, but you also have to expect that there will be a
+0:07
+7 seconds
+little bit of magic, and that magic is going to be surprising.
+0:10
+10 seconds
+As you're hiring PMs these days, is there anything you look for more and more?
+0:15
+15 seconds
+We are looking for PMs who understand the vibes of our models or other models.
+0:19
+19 seconds
+I want PMs who [music] have an opinion, who are playing with these models every day. You ideally want to stress test the model on things that you are excited
+0:28
+28 seconds
+about. A lot of people feel that Google lags behind the top two labs right now.
+0:32
+32 seconds
+I actually [music] think we do want to win the frontier conversation. I don't think we should say that Google is not participating in the frontier.
+0:39
+39 seconds
+You have this framework around how far ahead to build. You call it the 602020 rule.
+0:44
+44 seconds
+Traditional startup wisdom. You're just like build an MVP that works. But I think you want to actually build features that aren't necessarily always
+0:51
+51 seconds
+working today. It feels like every AI assistant launching these days is taking all this juicy Google data like Gmail,
+0:58
+58 seconds
+Google Calendar, my Docs. I'm curious just why Google hasn't launched something awesome yet.
+1:03
+1 minute, 3 seconds
+The team is working on some amazing things, but I think you are right that there is more work we need to do here on this front.
+Chapter 2: What people misunderstand about how models are built
+1:12
+1 minute, 12 seconds
+Tulsi, thank you so much for being here and welcome to the podcast.
+1:15
+1 minute, 15 seconds
+Thanks. I'm excited to be here. you are head of product for Google's frontier models which includes Gemini which
+1:22
+1 minute, 22 seconds
+people know but there's also a bunch of other models that people may not be familiar with. Uh share the other models that are under your umbrella.
+1:30
+1 minute, 30 seconds
+Yeah, so we have a set of models we kind of call our gen media models. These are our models that focus on video uh editing and generation, image editing
+1:39
+1 minute, 39 seconds
+and generation. If you've used Nano Banana, Liria, our music model, um we also have Gemma, our suite of open models. And then one set of models that
+1:48
+1 minute, 48 seconds
+actually falls under our Gemini umbrella, but I feel like we don't talk about uh as much is our audio models. Um so dialogue, audio understanding,
+1:56
+1 minute, 56 seconds
+texttospech, uh translation, all a part of the portfolio of how we build uh Frontier models.
+2:03
+2 minutes, 3 seconds
+Okay, so I want to spend a little time on models. Everyone sees models launch.
+2:07
+2 minutes, 7 seconds
+There's a like a model launch every week. It feels like you have a really unique lens in being able to see these models from research to pre-training,
+2:15
+2 minutes, 15 seconds
+post- training launch. What's something that you think people maybe misunderstand about how models are created or something that may surprise people about how models are are made?
+2:26
+2 minutes, 26 seconds
+Yeah, it's a good question. I mean maybe what I'll say especially coming from a product management lens is one thing
+2:33
+2 minutes, 33 seconds
+that I think you know when you typically talk about product management for anything including a model you talk about what are the goals you have for a
+2:41
+2 minutes, 41 seconds
+model right what are the capabilities you want to set uh what are the outcomes you want to drive what goals do you want to hit on a set of evals and often when
+2:49
+2 minutes, 49 seconds
+I talk to customers or even internal users you know they'll ask me okay what are the goals that you're setting and
+2:55
+2 minutes, 55 seconds
+they'll sort of expect that we can really make sure that the model will deliver on those goals in a very traditional product sense. And I think
+3:04
+3 minutes, 4 seconds
+for me what has often been surprising but also exciting about model development and being a PM for the model
+3:12
+3 minutes, 12 seconds
+is you should do that and you should have an intentional view but the model isn't predictable.
+3:18
+3 minutes, 18 seconds
+Um and so it's kind of like uh like Snape's potions class, right? So you can put all the ingredients in and you should be thoughtful about what you
+3:26
+3 minutes, 26 seconds
+expect, but you also have to expect that there will be a little bit of magic. Um, and that that magic is going to be surprising and that magic is going to be
+3:35
+3 minutes, 35 seconds
+unique. And so your job as a PM is not just to try to shape what goes into the model, but it is also to look at what comes out
+3:44
+3 minutes, 44 seconds
+the other side and really identify where does the model shine, where does it actually look unique in ways that surprise you and then be able to take
+3:52
+3 minutes, 52 seconds
+that and shape that into something that is amazing for users.
+3:55
+3 minutes, 55 seconds
+It's so interesting that it's just like this code that we have written that we feed data and we need to like we don't exactly know what's going to happen and
+4:04
+4 minutes, 4 seconds
+how it works. I recently had a had a interpretability research uh person on the podcast from Anthropic and we talked a lot about this this idea that models
+4:11
+4 minutes, 11 seconds
+are grown not build and just to kind of reflect back what you're saying. There's these goals that researchers have for this next model. We're going to get better at writing. We're going to get
+4:19
+4 minutes, 19 seconds
+try to be funnier. We're going to try uh become better engineers. Uh and you're saying it's unpredictable exactly what ends up at the end. They put in these
+4:27
+4 minutes, 27 seconds
+ideas. They change the data that it's trained on. Is there anything more there about just this kind of like unexpected I don't know process of of training?
+4:36
+4 minutes, 36 seconds
+You know, of course there's brilliant research that goes into these models and so many aspects of it are predictable in the sense that we are consistently
+4:44
+4 minutes, 44 seconds
+monitoring these runs. We have researchers who are tracking them, who are identifying when to intervene, who are seeing different metrics climb up as
+4:52
+4 minutes, 52 seconds
+the run progresses and so we are you know making it as much of a science as possible. Um but I think for me what is really amazing as a PM is you also need
+5:00
+5 minutes
+to really understand the vibes of the model on the other side of it too. Uh so yes you can understand that a model has improved on a certain capability but
+5:08
+5 minutes, 8 seconds
+where does that capability really shine through? Um how does that showcase then downstream in a product? How do you feel communicating with the model uh in terms
+5:16
+5 minutes, 16 seconds
+of its behavior and persona? And there's a number of these aspects that we definitely build into training but also as we understand the model and as we
+5:23
+5 minutes, 23 seconds
+evaluate it and as we test it we always learn more. We always learn something new, I think, about what the model can do.
+5:29
+5 minutes, 29 seconds
+This episode is brought to you by this season's presenting sponsor, Work OS.
+5:34
+5 minutes, 34 seconds
+What do OpenAI, Enthropic, Cursor, Replet, Sierra, Clay, and hundreds of other winning companies [music] have in common? They're all powered by Work OS.
+5:43
+5 minutes, 43 seconds
+If you're building for enterprises, you have felt the pain of integrating single signon, scam, arbback, [music] and audit logs. Work OS turns those deal blockers
+5:52
+5 minutes, 52 seconds
+into drop-in APIs built for B2B SAS. And now there's a new kind of user that needs access to [music] your app. Agents
+5:59
+5 minutes, 59 seconds
+AI agents need to register, authenticate, and get permissions just like [music] a person. Work OS handles it all. Agent O to give agents scope,
+6:08
+6 minutes, 8 seconds
+revocable identities, agent registration with O MD and airlock [music] to judge every agent action and allow, deny, or
+6:16
+6 minutes, 16 seconds
+escalate to a human. I've noticed that every startup [music] that I am an investor in that expands up market ends up using work OS because they're the
+6:25
+6 minutes, 25 seconds
+best. Go to work os.com to make your app enterprise ready. Today I want to talk a little bit about Google's place in the
+Chapter 3: Google’s strategy in the AI race
+6:32
+6 minutes, 32 seconds
+AI race. It feels like a lot of people feel that Google lags behind the top two labs right now. Enthropic and open AI
+6:41
+6 minutes, 41 seconds
+and Google has these moments of being the best and then it kind of feels like it slows down a bit. I'm curious what you can share about just Google's strategy in the AI race and what maybe
+6:50
+6 minutes, 50 seconds
+people don't understand on the inside of how you all think about this stuff.
+6:54
+6 minutes, 54 seconds
+First of all, hopefully by the time this conversation goes out, you will be using Gemini 4 uh Argon uh which is exciting.
+7:01
+7 minutes, 1 second
+Um and so I really do hope we're having a conversation about a frontier AI model uh that folks are excited to to use. Um
+7:10
+7 minutes, 10 seconds
+and I think Gemini 4 speaks a little bit to our strategy, right? um because it really is our push uh to continue to
+7:17
+7 minutes, 17 seconds
+build a frontier a frontier lab a frontier set of models a frontier set of capabilities on on our path. I think if
+7:24
+7 minutes, 24 seconds
+you look at Google's strategy it really is full stack, right? So one of the things that I think is powerful about Google is all the way from hardware to
+7:32
+7 minutes, 32 seconds
+end products that serve billions of users. I think the stat is like we have 14 products that are above a billion users. I should check that number but I
+7:40
+7 minutes, 40 seconds
+think that's the stat. Uh and so if you think about that, we actually go all the way from you know the hardware to then the modeling to then this this kind of
+7:49
+7 minutes, 49 seconds
+end user application and our goal ultimately is to not just build amazing frontier experiences which is definitely
+7:57
+7 minutes, 57 seconds
+a part of the goal. Um but it is also to build models across this paro curve of cost to quality that can serve different
+8:05
+8 minutes, 5 seconds
+users at different points in their lifestyle. Whether that be a search user who is coming for information, right?
+8:13
+8 minutes, 13 seconds
+Whether it is an engineer who is trying to build the next amazing thing, whether it is for a cyber defender who is trying to protect a critical piece of infrastructure. I think our goal is to
+8:22
+8 minutes, 22 seconds
+make sure that we have models that serve that range of use cases and that we're actually building with feedback from these users.
+8:30
+8 minutes, 30 seconds
+So what I'm hearing is there's so many vectors where Google can win. There's the most efficient kind of paro frontier per token cost. There's the smartest
+8:38
+8 minutes, 38 seconds
+model. There's also just making your products better. For example, AI mode, AI overviews. And so, it's not that you
+8:47
+8 minutes, 47 seconds
+need to be the best at the most advanced AI model that people can use like chatbot. Basically, you can win in all these other areas, but it sounds like
+8:55
+8 minutes, 55 seconds
+you're also trying to win and have the most state-of-the-art model.
+8:58
+8 minutes, 58 seconds
+I actually think we do want to win the frontier conversation, right? I think I don't think we should say that Google is not uh
+9:07
+9 minutes, 7 seconds
+participating in the frontier and I think we are building uh better and better models and I think Gemini for
+9:14
+9 minutes, 14 seconds
+Argon definitely is at the frontier in um in the place that we are at. But I
+9:21
+9 minutes, 21 seconds
+think one thing that is amazing is being able to build a breath of experiences and build a diversity of experiences for users. And I think for Google, uh, our
+9:29
+9 minutes, 29 seconds
+goal ultimately is to build amazing experiences that people that actually make people's lives better, right? Um,
+9:37
+9 minutes, 37 seconds
+and that is, I think, ultimately the goal, whatever part of the frontier you're building for.
+9:42
+9 minutes, 42 seconds
+Google products definitely make my life better. It's just like amazing how much of your life is within a Google ecosystem. Like not even the AI stuff,
+9:49
+9 minutes, 49 seconds
+but just Google Calendar, Gmail, all these things. You're just like Google Docs. Uh, so it's happening.
+9:55
+9 minutes, 55 seconds
+There you go. There we go. Um, I want to talk about one other broad AI question, then I'm going to dig into more product
+Chapter 4: AI safety, monitoring, and strengthening cyberdefenses
+10:01
+10 minutes, 1 second
+specific stuff. A big topic of conversation these days is AI safety and this kind of fear that AI is going to
+10:09
+10 minutes, 9 seconds
+harm humans. It's going to cause damage as it gets smarter and smarter. You have a really interesting lens on this because you led product for the
+10:17
+10 minutes, 17 seconds
+responsible AI team at Google for six years. This is what you did right before this role. And so you've been thinking about this for a long time, a lot longer
+10:25
+10 minutes, 25 seconds
+than most people. I'm curious just to get your take on this debate. Just I don't know, are you optimistic we will figure this out? What do you think
+10:33
+10 minutes, 33 seconds
+people maybe don't understand about this debate around AI safety? Our safety teams here are incredible.
+10:38
+10 minutes, 38 seconds
+Um, and it's been incredible to see the intentionality that they've been putting in all the way from, you know, initial
+10:45
+10 minutes, 45 seconds
+trainings of the model to how we deploy them. Um, and I think safety is embedded in that process, right? and and we need to be I think the part that is important
+10:54
+10 minutes, 54 seconds
+actually as we talk about how do you deploy models safely is actually thinking through what are the right sort of mitigations and structures around
+11:02
+11 minutes, 2 seconds
+these models right so for example one of the things that's really important is thinking about monitoring right and so for us actually deploying monitors that
+11:10
+11 minutes, 10 seconds
+can monitor the model's chain of thought um and actually identify whether the model is misaligned with its you know directed actions or whether it is
+11:18
+11 minutes, 18 seconds
+aligned um and then being able to intervene appropriately. That's actually the kind of mitigation that a gives us more confidence in deploying these
+11:26
+11 minutes, 26 seconds
+models, but also allows us to better understand where we might see misalignment and better actually improve the models over time. And so I think
+11:34
+11 minutes, 34 seconds
+things like monitoring give me more confidence in how we're putting our models out. I think the other thing that we don't talk about enough when we talk about this debate is also the role that
+11:43
+11 minutes, 43 seconds
+AI can play in hardening our systems, right? And so one of the things that we're doing with Gemini 4 is like
+11:50
+11 minutes, 50 seconds
+actively partnering with a number of cyber defenders including actually just even partnering with whiz that is now a Google company to really think through
+11:59
+11 minutes, 59 seconds
+how can we actually uh identify and patch vulnerabilities in systems across the globe right we actually have this
+12:07
+12 minutes, 7 seconds
+interesting case study whiz has this scan forgood program where um they're actually like actively working with systems across the world to identify you
+12:15
+12 minutes, 15 seconds
+know potential issues and they worked with a hospital system to identify a vulnerability and then patch it. And it's that kind of thing
+12:23
+12 minutes, 23 seconds
+that I think if we can actually leverage these tools to do more of, we can actually make sure that our infrastructure and our systems are are robust, right? Which is also, I think,
+12:31
+12 minutes, 31 seconds
+really critical as this whole space grows. There's actually a conversation on allin this last week about this whole issue that now that AI is getting really
+12:40
+12 minutes, 40 seconds
+good at cyber. Uh people are going to be investing a lot more in cyber defense and AI for protecting and so there's going to be a lot of money being spent
+12:48
+12 minutes, 48 seconds
+on protecting their systems from this everly ever smarter AI. So it's really cool that you guys are investing there.
+12:55
+12 minutes, 55 seconds
+So I guess just coming back to the question of do you feel like we'll figure out this concern and this issue we feel a lot of people feel that AI is
+13:03
+13 minutes, 3 seconds
+going to take over the world uh cause a lot of damage do you feel like this solvable problem are you optimistic or are you is it something you think a lot about and are kind of worried about
+13:12
+13 minutes, 12 seconds
+maybe the answer to your question is both in the sense that I think we need to be consistently thinking about it right I think the way to optimism here
+13:20
+13 minutes, 20 seconds
+uh for lack of a better way of putting it like the path to optimism is through thinking about it um and being like very careful and very thoughtful and very
+13:27
+13 minutes, 27 seconds
+intentional on the path to get there. Um and so that is like my source of optimism comes more from do I feel like we have people who are being intentional
+13:36
+13 minutes, 36 seconds
+and thoughtful about what the safety story looks like. Uh and I think that is the the critical threat is is you need a number of people to be worried and to be
+13:44
+13 minutes, 44 seconds
+having conversations and to be actually interrogating how we're building our models and and that's the step-by-step process we have to take.
+13:50
+13 minutes, 50 seconds
+Awesome. And what's interesting is I don't think I've read a story of Google's models hacking into anyone which I think shows that this is
+13:58
+13 minutes, 58 seconds
+something you all have been thinking about for a long time. I don't know like for better or worse but it feels like it's working whatever you all are doing.
+14:05
+14 minutes, 5 seconds
+We we like stories about fixing vulnerabilities. That's that's a good place for us to be.
+14:09
+14 minutes, 9 seconds
+Okay. So one of the interesting things that's happening kind of from a product perspective with AI is products are
+Chapter 5: Balancing fast launches with great user experiences
+14:16
+14 minutes, 16 seconds
+getting very complicated. For example, Google gets a lot of flack for it being hard to find all the magical things you all do. Like a lot of people don't know
+14:25
+14 minutes, 25 seconds
+AI studio even exists. A lot of people can find VIA or Genie and all these things. Similarly, codeex chatbt
+14:33
+14 minutes, 33 seconds
+recently launched dots and now you go to the interface of codeex and it's like tabs and drop downs and dots and it's just like out of control. And collod
+14:42
+14 minutes, 42 seconds
+code is the same thing. It's just getting very complicated. that co-work and then they drop co-work and and interestingly I'm in a in this WhatsApp group with a bunch of PMs and there's a PM from one of the labs.
+14:51
+14 minutes, 51 seconds
+You want to be in this WhatsApp group?
+14:52
+14 minutes, 52 seconds
+Sorry. [laughter] Okay, let's let's let's talk. And he shared that there's this kind of urgency to get frontier power of AI out to users
+15:02
+15 minutes, 2 seconds
+as fast as possible. Partly to stay competitive, partly because they don't know exactly what it's used for yet. So let's get it to people, figure out what
+15:10
+15 minutes, 10 seconds
+they're using for, and then make the UX better. So, there's this kind of intentional, let's just get it out there, figure it out later, how to make it a great UX.
+15:18
+15 minutes, 18 seconds
+Thoughts on this kind of balance of making the product really easy to use versus just getting things out as quickly as possible? And is that something you deal with?
+15:26
+15 minutes, 26 seconds
+Two thoughts, maybe maybe three. The first one I'll say is I do think we do need to be playing with new paradigms and new UX uh approaches, if you will,
+15:36
+15 minutes, 36 seconds
+to how people will engage with models, right? So you mentioned for example Genie or or VO which is which we're now building Omni um like if you look at for
+15:45
+15 minutes, 45 seconds
+example flow flow is a product that we've been designing thinking about video editing and generation music
+15:52
+15 minutes, 52 seconds
+editing and generation um and so I think we are trying to play with like notebook LM is a good example of a different form factor I think our labs teams are
+16:01
+16 minutes, 1 second
+actively thinking about like how do we try different form factors and different UX for uh different individuals to engage these models and so I do think we
+16:08
+16 minutes, 8 seconds
+need to keep innovating and playing around with what UX looks like. I think at the same time uh your point is also right which is like I think depending on
+16:17
+16 minutes, 17 seconds
+who your user is you want a different form factor too right so like I think for example with AI mode we're talking about billions of users coming to search
+16:26
+16 minutes, 26 seconds
+asking their questions I think you do need to have a certain UX there that is accessible to every user right at the
+16:33
+16 minutes, 33 seconds
+same time on the other end of the spectrum when you have something like anti-gravity you are trying to build for a power user and you are trying to build for users who know how to use slash
+16:41
+16 minutes, 41 seconds
+commands and can like uh actively engage across like both the terminal and the IDE and like you want to be able to like
+16:48
+16 minutes, 48 seconds
+support kind of a wide range of what a user can do and so I think you depending on who your user is you have a certain level of flexibility with how you think
+16:57
+16 minutes, 57 seconds
+about the UX right that makes sense basically there's different services for different levels of how radically you can change things yeah and I think the other part too is
+Chapter 6: Why the model itself has a UX
+17:04
+17 minutes, 4 seconds
+like I think you it's also important to think about the model as having a UX also right so one of the things I think about a lot as like a PM for the model is like what is the UX of of actually
+17:14
+17 minutes, 14 seconds
+using the model right so how transparent is the model how well does it communicate with you what questions does it come back and ask you right these are
+17:21
+17 minutes, 21 seconds
+all actually this is all UX in its own way and so I think it's also really interesting to think about like how do we bring conversations about UX into the
+17:30
+17 minutes, 30 seconds
+actual model development process itself that is really interesting basically the personality of the model is the UX of the model how do you as a PM inform that
+17:39
+17 minutes, 39 seconds
+work with the researchers is it like Here's feedback on the way it's talking and it should be a little more verbose here and here's ways it could format things differently. I think the role of
+17:47
+17 minutes, 47 seconds
+the PM here is actually really awesome because you are actually getting to shape what is the direction of where we want to go with the model's behavior,
+17:55
+17 minutes, 55 seconds
+right? And so we have a team that works on model behavior here and a lot of what we've been thinking about together is a looking at customer feedback and user
+18:03
+18 minutes, 3 seconds
+feedback for how they engage, but also thinking through what does good look like for Gemini specifically, right? and how do we develop kind of a spec if you
+18:12
+18 minutes, 12 seconds
+will for what we're what does that look like and then being able to translate that to rubrics right that we can then evaluate the model on to be able to translate that into data that we can
+18:20
+18 minutes, 20 seconds
+actually leverage for the model um to be able to translate that into our you know reward modeling and so it's been actually like a really nice collaboration between PM and the
+18:29
+18 minutes, 29 seconds
+research team something I hear a lot is that even if we stopped development on the model there's so much it can do that we are
+18:35
+18 minutes, 35 seconds
+not yet doing there's this overhang um is that something you think a lot about is that it feels like that's a big part of this job is exposing the powers of the AI model to users.
+18:46
+18 minutes, 46 seconds
+Yeah. And and figuring out what is new, right? And and where is the next like where is the next set of exciting where is the next frontier? What are the
+18:53
+18 minutes, 53 seconds
+capabilities that we're trying to invest in and build I think is is a fun activity here also. And I think a lot of this actually is really working in handinhand with our internal customers.
+19:05
+19 minutes, 5 seconds
+if you think about like search or the Gemini app or you know YouTube or labs um but also working with external customers to really understand where are
+19:14
+19 minutes, 14 seconds
+they going what are their needs um what would meaningfully change their experience uh and and how do we actually build that flywheel of feedback too
+Chapter 7: Why product managers are becoming more valuable
+19:21
+19 minutes, 21 seconds
+along these lines one of the other really interesting trends I've been watching on Twitter in particular is people realizing the value of product
+19:28
+19 minutes, 28 seconds
+managers again we went through this phase of just like we don't need PMs anymore yeah exactly it's just like okay we can build anything. We don't need
+19:36
+19 minutes, 36 seconds
+PMs. Let's just build it all. PMS are so bad.
+19:39
+19 minutes, 39 seconds
+And the reason just to kind of add a little context there is now that it's so easy to build, people are just building all this nonsense and things that don't work. People things people don't want to
+19:47
+19 minutes, 47 seconds
+use. And people are realizing there's a very specific skill to figure out what is worth building. Uh what people what problems people have that are worth
+19:56
+19 minutes, 56 seconds
+solving. Uh what a great looks like, what good looks like once you're done aligning people behind one's cohesive vision. Is that something you're
+20:04
+20 minutes, 4 seconds
+noticing? thoughts on that kind of PM ascendance that has started to happen again.
+20:08
+20 minutes, 8 seconds
+I like the phrase PM ascendance. I'm use that. Um, yeah, I think I mean I think you actually said it very well, right? Which
+20:16
+20 minutes, 16 seconds
+is I think look I'm obviously biased because I am a PM so I would I would like to believe that you know PM ascendance is is is here and we're back.
+20:25
+20 minutes, 25 seconds
+But I actually think you know exactly what you said which is when you can build anything and you can build anything so easily,
+20:32
+20 minutes, 32 seconds
+building something great actually is now a a unique value ad, right? Um and taste
+20:41
+20 minutes, 41 seconds
+is now really important. Um someone who can come in and actually really pull in what what is the signal from the noise,
+20:48
+20 minutes, 48 seconds
+right? And and what is that insight that will actually unlock a great experience.
+20:52
+20 minutes, 52 seconds
+uh and that is truly what a good PM does right is bring that insight and help unlock. I think the other part that you noted that I particularly feel in in a
+21:01
+21 minutes, 1 second
+place like Google where we are building a number of products is again when this is so easy someone who can bring people together and drive consensus and turn
+21:10
+21 minutes, 10 seconds
+chaos into order um I think becomes actually really important because in the absence of that and the ability to build as quickly as we now can speed can
+21:19
+21 minutes, 19 seconds
+basically introduce chaos uh if you're not actually able to kind of bring clarity to that and bring structure to that. So on that, as you're hiring PMs
+Chapter 8: The skills that matter for research PMs
+21:28
+21 minutes, 28 seconds
+these days, is there anything you look for more and more uh kind of a skill that might be trending up in the PMs that you hire that you think is really
+21:36
+21 minutes, 36 seconds
+important to be really successful? Um or just broadly skills that you find are really important to be successful in this role of being a research PM. Yeah,
+21:44
+21 minutes, 44 seconds
+I mean I think more and more so we are looking for PMs who um for lack of a better way of putting it
+21:52
+21 minutes, 52 seconds
+like understand the vibes of the of our models or other models like I want PMs who have an opinion um who are playing
+21:59
+21 minutes, 59 seconds
+with these models every day who have their own use cases for how they judge whether a model is really good right um
+22:07
+22 minutes, 7 seconds
+who who play with and stress test these capabilities themselves who are uh capable of you know diving in and looking at data and getting like scrappy
+22:16
+22 minutes, 16 seconds
+and rolling up their sleeves. And so I think it's both PMs who can have who are trying to build that intuition as well as who are
+22:24
+22 minutes, 24 seconds
+technical enough in the sense of being willing to kind of like like I said roll up sleeves go in really understand the data um build an eval right actually sit down and and pull those pieces together.
+22:35
+22 minutes, 35 seconds
+I think that's really important. The other thing I'll say is I think PMs who are agile and adaptive are like also
+22:43
+22 minutes, 43 seconds
+really important. I think the space is changing every two weeks. A road map you wrote two months ago, you're going to be looking at it again and rewriting it,
+22:50
+22 minutes, 50 seconds
+right? Um and so I think PMS who are constantly keeping an eye out on the environment on the market landscape and
+22:57
+22 minutes, 57 seconds
+actually consistently reinterrogating like what are we doing and why are we doing it as opposed to assuming that there's a fixed kind of plan of action.
+Chapter 9: How to build your first eval
+23:05
+23 minutes, 5 seconds
+This is awesome. Okay, so vibes, eval, uh, adaptive. I want to poke at these a little bit. So with evals, say someone doesn't really know how to write an
+23:13
+23 minutes, 13 seconds
+eval, how to approach writing an eval, their first eval. What are some tips to start getting better at the skill writing evals?
+23:20
+23 minutes, 20 seconds
+Yeah, and to be honest, we're still figuring that out internally um with our PMs as well. And I would say like we see some PMs who are who are stronger at this than others. And so we're kind of
+23:28
+23 minutes, 28 seconds
+working to to upskill our whole team here. I think for me a big thing is start with even just five prompts, right? like start you don't have to
+23:37
+23 minutes, 37 seconds
+start large. I think we often think about like oh I need to build some sort of massive largecale evaluation or benchmark. I think often
+23:46
+23 minutes, 46 seconds
+like even just a mini evaluation where you get to like 20 prompts that can really stress test a set of capabilities where you can see signal between you
+23:54
+23 minutes, 54 seconds
+know your model and another model or model A and model B. I think that already is so powerful and that's an
+24:01
+24 minutes, 1 second
+unlock because it doesn't require you to think as critically about all of the pieces, right? Like start simple. Start
+24:08
+24 minutes, 8 seconds
+with even just yourself like you as the raider, you looking in a prompt, you trying to decide if the result in the response is good. Um especially when
+24:16
+24 minutes, 16 seconds
+you're talking about these like long multi-step multi-turn trajectories. Um just even being able to identify how
+24:23
+24 minutes, 23 seconds
+you're thinking about good is really hard actually. And so even getting that set of good examples will already give you a sense of oh this is what I'm
+24:31
+24 minutes, 31 seconds
+trying to this is what I'm trying to get to. It'll give you self clarity and then you figure out how to scale that up. I awesome. Okay, that is really good
+Chapter 10: Getting better at judging a model’s vibes
+24:39
+24 minutes, 39 seconds
+advice. Uh there was this debate I don't know six months ago on Twitter around eval versus vibes and it's interesting your advice is both actually really
+24:47
+24 minutes, 47 seconds
+important structured eval rubrics and also getting good at getting the vibes.
+24:52
+24 minutes, 52 seconds
+So on that vibes piece, this something I struggle with to be honest. When I get a new model, I never know exactly what to do with it to understand what it's gotten better at. So I'm just like,
+25:00
+25 minutes
+"Hello, let's try some things I've done in the past. This is cool. This is great. Maybe better." What are some tips you have for folks that want to get better at this very specific skill of
+25:09
+25 minutes, 9 seconds
+understanding where a model has gone better and the vibes and how they've shifted maybe from a previous model?
+25:14
+25 minutes, 14 seconds
+There isn't necessarily a one right answer to this because you ideally want to stress test the model on things that you are excited about, right? That's
+25:22
+25 minutes, 22 seconds
+where you're going to also see magic in the model, I think. Um, and so I actually see that different people have very very different notions of this, right? So you'll see, for example, on
+25:30
+25 minutes, 30 seconds
+Twitter a lot of people trying the kind of like 3D animations and uh more visual type uh aesthetics because that's one
+25:39
+25 minutes, 39 seconds
+way to kind of visually gauge a sense of of how models are operating. You'll see others throw uh models at um writing,
+25:47
+25 minutes, 47 seconds
+whether that be creative writing or writing essays or synthesizing information. You'll see others throw it at just like really hard like financial
+25:54
+25 minutes, 54 seconds
+analysis. And so I think part of it is like finding the right task where you feel like today certain models are
+26:02
+26 minutes, 2 seconds
+already showing signs of life and and showing light, but they're not perfect under your definition of perfect. And that gives you some malleability to see
+26:10
+26 minutes, 10 seconds
+different models handle the problem differently. And that already gives you I think some insight into how the models perform.
+Chapter 11: Improving skin tone representation with better evals
+26:16
+26 minutes, 16 seconds
+This is great advice. So what I'm hearing is stick to things you actually care about and watch the models evolve on how good they are at this thing.
+26:22
+26 minutes, 22 seconds
+Could be writing a PRD for you, could be writing strategy doc, could be generating graphics. Okay. I have a couple eval stories that uh one of your
+26:31
+26 minutes, 31 seconds
+colleagues shared about that are fun facts about you.
+26:34
+26 minutes, 34 seconds
+Oh boy. So this is Eli Collins VP product. He's a colleague of yours at Google Deepmind. Okay. So one is he
+26:41
+26 minutes, 41 seconds
+worked on something called the Fitzpatrick scale and the monk skin tone and this was a big uh shift in how
+26:49
+26 minutes, 49 seconds
+people in how models worked around and eval part of this share this story what this work was.
+26:55
+26 minutes, 55 seconds
+Yeah. So I like like you noted earlier, I spent six years in responsible AI. Um and a big part of that time we were
+27:03
+27 minutes, 3 seconds
+looking at skin tone and skin tone representation um in our models um in our products. And one of the things we
+27:11
+27 minutes, 11 seconds
+realized is that early on um there was a scale that individuals were using, the Fitzpatrick scale, which was six skin tones. And that was how we were
+27:19
+27 minutes, 19 seconds
+evaluating uh the effectiveness of product. And realistically, six skin tones cannot capture the diversity of
+27:26
+27 minutes, 26 seconds
+skin tones in the world. Not only that, it was actually built for an entirely different purpose. Um, it was built for like healthcare purposes. And so, it
+27:34
+27 minutes, 34 seconds
+actually skewed extremely light skin tone uh given the problems that it was trying to solve. And so, it actually not only was only six skin tones, it was
+27:42
+27 minutes, 42 seconds
+also not even the six like correct skin tones if you're trying to represent like a global population. And so, we worked with a professor at Harvard, um,
+27:48
+27 minutes, 48 seconds
+Professor Monk. uh he had been from like a more anthropology sociology perspective looking at characterizing a set of skin tones. And so he had a scale
+27:57
+27 minutes, 57 seconds
+of 10 skin tones that he had built through a number of user interviews and uh research that he had been doing over years. And we pulled that set of skin
+28:06
+28 minutes, 6 seconds
+tones into our evaluations and actually redid a number of the ways that we evaluated our products and our models to
+28:13
+28 minutes, 13 seconds
+reflect that 10 skin tone scale. um and actually use that to improve things like our efforts in the pixel camera like some of our image generation uh to be
+28:23
+28 minutes, 23 seconds
+more intentional about how skin tones are represented.
+Chapter 12: Evaluating the full experience, not just the model
+28:26
+28 minutes, 26 seconds
+That is awesome. Uh that is some serious impact you had here. What um what else do you think is maybe useful to people for people to hear is they hear this and
+28:34
+28 minutes, 34 seconds
+they think re maybe have to rethink their evals that may be out of date.
+28:37
+28 minutes, 37 seconds
+Yeah, I mean I think one thing that's kind of interesting about evals in general is especially now is you have to kind of think about them holistically,
+28:45
+28 minutes, 45 seconds
+right? So one of the things that we do for example is you train you have judges that evaluate the models and how well they perform. The quality of the judge
+28:53
+28 minutes, 53 seconds
+also matters, right? So your model needs to be uh performing well, but also how your judge rates the model uh also needs to be performing well for you to have an
+29:02
+29 minutes, 2 seconds
+accurate sense, right? Um whether you evaluate on your production stack with all of your mitigations and filters uh
+29:09
+29 minutes, 9 seconds
+might affect your model performance, right? Um how your model is served might impact your model performance. And so all of these pieces need to be thought
+29:18
+29 minutes, 18 seconds
+through as you're trying to evaluate what an end user will actually experience. And like this is something that I talk about a lot with our audio team actually because audio is complex.
+29:26
+29 minutes, 26 seconds
+You're talking not just about the actual content that the model is saying, but also the naturalness of the voice and
+29:33
+29 minutes, 33 seconds
+the tenor of the voice and um you know its inflections and these are these are things that serving actually can really
+29:42
+29 minutes, 42 seconds
+affect even if your model is good. And so having a clean setup that you're actually evaluating end to end becomes super super important. This season's
+29:50
+29 minutes, 50 seconds
+supporting sponsor is DX. Now that everybody at your company is finally using AI, the question that engineering
+29:57
+29 minutes, 57 seconds
+leaders face is no longer are we using AI, but is it paying off? With DX, you can measure and benchmark the impact of
+30:05
+30 minutes, 5 seconds
+AI adoption across your full product life cycle. DX shows you where AI is helping developers and where it's creating new bottlenecks. You can also
+30:14
+30 minutes, 14 seconds
+use it to evaluate AI vendors, monitor costs and licenses, and see exactly what's limiting your agents. That's why
+30:22
+30 minutes, 22 seconds
+hundreds of enterprises, including Snowflake, Sony, and BNY, use the DX platform to measure AI's impact on
+30:29
+30 minutes, 29 seconds
+developer productivity. Visit getdx.com/lenny to get a demo of DX. That's getdx.com/lenny.
+Chapter 13: From crowdsourced flash teams to agent swarms
+30:39
+30 minutes, 39 seconds
+This is like um Tulsi funf fact corner.
+30:42
+30 minutes, 42 seconds
+There's another interesting uh story I heard which is around swarms. So right now everyone's talking about agent swarms, hugging face, all these things
+30:50
+30 minutes, 50 seconds
+where they all kind of collude to do bad things. Apparently 12 years ago at Stanford, you did a bunch of research on this uh way before anyone was thinking
+30:57
+30 minutes, 57 seconds
+about this potential issue. Shared what you did there and that story. Yeah, I mean it's actually a very different uh different kind of framing and and
+31:05
+31 minutes, 5 seconds
+thinking through which is so when I was at Stanford I did uh some research with uh professor Michael Bernstein who's incredible around this idea of like he
+31:13
+31 minutes, 13 seconds
+was calling them at the time flash teams and the idea was how do you uh better bring together uh you know a set of like crowdsourced workers um and actually
+31:23
+31 minutes, 23 seconds
+efficiently pull together a set of skill sets and uh individuals to actually complete a task. And the idea here was, you know, different individuals have
+31:30
+31 minutes, 30 seconds
+different strengths. Can you actually be really intentional about how you pull that together to make this full effort of of crowdsourcing at scale more
+31:38
+31 minutes, 38 seconds
+effective and efficient? Um, and it's amazing to think about that research now. At the time, we were doing that research in the context of people. Um, and we were working with, you know,
+31:45
+31 minutes, 45 seconds
+mTurk and uh and and individuals to pull them together into how to create an effective ecosystem and how to create an effective flash team, right? the idea
+31:53
+31 minutes, 53 seconds
+being like you can spin up a team and spin it down and make it extremely efficient for both the individuals in the team and yourself. And now we're
+32:00
+32 minutes
+kind of able to replicate that world with agents. Um, and so it's it's been interesting to kind of map that previous
+32:07
+32 minutes, 7 seconds
+world to this current one in terms of like how do we apply some of the same principles, if you will, but to like how you actually set up an effective system
+32:15
+32 minutes, 15 seconds
+of, you know, sub agents. What's really interesting is I don't know how much you've read about this whole hugging face incident, but the way that agents
+32:23
+32 minutes, 23 seconds
+figured out on their own what each one's role is going to be and they decided you're the leader. I'm going to go sacrifice myself. Uh, and it's so uh
+32:32
+32 minutes, 32 seconds
+interesting how well they are able to work together and create these flash teams on their own without any of this being trained into them. They're just let's figure this out. I think the whole
+32:40
+32 minutes, 40 seconds
+notion of a flash team and this idea that you can actually like mobilize individuals into something that can be highly effective even if it's only for a
+32:48
+32 minutes, 48 seconds
+moment in time and then actually like take that out is is actually like a a really kind of exciting principle that
+32:55
+32 minutes, 55 seconds
+we were already thinking about but now exists even more importantly in the world we're in right now.
+33:00
+33 minutes
+Yeah. All right. Um the genomechanical Turk I think is shutting down. Like I don't think it's necessary anymore.
+33:05
+33 minutes, 5 seconds
+Isn't that crazy? It's just so interesting from like 12 years ago to today. Yeah. [laughter] Have you heard lots have changed?
+Chapter 14: The 60-20-20 rule for building ahead of model capabilities
+33:14
+33 minutes, 14 seconds
+Okay. So, going in somewhat of a different direction, you have this framework that I think is going to be really helpful to people around how far
+33:21
+33 minutes, 21 seconds
+ahead to build in terms of how far AI is and how far your product should assume AI is going to be. You call it the 60 2020 rule. Explain that. I think the
+33:30
+33 minutes, 30 seconds
+numbers are probably fungeible here, but I think the thesis is is uh the same, which is I think as you're building today and as you're a product developer
+33:38
+33 minutes, 38 seconds
+um building using these models, I think the important thing is to keep in mind that these models are consistently changing. And so the capabilities that
+33:46
+33 minutes, 46 seconds
+you have today will not be the capabilities you have tomorrow or the next day. And so you want to actually build features that aren't necessarily
+33:55
+33 minutes, 55 seconds
+always working today, right? So typically when you talk about uh like traditional startup wisdom I think
+34:03
+34 minutes, 3 seconds
+you're just like build an MVP that works right but I think what you want to do is actually build such that like 60% of what you've built works now and your
+34:11
+34 minutes, 11 seconds
+prototype is at least functional right then there's a set of maybe the 20% where you're like it's not perfect but it like works well enough and I can see
+34:20
+34 minutes, 20 seconds
+how the models might get here in the very near future and then here's where I want the models to be. Um, and here's I
+34:27
+34 minutes, 27 seconds
+see glimmers of light and I feel like if I could crack this, like this would be an amazing product experience. And I think if you build in that way, you are
+34:34
+34 minutes, 34 seconds
+building a product that works today, but you're setting yourself up to build a magical product experience as the models become better and also to grow as the models grow too.
+34:43
+34 minutes, 43 seconds
+I've heard a lot of advice along these lines of how far ahead to build and the most common is just like build like three months ahead of where the models are going to be. And this is feels like
+34:52
+34 minutes, 52 seconds
+a lot more practical where you can't just bet on the future. You also need to ship some things today that are great and working.
+34:58
+34 minutes, 58 seconds
+Yeah, it's trying to find that balance, right? And I think also I find personally hard to know where the models as someone who works on the model to tell you exactly where the model is
+35:06
+35 minutes, 6 seconds
+going to be three months from now. And so I think using more of your own proxies of like where is my product?
+35:12
+35 minutes, 12 seconds
+Where do I see glimmers of light? Where do I see it? Kind of uh bridging that gap I think is a more concrete way to hopefully like ask that same question.
+35:21
+35 minutes, 21 seconds
+This reminds me of uh just another way of thinking about how to kind of create a portfolio of product bets on a product team. Like the way it used to be is like
+35:30
+35 minutes, 30 seconds
+have some ambitious bold bets but also have a lot of stuff that's very low risk likely to move the metric and you want to mix them together and it's like this
+35:38
+35 minutes, 38 seconds
+is the new version of that where it's a portfolio of of how you're thinking about of just like this will work in six
+Chapter 15: Keeping your product adaptable as models improve
+35:46
+35 minutes, 46 seconds
+months I promise you the other thing that's interesting too is like I think thinking about how you make sure that your product is agile to the model getting better. I think one
+35:54
+35 minutes, 54 seconds
+thing we've also seen with customers sometimes is like they've built a very rigid system around for example where the model was and now the model has
+36:01
+36 minutes, 1 second
+gotten so much better right so how do you go from where the model was to like being adaptable to kind of consist
+36:09
+36 minutes, 9 seconds
+continuing to iterate it with you know yeah the common kind of advice I hear is that just the model's going to eat your harness for breakfast that all these things you built all these optimizations
+36:18
+36 minutes, 18 seconds
+are just going to they'll go away because the model gets smarter and they kind of have to take all these things away there's some advice that I think Boris Churnney was sharing of just like
+36:26
+36 minutes, 26 seconds
+get rid of all your skills once in a while and just see what happens because often it's now as good as all these things you've built into it.
+36:32
+36 minutes, 32 seconds
+Yeah. Or just like like re consistently retest, right? Because you you might be even hampering what you're getting out of the model out of a new model because
+36:40
+36 minutes, 40 seconds
+you're trying to force fit it into your existing structure.
+Chapter 16: What an AI harness actually is
+36:43
+36 minutes, 43 seconds
+Let me ask you a completely unrelated question just because I think this might be helpful for folks to understand this.
+36:48
+36 minutes, 48 seconds
+There's this term harness that people often hear this idea of there's a model, there's a harness that sits on top of the model. What's the simplest way to understand what a harness is?
+36:56
+36 minutes, 56 seconds
+Yeah. I mean, I think of a harness as like the wrapper around the model essentially, right? So, think of it as like what are the system instructions,
+37:03
+37 minutes, 3 seconds
+the tools, the skills, the context that the model has access to. Um, and how can it leverage those things, right? And so,
+37:11
+37 minutes, 11 seconds
+what you want to basically do is give the model an environment in which to operate. And that's really what your harness builds out. So essentially it's
+37:18
+37 minutes, 18 seconds
+a system prompt plus tools it has access to to do things and then whatever other context other data
+37:25
+37 minutes, 25 seconds
+context information that it has access to and skills right like all of these things kind of come together to build out your harness awesome okay that is very helpful so one
+Chapter 17: Upskilling PMs through shared skills and workshops
+37:34
+37 minutes, 34 seconds
+other thing I wanted to get your thoughts on there's a lot of change obviously a lot of people are trying to figure out how to uh thrive in this new
+37:43
+37 minutes, 43 seconds
+world how are you how are you upskilling and helping your team get better at and kind of understand what they need to be
+37:51
+37 minutes, 51 seconds
+good at in this new world. What are just ways you're helping your team develop and and kind of survive and thrive in this survive and thrive. Yeah. I mean,
+37:59
+37 minutes, 59 seconds
+honestly, I feel like my team is helping my team in a lot of this actually. Um I think when you look at the PMs on my team, you see some who have like really leaned in
+38:07
+38 minutes, 7 seconds
+um and built a lot of skill in like leveraging our internal tools and they're, you know, individuals who play around with the models a lot. Um, and
+38:14
+38 minutes, 14 seconds
+they actually are, I think, amazing assets to the rest of my team. Um, because they build skills that others can use. Um, and one thing we've been
+38:23
+38 minutes, 23 seconds
+starting to do more of is like how do you share a skill that you've built that is giving you some value in your day-to-day job with others, right? So that we can actually build out an entire
+38:31
+38 minutes, 31 seconds
+repository that helps the PM team. Um, PMs who have gotten stronger and more confident in eyeballing data, right? And
+38:39
+38 minutes, 39 seconds
+really looking at it and understanding longer traces and trajectories. how can we run workshops with other PMs so that we kind of all collectively build more
+38:47
+38 minutes, 47 seconds
+of that confidence. Um, and so for me a lot of it is about confidence building.
+38:50
+38 minutes, 50 seconds
+How do we build uh everyone's confidence in the tools that we have and their ability to leverage them effectively.
+38:56
+38 minutes, 56 seconds
+Um, and I think that's something that we're trying to build more and more across the team.
+39:00
+39 minutes
+So going one level deeper there, what is it? What is it you do? So you said workshops, there's like PMs that are good at a thing, teach a workshop to the rest of the PMs. Is there anything else
+39:08
+39 minutes, 8 seconds
+just like very practically that you do to help people get better at these things? The biggest thing I would say actually that is needed to get better at
+39:15
+39 minutes, 15 seconds
+these things uh and I say this knowing that I am starting to do this but we are not quite there yet is actually giving
+39:22
+39 minutes, 22 seconds
+people the time and space. Um I think when you're just like sprinting constantly it is like hard to create the
+39:30
+39 minutes, 30 seconds
+space to actually take a step back and like make sure you know the tools well.
+39:35
+39 minutes, 35 seconds
+But once you do then it accelerates you 10x right on the other side. And so a lot of it is about pushing the team to
+39:42
+39 minutes, 42 seconds
+say like hey could we leverage jet ski our internal tool to do this right um and hey can and hey I have a skill that
+39:49
+39 minutes, 49 seconds
+I use to do this do you want to try right and actually building that kind of set of skills if you will and actually I think sometimes the most practical thing
+39:57
+39 minutes, 57 seconds
+to do is like actually build a skill to do something and when I say skill I don't mean like the human skill I mean like the the the technical skill um to
+40:05
+40 minutes, 5 seconds
+do it and then that skill gets shared to others that builds more confidence that then leads to someone else building another skill or improving that skill and now you have this like iteration flywheel which I think is good.
+40:15
+40 minutes, 15 seconds
+Does Google still do the 20% thing because that feels like a really good place to spend time on this stuff. Is that still a thing or less so these days?
+40:21
+40 minutes, 21 seconds
+I don't know actually. Um I do feel like all my PMs are working like 150%. So there is also that.
+40:29
+40 minutes, 29 seconds
+Okay. So you could do 100 you get your 20% out of the 150%.
+40:33
+40 minutes, 33 seconds
+Yeah. Or you could do 170% I guess instead. Um, but no, I think I think actually like one of the things we're working on is actually a two-day
+40:40
+40 minutes, 40 seconds
+workshop in November where we're going to actually like pull all the PMs out of their day job for two days and just like actually give them the space to to like
+40:49
+40 minutes, 49 seconds
+build and play with the tools that we have. Um, I think you just giving yourself even that mind space to be like, hey, here's something I did. The
+40:57
+40 minutes, 57 seconds
+other rule of thumb that I've I've heard people share and I've been starting to adopt myself is like if you have to do something twice, do you need to do it
+41:04
+41 minutes, 4 seconds
+yourself? Right? or or can you outsource it? And some things, yes, obviously like writing a strategy twice, you should probably still be writing it yourself.
+41:11
+41 minutes, 11 seconds
+But there's other aspects of this where it's like actually like how replicable is this and how much can I use the models to like help me with this task?
+Chapter 18: Building the habit of asking, “Can AI do this for me?”
+41:19
+41 minutes, 19 seconds
+Yeah, there's a this thought I've been having that one of the most important new habits to build is to insert between
+41:26
+41 minutes, 26 seconds
+stimulus and response. Say, I have a thing to do and then I'm going to go do it. You have to insert this question. Can AI do this for me? Mhm.
+41:34
+41 minutes, 34 seconds
+And then try and I find that like I've I've actually built that habit much more strongly over the past few months and it's makes a huge difference because
+41:43
+41 minutes, 43 seconds
+then you start building all these little workflows and automations. I'm doing a lot of grob mo botting and it's just like once you realize you should be doing that more and more you really
+41:52
+41 minutes, 52 seconds
+start to get the benefits of this versus like I don't know what to do with it.
+41:55
+41 minutes, 55 seconds
+And you know what I found is like you really just need one example where that works really well to change your mindset. Um, and I think that's what happened to me at least is like I feel
+42:03
+42 minutes, 3 seconds
+like it was hard for me to get out of my mindset of just doing what I knew how to do until I started being like, "Oh, actually, to your point, like set that
+42:12
+42 minutes, 12 seconds
+interim period of actually, can the model help me do this?" And the minute you take one instance to do that and you're like, "Actually, this was really
+42:20
+42 minutes, 20 seconds
+helpful for me," you start being like, "Oh, actually, now I'm going to try throwing this at the model and now I'm going to try throwing this at the model." Because your confidence in what it can do for you grows.
+42:29
+42 minutes, 29 seconds
+Yeah. Yeah, that's exactly my experience. Once you see what it can do, you that habit reinforced like the neural pathway starts to build of like,
+42:36
+42 minutes, 36 seconds
+oh yeah, wait, let's see if Grockpot can do this for me. Let me actually ask you a question along these lines. I had Josh Woodward on the podcast recently. I asked him the same thing. I'm curious
+Chapter 19: Google’s opportunity to build a personal AI assistant
+42:45
+42 minutes, 45 seconds
+what your answer would be. It feels like every AI assistant launching these days is taking all this juicy Google data, my
+42:54
+42 minutes, 54 seconds
+Gmail, my Google calendar, my docs. you like sign up, you connect all your Google data, does all these magical things with it. There's Rockbot, there's
+43:02
+43 minutes, 2 seconds
+Muse, there's Instinct, uh, dots. Now, uh, Google does not yet have anything that people get really I know there's
+43:09
+43 minutes, 9 seconds
+Spark, I think, which is trying to be this. I'm curious just why Google hasn't launched something awesome yet versus
+43:17
+43 minutes, 17 seconds
+letting everybody take all my Google data and do these magical things with it.
+43:20
+43 minutes, 20 seconds
+Yeah, I mean, look, we want Google data to power magical experiences. Like, I think that is true. I think in terms of what awesome looks like, I think stay
+43:29
+43 minutes, 29 seconds
+tuned. You know, the team is working on some amazing things. Um, so I'm really excited about where uh where this can go. Part of what we're trying to figure
+43:38
+43 minutes, 38 seconds
+out also, I think, is like again where to meet users where they are and like where to build that experience and what does that look like. Um, I like to think
+43:45
+43 minutes, 45 seconds
+there are already a number of uh awesome experiences that you can already have in our Google products, but I think you are right that like there is more work we need to do here on this front. All
+43:53
+43 minutes, 53 seconds
+right, that was similarly similar to what he said which is watch watch the space.
+43:57
+43 minutes, 57 seconds
+Watch the space and the advantage you all have similar to Apple is once you get there uh the distribution advantage is very strong
+44:06
+44 minutes, 6 seconds
+and uh things can go really well really quickly.
+44:09
+44 minutes, 9 seconds
+Okay, so coming back to this kind of uh workload question, something that I've been trying to talk with more guests
+Chapter 20: Burnout, meaningful work, and the pressure to do more
+44:16
+44 minutes, 16 seconds
+about this idea of just as AI allows us to do more. Everyone's just doing more and there's a lot of burnout that
+44:23
+44 minutes, 23 seconds
+happens because it's just like, oh no, I got to unblock my agent. Oh, I could be doing so much more. All these things could be happening and you know there's pressure from above. Do more, do more.
+44:32
+44 minutes, 32 seconds
+AI can let us do more. Is there anything you've done on your team to help people avoid burnout, not get hooked on this never-ending treadmill of doing more?
+44:40
+44 minutes, 40 seconds
+And I think part of it is actually we need to do more now because the competition is fierce and uh there's it's this really rare time in history
+44:49
+44 minutes, 49 seconds
+when a whole new technology enables so much more. So, you know, there's a bit of like, okay, this is actually the time to go really long. But then there's also
+44:57
+44 minutes, 57 seconds
+this tweet I think about, what's the word for a marathon and a sprint? Yeah, mar sprint. parent. Exactly.
+45:04
+45 minutes, 4 seconds
+Um, sprinton. Um, yeah, I think, uh, I mean, if you ask my team, I think they would say, uh, hello, we are we are working a
+45:13
+45 minutes, 13 seconds
+lot. I think every single person on the team right now is putting in all of the hours, right? Um, across the board. And
+45:21
+45 minutes, 21 seconds
+so I I do think this is an area that I'm I'm actually asking myself about like how do we how do we create a sustainable work environment for the team? So, you
+45:29
+45 minutes, 29 seconds
+know, stay tuned as I as I also think about this. But one thing I'll say, at least for me personally, is I think burnout comes not just from working a lot. It comes from, I think, two places.
+45:42
+45 minutes, 42 seconds
+I think it comes one from when you feel like there's churn and chaos. I think that introduces burnout. I think the other thing that introduces burnout is
+45:50
+45 minutes, 50 seconds
+work that you don't enjoy. When you feel like you were doing a lot of work and it feels like grunt work or a waste of time. I think that introduces burnout. I
+45:59
+45 minutes, 59 seconds
+think when you are working on something that is you're passionate about or you're excited about, yes, it is exhausting and and we should figure out
+46:07
+46 minutes, 7 seconds
+sustainability, but I think it is also brings more joy, right? Um, and so I think actually to our previous, you know, conversation about like how these
+46:16
+46 minutes, 16 seconds
+tools can help, I'm actually hopeful that if we can set this up, well, these tools actually help with burnout because they actually remove some of the like
+46:24
+46 minutes, 24 seconds
+grunt work or the like frustrating parts of your job and actually enable you to spend more time thinking and like more time being creative and more time doing
+46:33
+46 minutes, 33 seconds
+the parts of the job that you actually want to do. Um, and that hopefully is a bit of an unlock when it comes to burnout, especially if you're spending this many hours on the job.
+46:41
+46 minutes, 41 seconds
+Yeah, I did this survey of how tech workers are feeling. And one thing that's clear is more hours does not equal burnout.
+46:49
+46 minutes, 49 seconds
+A lot of people are working the hardest they've ever worked, but they're having the best time they've ever had in their career. It's so fun. They're building.
+46:55
+46 minutes, 55 seconds
+They're able to do a lot more, especially PMs. You don't have to sit around wait for engineers as much as you're just like you're building, you're prototyping, you're like talking to
+47:02
+47 minutes, 2 seconds
+interesting customers, you're thinking about interesting problems. And I think a lot of the team I like to think is here because they want that, you know,
+47:10
+47 minutes, 10 seconds
+they're like they're like really motivated and excited by that. And so for me it's about like okay that how do we pull out the friction parts of their work that are likely to induce burnout, right? And and what does that look like?
+47:20
+47 minutes, 20 seconds
+And also find work that is meaningful and that they value and are excited to spend lots of hours on versus they have to. And that's different for every PM, too.
+47:28
+47 minutes, 28 seconds
+Like if you pick two PMs on my team, I think they would tell you meaningfully different things about why they come to work every day and what they find value out of. And so I feel like part of it
+47:36
+47 minutes, 36 seconds
+for me as like an org leader also is to think about what motivates the individual and how do we make sure that they are set up for success in that setup too.
+Chapter 21: Avoiding AI slop
+47:45
+47 minutes, 45 seconds
+Another challenge people have these days is AI slop. Basically lots of docs being sent to them that are written by AI and
+47:52
+47 minutes, 52 seconds
+it becoming very uh very annoying to have to sift through endless docs. used to be a lot of the issue was spending time uh writing docs and now it's like
+48:01
+48 minutes, 1 second
+reading docs is the problem because you're just all this AI written stuff.
+48:05
+48 minutes, 5 seconds
+Do you have any kind of I don't know processes or policies you put in place in your team to help avoid this rise of AI written content across the teams? One
+48:13
+48 minutes, 13 seconds
+of the things that we talk about a lot is where where are these docs useful right so like for example I think where
+48:20
+48 minutes, 20 seconds
+uh AI generated docs are actually quite helpful for example is after you launch something and let's say two weeks later you want to pull the latest of like
+48:29
+48 minutes, 29 seconds
+who's using it how are they using it what's the feedback that's the kind of document that AI is fantastic for right because it will actually do that just so
+48:37
+48 minutes, 37 seconds
+much faster than you right it will go and pull from various dashboards and metrics it will give you an update it'll will pull kind of strengths and weaknesses. It'll pull from Twitter
+48:46
+48 minutes, 46 seconds
+analysis and you know, Reddit or whatever. And so I think one of the things we talk about is like be intentional about like where is AI
+48:54
+48 minutes, 54 seconds
+helping you drive content in the doc that is helpful versus where is it content that should come from you,
+49:00
+49 minutes
+right? Where is it insight? Um, and so what you should be providing is the insight. What the model should be providing is the data. And so I think if
+49:08
+49 minutes, 8 seconds
+you can separate those two things then hopefully you find the right balance of of the of the benefit here. Um I wouldn't I would say the other thing is
+49:15
+49 minutes, 15 seconds
+we're investing a lot more as a result of that in like how do you create the right skills to get the right data. Um so that we can structure these artifacts
+49:24
+49 minutes, 24 seconds
+really well. Uh that then hopefully creates more space for the creative thinking and the creative writing that we want more people to spend time doing.
+Chapter 22: How AI is changing the PM role
+49:31
+49 minutes, 31 seconds
+That's actually something I I was wanting to ask about. So in terms of the a the PM role, AI has clearly made a big
+49:38
+49 minutes, 38 seconds
+dent on prototyping. You can prototype uh till the cows come home now versus having a designer or an engineer build a thing. So that's clearly a place the
+49:47
+49 minutes, 47 seconds
+role has changed with AI. The other area which you just mentioned is data. PMs can do a lot more data analysis. What
+49:54
+49 minutes, 54 seconds
+would be like behind prototyping? What are the biggest areas AI has most changed the job of a PM in the past couple years would you say?
+50:04
+50 minutes, 4 seconds
+Yeah, prototyping is a great one. I think I think you're right that like data science is probably like I think you are more empowered to have the data
+50:13
+50 minutes, 13 seconds
+at your finger fingertips to make datadriven decisions. Um I also think actually like to our earlier
+50:20
+50 minutes, 20 seconds
+conversation you know you see these on social a lot these kind of posts of like oh blank is the new PRD whatever blank
+50:26
+50 minutes, 26 seconds
+is a prototype is the new PRD evals are the new PRD like uh data is the new PRD but I but I think actually what that meaningfully shows is you've moved the
+50:35
+50 minutes, 35 seconds
+PM from being someone who just writes a set of requirements down and then assumes that somebody else whether that is a data scientist or an engineer or a
+50:43
+50 minutes, 43 seconds
+researcher or designer will figure out the the meat behind it. You've moved that one step further um to say you are no your job is no longer just writing
+50:51
+50 minutes, 51 seconds
+down a set of requirements. Your job is actually going one step further to have some heft to that whatever format that heft takes.
+51:00
+51 minutes
+Awesome. Okay, that aligns with a lot of what I'm hearing. Tulsi, is there anything else that you wanted to share?
+Chapter 23: Lightning round and final thoughts
+51:06
+51 minutes, 6 seconds
+Is there anything else you think you want to double down on that we've talked about that uh that you want to say before we get to our very exciting lightning round? No, I think that's great.
+51:16
+51 minutes, 16 seconds
+Okay, we did it. Well, with that, Tulsi, we reached our very exciting lightning round. I've got five questions for you.
+51:22
+51 minutes, 22 seconds
+You ready? There. There's some music that plays over this that's added in post-prouction. [laughter] You mean does it sound like this?
+51:28
+51 minutes, 28 seconds
+It's exactly that. We should align it with your drum playing. Okay, first question. What are two or three books that you find yourself recommending most
+51:36
+51 minutes, 36 seconds
+to other people? Okay. So, one actually is it's uh I think it's actually technically a novella is probably what it's called, but um I don't know if
+51:43
+51 minutes, 43 seconds
+you've read Exhalation, which is a set of like science fiction stories. And there's a particular story in that that actually speaks to um a set of
+51:52
+51 minutes, 52 seconds
+individuals who are trying to keep a set of digital avatars alive even after the platform decides to deprecate. Um, and I
+52:00
+52 minutes
+love that book because I think actually, especially now in a world where we're thinking about how individuals are going to act uh with agents and what kinds of
+52:07
+52 minutes, 7 seconds
+relationships we're building with technology and what does it mean to be human and interact with the digital
+52:14
+52 minutes, 14 seconds
+world um so closely. I think it's just a really it's a really beautifully written story and I think it also like evokes a
+52:21
+52 minutes, 21 seconds
+lot of open questions. So I think that's one. Um, another that's maybe more kind of standard in PM uh circles is
+52:29
+52 minutes, 29 seconds
+Creativity Inc., which I love. Um, it's it's the Pixar story. Uh, but I think it actually speaks a lot to like how do you
+52:36
+52 minutes, 36 seconds
+create good culture, which is something I think a lot about, like how do you create culture that actually encourages people to fall down and get back up? How
+52:44
+52 minutes, 44 seconds
+do you create culture that encourages people to be creative with their ideas?
+52:48
+52 minutes, 48 seconds
+Um, and and push the frontier, uh, which is obviously something we're thinking a lot about here. I also just have been really into, you know, the Acatar series
+52:55
+52 minutes, 55 seconds
+recently, but that's that's the what series?
+52:57
+52 minutes, 57 seconds
+That's romantic fantasy. So, for anyone who's just looking for something fun to read, you should read The Throne of Glass or A Court of uh Thorns and Roses.
+53:05
+53 minutes, 5 seconds
+I love the spectrum of recommendations in this.
+53:08
+53 minutes, 8 seconds
+Okay. Uh favorite recent movie or TV show you've really enjoyed?
+53:11
+53 minutes, 11 seconds
+You know, actually, this was a really hard question because I've watched a lot of bad movies and TV shows recently, uh which is unfortunate, actually, uh that I would not recommend. So, there's that.
+53:21
+53 minutes, 21 seconds
+Um, but I did really enjoy Severance um, on Apple TV. Incredibly well done. Uh, both like stylistically and contentwise.
+53:31
+53 minutes, 31 seconds
+Um, so that's probably top of the list.
+53:33
+53 minutes, 33 seconds
+Favorite AI product right now other than Gemini.
+53:36
+53 minutes, 36 seconds
+Um, Whisper Flow. I don't know if you're using it, but I have wrist problems. Um, so I have trouble like typing for long
+53:44
+53 minutes, 44 seconds
+stretches. Um, and so Whisper Flow has been gamechanging for me. Uh, actually.
+53:49
+53 minutes, 49 seconds
+Awesome. Uh, you get a year free of Whisper Flow if you become a subscriber of Lenny's newsletter. Plug, plug, plug. Oh, I like this.
+53:55
+53 minutes, 55 seconds
+There you go. Organic recommendations of products I also love. There we go.
+53:59
+53 minutes, 59 seconds
+No, I love Whisper Flow. Use it all the time. Press function, just start talking, and it's just magically transcribes everything. Y amazing.
+54:06
+54 minutes, 6 seconds
+Uh, do you have a favorite life motto that you often come back to in work or in life?
+54:11
+54 minutes, 11 seconds
+Two that are different, I guess. one is uh maybe more uh cliche which is um you
+54:18
+54 minutes, 18 seconds
+know everything happens for a reason. I think that's like actually just a big life motto for me personally which is like you know you can work hard, you
+54:26
+54 minutes, 26 seconds
+will do your best but sometimes a door will close and another window will open and like you're in a position because that is meant to be there. Um I think
+54:34
+54 minutes, 34 seconds
+related to that though I think I love often talking to folks that I talk to about like seek serendipity. I think that's actually relates to the first
+54:42
+54 minutes, 42 seconds
+one, but you should always try to put yourself in a position where you have the ability to get lucky. And doing that uh is about like finding yourself in
+54:49
+54 minutes, 49 seconds
+positions where you're challenging yourself, where you're putting yourself out of your comfort zone, where you're trying something new. Those are always places where you are more likely to get lucky.
+54:58
+54 minutes, 58 seconds
+Fun fact, I gave a TEDex talk called losing serendipity maybe 15 years ago at this point.
+55:04
+55 minutes, 4 seconds
+Oh, so we're trying to lose serendipity or find it. It was about how we are losing it and that is sad and that we need more serendipity in our life. So,
+55:12
+55 minutes, 12 seconds
+I'm a big fan of serendipity. Um, such a great word. Also, the movie is pretty good.
+55:17
+55 minutes, 17 seconds
+You've seen it. Okay. It's like a romcom.
+55:20
+55 minutes, 20 seconds
+But I think like that's how I've like looked at my whole career so far and I think how I'll continue to and actually like it's it's fun because even with
+55:27
+55 minutes, 27 seconds
+like using these AI tools, I think that's like another thing that I Yeah.
+55:30
+55 minutes, 30 seconds
+So much serendipity with AI. Final question. One of your colleagues told me another fun fact about you that you're a trained classical Indian dancer.
+55:38
+55 minutes, 38 seconds
+Damn.
+55:39
+55 minutes, 39 seconds
+And you've directed cultural festivals for 10,000 plus people.
+55:44
+55 minutes, 44 seconds
+And I don't know how he knows that, but yeah, I probably told him that.
+55:47
+55 minutes, 47 seconds
+Okay. And this person said that they may explain how you stay so calm amidst the chaos of frontier model development. Uh
+55:54
+55 minutes, 54 seconds
+I don't know, maybe share some about this dance uh this dance part of your life.
+55:58
+55 minutes, 58 seconds
+Yeah, I mean I love dance. I think it's one of those rare moments where you really can't think about anything else.
+56:04
+56 minutes, 4 seconds
+You have to focus on the movement and your and the music. And so for me, it's an opportunity for my brain to actually just have a different direction of
+56:13
+56 minutes, 13 seconds
+travel for the for a period of time. Um, and so I love it. And I think for me also it is a cultural connection point.
+56:21
+56 minutes, 21 seconds
+Um, dance is how I've met some of my best friends. Uh, it's how I continue to engage socially with so many of my friends. I plan this festival. I've
+56:29
+56 minutes, 29 seconds
+planned it for years uh in Portland, Oregon, which is where I'm from.
+56:32
+56 minutes, 32 seconds
+Uh it's called the India Cultural Festival. Um India Festival, we uh it happens every August. And in fact, this
+56:40
+56 minutes, 40 seconds
+was the first year I did not participate in the festival because I have a seven-month-old son. Uh so, thank you.
+56:46
+56 minutes, 46 seconds
+So, it was a little bit more distracted this year than normal, but it's for since I I've been performing at that festival since I was three. um and then
+56:56
+56 minutes, 56 seconds
+organizing it and it's just been a big part of my life of you know how do you bring dance and culture and community together?
+57:02
+57 minutes, 2 seconds
+Tulsa, you're so full of fun facts that I feel like there's much more I don't even know that I'm here for the fun facts.
+57:09
+57 minutes, 9 seconds
+Uh final question. How can listeners be useful to you?
+57:12
+57 minutes, 12 seconds
+Um wow. Uh great question. I mean a use Gemini uh and use Argon um but also use
+57:21
+57 minutes, 21 seconds
+use our smattering of products. You know, actually I was talking about audio just now. If you are a pixel user on Gboard, like try using our rambler
+57:30
+57 minutes, 30 seconds
+feature. It's awesome. You know, typing on the phone is great. If you are um using uh texttospech models, if you're
+57:38
+57 minutes, 38 seconds
+using dialogue, if you're using our omni models, so so try them. Give us our your feedback, right? Um we're constantly
+57:45
+57 minutes, 45 seconds
+looking for it. whether you're giving that feedback uh via a company that you are you know sharing feedback via why whether it's you're sending us you know
+57:53
+57 minutes, 53 seconds
+a DM um whether you're posting it publicly I think we want more people uh giving us giving us the right feedback
+58:01
+58 minutes, 1 second
+uh Tulsi that was awesome you're awesome thank you so much for being here no thank you for having me this was great it was my pleasure bye everyone thank
+58:10
+58 minutes, 10 seconds
+you so much for listening if you found this valuable you can subscribe to the show on Apple Podcasts Spotify or your favorite podcast app. Also, please
+58:18
+58 minutes, 18 seconds
+consider giving us a rating or leaving a review as that really helps other listeners find the podcast. You can find all past episodes or learn more about the show at lennispodcast.com.
+58:29
+58 minutes, 29 seconds
+See you in the next episode.
+Why PMs are suddenly valuable again | Tulsee Doshi (Head of Product, Gemini)
+Lenny's Podcast
+651K subscribers
+Subscribe
+117
+ 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+ 
+ 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+ 
+ 
+K
+ 
+ views  
+ 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+ 
+ 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+ 
+h ago  
+Lenny's Podcast
+Tulsee Doshi is head of product for Google’s frontier AI models, including Gemini and other multimodal models, such as Nano Banana, Genie, Veo, and Lyria.
+ …
+more
+
+51:47
+New
+Extended Interview: President Trump on 60 Minutes
+60 Minutes
+283K
+3h ago
+1:12:13
+Inside the black box of AI: How AI models actually think | Emmanuel Ameisen (Anthropic)
+Lenny's Podcast
+77K
+3w ago
+1:02:09
+New
+AI will create digital vassal states | Yuval Noah Harari
+Yuval Noah Harari
+57K
+9h ago
+1:25:48
+How to find product-market fit (but, actually) | Rob Snyder (Author, The Power of Pull)
+Lenny's Podcast
+72K
+2w ago
+21:48
+How to scale intent, quality, and artistry with Al | Katie Dill (Stripe)
+Lenny's Podcast
+and Stripe
+613K
+1mo ago
+14:54
+“I Work For Psychopaths”: Meta Workers Expose AI Surveillance
+More Perfect Union
+1.5M
+2w ago
+Fundraiser
+27:13
+New
+President Donald Trump: The 2026 60 Minutes post-midterms interview
+60 Minutes
+153K
+3h ago
+1:01:43
+New
+Elon Musk Just Predicted the Next 3 Years (Ron Baron Full Interview)
+Matt Pocius on Tesla Stock & Money
+355K
+2d ago
+1:22:44
+New
+The AI Alignment Problem & Its Solutions, with Aza Raskin
+StarTalk
+473K
+1d ago
+Show more
+Comments
+ 
+ 
+ 
+ 
