@@ -8,7 +8,7 @@ reader: 新模型一出来，打开对话框却不知道该拿它试什么的人
 cost: 无（用户这篇没答代价）
 keyword: 谷歌
 keywords: 谷歌, Gemini, 产品经理, PM, Lenny播客, AI评测, 面试
-headline: 谷歌Gemini负责人：|PM又值钱了
+headline: 谷歌Gemini负责人：PM又值钱了
 hero: shots/05_5358.jpg
 hero_after: 2
 location: 香港
