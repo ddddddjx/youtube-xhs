@@ -99,6 +99,8 @@ def check_meta(meta, draft_dir):
     for k in ("stance", "stance_line", "reader", "keyword", "title"):
         if not meta.get(k):
             add("✗", f"front matter 缺 `{k}`")
+    if str(meta.get("goal", "")).strip() not in ("涨粉", "流量"):
+        add("⚠", "front matter 没有 goal: 涨粉 / 流量（11-10 四关第 ① 关：先写出粉丝为什么会点这篇，再标这篇指望涨粉还是只拿流量）")
     if meta.get("stance_line") and meta["stance_line"][0] not in "ABCD" and not meta["stance_line"].startswith("无"):
         add("✗", f"stance_line 要是 A / B / C / D 之一，现在是「{meta['stance_line']}」")
     st = meta.get("stance", "")
