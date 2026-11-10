@@ -1,5 +1,5 @@
 ---
-title: Cursor设计师：答案完整，不等于想过
+title: 前Cursor设计负责人：答案完整，不等于想过
 value: 框架
 stance: AI 给的方案越完整，越容易让人找不到反对的理由就点头；交出去的分界不在任务大小，在里面的关键决定自己有没有想过，复杂的方案先看它拆解、确认逻辑再动手
 stance_line: A
@@ -7,7 +7,7 @@ reader: Claude 刚交回一份很完善的方案，挑不出毛病，手已经�
 cost: 没认真想过方案的合理性就让它落地，到落地的时候反噬自己
 keyword: Cursor
 keywords: Cursor, Ryo Lu, Claude, Plan Mode, AI焦虑, AI工具, 设计
-headline: Cursor设计师：|答案完整，不等于想过
+headline: 前Cursor设计负责人：|答案完整，不等于想过
 hero: hero.jpg
 hero_after: 2
 hero_max: 620
