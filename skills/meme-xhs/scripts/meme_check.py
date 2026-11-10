@@ -266,6 +266,8 @@ def check_body(meta, paras, allow_gh):
         add("✓", f"转述词每千字 {att:.1f} 次（10-14 起 3 到 6 次正常，0 次反而像报告）")
     if not meta.get("stance"):
         add("✗", "front matter 没有 stance（10-18 起所有文体必填，retell 也要）：一句原文没说过的判断。平台 10-18 对红杉稿的诊断「博主像搬运工，缺乏持续的价值观输出」，13 篇涨粉 94% 来自有自己判断的两篇")
+    if str(meta.get("goal", "")).strip() not in ("涨粉", "流量"):
+        add("⚠", "front matter 没有 goal: 涨粉 / 流量（11-10 四关第 ① 关，账号/爆文方法论.md 第六节）")
     sl = str(meta.get("stance_line", "")).strip().upper()
     if sl not in ("A", "B", "C", "D"):
         add("✗", f"front matter stance_line「{sl or '空'}」不是 A / B / C / D：10-18 起每篇回到 账号/档案.md 长期立场里的一条，读者连看三篇要能说出这个号站什么")
