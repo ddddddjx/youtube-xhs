@@ -10,8 +10,8 @@ keyword: a16z
 keywords: a16z, AI agent, B2A, 智能体, Olivia Moore, 产品, MCP
 headline: a16z 合伙人最新发文：|互联网的主要用户，已经不是人了
 hero: hero_a16z.jpg
-hero_after: 2
-hero_max: 440
+hero_after: 1
+hero_max: 780
 location: 香港
 account: Krypto说AI
 ---
@@ -19,6 +19,8 @@ account: Krypto说AI
 前阵子我想报名一个 Hackathon，没自己动手。Grok bot 定期去翻我的 Outlook，看到报名邮件，自己把表填完提交了，连生日都替我填好了。
 
 那张报名表的另一头，大概没人想过来填表的不是人。a16z 合伙人 Olivia Moore 11 月 11 日和双胞胎姐妹 Justine 发了一篇长文，第一句就是：互联网的主要用户已经不是人了，是 AI agent。
+
+![](cover.png)
 
 a16z 是硅谷风投，上个月我写过它的创始人说 AI 差距正以周为单位拉开。她们给这件事起了个名字，叫 B2A：企业卖东西的对象，从人（B2C）变成了替人办事的 agent。文章在 X 上有 11 万多次浏览、近 500 次收藏。我把它拆成四条，后两条是框架，可以直接拿去对照自己的产品。
 
