@@ -9,9 +9,9 @@ cost: 无（用户这篇没答代价）
 keyword: a16z
 keywords: a16z, AI agent, B2A, 智能体, Olivia Moore, 产品, MCP
 headline: a16z：|互联网的主要用户，已经不是人了
-hero: cover.png
+hero: twins.jpg
 hero_after: 2
-hero_max: 620
+hero_max: 440
 location: 香港
 account: Krypto说AI
 ---
