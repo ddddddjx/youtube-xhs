@@ -1,5 +1,5 @@
 ---
-title: a16z：互联网的主要用户已不是人
+title: a16z合伙人：互联网主要用户已不是人
 value: 框架
 goal: 流量
 stance: 接下来做产品和内容，要把 agent 当成一类用户来设计：以前防机器人的那套入口，要按机器人的需求重新做一遍，人只在最后点确认
@@ -8,8 +8,8 @@ reader: 刚让 AI 替自己填完一张表、却没想过自己的产品也会�
 cost: 无（用户这篇没答代价）
 keyword: a16z
 keywords: a16z, AI agent, B2A, 智能体, Olivia Moore, 产品, MCP
-headline: a16z：|互联网的主要用户，已经不是人了
-hero: twins.jpg
+headline: a16z 合伙人最新发文：|互联网的主要用户，已经不是人了
+hero: hero_a16z.jpg
 hero_after: 2
 hero_max: 440
 location: 香港
