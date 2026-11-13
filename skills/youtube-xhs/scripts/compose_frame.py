@@ -252,11 +252,11 @@ def main():
               f"crop={W // 4}:{H // 4},boxblur=20:3,colorchannelmixer=rr=.34:gg=.34:bb=.36,"
               f"scale={W}:{H}:flags=bilinear[bg];")
     else:
-        bg = f"{src}split=2[b0][f0];[b0]scale={W}:{H},drawbox=c=0x0C0D11:t=fill[bg];"
+        bg = f"{src}split=2[b0][f0];[b0]scale={W}:{H},setsar=1,drawbox=c=0x0C0D11:t=fill[bg];"
     fonts = "/System/Library/Fonts/Supplemental"
     fonts = fonts if os.path.isdir(fonts) else "/usr/share/fonts"
     graph = (bg + f"[f0]scale={fw}:{fh}[fg];[bg][fg]overlay=(W-w)/2:{TOP_H}[c1];"
-             f"[c1][1:v]overlay=0:0[c2];[c2]ass=frame.ass:fontsdir={fonts}[v]")
+             f"[c1][1:v]overlay=0:0[c2];[c2]ass=frame.ass:fontsdir={fonts},setsar=1[v]")  # setsar=1：横片拉成竖底后像素比会变成 256:81，手机上整片被压扁
 
     cmd = [ff, "-hide_banner", "-loglevel", "error", "-y"]
     if a.preview is not None:
