@@ -1,0 +1,608 @@
+{
+ "title": "哈佛跟了 724 个人 75 年",
+ "account": "Krypto说AI",
+ "slogan": "AI builder · 带你拉开和身边人的差距",
+ "source": "TED",
+ "steps": [
+  "孤独伤的是身体",
+  "五十岁预测八十岁",
+  "靠得住的人护住大脑"
+ ],
+ "narration": {
+  "speaker": "S_DRo7Kc2k2",
+  "rate": 25,
+  "fidelity": false,
+  "pause": 0.45,
+  "ctx": "像在跟朋友聊一件自己觉得有意思的事，语气自然、放松，不要播音腔，也不要刻意兴奋，说到关键处稍微放慢"
+ },
+ "lines": [
+  [
+   "o1",
+   "这是 TED 上被看了五千多万次的一场演讲。"
+  ],
+  [
+   "o2",
+   "讲的人是 Robert Waldinger，哈佛医学院的精神科教授。"
+  ],
+  [
+   "o3",
+   "他接手的，是哈佛一项从一九三八年一直做到今天的研究。"
+  ],
+  [
+   "n1",
+   "这七百多个人分两组：一组是哈佛的大二学生，另一组是波士顿最穷街区的男孩。研究者每两年回访一次：问卷、病历、抽血、扫描大脑，一直跟到他们九十多岁。"
+  ],
+  [
+   "q1",
+   "七十五年，几万页记录，看出了什么？答案先放在前面：让人过得好的，是关系。"
+  ],
+  [
+   "q2",
+   "这句话站得住吗？站得住，但有一个前提：看的是关系的质量，不是数量。"
+  ],
+  [
+   "q3",
+   "分三步看：第一，孤独伤的是身体；第二，五十岁能预测八十岁；第三，靠得住的人，护住大脑。"
+  ],
+  [
+   "n3",
+   "第一步。先看没有关系的那一头。"
+  ],
+  [
+   "r1",
+   "这一步只要记住一句：孤独不只是心情，身体和大脑会提前衰退。"
+  ],
+  [
+   "n4",
+   "第二步。等这批人活到八十多岁，研究者回头翻他们五十岁时的全部记录，想找一个能提前预测的指标。"
+  ],
+  [
+   "r2",
+   "这一步记住一句：五十岁时关系好不好，比胆固醇更能预测八十岁。"
+  ],
+  [
+   "n5",
+   "第三步，什么在保护大脑。"
+  ],
+  [
+   "n6",
+   "好的关系，不等于从不吵架。有些八十多岁的夫妻天天拌嘴，只要相信关键时刻对方靠得住，记忆就不受影响。"
+  ],
+  [
+   "r3",
+   "这一步记住一句：吵不吵架不要紧，难的时候有人靠得住才要紧。"
+  ],
+  [
+   "n7",
+   "那现在能做什么？他给的办法都很小。"
+  ],
+  [
+   "n8",
+   "回到开头那个判断：站得住，前提是看质量。他说，别跟屏幕聊天，去跟人聊天。十年过去，很多人每天聊得最多的对象，成了 AI。能交给 AI 的事都交出去，省下来的时间，留给靠得住的人。"
+  ]
+ ],
+ "clips": {
+  "HOOK": {
+   "segs": [
+    [
+     9.7,
+     17.6
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "center",
+   "subs": [
+    [
+     9.8,
+     13.9,
+     "If you were going to invest now in your future best self,",
+     "如果现在就为未来的自己投资，"
+    ],
+    [
+     14.6,
+     17.5,
+     "where would you put your time and your energy?",
+     "你会把时间和精力放在哪里？"
+    ]
+   ]
+  },
+  "WIDE": {
+   "segs": [
+    [
+     266.0,
+     280.0
+    ]
+   ],
+   "mute": true
+  },
+  "SPK": {
+   "segs": [
+    [
+     126.0,
+     140.0
+    ]
+   ],
+   "mute": true
+  },
+  "PHOTO": {
+   "segs": [
+    [
+     203.0,
+     219.0
+    ]
+   ],
+   "mute": true
+  },
+  "Q1": {
+   "segs": [
+    [
+     296.0,
+     312.0
+    ]
+   ],
+   "mute": true
+  },
+  "Q2": {
+   "segs": [
+    [
+     428.0,
+     444.0
+    ]
+   ],
+   "mute": true
+  },
+  "Q3": {
+   "segs": [
+    [
+     452.0,
+     472.0
+    ]
+   ],
+   "mute": true
+  },
+  "C1": {
+   "segs": [
+    [
+     108.9,
+     123.3
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "subs": [
+    [
+     109.0,
+     115.9,
+     "The Harvard Study of Adult Development may be the longest study of adult life ever done.",
+     "哈佛成人发展研究，可能是同类研究里做得最久的一项。"
+    ],
+    [
+     117.0,
+     123.2,
+     "For 75 years, we've tracked the lives of 724 men.",
+     "75 年里，我们跟踪了 724 位男性的一生。"
+    ]
+   ]
+  },
+  "C2": {
+   "segs": [
+    [
+     354.9,
+     373.6
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "subs": [
+    [
+     355.0,
+     360.9,
+     "The lessons aren't about wealth or fame or working harder and harder.",
+     "结论跟财富、名望、更拼命工作都没有关系。"
+    ],
+    [
+     361.8,
+     367.4,
+     "The clearest message that we get from this 75-year study is this:",
+     "这项 75 年的研究，给出的最明确的一条是："
+    ],
+    [
+     368.4,
+     373.5,
+     "Good relationships keep us happier and healthier. Period.",
+     "好的关系让人更快乐、更健康。就这样。"
+    ]
+   ]
+  },
+  "C3": {
+   "segs": [
+    [
+     378.1,
+     384.0
+    ],
+    [
+     403.1,
+     420.6
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "subs": [
+    [
+     378.2,
+     382.0,
+     "The first is that social connections are really good for us,",
+     "第一，跟人有连接，对我们真的有好处；"
+    ],
+    [
+     382.1,
+     383.9,
+     "and that loneliness kills.",
+     "而孤独会要人命。"
+    ],
+    [
+     403.2,
+     407.4,
+     "People who are more isolated than they want to be from others",
+     "那些比自己希望的更孤立的人，"
+    ],
+    [
+     408.2,
+     410.9,
+     "find that they are less happy,",
+     "没那么快乐，"
+    ],
+    [
+     411.8,
+     414.3,
+     "their health declines earlier in midlife,",
+     "中年时健康更早开始下滑，"
+    ],
+    [
+     414.8,
+     416.8,
+     "their brain functioning declines sooner",
+     "大脑功能衰退得更早，"
+    ],
+    [
+     416.9,
+     420.5,
+     "and they live shorter lives than people who are not lonely.",
+     "寿命也比不孤独的人短。"
+    ]
+   ]
+  },
+  "C4": {
+   "segs": [
+    [
+     483.1,
+     506.3
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "subs": [
+    [
+     483.2,
+     488.4,
+     "When we gathered together everything we knew about them at age 50,",
+     "把他们 50 岁时的所有资料放在一起看，"
+    ],
+    [
+     489.4,
+     494.3,
+     "it wasn't their middle-age cholesterol levels that predicted how they were going to grow old.",
+     "预测他们怎样变老的，不是中年的胆固醇水平，"
+    ],
+    [
+     495.0,
+     498.3,
+     "It was how satisfied they were in their relationships.",
+     "是他们对自己的关系有多满意。"
+    ],
+    [
+     498.5,
+     506.2,
+     "The people most satisfied in their relationships at age 50 were the healthiest at age 80.",
+     "50 岁时对关系最满意的人，80 岁时最健康。"
+    ]
+   ]
+  },
+  "C5": {
+   "segs": [
+    [
+     546.0,
+     563.5
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "subs": [
+    [
+     546.0,
+     554.3,
+     "Being in a securely attached relationship to another person in your 80s is protective.",
+     "80 多岁时，有一段让人安心的关系，是一种保护。"
+    ],
+    [
+     554.5,
+     560.5,
+     "People who really feel they can count on the other person in times of need,",
+     "真心觉得需要的时候能指望对方的人，"
+    ],
+    [
+     560.7,
+     563.4,
+     "those people's memories stay sharper longer.",
+     "记忆力保持清晰的时间更长。"
+    ]
+   ]
+  },
+  "C6": {
+   "segs": [
+    [
+     686.8,
+     705.3
+    ]
+   ],
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "subs": [
+    [
+     686.9,
+     692.2,
+     "It might be something as simple as replacing screen time with people time,",
+     "可以简单到把看屏幕的时间，换成跟人在一起；"
+    ],
+    [
+     693.5,
+     699.6,
+     "or livening up a stale relationship by doing something new together, long walks or date nights,",
+     "或者一起做点新鲜事，散步、约会，让关系重新活起来；"
+    ],
+    [
+     700.4,
+     705.2,
+     "or reaching out to that family member who you haven't spoken to in years.",
+     "或者联系那位多年没说话的家人。"
+    ]
+   ]
+  }
+ },
+ "plan": [
+  [
+   "clip",
+   "HOOK",
+   0
+  ],
+  [
+   "nar",
+   "o1"
+  ],
+  [
+   "nar",
+   "o2"
+  ],
+  [
+   "nar",
+   "o3"
+  ],
+  [
+   "clip",
+   "C1"
+  ],
+  [
+   "nar",
+   "n1"
+  ],
+  [
+   "nar",
+   "q1"
+  ],
+  [
+   "clip",
+   "C2"
+  ],
+  [
+   "nar",
+   "q2"
+  ],
+  [
+   "nar",
+   "q3"
+  ],
+  [
+   "nar",
+   "n3"
+  ],
+  [
+   "clip",
+   "C3"
+  ],
+  [
+   "nar",
+   "r1"
+  ],
+  [
+   "nar",
+   "n4",
+   0.5
+  ],
+  [
+   "clip",
+   "C4"
+  ],
+  [
+   "nar",
+   "r2"
+  ],
+  [
+   "nar",
+   "n5",
+   0.5
+  ],
+  [
+   "clip",
+   "C5"
+  ],
+  [
+   "nar",
+   "n6"
+  ],
+  [
+   "nar",
+   "r3"
+  ],
+  [
+   "nar",
+   "n7",
+   0.5
+  ],
+  [
+   "clip",
+   "C6"
+  ],
+  [
+   "nar",
+   "n8"
+  ]
+ ],
+ "footage": {
+  "o1": [
+   "WIDE",
+   "wide",
+   0.5
+  ],
+  "o2": [
+   "SPK",
+   "wide",
+   0.5
+  ],
+  "o3": [
+   "PHOTO",
+   "wide",
+   0.5
+  ],
+  "q1": [
+   "Q1",
+   "left",
+   0.0
+  ],
+  "q2": [
+   "Q2",
+   "left",
+   0.0
+  ],
+  "q3": [
+   "Q3",
+   "left",
+   0.0
+  ]
+ },
+ "scenes": {
+  "o1": {
+   "type": "intro",
+   "chapter": "TED 演讲 · 2015",
+   "headline": [
+    "哈佛跟了 724 个人 75 年，",
+    "看出了什么？"
+   ],
+   "names": [
+    [
+     "TED · 5000 多万次观看",
+     0.5,
+     0.6
+    ]
+   ]
+  },
+  "o2": {
+   "type": "intro",
+   "chapter": "TED 演讲 · 2015",
+   "headline": [
+    "哈佛跟了 724 个人 75 年，",
+    "看出了什么？"
+   ],
+   "names": [
+    [
+     "Robert Waldinger · 哈佛医学院精神科教授",
+     0.5,
+     0.1
+    ]
+   ]
+  },
+  "o3": {
+   "type": "intro",
+   "chapter": "TED 演讲 · 2015",
+   "headline": [
+    "哈佛跟了 724 个人 75 年，",
+    "看出了什么？"
+   ],
+   "names": [
+    [
+     "哈佛成人发展研究 · 1938 年至今",
+     0.5,
+     0.1
+    ]
+   ]
+  },
+  "q1": {
+   "type": "answer",
+   "headline": [
+    "75 年、几万页记录，",
+    "看出了什么？"
+   ],
+   "answer": [
+    "不是钱和名气，",
+    "是好的关系"
+   ],
+   "card": "关系",
+   "cue_answer": "^答案",
+   "cue_card": "关系"
+  },
+  "q2": {
+   "type": "judgment",
+   "headline": "这句话站得住吗？",
+   "card": "关系",
+   "card_sub": "让人过得好的，是关系",
+   "stamp": "站得住",
+   "premise": [
+    "前提：看质量",
+    "不看数量"
+   ],
+   "cue_stamp": "^站得住",
+   "cue_premise": "质量"
+  },
+  "q3": {
+   "type": "roadmap"
+  },
+  "r1": {
+   "type": "recap",
+   "step": 0,
+   "sentence": "孤独不只是心情，身体和大脑会提前衰退"
+  },
+  "r2": {
+   "type": "recap",
+   "step": 1,
+   "sentence": "五十岁时关系好不好，比胆固醇更能预测八十岁"
+  },
+  "r3": {
+   "type": "recap",
+   "step": 2,
+   "sentence": "吵不吵架不要紧，难的时候有人靠得住才要紧"
+  },
+  "n8": {
+   "type": "ending",
+   "card": "关系",
+   "stamp": "站得住",
+   "line": "前提：看质量，不看数量",
+   "cue": "站得住"
+  }
+ },
+ "tail": 3.0,
+ "bgm": {
+  "file": "audio/bgm.wav",
+  "title": "Inspired",
+  "credit": "配乐：Kevin MacLeod《Inspired》，CC BY 4.0",
+  "gain_db": -11.0
+ }
+}

@@ -1,0 +1,6 @@
+src/
+clips/
+renders/
+sheets/
+*.wav
+audio/*.mp3

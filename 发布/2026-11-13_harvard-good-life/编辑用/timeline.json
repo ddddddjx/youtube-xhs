@@ -1,0 +1,863 @@
+{
+ "dur": 235.78,
+ "segs": [
+  {
+   "kind": "clip",
+   "id": "HOOK",
+   "t0": 0.0,
+   "t1": 7.9,
+   "who": "Robert Waldinger",
+   "layout": "center",
+   "cuts": []
+  },
+  {
+   "kind": "nar",
+   "id": "o1",
+   "t0": 8.35,
+   "t1": 11.666
+  },
+  {
+   "kind": "nar",
+   "id": "o2",
+   "t0": 12.116,
+   "t1": 16.57
+  },
+  {
+   "kind": "nar",
+   "id": "o3",
+   "t0": 17.02,
+   "t1": 21.694
+  },
+  {
+   "kind": "clip",
+   "id": "C1",
+   "t0": 22.144,
+   "t1": 36.544,
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "cuts": []
+  },
+  {
+   "kind": "nar",
+   "id": "n1",
+   "t0": 36.994,
+   "t1": 49.153
+  },
+  {
+   "kind": "nar",
+   "id": "q1",
+   "t0": 49.603,
+   "t1": 56.704
+  },
+  {
+   "kind": "clip",
+   "id": "C2",
+   "t0": 57.154,
+   "t1": 75.854,
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "cuts": []
+  },
+  {
+   "kind": "nar",
+   "id": "q2",
+   "t0": 76.304,
+   "t1": 81.849
+  },
+  {
+   "kind": "nar",
+   "id": "q3",
+   "t0": 82.299,
+   "t1": 89.749
+  },
+  {
+   "kind": "nar",
+   "id": "n3",
+   "t0": 90.199,
+   "t1": 92.9
+  },
+  {
+   "kind": "clip",
+   "id": "C3",
+   "t0": 93.35,
+   "t1": 116.75,
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "cuts": [
+    99.25
+   ]
+  },
+  {
+   "kind": "nar",
+   "id": "r1",
+   "t0": 117.2,
+   "t1": 122.291
+  },
+  {
+   "kind": "nar",
+   "id": "n4",
+   "t0": 122.791,
+   "t1": 130.19
+  },
+  {
+   "kind": "clip",
+   "id": "C4",
+   "t0": 130.64,
+   "t1": 153.84,
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "cuts": []
+  },
+  {
+   "kind": "nar",
+   "id": "r2",
+   "t0": 154.29,
+   "t1": 159.498
+  },
+  {
+   "kind": "nar",
+   "id": "n5",
+   "t0": 159.998,
+   "t1": 162.251
+  },
+  {
+   "kind": "clip",
+   "id": "C5",
+   "t0": 162.701,
+   "t1": 180.201,
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "cuts": []
+  },
+  {
+   "kind": "nar",
+   "id": "n6",
+   "t0": 180.651,
+   "t1": 189.45
+  },
+  {
+   "kind": "nar",
+   "id": "r3",
+   "t0": 189.9,
+   "t1": 194.086
+  },
+  {
+   "kind": "nar",
+   "id": "n7",
+   "t0": 194.586,
+   "t1": 197.559
+  },
+  {
+   "kind": "clip",
+   "id": "C6",
+   "t0": 198.009,
+   "t1": 216.509,
+   "who": "Robert Waldinger",
+   "layout": "left",
+   "cuts": []
+  },
+  {
+   "kind": "nar",
+   "id": "n8",
+   "t0": 216.959,
+   "t1": 232.78
+  }
+ ],
+ "subs": [
+  {
+   "a": 0.1,
+   "b": 4.2,
+   "zh": "如果现在就为未来的自己投资，",
+   "en": "If you were going to invest now in your future best self,",
+   "kind": "clip"
+  },
+  {
+   "a": 4.9,
+   "b": 7.8,
+   "zh": "你会把时间和精力放在哪里？",
+   "en": "where would you put your time and your energy?",
+   "kind": "clip"
+  },
+  {
+   "a": 8.37,
+   "b": 11.61,
+   "zh": "这是 TED 上被看了五千多万次的一场演讲",
+   "kind": "nar"
+  },
+  {
+   "a": 12.136,
+   "b": 14.104,
+   "zh": "讲的人是 Robert Waldinger",
+   "kind": "nar"
+  },
+  {
+   "a": 14.154,
+   "b": 16.516,
+   "zh": "哈佛医学院的精神科教授",
+   "kind": "nar"
+  },
+  {
+   "a": 17.04,
+   "b": 17.765,
+   "zh": "他接手的",
+   "kind": "nar"
+  },
+  {
+   "a": 17.815,
+   "b": 21.64,
+   "zh": "是哈佛一项从一九三八年一直做到今天的研究",
+   "kind": "nar"
+  },
+  {
+   "a": 22.244,
+   "b": 29.144,
+   "zh": "哈佛成人发展研究，可能是同类研究里做得最久的一项。",
+   "en": "The Harvard Study of Adult Development may be the longest study of adult life ever done.",
+   "kind": "clip"
+  },
+  {
+   "a": 30.244,
+   "b": 36.444,
+   "zh": "75 年里，我们跟踪了 724 位男性的一生。",
+   "en": "For 75 years, we've tracked the lives of 724 men.",
+   "kind": "clip"
+  },
+  {
+   "a": 37.014,
+   "b": 38.549,
+   "zh": "这七百多个人分两组",
+   "kind": "nar"
+  },
+  {
+   "a": 38.599,
+   "b": 40.309,
+   "zh": "一组是哈佛的大二学生",
+   "kind": "nar"
+  },
+  {
+   "a": 40.359,
+   "b": 42.774,
+   "zh": "另一组是波士顿最穷街区的男孩",
+   "kind": "nar"
+  },
+  {
+   "a": 43.354,
+   "b": 45.059,
+   "zh": "研究者每两年回访一次",
+   "kind": "nar"
+  },
+  {
+   "a": 45.109,
+   "b": 47.34,
+   "zh": "问卷、病历、抽血、扫描大脑",
+   "kind": "nar"
+  },
+  {
+   "a": 47.39,
+   "b": 49.094,
+   "zh": "一直跟到他们九十多岁",
+   "kind": "nar"
+  },
+  {
+   "a": 49.623,
+   "b": 52.783,
+   "zh": "七十五年，几万页记录，看出了什么？",
+   "kind": "nar"
+  },
+  {
+   "a": 53.373,
+   "b": 54.694,
+   "zh": "答案先放在前面",
+   "kind": "nar"
+  },
+  {
+   "a": 54.744,
+   "b": 56.653,
+   "zh": "让人过得好的，是关系",
+   "kind": "nar"
+  },
+  {
+   "a": 57.254,
+   "b": 63.154,
+   "zh": "结论跟财富、名望、更拼命工作都没有关系。",
+   "en": "The lessons aren't about wealth or fame or working harder and harder.",
+   "kind": "clip"
+  },
+  {
+   "a": 64.054,
+   "b": 69.654,
+   "zh": "这项 75 年的研究，给出的最明确的一条是：",
+   "en": "The clearest message that we get from this 75-year study is this:",
+   "kind": "clip"
+  },
+  {
+   "a": 70.654,
+   "b": 75.754,
+   "zh": "好的关系让人更快乐、更健康。就这样。",
+   "en": "Good relationships keep us happier and healthier. Period.",
+   "kind": "clip"
+  },
+  {
+   "a": 76.324,
+   "b": 77.284,
+   "zh": "这句话站得住吗？",
+   "kind": "nar"
+  },
+  {
+   "a": 77.854,
+   "b": 79.539,
+   "zh": "站得住，但有一个前提",
+   "kind": "nar"
+  },
+  {
+   "a": 79.589,
+   "b": 81.794,
+   "zh": "看的是关系的质量，不是数量",
+   "kind": "nar"
+  },
+  {
+   "a": 82.319,
+   "b": 83.03,
+   "zh": "分三步看",
+   "kind": "nar"
+  },
+  {
+   "a": 83.08,
+   "b": 84.933,
+   "zh": "第一，孤独伤的是身体",
+   "kind": "nar"
+  },
+  {
+   "a": 84.983,
+   "b": 87.216,
+   "zh": "第二，五十岁能预测八十岁",
+   "kind": "nar"
+  },
+  {
+   "a": 87.266,
+   "b": 89.689,
+   "zh": "第三，靠得住的人，护住大脑",
+   "kind": "nar"
+  },
+  {
+   "a": 90.219,
+   "b": 90.629,
+   "zh": "第一步",
+   "kind": "nar"
+  },
+  {
+   "a": 91.199,
+   "b": 92.849,
+   "zh": "先看没有关系的那一头",
+   "kind": "nar"
+  },
+  {
+   "a": 93.45,
+   "b": 97.25,
+   "zh": "第一，跟人有连接，对我们真的有好处；",
+   "en": "The first is that social connections are really good for us,",
+   "kind": "clip"
+  },
+  {
+   "a": 97.35,
+   "b": 99.15,
+   "zh": "而孤独会要人命。",
+   "en": "and that loneliness kills.",
+   "kind": "clip"
+  },
+  {
+   "a": 99.35,
+   "b": 103.55,
+   "zh": "那些比自己希望的更孤立的人，",
+   "en": "People who are more isolated than they want to be from others",
+   "kind": "clip"
+  },
+  {
+   "a": 104.35,
+   "b": 107.05,
+   "zh": "没那么快乐，",
+   "en": "find that they are less happy,",
+   "kind": "clip"
+  },
+  {
+   "a": 107.95,
+   "b": 110.45,
+   "zh": "中年时健康更早开始下滑，",
+   "en": "their health declines earlier in midlife,",
+   "kind": "clip"
+  },
+  {
+   "a": 110.95,
+   "b": 112.95,
+   "zh": "大脑功能衰退得更早，",
+   "en": "their brain functioning declines sooner",
+   "kind": "clip"
+  },
+  {
+   "a": 113.05,
+   "b": 116.65,
+   "zh": "寿命也比不孤独的人短。",
+   "en": "and they live shorter lives than people who are not lonely.",
+   "kind": "clip"
+  },
+  {
+   "a": 117.22,
+   "b": 118.86,
+   "zh": "这一步只要记住一句",
+   "kind": "nar"
+  },
+  {
+   "a": 118.91,
+   "b": 122.24,
+   "zh": "孤独不只是心情，身体和大脑会提前衰退",
+   "kind": "nar"
+  },
+  {
+   "a": 122.811,
+   "b": 123.231,
+   "zh": "第二步",
+   "kind": "nar"
+  },
+  {
+   "a": 123.801,
+   "b": 125.387,
+   "zh": "等这批人活到八十多岁",
+   "kind": "nar"
+  },
+  {
+   "a": 125.437,
+   "b": 128.168,
+   "zh": "研究者回头翻他们五十岁时的全部记录",
+   "kind": "nar"
+  },
+  {
+   "a": 128.218,
+   "b": 130.131,
+   "zh": "想找一个能提前预测的指标",
+   "kind": "nar"
+  },
+  {
+   "a": 130.74,
+   "b": 135.94,
+   "zh": "把他们 50 岁时的所有资料放在一起看，",
+   "en": "When we gathered together everything we knew about them at age 50,",
+   "kind": "clip"
+  },
+  {
+   "a": 136.94,
+   "b": 141.84,
+   "zh": "预测他们怎样变老的，不是中年的胆固醇水平，",
+   "en": "it wasn't their middle-age cholesterol levels that predicted how they were going to grow old.",
+   "kind": "clip"
+  },
+  {
+   "a": 142.54,
+   "b": 145.84,
+   "zh": "是他们对自己的关系有多满意。",
+   "en": "It was how satisfied they were in their relationships.",
+   "kind": "clip"
+  },
+  {
+   "a": 146.04,
+   "b": 153.74,
+   "zh": "50 岁时对关系最满意的人，80 岁时最健康。",
+   "en": "The people most satisfied in their relationships at age 50 were the healthiest at age 80.",
+   "kind": "clip"
+  },
+  {
+   "a": 154.31,
+   "b": 155.555,
+   "zh": "这一步记住一句",
+   "kind": "nar"
+  },
+  {
+   "a": 155.605,
+   "b": 159.44,
+   "zh": "五十岁时关系好不好，比胆固醇更能预测八十岁",
+   "kind": "nar"
+  },
+  {
+   "a": 160.038,
+   "b": 162.198,
+   "zh": "第三步，什么在保护大脑",
+   "kind": "nar"
+  },
+  {
+   "a": 162.701,
+   "b": 171.001,
+   "zh": "80 多岁时，有一段让人安心的关系，是一种保护。",
+   "en": "Being in a securely attached relationship to another person in your 80s is protective.",
+   "kind": "clip"
+  },
+  {
+   "a": 171.201,
+   "b": 177.201,
+   "zh": "真心觉得需要的时候能指望对方的人，",
+   "en": "People who really feel they can count on the other person in times of need,",
+   "kind": "clip"
+  },
+  {
+   "a": 177.401,
+   "b": 180.101,
+   "zh": "记忆力保持清晰的时间更长。",
+   "en": "those people's memories stay sharper longer.",
+   "kind": "clip"
+  },
+  {
+   "a": 180.671,
+   "b": 182.791,
+   "zh": "好的关系，不等于从不吵架",
+   "kind": "nar"
+  },
+  {
+   "a": 183.371,
+   "b": 185.713,
+   "zh": "有些八十多岁的夫妻天天拌嘴",
+   "kind": "nar"
+  },
+  {
+   "a": 185.763,
+   "b": 188.104,
+   "zh": "只要相信关键时刻对方靠得住",
+   "kind": "nar"
+  },
+  {
+   "a": 188.154,
+   "b": 189.391,
+   "zh": "记忆就不受影响",
+   "kind": "nar"
+  },
+  {
+   "a": 189.92,
+   "b": 190.948,
+   "zh": "这一步记住一句",
+   "kind": "nar"
+  },
+  {
+   "a": 190.998,
+   "b": 194.03,
+   "zh": "吵不吵架不要紧，难的时候有人靠得住才要紧",
+   "kind": "nar"
+  },
+  {
+   "a": 194.606,
+   "b": 195.666,
+   "zh": "那现在能做什么？",
+   "kind": "nar"
+  },
+  {
+   "a": 196.236,
+   "b": 197.506,
+   "zh": "他给的办法都很小",
+   "kind": "nar"
+  },
+  {
+   "a": 198.109,
+   "b": 203.409,
+   "zh": "可以简单到把看屏幕的时间，换成跟人在一起；",
+   "en": "It might be something as simple as replacing screen time with people time,",
+   "kind": "clip"
+  },
+  {
+   "a": 204.709,
+   "b": 210.809,
+   "zh": "或者一起做点新鲜事，散步、约会，让关系重新活起来；",
+   "en": "or livening up a stale relationship by doing something new together, long walks or date nights,",
+   "kind": "clip"
+  },
+  {
+   "a": 211.609,
+   "b": 216.409,
+   "zh": "或者联系那位多年没说话的家人。",
+   "en": "or reaching out to that family member who you haven't spoken to in years.",
+   "kind": "clip"
+  },
+  {
+   "a": 216.979,
+   "b": 218.409,
+   "zh": "回到开头那个判断",
+   "kind": "nar"
+  },
+  {
+   "a": 218.459,
+   "b": 220.259,
+   "zh": "站得住，前提是看质量",
+   "kind": "nar"
+  },
+  {
+   "a": 220.829,
+   "b": 223.609,
+   "zh": "他说，别跟屏幕聊天，去跟人聊天",
+   "kind": "nar"
+  },
+  {
+   "a": 224.179,
+   "b": 227.659,
+   "zh": "十年过去，很多人每天聊得最多的对象，成了 AI",
+   "kind": "nar"
+  },
+  {
+   "a": 228.229,
+   "b": 230.418,
+   "zh": "能交给 AI 的事都交出去",
+   "kind": "nar"
+  },
+  {
+   "a": 230.468,
+   "b": 231.484,
+   "zh": "省下来的时间",
+   "kind": "nar"
+  },
+  {
+   "a": 231.534,
+   "b": 232.729,
+   "zh": "留给靠得住的人",
+   "kind": "nar"
+  }
+ ],
+ "windows": [
+  {
+   "src": "clips/HOOK.mov",
+   "t0": 0.0,
+   "t1": 7.9,
+   "off": 0.0,
+   "rect": "center",
+   "mute": false,
+   "seg": "HOOK",
+   "cuts": []
+  },
+  {
+   "src": "clips/WIDE.mov",
+   "t0": 8.1,
+   "t1": 12.116,
+   "off": 0.5,
+   "rect": "wide",
+   "mute": true,
+   "seg": "o1"
+  },
+  {
+   "src": "clips/SPK.mov",
+   "t0": 12.116,
+   "t1": 17.02,
+   "off": 0.5,
+   "rect": "wide",
+   "mute": true,
+   "seg": "o2"
+  },
+  {
+   "src": "clips/PHOTO.mov",
+   "t0": 17.02,
+   "t1": 21.694,
+   "off": 0.5,
+   "rect": "wide",
+   "mute": true,
+   "seg": "o3"
+  },
+  {
+   "src": "clips/C1.mov",
+   "t0": 22.144,
+   "t1": 36.544,
+   "off": 0.0,
+   "rect": "left",
+   "mute": false,
+   "seg": "C1",
+   "cuts": []
+  },
+  {
+   "src": "clips/Q1.mov",
+   "t0": 49.353,
+   "t1": 56.704,
+   "off": 0.0,
+   "rect": "left",
+   "mute": true,
+   "seg": "q1"
+  },
+  {
+   "src": "clips/C2.mov",
+   "t0": 57.154,
+   "t1": 75.854,
+   "off": 0.0,
+   "rect": "left",
+   "mute": false,
+   "seg": "C2",
+   "cuts": []
+  },
+  {
+   "src": "clips/Q2.mov",
+   "t0": 76.054,
+   "t1": 82.299,
+   "off": 0.0,
+   "rect": "left",
+   "mute": true,
+   "seg": "q2"
+  },
+  {
+   "src": "clips/Q3.mov",
+   "t0": 82.299,
+   "t1": 89.749,
+   "off": 0.0,
+   "rect": "left",
+   "mute": true,
+   "seg": "q3"
+  },
+  {
+   "src": "clips/C3.mov",
+   "t0": 93.35,
+   "t1": 116.75,
+   "off": 0.0,
+   "rect": "left",
+   "mute": false,
+   "seg": "C3",
+   "cuts": [
+    5.9
+   ]
+  },
+  {
+   "src": "clips/C4.mov",
+   "t0": 130.64,
+   "t1": 153.84,
+   "off": 0.0,
+   "rect": "left",
+   "mute": false,
+   "seg": "C4",
+   "cuts": []
+  },
+  {
+   "src": "clips/C5.mov",
+   "t0": 162.701,
+   "t1": 180.201,
+   "off": 0.0,
+   "rect": "left",
+   "mute": false,
+   "seg": "C5",
+   "cuts": []
+  },
+  {
+   "src": "clips/C6.mov",
+   "t0": 198.009,
+   "t1": 216.509,
+   "off": 0.0,
+   "rect": "left",
+   "mute": false,
+   "seg": "C6",
+   "cuts": []
+  }
+ ],
+ "audio": [
+  {
+   "src": "clips/HOOK.mov",
+   "at": 0.0,
+   "narration": false
+  },
+  {
+   "src": "narration/o1.wav",
+   "at": 8.35,
+   "narration": true
+  },
+  {
+   "src": "narration/o2.wav",
+   "at": 12.116,
+   "narration": true
+  },
+  {
+   "src": "narration/o3.wav",
+   "at": 17.02,
+   "narration": true
+  },
+  {
+   "src": "clips/C1.mov",
+   "at": 22.144,
+   "narration": false
+  },
+  {
+   "src": "narration/n1.wav",
+   "at": 36.994,
+   "narration": true
+  },
+  {
+   "src": "narration/q1.wav",
+   "at": 49.603,
+   "narration": true
+  },
+  {
+   "src": "clips/C2.mov",
+   "at": 57.154,
+   "narration": false
+  },
+  {
+   "src": "narration/q2.wav",
+   "at": 76.304,
+   "narration": true
+  },
+  {
+   "src": "narration/q3.wav",
+   "at": 82.299,
+   "narration": true
+  },
+  {
+   "src": "narration/n3.wav",
+   "at": 90.199,
+   "narration": true
+  },
+  {
+   "src": "clips/C3.mov",
+   "at": 93.35,
+   "narration": false
+  },
+  {
+   "src": "narration/r1.wav",
+   "at": 117.2,
+   "narration": true
+  },
+  {
+   "src": "narration/n4.wav",
+   "at": 122.791,
+   "narration": true
+  },
+  {
+   "src": "clips/C4.mov",
+   "at": 130.64,
+   "narration": false
+  },
+  {
+   "src": "narration/r2.wav",
+   "at": 154.29,
+   "narration": true
+  },
+  {
+   "src": "narration/n5.wav",
+   "at": 159.998,
+   "narration": true
+  },
+  {
+   "src": "clips/C5.mov",
+   "at": 162.701,
+   "narration": false
+  },
+  {
+   "src": "narration/n6.wav",
+   "at": 180.651,
+   "narration": true
+  },
+  {
+   "src": "narration/r3.wav",
+   "at": 189.9,
+   "narration": true
+  },
+  {
+   "src": "narration/n7.wav",
+   "at": 194.586,
+   "narration": true
+  },
+  {
+   "src": "clips/C6.mov",
+   "at": 198.009,
+   "narration": false
+  },
+  {
+   "src": "narration/n8.wav",
+   "at": 216.959,
+   "narration": true
+  }
+ ]
+}
