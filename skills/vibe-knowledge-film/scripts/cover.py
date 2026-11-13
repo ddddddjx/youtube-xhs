@@ -54,13 +54,21 @@ def main(spec_path, out):
 <div class="fr"><img src="{hero}"><div class="play"></div><div class="dur">{s['dur']}</div></div>
 <div class="row">{thumbs}</div></body></html>"""
     (tmp / "cover.html").write_text(html, encoding="utf-8")
-    from playwright.sync_api import sync_playwright
-    import glob
-    exe = sorted(glob.glob("/opt/pw-browsers/chromium-*/chrome-linux*/chrome"))
-    with sync_playwright() as p:
-        b = p.chromium.launch(**({"executable_path": exe[-1]} if exe else {})); pg = b.new_page(viewport={"width": 1080, "height": 1440})
-        pg.goto((tmp / "cover.html").as_uri()); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(400)
-        pg.screenshot(path=str(Path(out).resolve())); b.close()
+    try:
+        from playwright.sync_api import sync_playwright
+        import glob
+        exe = sorted(glob.glob("/opt/pw-browsers/chromium-*/chrome-linux*/chrome"))
+        with sync_playwright() as p:
+            b = p.chromium.launch(**({"executable_path": exe[-1]} if exe else {})); pg = b.new_page(viewport={"width": 1080, "height": 1440})
+            pg.goto((tmp / "cover.html").as_uri()); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(400)
+            pg.screenshot(path=str(Path(out).resolve())); b.close()
+    except ModuleNotFoundError:  # 云端没装 Python 版 Playwright，退到 Node 版
+        import subprocess
+        js = ("const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();"
+              "const p=await b.newPage({viewport:{width:1080,height:1440}});await p.goto(process.argv[1]);"
+              "await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(400);"
+              "await p.screenshot({path:process.argv[2]});await b.close()})()")
+        subprocess.run(["node", "-e", js, (tmp / "cover.html").as_uri(), str(Path(out).resolve())], check=True)
     shutil.rmtree(tmp); print("封面:", out)
 
 if __name__ == "__main__":
