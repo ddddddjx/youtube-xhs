@@ -1,0 +1,17 @@
+Lauren Tan 大学读的是会计和金融，现在是 Grok Bot 的首席工程师，每月提交 4000 多次代码合并。11 月 14 日 YC 的播客 Lightcone 请她和产品经理 Roman Ugarte 上节目，YC 总裁 Garry Tan 主持。
+
+她怎么走过来的：金融建模课上发现自己更喜欢搭表格、写宏 → 和同学创业，进了澳大利亚创业圈 → 边学代码边把学到的写成博客发 X → 被框架社区注意到，请去波特兰大会演讲 → React 编译器、Cursor → Grok Bot。
+
+节目里能直接拿走的四件事：
+1. bot 放在工作真正发生的地方：她的 bot Potato 住在 Slack 和 X 上，一个新功能在一个 Slack 串里来回 200 条消息就做完了，她没打开过 Cursor
+2. 最小的循环：让 agent 自己运行代码、自己查问题、自己改，运行代码的不再是你
+3. 倒金字塔：能写进代码库的规矩写成检查规则，人工评审只留很小一块
+4. 边界：小 bug 交给 bot 自动修；用户每天看到的界面要改，内部都说好才上线
+
+Garry 说这样干活的工程师现在只有 1%，应该涨 100 倍。我不太相信能涨这么多。更认同 Roman 的那句：执行开始过剩，差距会出在目标没定义好。
+
+她给的建议：Do cool stuff, talk about the cool stuff, and just keep doing that in the loop.
+
+你手上交给 AI 的那件事，目标是你自己定清楚的吗？
+
+#Grok #YC #AI工程师 #转行 #AIagent #AI同事 #程序员
