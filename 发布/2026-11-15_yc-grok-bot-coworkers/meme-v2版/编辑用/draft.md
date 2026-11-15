@@ -9,7 +9,7 @@ cost: 无（用户这篇没答代价）
 keyword: Grok
 keywords: Grok, YC, AI 工程师, 转行, AI agent, AI 同事, Slack
 headline: YC 播客 · Grok Bot 首席工程师：|会计出身，代码都不看
-hero: hero_avatar.jpg
+hero: hero_duo.jpg
 hero_after: 1
 hero_max: 640
 location: 香港
