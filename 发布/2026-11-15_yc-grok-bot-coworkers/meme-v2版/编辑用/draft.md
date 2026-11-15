@@ -9,9 +9,9 @@ cost: 无（用户这篇没答代价）
 keyword: Grok
 keywords: Grok, YC, AI 工程师, 转行, AI agent, AI 同事, Slack
 headline: YC 播客 · Grok Bot 首席工程师：|会计出身，代码都不看
-hero: hero_raw.jpg
+hero: hero_avatar.jpg
 hero_after: 1
-hero_max: 620
+hero_max: 640
 location: 香港
 account: Krypto说AI
 ---
@@ -36,7 +36,7 @@ Grok Bot 做的是「AI 同事」：给 bot 起名字、定岗位、开工具权
 
 **2. 一个新功能，她没打开过代码编辑器**
 
-节目里她演示了一个功能是怎么做出来的。她在 Slack 的一个公开讨论串里，把 X 上看到的一个视频丢给自己的 bot Potato，问它：要支持这样的功能，我们需要做什么？Potato 自己开了一台云端电脑，把应用跑起来做出原型，带着视频和截图回来。同事 Samantha 和另一位产品经理也在串里提意见，来回 200 条消息，功能上线，她全程没打开过 Cursor。
+节目里她演示了一个功能是怎么做出来的。她在 Slack 的一个公开讨论串里，把 X 上看到的一个视频丢给自己的 bot Potato（她 GitHub 的名字就叫 poteto，头像是一个戴圆框眼镜、抱着烤红薯的女孩），问它：要支持这样的功能，我们需要做什么？Potato 自己开了一台云端电脑，把应用跑起来做出原型，带着视频和截图回来。同事 Samantha 和另一位产品经理也在串里提意见，来回 200 条消息，功能上线，她全程没打开过 Cursor。
 
 ![](thread.png)
 
