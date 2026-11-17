@@ -237,15 +237,16 @@ def check_body(meta, paras, images, allow_gh):
     if len(bare) >= 3:
         add("⚠", f"专名第一次出现后 20 字内没有半句人话 {len(bare)} 个（「Apple II，很多人小学机房里用的就是它」）：" + "、".join(bare[:6]))
     eng = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9]", text) if w not in GENERIC])
+    dense = "提示" if meta.get("genre") == "研究" else "⚠"     # 11-17：多篇论文 / 多组数据的研究证据稿（邓下班 7286 字 2679 藏），密度只提示
     if eng / k > 25:
-        add("⚠", f"英文专名每千字 {eng / k:.0f} 个（上限 25）。专名首页出现一次，后面用「他」「这个模型」")
+        add(dense, f"英文专名每千字 {eng / k:.0f} 个（上限 25）。专名首页出现一次，后面用「他」「这个模型」")
     nums = len(re.findall(r"\d+(?:\.\d+)?\s*[%万亿个条篇人年月天GB]?", text))
     if nums / k > 8:
-        add("⚠", f"数字每千字 {nums / k:.0f} 个（上限 8），一句话最多一个锚点")
+        add(dense, f"数字每千字 {nums / k:.0f} 个（上限 8），一句话最多一个锚点")
     first3 = "".join(paras[:3])
     anchors = len([w for w in re.findall(r"[A-Z][A-Za-z0-9.]*[A-Za-z0-9](?: [A-Z][A-Za-z0-9.]*[A-Za-z0-9])?", first3) if w not in GENERIC]) + len(re.findall(r"\d+", first3))
     if anchors > 4:
-        add("⚠", f"开头三段 {anchors} 个专名 / 数字（最多 4），第一句要是判断或处境")
+        add(dense, f"开头三段 {anchors} 个专名 / 数字（最多 4），第一句要是判断或处境")
     # 10-29 / 10-30：前三行要有一个人站在一个具体时刻里；起法不固定，跟上一篇不同
     if paras:
         p1 = paras[0]

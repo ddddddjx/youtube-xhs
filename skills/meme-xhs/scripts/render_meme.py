@@ -14,6 +14,8 @@ draft.md 格式:
   ---
   title: 标题（只进 标题.txt，不上图）
   headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内；用「|」手动换行，避免一个字落单；headline_size: 54 调字号（默认 58），17 字以上要一行放下时用
+  read_time: on                          # 可选（11-17 学邓下班）：首页作者块下面一行灰字「全文 N 字｜读完约 M 分钟」+ 细线，涨粉型长稿开
+  # 正文 ==一句话== 或 ==关键数==：品牌黄荧光笔（11-17 起原版也认，每页最多 3 处）
   hero: quote.png                        # 可选：首页的一张素材图（原文截图、原文配图、后台截图），不用自己画的
   hero_max: 760                          # 首页素材图最高多少 px（默认 480；10-20 起可改）
   hero_after: 3                          # 素材图放在第几段之后（默认 3：先铺垫几句再放图，读者才知道图在讲什么）
@@ -139,7 +141,7 @@ def parse(md):
         elif s.startswith("#"):
             blocks.append({"head": s.lstrip("#").strip()})
         else:
-            blocks.append({"p": s.replace("**", "").replace("==", "")})
+            blocks.append({"p": s.replace("**", "")})          # ==…== 留给 para() 画品牌黄荧光笔（11-17）
     return meta, blocks
 
 
@@ -215,6 +217,8 @@ class Pager:
     def __init__(self, meta, avatar, has_cover=False):
         self.meta, self.avatar, self.pages, self.ends = meta, avatar, [], []
         self.has_cover = has_cover
+        self.highlights = 0
+        self.body_chars = int(meta.get("_body_chars", 0) or 0)
         self.last_line, self.last_para, self.in_para = "", "", False
         self.new_page()
 
@@ -232,6 +236,13 @@ class Pager:
         name = self.meta.get("account", "Krypto说AI")
         if not self.pages and not self.has_cover:            # 没有封面时，首页放作者块 + 突出标题 + 素材图
             self.y = author_block(im, d, self.meta, self.avatar) + 40
+            if self.meta.get("read_time") in ("on", "yes", "true") and getattr(self, "body_chars", 0):   # 11-17 学邓下班：首页顶部一行分量提示
+                n = self.body_chars
+                txt = f"全文 {n} 字｜读完约 {max(1, math.ceil(n / 300))} 分钟"
+                d.text((L, self.y - 14), txt, font=font(30), fill=GREY)
+                self.y += 36
+                d.line([(L, self.y), (W - L, self.y)], fill=LINE, width=2)
+                self.y += 26
             if self.meta.get("headline"):
                 hs = int(self.meta.get("headline_size", 58))      # 可选 headline_size：字号，长标题要一行放下时调小
                 fh = font(hs, "Semibold")
@@ -262,11 +273,16 @@ class Pager:
         if not self.fresh:
             self.y += px
 
-    def line(self, text, f=None):
+    def line(self, text, f=None, marks=None):
         f = f or F_BODY
         if self.y + LH > BOTTOM:
             self.new_page()
-        draw_text(self.im, self.d, (L, self.y + (LH - FS) // 2 - 4), text, f, BLACK)
+        ty = self.y + (LH - FS) // 2 - 4
+        for i, j in marks or []:                             # 11-17 品牌黄荧光笔：压在字的下半截，像手划的
+            x0 = L + f.getlength(text[:i])
+            x1 = L + f.getlength(text[:j])
+            self.d.rectangle((x0 - 2, ty + int(FS * 0.52), x1 + 2, ty + int(FS * 1.14)), fill=YELLOW)
+        draw_text(self.im, self.d, (L, ty), text, f, BLACK)
         self.y += LH
         self.fresh = False
         self.last_line = text
@@ -274,11 +290,31 @@ class Pager:
     def para(self, text, f=None):
         f = f or F_BODY
         self.gap(PGAP)
-        lines = wrap(text, f)
+        clean, mask = "", []
+        for part in re.split(r"(==.+?==)", text):            # ==…== 记下要划的字
+            on = part.startswith("==") and part.endswith("==") and len(part) > 4
+            seg = part[2:-2] if on else part
+            clean += seg
+            mask += [on] * len(seg)
+        self.highlights += sum(1 for x in re.findall(r"==.+?==", text))
+        lines = wrap(clean, f)
+        pos = 0
         for k, ln in enumerate(lines):
+            spans, start = [], None
+            for ci, ch in enumerate(ln):                     # 把这一行的字对回原文，找出划线的区间
+                while pos < len(clean) and clean[pos] != ch:
+                    pos += 1
+                on = pos < len(clean) and mask[pos]
+                pos += 1
+                if on and start is None:
+                    start = ci
+                if not on and start is not None:
+                    spans.append((start, ci)); start = None
+            if start is not None:
+                spans.append((start, len(ln.rstrip())))
             self.in_para = k > 0
-            self.line(ln, f)
-        self.in_para, self.last_para = False, text
+            self.line(ln, f, spans)
+        self.in_para, self.last_para = False, clean
 
     def image(self, path, alt, hero=False):
         if not os.path.exists(path):
@@ -523,6 +559,8 @@ def main(src, out):
             blocks.append({"img": meta["hero"], "alt": "素材图", "hero": True})
     if not cover and not meta.get("headline") and not meta.get("hero"):
         print("⚠ 首页没有 headline 也没有 hero：信息流里露出的只有前几行正文，看看前两段够不够当钩子")
+    body_text = "".join(b.get("p", "") + b.get("head", "") for b in blocks).replace("==", "")
+    meta["_body_chars"] = len(re.findall(r"[\u4e00-\u9fff]", body_text)) + len(re.findall(r"[A-Za-z0-9]+", body_text))
     pg = Pager(meta, avatar, has_cover=bool(cover))
     for b in blocks:
         if "p" in b:
@@ -576,6 +614,9 @@ def main(src, out):
         if share < 0.3:
             print("  页末多停在整段上：在这几页末尾放一句 22 字以内的短段把下一页提起来，"
                   "或者把揭晓句写长一点，让它跨页")
+    if pg.highlights:
+        per = pg.highlights / max(1, body_pages)
+        print(f"{'✓' if per <= 3 else '⚠'} 荧光笔 {pg.highlights} 处，每页平均 {per:.1f}" + ("（每页最多 3 处，只标关键数和一句结论）" if per > 3 else ""))
     print(f"共 {len(pg.pages)} 页，末页填充 {fill:.0%}" + ("  ✗ 超过小红书 18 张上限，删段落" if len(pg.pages) > 18 else ""))
     if fill < 0.25 and body_pages > 1:
         print(f"⚠ 末页只有 {fill:.0%}：删几句让它并进上一页，或者在结尾补一句回扣")
