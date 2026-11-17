@@ -9,11 +9,12 @@
   "靠得住的人护住大脑"
  ],
  "narration": {
-  "speaker": "S_DRo7Kc2k2",
+  "speaker": "zh-CN-YunyangNeural",
   "rate": 25,
   "fidelity": false,
   "pause": 0.45,
-  "ctx": "你可以用跟朋友聊天的语气说吗？自然、有起伏，不要播音腔"
+  "ctx": "你可以用跟朋友聊天的语气说吗？自然、有起伏，不要播音腔",
+  "engine": "edge"
  },
  "lines": [
   [

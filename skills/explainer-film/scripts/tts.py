@@ -9,6 +9,8 @@
 - **按句合成**，每句去掉首尾静音，句间插 0.45 秒停顿（一口气念完的 AI 感最重）；build_timeline 靠这个停顿把字幕对到每句
 - **换火山现成音色（用户 11-17）**：plan.json 的 narration 写 "speaker": "<音色 ID>", "resource": "seed-tts-2.0"（复刻音色是 seed-icl-2.0）。
   需要账号先开通「豆包语音合成模型 2.0」，没开通时接口报 45000030 requested resource not granted
+- **微软免费音色（用户 11-17 选云扬 zh-CN-YunyangNeural）**：narration 写 "engine": "edge", "speaker": "zh-CN-YunyangNeural"。
+  edge 不认情绪指令（〔〕里的指令文字被忽略），r 换算成 edge 语速（r × 0.4 − 5 %），k / s / g / p 后期照样生效
 - 火山偶尔 502，自动重试 5 次（2/4/8/16/32 秒）
 - **每句单独给情绪（用户 11-17：整条一个语气指令「非常平，没有任何情感和节奏变化」）**：旁白里每句前面写〔情绪指令〕，
   可带语速和句后停顿：〔你可以压低声音、放慢说吗？像在讲悬疑故事｜r=0｜p=0.9〕。没写的句子沿用上一句。
@@ -59,11 +61,24 @@ def post(a, tone):                       # 每句的变调 / 变速 / 音量
                        input=a.tobytes(), capture_output=True, check=True)
     return np.frombuffer(r.stdout, dtype=np.int16)
 
+def synth_edge(t, cfg):                 # 微软 edge-tts：免费、不要 Key；mp3 → 48k 单声道 int16
+    import asyncio, certifi, tempfile, os
+    certifi.where = lambda: "/root/.ccr/ca-bundle.crt"   # 云端代理重签 TLS，信任代理 CA
+    import edge_tts
+    rate = f"{round(cfg['rate'] * .4 - 5):+d}%"
+    f = tempfile.mktemp(suffix=".mp3")
+    for i in range(5):
+        try: asyncio.run(edge_tts.Communicate(t, cfg["speaker"], rate=rate).save(f)); break
+        except Exception as e: err = e; time.sleep(2 ** (i + 1))
+    else: raise SystemExit(f"edge tts failed: {err}")
+    r = subprocess.run(["ffmpeg", "-v", "error", "-i", f, "-ac", "1", "-ar", "48000", "-f", "s16le", "-"], capture_output=True, check=True); os.remove(f)
+    return np.frombuffer(r.stdout, dtype=np.int16)
+
 def cached(s, c):
-    key = hashlib.md5(json.dumps([s, c["speaker"], c["rate"], c["fidelity"], c.get("ctx")], ensure_ascii=False).encode()).hexdigest()
+    key = hashlib.md5(json.dumps([s, c.get("engine", "volc"), c["speaker"], c["rate"], c["fidelity"], c.get("ctx")], ensure_ascii=False).encode()).hexdigest()
     f = CACHE / f"{key}.npy"
     if f.exists(): return np.load(f)
-    a = synth(s, c); np.save(f, a); return a
+    a = synth_edge(s, c) if c.get("engine") == "edge" else synth(s, c); np.save(f, a); return a
 
 def trim(a, th=300):                     # 去掉每句首尾静音，停顿统一由我们加
     idx = np.where(np.abs(a) > th)[0]

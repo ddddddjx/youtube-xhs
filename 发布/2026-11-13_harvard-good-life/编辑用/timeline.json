@@ -1,5 +1,5 @@
 {
- "dur": 265.562,
+ "dur": 252.785,
  "segs": [
   {
    "kind": "clip",
@@ -14,25 +14,25 @@
    "kind": "nar",
    "id": "o1",
    "t0": 8.35,
-   "t1": 11.364
+   "t1": 11.674
   },
   {
    "kind": "nar",
    "id": "o2",
-   "t0": 11.814,
-   "t1": 15.537
+   "t0": 12.124,
+   "t1": 15.898
   },
   {
    "kind": "nar",
    "id": "o3",
-   "t0": 15.987,
-   "t1": 20.203
+   "t0": 16.348,
+   "t1": 21.013
   },
   {
    "kind": "clip",
    "id": "C1",
-   "t0": 20.653,
-   "t1": 35.053,
+   "t0": 21.463,
+   "t1": 35.863,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": []
@@ -40,20 +40,20 @@
   {
    "kind": "nar",
    "id": "n1",
-   "t0": 35.503,
-   "t1": 53.026
+   "t0": 36.313,
+   "t1": 51.87
   },
   {
    "kind": "nar",
    "id": "q1",
-   "t0": 53.476,
-   "t1": 60.745
+   "t0": 52.32,
+   "t1": 57.717
   },
   {
    "kind": "clip",
    "id": "C2",
-   "t0": 61.195,
-   "t1": 79.895,
+   "t0": 58.167,
+   "t1": 76.867,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": []
@@ -61,8 +61,8 @@
   {
    "kind": "clip",
    "id": "CQ",
-   "t0": 80.695,
-   "t1": 99.695,
+   "t0": 77.667,
+   "t1": 96.667,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": []
@@ -70,43 +70,43 @@
   {
    "kind": "nar",
    "id": "q3",
-   "t0": 100.145,
-   "t1": 112.517
+   "t0": 97.117,
+   "t1": 108.874
   },
   {
    "kind": "nar",
    "id": "n3",
-   "t0": 113.117,
-   "t1": 115.085
+   "t0": 109.474,
+   "t1": 111.034
   },
   {
    "kind": "clip",
    "id": "C3",
-   "t0": 115.535,
-   "t1": 138.935,
+   "t0": 111.484,
+   "t1": 134.884,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": [
-    121.435
+    117.384
    ]
   },
   {
    "kind": "nar",
    "id": "r1",
-   "t0": 139.385,
-   "t1": 145.759
+   "t0": 135.334,
+   "t1": 140.248
   },
   {
    "kind": "nar",
    "id": "n4",
-   "t0": 146.359,
-   "t1": 157.103
+   "t0": 140.848,
+   "t1": 150.633
   },
   {
    "kind": "clip",
    "id": "C4",
-   "t0": 157.553,
-   "t1": 180.753,
+   "t0": 151.083,
+   "t1": 174.283,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": []
@@ -114,20 +114,20 @@
   {
    "kind": "nar",
    "id": "r2",
-   "t0": 181.203,
-   "t1": 185.959
+   "t0": 174.733,
+   "t1": 178.827
   },
   {
    "kind": "nar",
    "id": "n5",
-   "t0": 186.559,
-   "t1": 188.36
+   "t0": 179.427,
+   "t1": 181.041
   },
   {
    "kind": "clip",
    "id": "C5",
-   "t0": 188.81,
-   "t1": 206.31,
+   "t0": 181.491,
+   "t1": 198.991,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": []
@@ -135,26 +135,26 @@
   {
    "kind": "nar",
    "id": "n6",
-   "t0": 206.76,
-   "t1": 218.376
+   "t0": 199.441,
+   "t1": 209.164
   },
   {
    "kind": "nar",
    "id": "r3",
-   "t0": 218.826,
-   "t1": 224.84
+   "t0": 209.614,
+   "t1": 214.412
   },
   {
    "kind": "nar",
    "id": "n7",
-   "t0": 225.44,
-   "t1": 227.012
+   "t0": 215.012,
+   "t1": 216.408
   },
   {
    "kind": "clip",
    "id": "C6",
-   "t0": 227.462,
-   "t1": 245.962,
+   "t0": 216.858,
+   "t1": 235.358,
    "who": "Robert Waldinger",
    "layout": "none",
    "cuts": []
@@ -162,8 +162,8 @@
   {
    "kind": "nar",
    "id": "n8",
-   "t0": 246.412,
-   "t1": 262.562
+   "t0": 235.808,
+   "t1": 249.785
   }
  ],
  "subs": [
@@ -183,417 +183,417 @@
   },
   {
    "a": 8.36,
-   "b": 11.31,
+   "b": 11.62,
    "zh": "这是 TED 上被看了五千多万次的一场演讲",
    "kind": "nar"
   },
   {
-   "a": 11.844,
-   "b": 13.475,
+   "a": 12.144,
+   "b": 13.802,
    "zh": "讲的人叫 Robert Waldinger",
    "kind": "nar"
   },
   {
-   "a": 13.525,
-   "b": 15.484,
+   "a": 13.852,
+   "b": 15.844,
    "zh": "哈佛医学院的精神科教授",
    "kind": "nar"
   },
   {
-   "a": 16.007,
-   "b": 17.414,
+   "a": 16.368,
+   "b": 17.932,
    "zh": "他手里有一项研究",
    "kind": "nar"
   },
   {
-   "a": 17.464,
-   "b": 18.872,
+   "a": 17.982,
+   "b": 19.546,
    "zh": "从一九三八年开始",
    "kind": "nar"
   },
   {
-   "a": 18.922,
-   "b": 20.147,
+   "a": 19.596,
+   "b": 20.958,
    "zh": "一直做到了今天",
    "kind": "nar"
   },
   {
-   "a": 20.753,
-   "b": 27.653,
+   "a": 21.563,
+   "b": 28.463,
    "zh": "哈佛成人发展研究，可能是同类研究里做得最久的一项。",
    "en": "The Harvard Study of Adult Development may be the longest study of adult life ever done.",
    "kind": "clip"
   },
   {
-   "a": 28.753,
-   "b": 34.953,
+   "a": 29.563,
+   "b": 35.763,
    "zh": "75 年里，我们跟踪了 724 位男性的一生。",
    "en": "For 75 years, we've tracked the lives of 724 men.",
    "kind": "clip"
   },
   {
-   "a": 35.523,
-   "b": 37.303,
+   "a": 36.333,
+   "b": 38.023,
    "zh": "七百多个人，分成两组",
    "kind": "nar"
   },
   {
-   "a": 37.873,
-   "b": 39.753,
+   "a": 38.603,
+   "b": 40.283,
    "zh": "一组是哈佛的大二学生",
    "kind": "nar"
   },
   {
-   "a": 40.323,
-   "b": 43.693,
+   "a": 40.853,
+   "b": 43.613,
    "zh": "另一组，是波士顿最穷街区的男孩",
    "kind": "nar"
   },
   {
-   "a": 44.273,
-   "b": 46.678,
+   "a": 44.223,
+   "b": 46.403,
    "zh": "每隔两年，研究者就上门一次",
    "kind": "nar"
   },
   {
-   "a": 46.728,
-   "b": 49.133,
+   "a": 46.453,
+   "b": 48.633,
    "zh": "问卷、病历、抽血、扫描大脑",
    "kind": "nar"
   },
   {
-   "a": 49.693,
-   "b": 52.973,
+   "a": 49.203,
+   "b": 51.813,
    "zh": "一跟，就跟到了他们九十多岁",
    "kind": "nar"
   },
   {
-   "a": 53.476,
-   "b": 56.586,
+   "a": 52.35,
+   "b": 54.14,
    "zh": "七十五年，几万页记录",
    "kind": "nar"
   },
   {
-   "a": 56.636,
-   "b": 60.695,
+   "a": 54.89,
+   "b": 57.66,
    "zh": "最后能说清楚的，只有一句话",
    "kind": "nar"
   },
   {
-   "a": 61.295,
-   "b": 67.195,
+   "a": 58.267,
+   "b": 64.167,
    "zh": "结论跟财富、名望、更拼命工作都没有关系。",
    "en": "The lessons aren't about wealth or fame or working harder and harder.",
    "kind": "clip"
   },
   {
-   "a": 68.095,
-   "b": 73.695,
+   "a": 65.067,
+   "b": 70.667,
    "zh": "这项 75 年的研究，给出的最明确的一条是：",
    "en": "The clearest message that we get from this 75-year study is this:",
    "kind": "clip"
   },
   {
-   "a": 74.695,
-   "b": 79.795,
+   "a": 71.667,
+   "b": 76.767,
    "zh": "好的关系让人更快乐、更健康。就这样。",
    "en": "Good relationships keep us happier and healthier. Period.",
    "kind": "clip"
   },
   {
-   "a": 80.795,
-   "b": 85.495,
+   "a": 77.767,
+   "b": 82.467,
    "zh": "人可以在人群中孤独，也可以在婚姻里孤独。",
    "en": "And we know that you can be lonely in a crowd and you can be lonely in a marriage.",
    "kind": "clip"
   },
   {
-   "a": 86.495,
-   "b": 91.395,
+   "a": 83.467,
+   "b": 88.367,
    "zh": "所以第二条结论是：不只看你有多少朋友，",
    "en": "So the second big lesson is that it's not just the number of friends you have,",
    "kind": "clip"
   },
   {
-   "a": 91.795,
-   "b": 94.695,
+   "a": 88.767,
+   "b": 91.667,
    "zh": "也不只看你有没有伴侣，",
    "en": "and it's not whether or not you're in a committed relationship,",
    "kind": "clip"
   },
   {
-   "a": 94.795,
-   "b": 99.595,
+   "a": 91.767,
+   "b": 96.567,
    "zh": "真正要紧的，是亲密关系的质量。",
    "en": "but it's the quality of your close relationships that matters.",
    "kind": "clip"
   },
   {
-   "a": 100.165,
-   "b": 101.615,
+   "a": 97.137,
+   "b": 98.817,
    "zh": "他把这句话拆成三层",
    "kind": "nar"
   },
   {
-   "a": 102.335,
-   "b": 104.765,
+   "a": 99.607,
+   "b": 101.557,
    "zh": "第一层，孤独伤的是身体",
    "kind": "nar"
   },
   {
-   "a": 105.505,
-   "b": 108.845,
+   "a": 102.327,
+   "b": 104.987,
    "zh": "第二层，五十岁，就能预测八十岁",
    "kind": "nar"
   },
   {
-   "a": 109.575,
-   "b": 112.465,
+   "a": 105.717,
+   "b": 108.817,
    "zh": "第三层，靠得住的人，护住的是大脑",
    "kind": "nar"
   },
   {
-   "a": 113.147,
-   "b": 115.027,
+   "a": 109.494,
+   "b": 110.984,
    "zh": "先看孤独的那一头",
    "kind": "nar"
   },
   {
-   "a": 115.635,
-   "b": 119.435,
+   "a": 111.584,
+   "b": 115.384,
    "zh": "第一，跟人有连接，对我们真的有好处；",
    "en": "The first is that social connections are really good for us,",
    "kind": "clip"
   },
   {
-   "a": 119.535,
-   "b": 121.335,
+   "a": 115.484,
+   "b": 117.284,
    "zh": "而孤独会要人命。",
    "en": "and that loneliness kills.",
    "kind": "clip"
   },
   {
-   "a": 121.535,
-   "b": 125.735,
+   "a": 117.484,
+   "b": 121.684,
    "zh": "那些比自己希望的更孤立的人，",
    "en": "People who are more isolated than they want to be from others",
    "kind": "clip"
   },
   {
-   "a": 126.535,
-   "b": 129.235,
+   "a": 122.484,
+   "b": 125.184,
    "zh": "没那么快乐，",
    "en": "find that they are less happy,",
    "kind": "clip"
   },
   {
-   "a": 130.135,
-   "b": 132.635,
+   "a": 126.084,
+   "b": 128.584,
    "zh": "中年时健康更早开始下滑，",
    "en": "their health declines earlier in midlife,",
    "kind": "clip"
   },
   {
-   "a": 133.135,
-   "b": 135.135,
+   "a": 129.084,
+   "b": 131.084,
    "zh": "大脑功能衰退得更早，",
    "en": "their brain functioning declines sooner",
    "kind": "clip"
   },
   {
-   "a": 135.235,
-   "b": 138.835,
+   "a": 131.184,
+   "b": 134.784,
    "zh": "寿命也比不孤独的人短。",
    "en": "and they live shorter lives than people who are not lonely.",
    "kind": "clip"
   },
   {
-   "a": 139.405,
-   "b": 141.355,
+   "a": 135.364,
+   "b": 137.034,
    "zh": "孤独不只是一种心情",
    "kind": "nar"
   },
   {
-   "a": 141.995,
-   "b": 145.705,
+   "a": 137.684,
+   "b": 140.194,
    "zh": "身体和大脑，都会提前衰老",
    "kind": "nar"
   },
   {
-   "a": 146.379,
-   "b": 149.889,
+   "a": 140.868,
+   "b": 143.818,
    "zh": "等这批人活到八十多岁，研究者做了一件事",
    "kind": "nar"
   },
   {
-   "a": 150.459,
-   "b": 153.836,
+   "a": 144.388,
+   "b": 147.559,
    "zh": "他们翻出每个人五十岁时的全部记录",
    "kind": "nar"
   },
   {
-   "a": 153.886,
-   "b": 155.549,
+   "a": 147.609,
+   "b": 149.169,
    "zh": "想找出到底哪一项",
    "kind": "nar"
   },
   {
-   "a": 155.599,
-   "b": 157.049,
+   "a": 149.219,
+   "b": 150.578,
    "zh": "能提前预测晚年",
    "kind": "nar"
   },
   {
-   "a": 157.653,
-   "b": 162.853,
+   "a": 151.183,
+   "b": 156.383,
    "zh": "把他们 50 岁时的所有资料放在一起看，",
    "en": "When we gathered together everything we knew about them at age 50,",
    "kind": "clip"
   },
   {
-   "a": 163.853,
-   "b": 168.753,
+   "a": 157.383,
+   "b": 162.283,
    "zh": "预测他们怎样变老的，不是中年的胆固醇水平，",
    "en": "it wasn't their middle-age cholesterol levels that predicted how they were going to grow old.",
    "kind": "clip"
   },
   {
-   "a": 169.453,
-   "b": 172.753,
+   "a": 162.983,
+   "b": 166.283,
    "zh": "是他们对自己的关系有多满意。",
    "en": "It was how satisfied they were in their relationships.",
    "kind": "clip"
   },
   {
-   "a": 172.953,
-   "b": 180.653,
+   "a": 166.483,
+   "b": 174.183,
    "zh": "50 岁时对关系最满意的人，80 岁时最健康。",
    "en": "The people most satisfied in their relationships at age 50 were the healthiest at age 80.",
    "kind": "clip"
   },
   {
-   "a": 181.203,
-   "b": 185.903,
+   "a": 174.733,
+   "b": 178.773,
    "zh": "五十岁时关系好不好，比胆固醇，更能预测八十岁",
    "kind": "nar"
   },
   {
-   "a": 186.579,
-   "b": 188.309,
+   "a": 179.447,
+   "b": 180.987,
    "zh": "第三层，在大脑里",
    "kind": "nar"
   },
   {
-   "a": 188.81,
-   "b": 197.11,
+   "a": 181.491,
+   "b": 189.791,
    "zh": "80 多岁时，有一段让人安心的关系，是一种保护。",
    "en": "Being in a securely attached relationship to another person in your 80s is protective.",
    "kind": "clip"
   },
   {
-   "a": 197.31,
-   "b": 203.31,
+   "a": 189.991,
+   "b": 195.991,
    "zh": "真心觉得需要的时候能指望对方的人，",
    "en": "People who really feel they can count on the other person in times of need,",
    "kind": "clip"
   },
   {
-   "a": 203.51,
-   "b": 206.21,
+   "a": 196.191,
+   "b": 198.891,
    "zh": "记忆力保持清晰的时间更长。",
    "en": "those people's memories stay sharper longer.",
    "kind": "clip"
   },
   {
-   "a": 206.76,
-   "b": 209.614,
+   "a": 199.461,
+   "b": 201.261,
    "zh": "好的关系，不等于从不吵架",
    "kind": "nar"
   },
   {
-   "a": 209.664,
-   "b": 213.002,
+   "a": 201.821,
+   "b": 203.931,
    "zh": "有些八十多岁的夫妻，天天拌嘴",
    "kind": "nar"
   },
   {
-   "a": 213.052,
-   "b": 218.326,
+   "a": 204.531,
+   "b": 209.111,
    "zh": "可只要相信关键时刻对方靠得住，记忆就不受影响",
    "kind": "nar"
   },
   {
-   "a": 218.846,
-   "b": 220.286,
+   "a": 209.634,
+   "b": 210.994,
    "zh": "吵不吵架不要紧",
    "kind": "nar"
   },
   {
-   "a": 221.226,
-   "b": 224.786,
+   "a": 211.774,
+   "b": 214.354,
    "zh": "难的时候有人靠得住，才要紧",
    "kind": "nar"
   },
   {
-   "a": 225.46,
-   "b": 226.96,
+   "a": 215.032,
+   "b": 216.352,
    "zh": "他给的办法，都很小",
    "kind": "nar"
   },
   {
-   "a": 227.562,
-   "b": 232.862,
+   "a": 216.958,
+   "b": 222.258,
    "zh": "可以简单到把看屏幕的时间，换成跟人在一起；",
    "en": "It might be something as simple as replacing screen time with people time,",
    "kind": "clip"
   },
   {
-   "a": 234.162,
-   "b": 240.262,
+   "a": 223.558,
+   "b": 229.658,
    "zh": "或者一起做点新鲜事，散步、约会，让关系重新活起来；",
    "en": "or livening up a stale relationship by doing something new together, long walks or date nights,",
    "kind": "clip"
   },
   {
-   "a": 241.062,
-   "b": 245.862,
+   "a": 230.458,
+   "b": 235.258,
    "zh": "或者联系那位多年没说话的家人。",
    "en": "or reaching out to that family member who you haven't spoken to in years.",
    "kind": "clip"
   },
   {
-   "a": 246.412,
-   "b": 249.602,
+   "a": 235.828,
+   "b": 238.588,
    "zh": "他说，别跟屏幕聊天，去跟人聊天",
    "kind": "nar"
   },
   {
-   "a": 250.202,
-   "b": 250.956,
+   "a": 239.188,
+   "b": 239.855,
    "zh": "十年过去",
    "kind": "nar"
   },
   {
-   "a": 251.006,
-   "b": 253.367,
+   "a": 239.905,
+   "b": 242.005,
    "zh": "很多人每天聊得最多的对象",
    "kind": "nar"
   },
   {
-   "a": 253.417,
-   "b": 254.492,
+   "a": 242.055,
+   "b": 243.008,
    "zh": "变成了 AI",
    "kind": "nar"
   },
   {
-   "a": 255.032,
-   "b": 257.972,
+   "a": 243.568,
+   "b": 246.188,
    "zh": "能交给 AI 的事，都交出去",
    "kind": "nar"
   },
   {
-   "a": 258.762,
-   "b": 262.512,
+   "a": 246.898,
+   "b": 249.728,
    "zh": "省下来的时间，留给靠得住的人",
    "kind": "nar"
   }
@@ -612,7 +612,7 @@
   {
    "src": "clips/WIDE.mov",
    "t0": 8.1,
-   "t1": 11.814,
+   "t1": 12.124,
    "off": 0.5,
    "rect": "wide",
    "mute": true,
@@ -620,8 +620,8 @@
   },
   {
    "src": "clips/SPK.mov",
-   "t0": 11.814,
-   "t1": 15.987,
+   "t0": 12.124,
+   "t1": 16.348,
    "off": 0.5,
    "rect": "wide",
    "mute": true,
@@ -629,8 +629,8 @@
   },
   {
    "src": "clips/PHOTO.mov",
-   "t0": 15.987,
-   "t1": 20.203,
+   "t0": 16.348,
+   "t1": 21.013,
    "off": 0.5,
    "rect": "wide",
    "mute": true,
@@ -650,107 +650,107 @@
   },
   {
    "src": "narration/o2.wav",
-   "at": 11.814,
+   "at": 12.124,
    "narration": true
   },
   {
    "src": "narration/o3.wav",
-   "at": 15.987,
+   "at": 16.348,
    "narration": true
   },
   {
    "src": "clips/C1.mov",
-   "at": 20.653,
+   "at": 21.463,
    "narration": false
   },
   {
    "src": "narration/n1.wav",
-   "at": 35.503,
+   "at": 36.313,
    "narration": true
   },
   {
    "src": "narration/q1.wav",
-   "at": 53.476,
+   "at": 52.32,
    "narration": true
   },
   {
    "src": "clips/C2.mov",
-   "at": 61.195,
+   "at": 58.167,
    "narration": false
   },
   {
    "src": "clips/CQ.mov",
-   "at": 80.695,
+   "at": 77.667,
    "narration": false
   },
   {
    "src": "narration/q3.wav",
-   "at": 100.145,
+   "at": 97.117,
    "narration": true
   },
   {
    "src": "narration/n3.wav",
-   "at": 113.117,
+   "at": 109.474,
    "narration": true
   },
   {
    "src": "clips/C3.mov",
-   "at": 115.535,
+   "at": 111.484,
    "narration": false
   },
   {
    "src": "narration/r1.wav",
-   "at": 139.385,
+   "at": 135.334,
    "narration": true
   },
   {
    "src": "narration/n4.wav",
-   "at": 146.359,
+   "at": 140.848,
    "narration": true
   },
   {
    "src": "clips/C4.mov",
-   "at": 157.553,
+   "at": 151.083,
    "narration": false
   },
   {
    "src": "narration/r2.wav",
-   "at": 181.203,
+   "at": 174.733,
    "narration": true
   },
   {
    "src": "narration/n5.wav",
-   "at": 186.559,
+   "at": 179.427,
    "narration": true
   },
   {
    "src": "clips/C5.mov",
-   "at": 188.81,
+   "at": 181.491,
    "narration": false
   },
   {
    "src": "narration/n6.wav",
-   "at": 206.76,
+   "at": 199.441,
    "narration": true
   },
   {
    "src": "narration/r3.wav",
-   "at": 218.826,
+   "at": 209.614,
    "narration": true
   },
   {
    "src": "narration/n7.wav",
-   "at": 225.44,
+   "at": 215.012,
    "narration": true
   },
   {
    "src": "clips/C6.mov",
-   "at": 227.462,
+   "at": 216.858,
    "narration": false
   },
   {
    "src": "narration/n8.wav",
-   "at": 246.412,
+   "at": 235.808,
    "narration": true
   }
  ]
