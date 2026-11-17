@@ -16,7 +16,7 @@ function sprite(col) {
   rg.addColorStop(0, '#fff'); rg.addColorStop(.18, col); rg.addColorStop(.5, col + '55'); rg.addColorStop(1, col + '00');
   q.fillStyle = rg; q.fillRect(0, 0, 64, 64); return sprites[col] = c;
 }
-function dot(x, y, r, col, a = 1) { if (a <= 0.01) return; g.globalAlpha = a; g.drawImage(sprite(col), x - r * 3, y - r * 3, r * 6, r * 6); }
+function dot(x, y, r, col, a = 1) { if (a <= 0.01) return; const ga = g.globalAlpha; g.globalAlpha = ga * clamp(a); g.drawImage(sprite(col), x - r * 3, y - r * 3, r * 6, r * 6); g.globalAlpha = ga; }   // 乘在外层透明度上，外层淡出才生效
 function lighter(fn) { g.save(); g.globalCompositeOperation = 'lighter'; fn(); g.restore(); }
 const GOLD = '#F2B84B', BLUE = '#6FA0FF', TEAL = '#3CC8B4', RED = '#FF5A5F', GREY = '#8890B5';
 
@@ -94,7 +94,7 @@ panels.C1 = lt => {
   const k75 = ease((lt - 8.1) / 2.2), x0 = PX - 320, x1 = PX + 320;
   alpha(win(lt, 1.2), () => { text('1938', x0, 330, 30, C.dim, 'center', 600); g.strokeStyle = 'rgba(255,255,255,.3)'; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(x0, 372); g.lineTo(x1, 372); g.stroke(); });
   if (k75 > 0) { g.strokeStyle = GOLD; g.lineWidth = 8; g.lineCap = 'round'; g.beginPath(); g.moveTo(x0, 372); g.lineTo(lerp(x0, x1, k75), 372); g.stroke();
-    lighter(() => dot(lerp(x0, x1, k75), 372, 7, GOLD, 1)); g.globalAlpha = 1;
+    lighter(() => dot(lerp(x0, x1, k75), 372, 7, GOLD, 1));
     alpha(k75, () => { text('2013', x1, 330, 30, C.dim, 'center', 600); text(Math.round(75 * k75) + ' 年', PX, 300, 78, C.gold); }); }
   // 724 人：光点一格格亮起
   const k724 = clamp((lt - 11.6) / 2.2), cols = 38, gap = 17, gx = PX - (cols - 1) * gap / 2, gy = 500;
@@ -121,7 +121,7 @@ panels.C2 = lt => {
   if (kr > 0) {
     const y = 680, dx = lerp(40, 150, back(kr));
     alpha(kr, () => { g.save(); g.shadowColor = GOLD; g.shadowBlur = 30; g.strokeStyle = GOLD; g.lineWidth = 7; g.lineCap = 'round'; g.beginPath(); g.moveTo(PX - dx, y); g.lineTo(PX + dx, y); g.stroke(); g.restore(); });
-    lighter(() => { dot(PX - dx, y, 16, GOLD, kr); dot(PX + dx, y, 16, GOLD, kr); }); g.globalAlpha = 1;
+    lighter(() => { dot(PX - dx, y, 16, GOLD, kr); dot(PX + dx, y, 16, GOLD, kr); });
     alpha(kr, () => text('好的关系', PX, y - 70, 60, C.gold));
     pill('更快乐', PX - 130, y + 90, 34, '', win(lt, 15.6), TEAL); pill('更健康', PX + 130, y + 90, 34, '', win(lt, 16.7), TEAL);
     alpha(win(lt, 17.8, .3), () => text('就这样。', PX, y + 170, 34, C.text, 'center', 600));
@@ -137,7 +137,7 @@ function network(cx, cy, sc, k, t) {
     const [x1, y1] = NET[a], [x2, y2] = NET[b]; g.strokeStyle = `rgba(242,184,75,${.55 + .2 * Math.sin(t * 2 + i)})`; g.lineWidth = 3;
     g.beginPath(); g.moveTo(cx + x1 * sc, cy + y1 * sc); g.lineTo(cx + lerp(x1, x2, q) * sc, cy + lerp(y1, y2, q) * sc); g.stroke(); });
   g.restore();
-  lighter(() => NET.forEach(([x, y], i) => dot(cx + x * sc, cy + y * sc, 9 * sc, GOLD, .8 + .2 * Math.sin(t * 2 + i)))); g.globalAlpha = 1;
+  lighter(() => NET.forEach(([x, y], i) => dot(cx + x * sc, cy + y * sc, 9 * sc, GOLD, .8 + .2 * Math.sin(t * 2 + i))));
 }
 S.n3 = (t, s) => {
   chapter(stepChapter(0));
@@ -146,7 +146,7 @@ S.n3 = (t, s) => {
   pill('有连接', 620, 840, 36, '', win(t, s.t0 + .8), GOLD);
   const lone = subAt(s, /没有关系/, 1.6);
   alpha(win(t, lone), () => { g.setLineDash([10, 12]); g.strokeStyle = 'rgba(111,160,255,.45)'; g.lineWidth = 3; g.beginPath(); g.arc(1340, 500, 150 + 6 * Math.sin(t * 1.5), 0, 7); g.stroke(); g.setLineDash([]); });
-  lighter(() => dot(1340, 500, 13, BLUE, win(t, lone) * (.6 + .2 * Math.sin(t * 2)))); g.globalAlpha = 1;
+  lighter(() => dot(1340, 500, 13, BLUE, win(t, lone) * (.6 + .2 * Math.sin(t * 2))));
   pill('孤独', 1340, 840, 36, '', win(t, lone + .4), BLUE);
 };
 
@@ -162,7 +162,7 @@ panels.C3 = lt => {
   });
   const curve = (h, aEnd, col, lw) => { if (aEnd <= 20) return; g.save(); g.shadowColor = col; g.shadowBlur = 18; g.strokeStyle = col; g.lineWidth = lw; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath();
     for (let a = 20; a <= aEnd; a += .5) { const x = ax(a), y = hy(h(a)); a === 20 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); g.restore();
-    lighter(() => dot(ax(aEnd), hy(h(aEnd)), 7, col, 1)); g.globalAlpha = 1; };
+    lighter(() => dot(ax(aEnd), hy(h(aEnd)), 7, col, 1)); };
   // 有连接：第一段原声里画到 60 岁，之后陪着另一条线走完
   const aC = lerp(20, 60, ease((lt - 1.2) / 3.2)) + 28 * ease((lt - 12.5) / 8.5);
   curve(hC, aC, GOLD, 6);
@@ -185,7 +185,7 @@ S.n4 = (t, s) => {
   const t80 = subAt(s, /八十多岁/, 1.2), t50 = subAt(s, /五十岁/, 4), tP = subAt(s, /预测/, 7.5), Y = 660;
   axis(Y, win(t, s.t0 + .1), [t >= t50 ? 50 : -1, t >= t80 ? 80 : -1]);
   const k80 = win(t, t80, .6), k50 = win(t, t50, .5);
-  lighter(() => { dot(ageX(80), Y - 70, 16, GOLD, k80); }); g.globalAlpha = 1;
+  lighter(() => { dot(ageX(80), Y - 70, 16, GOLD, k80); });
   alpha(k80, () => text('活到 80 多岁', ageX(80) + 150, Y - 70, 36, C.text));
   ['问卷', '病历', '血样', '脑扫描', '访谈'].forEach((n, i) => {
     const k = back((t - t50 - i * .16) / .5), x = ageX(50) + (i - 2) * 150, y = Y - 300 + Math.abs(i - 2) * 16;
@@ -249,7 +249,7 @@ function brain(cx, cy, sc, lit, a, t) {
 }
 function pair(cx, y, dx, link, t, lw = 8, col = GOLD) {
   if (link > 0) { g.save(); g.shadowColor = col; g.shadowBlur = 26; g.strokeStyle = col; g.lineWidth = lw; g.lineCap = 'round'; g.beginPath(); g.moveTo(cx - dx, y); g.lineTo(lerp(cx - dx, cx + dx, link), y); g.stroke(); g.restore(); }
-  lighter(() => { dot(cx - dx, y, 17, GOLD, .9 + .1 * Math.sin(t * 2)); dot(cx + dx, y, 17, GOLD, .9 + .1 * Math.cos(t * 2)); }); g.globalAlpha = 1;
+  lighter(() => { dot(cx - dx, y, 17, GOLD, .9 + .1 * Math.sin(t * 2)); dot(cx + dx, y, 17, GOLD, .9 + .1 * Math.cos(t * 2)); });
 }
 function shield(cx, cy, r, k) { if (k <= 0) return; g.save(); g.strokeStyle = TEAL; g.lineWidth = 5; g.shadowColor = TEAL; g.shadowBlur = 22; g.globalAlpha *= clamp(k); g.setLineDash([26, 14]);
   g.beginPath(); g.ellipse(cx, cy, r * 1.25, r * .92, 0, -Math.PI * (.5 + k), -Math.PI * (.5 - k)); g.stroke(); g.restore(); }
@@ -317,11 +317,194 @@ panels.C6 = lt => {
   g.globalAlpha = 1;
 };
 
-/* ---------- 片尾：回到判断 + 一句立场 ---------- */
-S.n8 = (t, s, sp, tl) => {
-  K.GEN.ending(t, s, sp, tl);
-  const tA = subAt(s, /能交给/, 14), tB = subAt(s, /省下来/, 16.5);
-  alpha(win(t, tA, .5), () => text('能交给 AI 的事，都交出去', W / 2, 800, 40, C.text));
-  alpha(win(t, tB, .5), () => text('省下来的时间，留给靠得住的人', W / 2, 866, 46, C.gold));
+
+/* =====================================================================
+ * 11-17 第二版：原声段不再放原片，整屏重画（用户：原片画面抹掉，只留音轨，用自己的动画配合讲解）
+ * 每个原声段一个整屏镜头 S.<原声id>(t, seg)，lt = 片段内秒数（按词级时间戳对到他说的那个词）
+ * ===================================================================== */
+const SRC = 'Robert Waldinger 原声 | TED';
+function stars(t, a = 1, n = 260) {                    // 背景里的 724 个人：慢慢漂的暗星点，所有整屏镜头共用
+  lighter(() => { for (let i = 0; i < n; i++) { const x = (rnd(i * 3 + 7) * W + t * (6 + rnd(i) * 8)) % W, y = rnd(i * 5 + 1) * H;
+    dot(x, y, 1.6 + rnd(i + 9) * 1.2, i % 3 ? GOLD : BLUE, a * (.12 + .12 * Math.sin(t * 1.3 + i))); } }); g.globalAlpha = 1;
+}
+function scaled(cx0, cy0, cx1, cy1, sc, fn) { g.save(); g.translate(cx1, cy1); g.scale(sc, sc); g.translate(-cx0, -cy0); fn(); g.restore(); }
+function big(s1, x, y, px, col, a) { alpha(a, () => { g.save(); g.shadowColor = col; g.shadowBlur = 30; text(s1, x, y, px, col); g.restore(); }); }
+
+/* ---------- C1：「哈佛成人发展研究……75 年，724 位男性」 ---------- */
+const ERAS = [[1938, '研究开始'], [1945, '二战结束'], [1969, '人类登月'], [1989, '柏林墙倒塌'], [2007, '第一代 iPhone'], [2013, '演讲前两年']];
+S.C1 = (t, s) => {
+  const lt = t - s.t0; stars(t, win(lt, 0, .6)); chapter(SRC, C.orange);
+  const tA = win(lt, .3, .6) * (1 - win(lt, 7.6, .6));
+  alpha(tA, () => { text('哈佛成人发展研究', W / 2, 190, 76, C.text); text('Harvard Study of Adult Development', W / 2, 262, 30, C.gold, 'center', 500, true); });
+  pill('同类研究里做得最久的一项', W / 2, 330, 32, '', win(lt, 3.9) * (1 - win(lt, 7.6, .6)), GOLD);
+  // 年代轴：游标从 1938 走到 2013，经过的年代点亮
+  const y = 470, x0 = 230, x1 = 1690, k = clamp((lt - .6) / 11.4), yr = lerp(1938, 2013, ease(k) * .3 + k * .7), xc = lerp(x0, x1, (yr - 1938) / 75);
+  alpha(win(lt, .5), () => {
+    g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+    g.save(); g.shadowColor = GOLD; g.shadowBlur = 20; g.strokeStyle = GOLD; g.lineWidth = 6; g.beginPath(); g.moveTo(x0, y); g.lineTo(xc, y); g.stroke(); g.restore();
+    ERAS.forEach(([e, n], i) => { const x = lerp(x0, x1, (e - 1938) / 75), on = yr >= e - .2, up = i % 2;
+      alpha(on ? 1 : .25, () => { g.fillStyle = on ? GOLD : GREY; g.beginPath(); g.arc(x, y, on ? 9 : 6, 0, 7); g.fill();
+        text(String(e), x, y + (up ? -44 : 46), 26, on ? C.gold : C.dim, 'center', 700); text(n, x, y + (up ? -80 : 82), 24, on ? C.text : C.dim, 'center', 500); }); });
+    lighter(() => dot(xc, y, 12, GOLD, 1));
+  });
+  // 75 年
+  alpha(win(lt, 7.9, .6), () => { big(Math.round(lerp(0, 75, ease((lt - 7.9) / 1.4))) + ' 年', W / 2 - 230, 200, 120, C.gold, 1); });
+  // 724 个人：光点从轴上落下来排成方阵
+  const k7 = clamp((lt - 11.4) / 2.4), cols = 46, gap = 26, gx = W / 2 - (cols - 1) * gap / 2, gy = 600;
+  if (lt > 11) { lighter(() => { for (let i = 0; i < N; i++) { const on = clamp(k7 * N * 1.15 - i), tx = gx + (i % cols) * gap, ty = gy + Math.floor(i / cols) * gap;
+      if (on <= 0) continue; const sx = lerp(x0, x1, rnd(i)), e = ease(on);
+      dot(lerp(sx, tx, e), lerp(y, ty, e), 3.2, i < NH ? GOLD : BLUE, .85); } }); g.globalAlpha = 1;
+    alpha(win(lt, 11.4), () => big(Math.round(724 * ease(k7)) + ' 人', W / 2 + 230, 200, 120, C.text, 1)); }
+};
+
+/* ---------- n1 / q1：几万页记录压成一句话 ---------- */
+S.q1 = (t, s) => {
+  stars(t, .7); chapter('75 年的结论', C.gold);
+  const tEnd = subAt(s, /最后/, 3.2), grow = ease((t - s.t0) / Math.max(1.5, tEnd - s.t0)), col = ease((t - tEnd) / 1.1);
+  const n = 90, base = 820;
+  for (let i = 0; i < n; i++) {                        // 一摞记录往上长，再被压扁成一行
+    const on = clamp(grow * n - i); if (on <= 0) continue;
+    const y0 = base - i * 6.2, y1 = 520, y = lerp(y0, y1, col), w = lerp(560 + rnd(i) * 40, 900, col), h = lerp(5, 3, col), x = W / 2 - w / 2 + lerp((rnd(i + 3) - .5) * 30, 0, col);
+    g.globalAlpha = on * lerp(.85, 0, Math.min(1, col * 1.3)); g.fillStyle = i % 9 === 0 ? '#E9E2CF' : '#C9C2B0'; g.fillRect(x, y, w, h);
+  }
+  g.globalAlpha = 1;
+  alpha(grow * (1 - col), () => { text('几万页', W / 2 + 470, base - n * 6.2 * grow, 44, C.gold, 'left'); text('75 年的问卷、病历、访谈', W / 2 + 470, base - n * 6.2 * grow + 50, 26, C.dim, 'left', 500); });
+  alpha(col, () => { g.save(); g.shadowColor = GOLD; g.shadowBlur = 40; rr(W / 2 - 460, 470, 920, 100, 50); g.strokeStyle = GOLD; g.lineWidth = 4; g.stroke(); g.restore();
+    text('只 有 一 句 话', W / 2, 522, 46, C.gold); });
+};
+
+/* ---------- C2：不是财富、名望、拼命工作 → 好的关系。就这样。 ---------- */
+function coins(x, y, a, k) { alpha(a, () => { for (let i = 0; i < 7; i++) { const yy = y + 60 - i * 22 + (k > 0 ? i * k * 40 * (i % 2 ? 1 : -.4) : 0);
+  g.save(); g.translate(x + (k > 0 ? (i - 3) * k * 18 : 0), yy); g.beginPath(); g.ellipse(0, 0, 90, 26, 0, 0, 7); g.fillStyle = '#B98A2E'; g.fill();
+  g.beginPath(); g.ellipse(0, -8, 90, 26, 0, 0, 7); g.fillStyle = '#F2C55C'; g.fill(); g.strokeStyle = '#8E6A22'; g.lineWidth = 3; g.stroke(); g.restore(); } }); }
+function starIcon(x, y, r, a, t) { alpha(a, () => { g.save(); g.translate(x, y); g.rotate(Math.sin(t) * .05);
+  for (let i = 0; i < 12; i++) { g.strokeStyle = 'rgba(255,230,160,.35)'; g.lineWidth = 3; g.beginPath(); const an = i / 12 * 6.28; g.moveTo(Math.cos(an) * r * 1.2, Math.sin(an) * r * 1.2); g.lineTo(Math.cos(an) * r * 1.75, Math.sin(an) * r * 1.75); g.stroke(); }
+  g.beginPath(); for (let i = 0; i < 10; i++) { const an = -Math.PI / 2 + i * Math.PI / 5, rr2 = i % 2 ? r * .45 : r; g.lineTo(Math.cos(an) * rr2, Math.sin(an) * rr2); }
+  g.closePath(); g.fillStyle = '#FFD66B'; g.shadowColor = '#FFD66B'; g.shadowBlur = 30; g.fill(); g.restore(); }); }
+function laptop(x, y, a, t) { alpha(a, () => { g.save(); g.translate(x, y);
+  rr(-120, -110, 240, 150, 12); g.fillStyle = '#20264F'; g.fill(); g.strokeStyle = 'rgba(255,255,255,.6)'; g.lineWidth = 4; g.stroke();
+  for (let i = 0; i < 5; i++) { rr(-95, -88 + i * 24, 120 + 60 * rnd(i + Math.floor(t * 3)), 10, 5); g.fillStyle = 'rgba(111,160,255,.6)'; g.fill(); }
+  g.beginPath(); g.moveTo(-150, 48); g.lineTo(150, 48); g.lineTo(130, 62); g.lineTo(-130, 62); g.closePath(); g.fillStyle = 'rgba(255,255,255,.55)'; g.fill();
+  g.beginPath(); g.arc(110, -110, 40, 0, 7); g.fillStyle = '#10142E'; g.fill(); g.strokeStyle = C.orange; g.lineWidth = 4; g.stroke();
+  g.strokeStyle = C.text; g.lineWidth = 4; g.beginPath(); g.moveTo(110, -110); g.lineTo(110 + 26 * Math.sin(t * 6), -110 - 26 * Math.cos(t * 6)); g.stroke(); g.restore(); }); }
+function strike(x, y, w, k) { if (k <= 0) return; g.save(); g.strokeStyle = RED; g.lineWidth = 10; g.lineCap = 'round'; g.shadowColor = RED; g.shadowBlur = 16;
+  g.beginPath(); g.moveTo(x - w / 2, y + 30); g.lineTo(x - w / 2 + w * k, y + 30 - 60 * k); g.stroke(); g.restore(); }
+S.C2 = (t, s) => {
+  const lt = t - s.t0; stars(t, .8); chapter(SRC, C.orange);
+  const out = win(lt, 6.6, .9), xs = [460, 960, 1460], at = [1.8, 3.0, 4.1], names = ['财富', '名望', '拼命工作'];
+  const drop = k => (1 - out) * 1 + 0 * k;
+  xs.forEach((x, i) => {
+    const a = win(lt, .2 + i * .25) * (1 - out), k = ease((lt - at[i]) / .5), y = 420 + out * 120;
+    if (i === 0) coins(x, y, a * (1 - .45 * k), 0);
+    if (i === 1) starIcon(x, y - 10, 90, a * (1 - .45 * k), lt);
+    if (i === 2) laptop(x, y, a * (1 - .45 * k), lt);
+    alpha(a, () => text(names[i], x, y + 150, 44, k > .5 ? 'rgba(244,241,234,.45)' : C.text));
+    alpha(a, () => strike(x, y, 300, k));
+  });
+  alpha(win(lt, 7.0) * (1 - win(lt, 13.2, .5)), () => { text('75 年里，最明确的一条结论', W / 2, 470, 58, C.text); text('the clearest message', W / 2, 545, 30, C.gold, 'center', 500, true); });
+  // 好的关系：两团光从两侧靠近、连上，再在全屏点亮一张网
+  const kc = ease((lt - 12.9) / 1.0), link = ease((lt - 13.6) / .8), web = ease((lt - 15.2) / 2.2);
+  if (lt > 12.7) {
+    const dx = lerp(700, 170, kc), y = 470;
+    lighter(() => { for (let i = 0; i < 120; i++) { const a = rnd(i * 7) * 6.28, r = 260 + rnd(i * 3) * 620, x1 = W / 2 + Math.cos(a) * r * 1.4, y1 = y + Math.sin(a) * r * .6;
+        const j = (i * 37) % 120, a2 = rnd(j * 7) * 6.28, r2 = 260 + rnd(j * 3) * 620, x2 = W / 2 + Math.cos(a2) * r2 * 1.4, y2 = y + Math.sin(a2) * r2 * .6, q = clamp(web * 120 - i * .8);
+        if (q <= 0) continue; g.globalAlpha = .22 * q; g.strokeStyle = GOLD; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x1, y1); g.lineTo(lerp(x1, x2, .5 * q), lerp(y1, y2, .5 * q)); g.stroke(); dot(x1, y1, 3, GOLD, q * .8); } });
+    g.globalAlpha = 1;
+    if (link > 0) { g.save(); g.shadowColor = GOLD; g.shadowBlur = 40; g.strokeStyle = GOLD; g.lineWidth = 10; g.lineCap = 'round'; g.beginPath(); g.moveTo(W / 2 - dx, y); g.lineTo(W / 2 - dx + 2 * dx * link, y); g.stroke(); g.restore(); }
+    lighter(() => { dot(W / 2 - dx, y, 26, GOLD, kc); dot(W / 2 + dx, y, 26, GOLD, kc); });
+    big('好的关系', W / 2, 330, 84, C.gold, win(lt, 13.7, .5));
+    pill('更快乐', W / 2 - 150, 620, 40, '', win(lt, 15.5), TEAL); pill('更健康', W / 2 + 150, 620, 40, '', win(lt, 16.6), TEAL);
+    alpha(win(lt, 17.8, .3), () => text('就这样。', W / 2, 740, 50, C.text));
+  }
+};
+
+/* ---------- CQ：人群里也会孤独；看的不是朋友的数量，是质量 ---------- */
+S.CQ = (t, s) => {
+  const lt = t - s.t0; stars(t, .6); chapter(SRC, C.orange);
+  const p1 = 1 - win(lt, 5.6, .6), cx1 = 620, cx2 = 1330, cy = 470;
+  // 左：人群里的一个人
+  alpha(win(lt, .4) * p1, () => {
+    lighter(() => { for (let i = 0; i < 110; i++) { const a = i * 2.4, r = 70 + Math.sqrt(i / 110) * 230; dot(cx1 + Math.cos(a) * r * 1.2, cy + Math.sin(a) * r, 4, GOLD, .55 + .2 * Math.sin(lt * 2 + i)); } });
+    g.setLineDash([8, 10]); g.strokeStyle = 'rgba(111,160,255,.6)'; g.lineWidth = 3; g.beginPath(); g.arc(cx1, cy, 52 + 4 * Math.sin(lt * 2), 0, 7); g.stroke(); g.setLineDash([]);
+    lighter(() => dot(cx1, cy, 12, BLUE, .9));
+  });
+  pill('在人群中孤独', cx1, 800, 36, '', win(lt, 2.0) * p1, BLUE);
+  // 右：婚姻里的两个人，中间那根线是断的
+  alpha(win(lt, 3.8) * p1, () => {
+    g.setLineDash([16, 20]); g.strokeStyle = 'rgba(111,160,255,.5)'; g.lineWidth = 4; g.beginPath(); g.moveTo(cx2 - 130, cy); g.lineTo(cx2 - 25, cy - 18); g.moveTo(cx2 + 25, cy + 18); g.lineTo(cx2 + 130, cy); g.stroke(); g.setLineDash([]);
+    lighter(() => { dot(cx2 - 140, cy, 16, BLUE, .9); dot(cx2 + 140, cy, 16, BLUE, .9); });
+  });
+  pill('在婚姻里孤独', cx2, 800, 36, '', win(lt, 4.3) * p1, BLUE);
+  // 第二条结论：数量 vs 质量
+  const p2 = win(lt, 6.0, .6);
+  alpha(p2, () => { text('第二条结论', W / 2, 150, 40, C.dim, 'center', 600); });
+  const qk = ease((lt - 14.9) / 1.2), lx = 600, rx = 1320, y2 = 480;
+  alpha(win(lt, 6.6) * (1 - .55 * qk), () => {
+    for (let i = 0; i < 14; i++) { const a = i / 14 * 6.28 + .3, r = 210 + 30 * rnd(i), x = lx + Math.cos(a) * r, y = y2 + Math.sin(a) * r * .8, q = clamp((lt - 8.6) * 4 - i * .25);
+      g.strokeStyle = 'rgba(200,205,230,.35)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(lx, y2); g.lineTo(lerp(lx, x, q), lerp(y2, y, q)); g.stroke();
+      lighter(() => dot(x, y, 6, GREY, q * .8)); }
+    lighter(() => dot(lx, y2, 14, C.text, 1));
+    text('朋友的数量', lx, 790, 40, C.text); text('14 个点头之交', lx, 840, 26, C.dim, 'center', 500);
+  });
+  alpha(win(lt, 13.0) * (1 - .55 * qk), () => text('有没有伴侣', lx, y2 - 260, 30, C.dim, 'center', 600));
+  if (qk > 0) {
+    [[-200, -90], [190, 110]].forEach(([dx, dy], i) => { const q = clamp(qk * 1.6 - i * .5);
+      g.save(); g.shadowColor = GOLD; g.shadowBlur = 30; g.strokeStyle = GOLD; g.lineWidth = 12; g.lineCap = 'round'; g.beginPath(); g.moveTo(rx, y2); g.lineTo(rx + dx * q, y2 + dy * q); g.stroke(); g.restore();
+      lighter(() => dot(rx + dx, y2 + dy, 18, GOLD, q)); });
+    lighter(() => dot(rx, y2, 20, GOLD, qk));
+    alpha(qk, () => { big('关系的质量', rx, 790, 52, C.gold, 1); text('两个靠得住的人', rx, 842, 26, C.dim, 'center', 500); });
+    alpha(win(lt, 16.2), () => text('＞', W / 2 - 40, y2, 90, C.gold));
+  }
+};
+
+/* ---------- 第一层：孤独伤身（整屏健康曲线，沿用小图的画法放大） ---------- */
+S.C3 = (t, s) => {
+  const lt = t - s.t0; stars(t, .5); chapter(SRC, C.orange);
+  alpha(win(lt, .2), () => text('第一层 · 孤独伤的是身体', W / 2, 105, 40, C.text));
+  scaled(PX, 520, W / 2, 505, 1.32, () => panels.C3(lt));
+};
+/* ---------- 第二层：50 岁的两只表 → 80 岁 ---------- */
+S.C4 = (t, s) => {
+  const lt = t - s.t0; stars(t, .5); chapter(SRC, C.orange);
+  alpha(win(lt, .3), () => { text('50', 210, 520, 260, 'rgba(242,184,75,.07)'); text('80', W - 210, 520, 260, 'rgba(242,184,75,.07)'); });
+  scaled(PX, 500, W / 2, 470, 1.32, () => panels.C4(lt));
+};
+/* ---------- 第三层：靠得住的人护住大脑 ---------- */
+S.C5 = (t, s) => {
+  const lt = t - s.t0; stars(t, .5); chapter(SRC, C.orange);
+  scaled(PX, 470, W / 2, 455, 1.2, () => panels.C5(lt));
+};
+/* ---------- 他给的办法 ---------- */
+S.C6 = (t, s) => {
+  const lt = t - s.t0; stars(t, .5); chapter(SRC, C.orange);
+  scaled(PX, 500, W / 2, 490, 1.3, () => panels.C6(lt));
+};
+
+/* ---------- 片尾：屏幕和人 ---------- */
+S.n8 = (t, s) => {
+  stars(t, .6); chapter('最后', C.gold);
+  const tAI = subAt(s, /十年过去/, 4), tGive = subAt(s, /能交给/, 9), tSave = subAt(s, /省下来/, 12), end = window.TL.dur;
+  const px = 640, py = 470, kAI = win(t, tAI, .6), give = ease((t - tGive) / 1.4), save = ease((t - tSave) / 1.3);
+  // 一部手机，里面是一屏 AI 对话
+  alpha(win(t, s.t0 + .1) * (1 - save * .85), () => {
+    g.save(); g.translate(px, py); rr(-150, -260, 300, 520, 40); g.fillStyle = '#10142E'; g.fill(); g.lineWidth = 6; g.strokeStyle = 'rgba(255,255,255,.75)'; g.stroke();
+    for (let i = 0; i < 7; i++) { const me = i % 2 === 0, w = 120 + 70 * rnd(i + 4), y = -200 + i * 62 - give * (i + 1) * 30, a = clamp(kAI * 7 - i) * (1 - give);
+      if (a <= 0) continue; g.globalAlpha = a; rr(me ? 120 - w : -120, y, w, 44, 16); g.fillStyle = me ? 'rgba(111,160,255,.85)' : 'rgba(255,255,255,.18)'; g.fill();
+      if (!me) text('AI', -100 + 18, y + 22, 18, C.gold, 'left', 700); }
+    g.globalAlpha = 1; g.restore();
+  });
+  pill('每天聊得最多的对象', px, 790, 32, '', kAI * (1 - give), BLUE);
+  // 交出去：对话气泡飞进右边的 AI 方块
+  alpha(give * (1 - save * .8), () => { g.save(); g.translate(1260, py); rr(-120, -120, 240, 240, 36); g.fillStyle = 'rgba(111,160,255,.18)'; g.fill(); g.strokeStyle = BLUE; g.lineWidth = 4; g.stroke();
+    text('AI', 0, -6, 80, C.text); g.restore(); });
+  alpha(give * (1 - save), () => text('能交给 AI 的事，都交出去', 1260, 680, 34, C.text));
+  // 留给人：两颗光点连上，背景的星星也一对对连起来
+  if (save > 0) {
+    lighter(() => { for (let i = 0; i < 40; i++) { const x = rnd(i * 13) * W, y = 160 + rnd(i * 17) * 700, x2 = x + 40 + 50 * rnd(i), q = clamp(save * 2 - i * .03);
+      g.globalAlpha = .4 * q; g.strokeStyle = GOLD; g.lineWidth = 2; g.beginPath(); g.moveTo(x, y); g.lineTo(lerp(x, x2, q), y + 10); g.stroke(); dot(x, y, 4, GOLD, q * .7); dot(x2, y + 10, 4, GOLD, q * .7); } });
+    g.globalAlpha = 1; pair(W / 2, 470, 220 * save, save, t, 12);
+    big('省下来的时间，留给靠得住的人', W / 2, 650, 56, C.gold, win(t, tSave + .3, .6));
+  }
+  alpha(win(t, end - 2.8, .6), () => { text((window.PLAN || {}).account || 'Krypto说AI', W - 90, H - 120, 34, C.text, 'right'); text('AI builder · 带你拉开和身边人的差距', W - 90, H - 76, 22, C.dim, 'right', 500); });
 };
 })(window.KIT);

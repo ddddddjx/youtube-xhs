@@ -93,7 +93,7 @@ function stamp(x, y, k, s1 = '站得住', col = C.teal) {   // 判断的「章�
   rr(-130, -50, 260, 100, 16); g.lineWidth = 6; g.strokeStyle = col; g.stroke(); text(s1, 0, 2, 50, col); g.restore();
 }
 const STEPS = PLAN.steps || [];
-const NUM = ['①', '②', '③', '④', '⑤'], CN = '一二三四五';
+const NUM = ['①', '②', '③', '④', '⑤'], CN = '一二三四五', SW = PLAN.step_word || '步';   // plan.json step_word：步 / 层 / 条
 function roadmap(t, active, done, y = 520, sc = 1, a = 1, t0 = 0) {   // 横排路线图
   const n = STEPS.length;
   alpha(a, () => STEPS.forEach((s, i) => {
@@ -109,7 +109,7 @@ function headline(t, a1, a2, t0) {             // 顶部一行大字（两段：
   alpha(win(t, t0, .4), () => { const w1 = tw(a1, 50), w2 = a2 ? tw(a2, 50) : 0, x0 = W / 2 - (w1 + w2) / 2;
     text(a1, x0, 82, 50, a2 ? C.text : C.gold, 'left'); if (a2) text(a2, x0 + w1, 82, 50, C.gold, 'left'); });
 }
-const stepChapter = i => `第${CN[i]}步 · ${STEPS[i]}`;
+const stepChapter = i => `第${CN[i]}${SW} · ${STEPS[i]}`;
 const hasFootage = s => window.TL.windows.some(w => w.seg === s.id);
 const footRect = s => { const w = window.TL.windows.find(w => w.seg === s.id); return w ? RECTS[w.rect] : null; };
 
@@ -150,8 +150,8 @@ GEN.judgment = (t, s, sp) => {
 GEN.roadmap = (t, s, sp) => {
   let active = -1;
   STEPS.forEach((_, i) => { if (t >= subAt(s, '^第' + CN[i], 1e9)) active = i; });
-  chapter(sp.chapter || `分${CN[STEPS.length - 1]}步看`, C.gold);
-  headline(t, sp.headline || `分${CN[STEPS.length - 1]}步看`, '', s.t0);
+  chapter(sp.chapter || `分${CN[STEPS.length - 1]}${SW}看`, C.gold);
+  headline(t, sp.headline || `分${CN[STEPS.length - 1]}${SW}看`, '', s.t0);
   const R = footRect(s);
   if (!R) return roadmap(t, active, 0, 540, 1, 1, s.t0 + .2);
   glowFrame(R, 1, C.blue);
@@ -166,7 +166,7 @@ GEN.roadmap = (t, s, sp) => {
 GEN.recap = (t, s, sp) => {
   chapter(stepChapter(sp.step), C.gold);
   roadmap(t, -1, sp.step + 1, 170, .55, win(t, s.t0, .4));
-  alpha(win(t, s.t0 + .1, .4), () => { card(W / 2 - 640, 360, 1280, 400, 32, 'rgba(22,26,56,.95)', C.gold); text('这一步只要记住一句', W / 2, 440, 34, C.dim, 'center', 600); });
+  alpha(win(t, s.t0 + .1, .4), () => { card(W / 2 - 640, 360, 1280, 400, 32, 'rgba(22,26,56,.95)', C.gold); text(`这一${SW}只要记住一句`, W / 2, 440, 34, C.dim, 'center', 600); });
   const parts = sp.sentence.split('，');
   parts.forEach((p, i) => alpha(win(t, s.t0 + .6 + i * .5, .4), () => text(p + (i < parts.length - 1 ? '，' : ''), W / 2, 560 + i * 92, 64, i === parts.length - 1 ? C.gold : C.text)));
 };
@@ -197,6 +197,7 @@ GEN.bridge = (t, s) => {
 const panels = {};
 function clipSeg(t, s) {
   const R = RECTS[s.layout];
+  if (!R) { chapter(`${s.who} 原声${PLAN.source ? ' | ' + PLAN.source : ''}`, C.orange); if (panels[s.id]) panels[s.id](t - s.t0, s); return; }   // audio_only：没有原片卡片
   chapter(`${s.who} 原声${PLAN.source ? ' | ' + PLAN.source : ''}`, C.orange);
   glowFrame(R, win(t, s.t0 - .1, .35));
   if (panels[s.id]) panels[s.id](t - s.t0, s);

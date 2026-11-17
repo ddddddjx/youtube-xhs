@@ -15,7 +15,8 @@ import numpy as np
 P = Path(sys.argv[1]).resolve()
 plan = json.loads((P / "plan.json").read_text(encoding="utf-8"))
 clips_meta = json.loads((P / "clips.json").read_text())
-lines = dict(plan["lines"])
+TONE = re.compile(r"〔[^〕]*〕")
+lines = {k: TONE.sub("", v) for k, v in plan["lines"]}     # 〔情绪指令〕只给 tts.py 用，字幕里去掉
 CLIPS = plan["clips"]
 FOOT = plan.get("footage", {})
 GAP = plan.get("gap", .45)
@@ -40,6 +41,8 @@ def split_nar(text):
         out += [q for q in re.split(r"(?<=，)", p) if q.strip()] if len(p) > 24 and "，" in p else [p]
     return [o.strip().rstrip("，。；：") for o in out]
 
+GATE = 42            # 句间停顿 ≥0.42 秒才算断句；句内冒号处自然停顿约 0.3 秒，所以 p= 不要写低于 0.45
+
 def sentence_spans(k, n):
     """从音频里找句间停顿（≥0.42 秒；句内冒号处的自然停顿约 0.3 秒，不能算），得到每句 [起, 止]。段数对不上返回 None。"""
     with wave.open(str(P / "narration" / f"{k}.wav")) as w:
@@ -51,7 +54,7 @@ def sentence_spans(k, n):
             start = i if start is None else start; quiet = 0
         elif start is not None:
             quiet += 1
-            if quiet >= 42:
+            if quiet >= GATE:
                 spans.append([start / 100, (i - quiet + 1) / 100]); start, quiet = None, 0
     if start is not None: spans.append([start / 100, len(env) / 100])
     return spans if len(spans) == n else None
@@ -97,8 +100,9 @@ for idx, it in enumerate(items):
         c = CLIPS[k]; d = clips_meta[k]["dur"]
         segs.append({"kind": "clip", "id": k, "t0": round(t, 3), "t1": round(t + d, 3), "who": c.get("who", ""),
                      "layout": c.get("layout", "center"), "cuts": [round(t + x, 3) for x in clips_meta[k]["cuts"]]})
-        windows.append({"src": f"clips/{k}.mov", "t0": round(t, 3), "t1": round(t + d, 3), "off": 0.0, "rect": c.get("layout", "center"),
-                        "mute": False, "seg": k, "cuts": clips_meta[k]["cuts"]})
+        if not c.get("audio_only"):              # audio_only：只用原声，画面整段由 scenes.js 重画（用户 11-17）
+            windows.append({"src": f"clips/{k}.mov", "t0": round(t, 3), "t1": round(t + d, 3), "off": 0.0, "rect": c.get("layout", "center"),
+                            "mute": False, "seg": k, "cuts": clips_meta[k]["cuts"]})
         audio.append({"src": f"clips/{k}.mov", "at": round(t, 3), "narration": False})
         for sa, sb, en, zh in c.get("subs", []):
             subs.append({"a": round(t + src_to_local(k, sa), 3), "b": round(t + src_to_local(k, sb), 3), "zh": zh, "en": en, "kind": "clip"})
