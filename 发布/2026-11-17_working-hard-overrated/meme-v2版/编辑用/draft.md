@@ -1,5 +1,5 @@
 ---
-title: 巴菲特们都不卷：有时努力不是必要的
+title: 巴菲特们都不卷：有时努力不必要
 mode: retell
 value: 信息 + 框架
 goal: 涨粉
@@ -10,8 +10,7 @@ reader: 晚上九点还坐在工位上、其实手上的事两小时前就做不
 cost: 无（用户这篇答的是「努力不是最重要的」，没有具体代价）
 keyword: 巴菲特
 keywords: 巴菲特, 费德勒, 扎克伯格, Alcaraz, 酷玩, 努力, 内卷, 护城河
-headline: 巴菲特们都不卷：有时努力不是必要的
-headline_size: 54
+headline: 巴菲特们都不卷：有时努力不必要
 hero: cover.png
 hero_after: 2
 hero_max: 560
