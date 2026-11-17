@@ -3,7 +3,7 @@
   python cut_clips.py <工作目录> [--force] [id ...]
 - segs 是片源秒数 [[起, 止], ...]，多段会拼起来，拼接处记成剪口（compose 会在剪口后放大 7% 遮跳切）
 - mute: true 的是只要画面的片段（开场原片、footage、过桥小窗），不留音轨
-- 统一 30fps、1574×1080（原片比例），PCM 音频，避免拼接和叠加时漂移
+- 统一 30fps、高 1080 保留原片比例（11-17 起；以前固定 1574×1080，16:9 原片会被压窄），PCM 音频，避免拼接和叠加时漂移
 - 已存在的不重切，除非 --force 或点名 id。旁白改长后 build_timeline 会提示哪段原片不够长，改 segs 再点名重切
 """
 import json, subprocess, sys, tempfile
@@ -20,7 +20,7 @@ for k, c in plan["clips"].items():
     parts = []
     for i, (a, b) in enumerate(c["segs"]):
         f = tmp / f"{k}_{i}.mov"
-        cmd = ["ffmpeg", "-v", "error", "-y", "-ss", str(a), "-i", str(P / "src/full.mp4"), "-t", str(b - a), "-vf", "fps=30,scale=1574:1080",
+        cmd = ["ffmpeg", "-v", "error", "-y", "-ss", str(a), "-i", str(P / "src/full.mp4"), "-t", str(b - a), "-vf", "fps=30,scale=-2:1080",
                "-c:v", "libx264", "-crf", "16", "-preset", "fast"]
         cmd += ["-an"] if c.get("mute") else ["-af", "aresample=48000", "-ac", "2", "-c:a", "pcm_s16le"]
         subprocess.run(cmd + [str(f)], check=True); parts.append(f)

@@ -220,7 +220,8 @@ window.seek = function (t) {
   else if (seg.kind === 'bridge') GEN.bridge(t, seg);
   else if (GEN[sp.type]) GEN[sp.type](t, seg, sp, tl);
   else GEN.pill(t, seg, sp);
-  const sub = tl.subs.find(x => t >= x.a && t < x.b);
+  const full = tl.windows.some(w => w.rect === 'full' && t >= w.t0 + .2 && t < w.t1 - .2);   // 原片全屏时字幕由 compose 压在原片上
+  const sub = full ? null : tl.subs.find(x => t >= x.a && t < x.b);
   if (sub) { const a = Math.min(win(t, sub.a, .15), 1 - win(t, sub.b - .12, .12)); sub.kind === 'clip' ? subClip(sub.zh, sub.en, a) : subNar(sub.zh, a); }
 };
 })();

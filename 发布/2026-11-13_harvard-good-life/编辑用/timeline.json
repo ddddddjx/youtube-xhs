@@ -7,7 +7,7 @@
    "t0": 0.0,
    "t1": 7.9,
    "who": "Robert Waldinger",
-   "layout": "center",
+   "layout": "full",
    "cuts": []
   },
   {
@@ -604,7 +604,7 @@
    "t0": 0.0,
    "t1": 7.9,
    "off": 0.0,
-   "rect": "center",
+   "rect": "full",
    "mute": false,
    "seg": "HOOK",
    "cuts": []
@@ -614,7 +614,7 @@
    "t0": 8.1,
    "t1": 12.124,
    "off": 0.5,
-   "rect": "wide",
+   "rect": "full",
    "mute": true,
    "seg": "o1"
   },
@@ -623,7 +623,7 @@
    "t0": 12.124,
    "t1": 16.348,
    "off": 0.5,
-   "rect": "wide",
+   "rect": "full",
    "mute": true,
    "seg": "o2"
   },
@@ -632,9 +632,90 @@
    "t0": 16.348,
    "t1": 21.013,
    "off": 0.5,
-   "rect": "wide",
+   "rect": "full",
    "mute": true,
    "seg": "o3"
+  },
+  {
+   "src": "clips/C1.mov",
+   "t0": 21.463,
+   "t1": 29.063,
+   "off": 0,
+   "rect": "full",
+   "mute": false,
+   "seg": "C1"
+  },
+  {
+   "src": "clips/C2.mov",
+   "t0": 64.767,
+   "t1": 71.367,
+   "off": 6.6,
+   "rect": "full",
+   "mute": false,
+   "seg": "C2"
+  },
+  {
+   "src": "clips/CQ.mov",
+   "t0": 83.267,
+   "t1": 92.467,
+   "off": 5.6,
+   "rect": "full",
+   "mute": false,
+   "seg": "CQ"
+  },
+  {
+   "src": "clips/C3.mov",
+   "t0": 111.484,
+   "t1": 117.284,
+   "off": 0,
+   "rect": "full",
+   "mute": false,
+   "seg": "C3"
+  },
+  {
+   "src": "clips/C3.mov",
+   "t0": 126.984,
+   "t1": 129.084,
+   "off": 15.5,
+   "rect": "full",
+   "mute": false,
+   "seg": "C3"
+  },
+  {
+   "src": "clips/C4.mov",
+   "t0": 151.083,
+   "t1": 155.483,
+   "off": 0,
+   "rect": "full",
+   "mute": false,
+   "seg": "C4"
+  },
+  {
+   "src": "clips/C4.mov",
+   "t0": 163.283,
+   "t1": 167.483,
+   "off": 12.2,
+   "rect": "full",
+   "mute": false,
+   "seg": "C4"
+  },
+  {
+   "src": "clips/C5.mov",
+   "t0": 181.491,
+   "t1": 188.791,
+   "off": 0,
+   "rect": "full",
+   "mute": false,
+   "seg": "C5"
+  },
+  {
+   "src": "clips/C6.mov",
+   "t0": 225.458,
+   "t1": 230.858,
+   "off": 8.6,
+   "rect": "full",
+   "mute": false,
+   "seg": "C6"
   }
  ],
  "audio": [

@@ -100,6 +100,9 @@ for idx, it in enumerate(items):
         c = CLIPS[k]; d = clips_meta[k]["dur"]
         segs.append({"kind": "clip", "id": k, "t0": round(t, 3), "t1": round(t + d, 3), "who": c.get("who", ""),
                      "layout": c.get("layout", "center"), "cuts": [round(t + x, 3) for x in clips_meta[k]["cuts"]]})
+        for a0, b0 in c.get("show", []):          # 原声段里这几秒切回原片、全屏铺满（用户 11-17：原片和动画要穿插，原片别缩小）
+            windows.append({"src": f"clips/{k}.mov", "t0": round(t + a0, 3), "t1": round(t + min(b0, d), 3), "off": a0, "rect": "full",
+                            "mute": False, "seg": k})
         if not c.get("audio_only"):              # audio_only：只用原声，画面整段由 scenes.js 重画（用户 11-17）
             windows.append({"src": f"clips/{k}.mov", "t0": round(t, 3), "t1": round(t + d, 3), "off": 0.0, "rect": c.get("layout", "center"),
                             "mute": False, "seg": k, "cuts": clips_meta[k]["cuts"]})

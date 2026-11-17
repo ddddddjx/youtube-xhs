@@ -87,7 +87,7 @@
     ]
    ],
    "who": "Robert Waldinger",
-   "layout": "center",
+   "layout": "full",
    "subs": [
     [
      9.8,
@@ -106,8 +106,8 @@
   "WIDE": {
    "segs": [
     [
-     266.0,
-     280.0
+     341.0,
+     355.0
     ]
    ],
    "mute": true
@@ -153,7 +153,13 @@
      "75 年里，我们跟踪了 724 位男性的一生。"
     ]
    ],
-   "audio_only": true
+   "audio_only": true,
+   "show": [
+    [
+     0,
+     7.6
+    ]
+   ]
   },
   "C2": {
    "segs": [
@@ -184,7 +190,13 @@
      "好的关系让人更快乐、更健康。就这样。"
     ]
    ],
-   "audio_only": true
+   "audio_only": true,
+   "show": [
+    [
+     6.6,
+     13.2
+    ]
+   ]
   },
   "C3": {
    "segs": [
@@ -243,7 +255,17 @@
      "寿命也比不孤独的人短。"
     ]
    ],
-   "audio_only": true
+   "audio_only": true,
+   "show": [
+    [
+     0,
+     5.8
+    ],
+    [
+     15.5,
+     17.6
+    ]
+   ]
   },
   "C4": {
    "segs": [
@@ -280,7 +302,17 @@
      "50 岁时对关系最满意的人，80 岁时最健康。"
     ]
    ],
-   "audio_only": true
+   "audio_only": true,
+   "show": [
+    [
+     0,
+     4.4
+    ],
+    [
+     12.2,
+     16.4
+    ]
+   ]
   },
   "C5": {
    "segs": [
@@ -311,7 +343,13 @@
      "记忆力保持清晰的时间更长。"
     ]
    ],
-   "audio_only": true
+   "audio_only": true,
+   "show": [
+    [
+     0,
+     7.3
+    ]
+   ]
   },
   "C6": {
    "segs": [
@@ -342,7 +380,13 @@
      "或者联系那位多年没说话的家人。"
     ]
    ],
-   "audio_only": true
+   "audio_only": true,
+   "show": [
+    [
+     8.6,
+     14.0
+    ]
+   ]
   },
   "CQ": {
    "segs": [
@@ -378,6 +422,12 @@
      449.1,
      "but it's the quality of your close relationships that matters.",
      "真正要紧的，是亲密关系的质量。"
+    ]
+   ],
+   "show": [
+    [
+     5.6,
+     14.8
     ]
    ]
   }
@@ -485,17 +535,17 @@
  "footage": {
   "o1": [
    "WIDE",
-   "wide",
+   "full",
    0.5
   ],
   "o2": [
    "SPK",
-   "wide",
+   "full",
    0.5
   ],
   "o3": [
    "PHOTO",
-   "wide",
+   "full",
    0.5
   ]
  },

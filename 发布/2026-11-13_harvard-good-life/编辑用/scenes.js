@@ -338,7 +338,7 @@ S.C1 = (t, s) => {
   alpha(tA, () => { text('哈佛成人发展研究', W / 2, 190, 76, C.text); text('Harvard Study of Adult Development', W / 2, 262, 30, C.gold, 'center', 500, true); });
   pill('同类研究里做得最久的一项', W / 2, 330, 32, '', win(lt, 3.9) * (1 - win(lt, 7.6, .6)), GOLD);
   // 年代轴：游标从 1938 走到 2013，经过的年代点亮
-  const y = 470, x0 = 230, x1 = 1690, k = clamp((lt - .6) / 11.4), yr = lerp(1938, 2013, ease(k) * .3 + k * .7), xc = lerp(x0, x1, (yr - 1938) / 75);
+  const y = 470, x0 = 230, x1 = 1690, k = clamp((lt - 7.4) / 4.6), yr = lerp(1938, 2013, ease(k) * .3 + k * .7), xc = lerp(x0, x1, (yr - 1938) / 75);
   alpha(win(lt, .5), () => {
     g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
     g.save(); g.shadowColor = GOLD; g.shadowBlur = 20; g.strokeStyle = GOLD; g.lineWidth = 6; g.beginPath(); g.moveTo(x0, y); g.lineTo(xc, y); g.stroke(); g.restore();

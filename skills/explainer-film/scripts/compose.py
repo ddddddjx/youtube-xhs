@@ -51,6 +51,29 @@ for wi, w in enumerate(tl["windows"]):
               f"setpts=PTS+{w['t0']}/TB[w{wi}]")
     fc.append(f"{last}[w{wi}]overlay={R['x']}:{R['y']}:eof_action=pass:enable='between(t,{w['t0']},{w['t1']})'[v{wi}]")
     last = f"[v{wi}]"
+full = [w for w in tl["windows"] if w["rect"] == "full"]
+if full:                                          # 原片全屏时盖住了动画层的字幕，在这里用 ASS 补上（样式贴近 kit.js 的字幕框）
+    def ts(x): h, m = divmod(x, 3600); m, s_ = divmod(m, 60); return f"{int(h)}:{int(m):02d}:{s_:05.2f}"
+    ev = []
+    for w in full:
+        for x in tl["subs"]:
+            a, b = max(x["a"], w["t0"]), min(x["b"], w["t1"])
+            if b - a < .15: continue
+            txt = x["zh"] if x["kind"] == "nar" else x["zh"] + r"\N{\fs25\c&HD0D0D0&\b0}" + x["en"]
+            ev.append(f"Dialogue: 0,{ts(a)},{ts(b)},Sub,,0,0,0,,{txt}")
+        seg = next((s_ for s_ in tl["segs"] if s_["id"] == w["seg"]), {})
+        label = (f"{seg.get('who') or ''} 原声" + (f" | {plan.get('source')}" if plan.get("source") else "")) if seg.get("kind") == "clip" else ""
+        names = (plan.get("scenes", {}).get(w["seg"], {}) or {}).get("names") or []
+        if label: ev.append(f"Dialogue: 1,{ts(w['t0'])},{ts(w['t1'])},Label,,0,0,0,,{{\\c&H3D8AFF&}}●{{\\c&HFFFFFF&}} {label}")
+        if names: ev.append(f"Dialogue: 1,{ts(w['t0'] + .3)},{ts(w['t1'])},Name,,0,0,0,,{names[0][0]}")
+    head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\n\n[V4+ Styles]\n"
+            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
+            "Style: Sub,Noto Sans CJK SC,40,&H00FFFFFF,&H00FFFFFF,&H40000000,&H40000000,1,0,0,0,100,100,0,0,3,14,0,2,60,60,52,1\n"
+            "Style: Label,Noto Sans CJK SC,28,&H00FFFFFF,&H00FFFFFF,&H64000000,&H64000000,1,0,0,0,100,100,0,0,3,10,0,7,48,48,38,1\n"
+            "Style: Name,Noto Sans CJK SC,34,&H004BB8F2,&H004BB8F2,&H40000000,&H40000000,1,0,0,0,100,100,0,0,3,14,0,1,60,60,190,1\n\n"
+            "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
+    (P / "renders/full.ass").write_text(head + "\n".join(ev) + "\n", encoding="utf-8")
+    fc.append(f"{last}ass={P / 'renders/full.ass'}:fontsdir=/usr/share/fonts[vass]"); last = "[vass]"
 fc.append(f"{last}format=yuv420p[vout]")
 
 alabels = []
