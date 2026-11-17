@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<title>Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams</title>
+<meta name="description" content="Anthropic Fellows Blog: When several users each delegate to their own agent and those agents share a resource, group outcomes are worse than when one agent serves everyone, and the agents show problematic behaviors that vary by model and environment." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="/anthropic-serve/distill.template.v2.js"
+    integrity="sha384-5u81IQundsxB54QMWC7D3R8yOS8hftmsuvKjNrvIMWj88iPXf3daN0lNUZRPy9OX"></script>
+<script>
+    // We number figures with a script since CSS counters don't work,
+    // likely because of the distill template.
+    function numberFigures() {
+        // Find all figcaption elements with class 'text-caption'
+        const figcaptions = document.querySelectorAll('figcaption.text-caption');
+
+        figcaptions.forEach((figcaption, index) => {
+            // Create a new span for the figure number
+            figcaption.style.marginBottom = '1.25rem';
+
+            const newSpan = document.createElement('span');
+            newSpan.style.fontWeight = '500';
+            newSpan.textContent = `Figure ${index + 1}: `;
+
+            // Insert the new span at the beginning of the figcaption
+            figcaption.insertBefore(newSpan, figcaption.firstChild);
+        });
+    }
+
+    // Function to create a slug from header text
+    function createSlug(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^\w\s]/g, '') // Remove special characters
+            .replace(/\s+/g, '-')    // Replace spaces with hyphens
+            .trim();                 // Remove whitespace from start/end
+    }
+
+    // Function to add IDs to all headers and create a table of contents
+    function addHeaderSlugs() {
+        // Get all heading elements (h1 through h6)
+        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+        // Process each heading
+        headings.forEach((heading) => {
+            // Skip headings that already have IDs
+            if (heading.id) return;
+
+            // Create slug from heading text
+            const slug = createSlug(heading.textContent);
+
+            // Add ID to the heading
+            heading.id = slug;
+        });
+    }
+
+    // Run the function when the document is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', numberFigures);
+        document.addEventListener('DOMContentLoaded', addHeaderSlugs);
+    } else {
+        // Document already loaded, run the function
+        numberFigures();
+        addHeaderSlugs();
+    }
+</script>
+<d-front-matter>
+    <script type="text/json">
+        {
+            "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
+            "description": "Anthropic Fellows Blog: When several users each delegate to their own agent and those agents share a resource, group outcomes are worse than when one agent serves everyone, and the agents show problematic behaviors that vary by model and environment.",
+            "authors": []
+        }
+    </script>
+</d-front-matter>
+</head>
+<body>
+<style>
+    .article-header {
+        width: 100%;
+        padding: 36px;
+        padding-bottom: 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .home-link {
+        font-size: 100%;
+        color: #333;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1.3em;
+    }
+
+    a.logo {
+        display: flex;
+        text-decoration: none;
+    }
+
+    span.commentary {
+        color: #804633;
+    }
+</style>
+
+<div class="article-header">
+    <a class="home-link" href="/">Alignment Science Blog</a>
+</div>
+<d-title class="real-title">
+    <h1>Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams</h1>
+</d-title>
+<style>
+    .safety-case-block p {
+        margin-bottom: 0.5em !important;
+        margin-top: 1em !important;
+    }
+
+    .safety-case-block p:first-of-type {
+        margin-top: 0.5em !important;
+    }
+
+    d-article {
+        padding-top: 60px !important;
+    }
+
+    /* No rules between sections in this post. */
+    d-article h2 {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    d-article li:last-child {
+        margin-bottom: 0.5em !important;
+    }
+
+    d-article li {
+        margin-bottom: 0.5em !important;
+    }
+
+    ul {
+        padding-left: 0em !important;
+        margin-bottom: 0.2em !important;
+    }
+
+    ol {
+        padding-left: 0em !important;
+        margin-bottom: 0.2em !important;
+    }
+
+    d-byline {
+        display: none;
+    }
+
+    .d-byline-container {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .d-byline {
+        grid-column: text;
+        display: grid;
+        grid-template-columns: [authors info] 5fr [affiliations published] 1fr;
+        grid-template-rows: [authors affiliations] auto [published info] auto;
+        font-size: 0.8rem;
+        line-height: 1.8em;
+        grid-gap: 20px;
+    }
+
+    .d-byline h3 {
+        font-size: 0.6rem;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.5);
+        margin: 0;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .d-byline .info {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 80%;
+        line-height: 1.5;
+    }
+
+    .d-byline .authors div {
+        line-height: 1.5;
+    }
+
+    .d-byline .authors sup {
+        font-size: 80%;
+        margin-right: -4px;
+    }
+
+    .d-byline .author {
+        margin-right: 6px;
+        white-space: nowrap;
+    }
+
+    .d-byline a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .safety-case-block {
+        padding: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-radius: 4px;
+        background: #faf9f7;
+        border: 1px solid #e5e5e1;
+        border-left: 4px solid #cc9b7a;
+        opacity: 0.8;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    @media screen and (min-width: 900px) {
+        .offset-gdoc-image {
+            margin-left: -65px;
+        }
+    }
+
+    .section-authors {
+        color: #777;
+        font-style: italic;
+        margin-top: -24px;
+        margin-bottom: 32px;
+        line-height: 1.3;
+        /* display: flex; */
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.5em;
+    }
+
+    .section-authors::before {
+        content: attr(data-author);
+    }
+
+    .section-authors::after {
+        content: attr(data-published);
+    }
+
+    figure {
+        margin-bottom: 0em;
+    }
+
+    .text-caption figcaption {
+        margin-bottom: 1em;
+    }
+
+    pre.code-block-wrap {
+        background-color: rgba(241, 243, 244, 0.8);
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        padding: 12px 16px;
+        margin: 0.5em 0;
+        font-family: 'Roboto Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.85em;
+        color: #137333;
+        line-height: 1.4;
+        /* Lines come through as <p> elements; pre-wrap would also render the
+           literal newlines between them and double the spacing. Rely on <p>
+           block layout for line breaks instead. */
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    pre.code-block-wrap .gray-box {
+        display: block;
+    }
+
+    pre.code-block-wrap p,
+    pre.code-block-wrap html\:p {
+        margin: 0;
+        padding: 0;
+        /* Keep intentional blank lines (empty <p>) one line tall. */
+        min-height: 1.4em;
+    }
+
+    /* Default: prevent breaking within individual words */
+    pre.code-block-wrap html\:span {
+        white-space: nowrap;
+    }
+
+    /* For spans that contain full sentences/lines - allow normal wrapping */
+    pre.code-block-wrap html\:span[class*="c4 c2"],
+    pre.code-block-wrap html\:span[class*="c7 c"] {
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    pre.citation-block-wrap {
+        background-color: rgba(241, 243, 244, 0.8);
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        padding: 8px 12px;
+        margin: 0.5em 0;
+        font-family: 'Roboto Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.75em;
+        color: #000000;
+        line-height: 1.15;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        hyphens: manual;
+        -webkit-hyphens: manual;
+        -ms-hyphens: manual;
+    }
+
+    details {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        padding: 0.5em 1em;
+        margin-bottom: 1rem;
+        background-color: rgba(0, 0, 0, 0.03);
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .wide-figure {
+        /* text-align: center; */
+        overflow: visible;
+        position: relative;
+    }
+
+    .wide-figure img {
+        width: 120%;
+        max-width: 150%;
+        margin-left: -10%;
+        position: relative;
+    }
+
+
+    .tldr {
+        position: absolute;
+        right: calc(100% + 10px);
+        top: 0;
+        text-align: right;
+        color: #777;
+    }
+
+    @media (max-width: 768px) {
+        .tldr {
+            position: static;
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
+
+    /* Quotes from model transcripts, with the speaker on a line of its own. */
+    d-article blockquote.model-quote {
+        border-left: 3px solid #cc9b7a;
+        padding: 0.1em 0 0.1em 1.1em;
+        margin: 0.4em 0 1.4em 0;
+        font-style: normal;
+        color: rgba(0, 0, 0, 0.75);
+    }
+
+    d-article blockquote.model-quote .attribution {
+        display: block;
+        margin-top: 0.35em;
+        font-size: 0.88em;
+        color: #777;
+    }
+
+    d-article li > blockquote.model-quote {
+        margin-top: 0.6em;
+    }
+
+    /* Figures keep the relative width that they have in the Google Doc. */
+    d-article figure img {
+        display: block;
+        margin: 0 auto;
+        width: var(--fig-width, 100%);
+    }
+
+    @media (max-width: 768px) {
+        d-article figure img {
+            width: 100%;
+        }
+    }
+
+    d-article figure figcaption {
+        margin-top: 0.75em;
+    }
+
+
+    /* Each figure links to its full-size file, for readers on phones. */
+    d-article figure a {
+        border-bottom: none;
+    }
+
+    d-article figure.no-caption {
+        margin-bottom: 1.75rem;
+    }
+
+    d-article ul + p,
+    d-article ol + p {
+        margin-top: 1em;
+    }
+
+    /* The appendix's third-level headings, in sentence case like the others. */
+    d-article h4 {
+        text-transform: none;
+        font-size: 1.05em;
+        font-weight: 600;
+        margin-top: 2em;
+    }
+
+    d-article h2.appendix-title {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: 2rem;
+        margin-top: 3rem;
+    }
+</style>
+
+<!-- Title: Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams -->
+<d-article>
+<div class="section-authors" data-author="" data-published="">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 2em; margin-bottom: 1em;"><div>Sahan Paliskara<sup>1</sup><br>Nattaput Namchittai<sup>1</sup>, Jacqueline Tay<sup>2</sup>, and Avery Griffin<sup>3</sup><br>Andrew Lampinen<sup>3</sup></div><div>November 11, 2026</div></div>
+<p><sup>1</sup>Anthropic Fellows Program; <sup>2</sup>Independent; <sup>3</sup>Anthropic</p>
+</div>
+<div style="position: relative">
+<span class="tldr">tl;dr</span>
+<p>As AI agents become more capable and widely used, they are increasingly required to interact with each other. Users give their agents tasks which require them to share resources with other people’s agents; for instance, a compute budget, or a codebase, or the money for a group food order. These settings are understudied, so we built four environments with simulated users and everyday tasks and tested frontier models from Anthropic, OpenAI and Alibaba in them. In all four environments, group outcomes were worse when each user delegated to their own agent rather than when one agent served everyone. In these simulated settings, we also saw problematic behaviors that varied considerably by model and environment, including stalling as teams grow, overriding other users’ requests, and making unsupported claims about other people. Fixes depended on the environment: having a designated team leader and clearly stated priorities improved performance when agents shared a budget, while blocking agents from placing an order until they had read their messages rescued more failed group orders than simply rerunning them.</p>
+<p>We are releasing three of the environments as a benchmark, MAMUBench, so that others can use them to test how well agents coordinate, and how they behave, in multi-user, multi-agent systems.</p>
+</div>
+<p>📄 <a href="https://arxiv.org/abs/2610.00583">Paper</a> · 💻 <a href="https://github.com/safety-research/MAMUBench">Code</a></p>
+<p><em>Research done as part of the <a href="https://alignment.anthropic.com/2024/anthropic-fellows-program/">Anthropic Fellows Program</a>.</em></p>
+<h2 id="introduction">Introduction</h2>
+<p>As AI agents become more common, users increasingly deploy them to pursue goals that require interacting with other agents. If you're reading this, you've probably had Claude run an experiment, book something, or write code in a shared codebase and merge the changes on GitHub. <a href="https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point">SemiAnalysis projected</a> that Claude Code would author 20% or more of daily commits by the end of 2026. Features like <a href="https://www.anthropic.com/news/introducing-claude-tag">Claude Tag</a> and <a href="https://code.claude.com/docs/en/cross-session-messaging">cross-session messaging</a> point toward a world in which people delegate more tasks to agents—and those agents increasingly run into one another. Recent releases also let several users share resources through their agents: with the <a href="https://github.com/doordash-oss/doordash-cli">DoorDash CLI</a>, several people's agents can add to one group cart; <a href="https://slack.com/blog/news/slack-code-channels-for-agents">Slack Code</a> brings agents such as Claude, Devin and GitHub Copilot into channels the whole team works in; and OpenAI's <a href="https://openai.com/index/introducing-dots">dots</a> give each person an agent that works on their behalf, in a space shared with teammates (<a href="https://openai.com/index/devday-2026-recap">DevDay 2026 recap</a>). In each of these cases, every agent acts on behalf of its own user, and it is unclear how the agents should act for the group as a whole.</p>
+<p><a href="https://www.anthropic.com/research/multiagent-systems">Recent work</a> has found that multi-agent systems can suffer from coordination failures and other issues, largely in settings where agents pursue a shared objective. This raises the question of what happens when agents instead represent different users with different goals and preferences. We study these increasingly common settings, which we call multi-user, multi-agent systems. In our environments, each user has their own goal, and all of the users draw on one shared resource. We evaluate a range of frontier models from Anthropic, OpenAI, and Alibaba on these environments. We score the agents the way we would score a group of people negotiating over that resource: by the outcome for the group as a whole.</p>
+<h2 id="setup">Setup</h2>
+<p>We developed four environments for this multi-user, multi-agent setting: an API-token budget shared by researchers, a clinic calendar shared by urgent patients, a group food order or travel booking that users arrange through personal assistants, and a merge queue with a release cutoff. These are realistic settings, designed so that a frontier model acting as a single coordinator usually performs well; comparing formations therefore isolates coordination rather than task capability. We compare four formations: solo (one user, one agent); a <em>coordinator</em>, a single agent that serves several users; a silent team, one agent per user with no way to communicate; and a <em>peer-to-peer team</em>, one agent per user with a channel between the agents. We use the coordinator as our control. In this post, we focus on the API key and personal assistant environments and on the coordinator and the peer-to-peer team (Figure 1); we encourage you to read <a href="https://arxiv.org/abs/2610.00583">the paper</a> for the rest. Averaged over each environment's scenarios, the coordinator beats the peer-to-peer team in all four environments for both Claude models, by about 10 to 45 percentage points (Figure 2).</p>
+<figure style="--img-width: 1950px; --fig-width: 100%"><a href="fig1.png"><img src="fig1.png" alt="Diagram in a two-by-two grid. Columns: a coordinator, one brown agent serving three people; and a peer-to-peer team, three purple agents A, B, and C, one per person. Top row, API key: the coordinator cancels low-value jobs so each person’s high-value job finishes, while the team’s agents message each other but act too little, too late, and C’s high-value job fails. Bottom row, personal assistant: the coordinator sees C’s ask for an early seat and books it, while in the team C’s direct message to B is still unread when B checks out, so C’s early seat is missing." /></a>
+<figcaption class="text-caption">The formations we use to organize the agents (the paper has two more) and some interesting behaviors in our environments, described below.</figcaption></figure>
+<figure style="--img-width: 1950px; --fig-width: 100%"><a href="fig2.png"><img src="fig2.png" alt="Grouped bar chart with one row per model, Claude Opus 5 and Claude Sonnet 5, and four environments: API key, clinic, personal assistant, and merge queue. Brown bars are the coordinator and purple bars the peer-to-peer team, as a percentage of the best outcome. The coordinator is higher in every environment: for Opus 5, 64 vs 30, 84 vs 71, 88 vs 44, and 92 vs 81; for Sonnet 5, 32 vs 12, 74 vs 65, 75 vs 37, and 93 vs 78." /></a>
+<figcaption class="text-caption">One agent for everyone beats a team of per-user agents in all four environments, for both Claude Opus 5 and Claude Sonnet 5. Bars show the group's outcome as a share of what the best possible strategy achieves, averaged over scenarios. Error bars are 95% confidence intervals.</figcaption></figure>
+<h2 id="behaviors">Behaviors</h2>
+<h3 id="api-key">API Key</h3>
+<p>In the API key environment, groups of four, eight, or 16 researchers share a limited API-token budget. Notably, this budget is not enough to cover everybody's work. Each researcher gives their agent a queue of jobs, along with context on each job's deadline and the consequences of missing it, such as an upcoming paper deadline or a launch review after the weekend. Agents need to cancel and scale down jobs to make sure that some work gets finished. We built 25 scenarios that vary the users and their jobs. We find that peer-to-peer teams reach 47% and 38% of the coordinator's performance for Claude Opus 5 and Claude Sonnet 5, respectively (30% and 12% of the optimal outcome, against 64% and 32% for the coordinator).</p>
+<p>The multi-agent team's main problem is that agents act too little and too late. This environment is dynamic, so agents need to sequence jobs actively. Simply allowing, say, a hero run to continue when it has little chance of finishing can consume the remaining time and cause jobs to miss the deadline. In fact, many agents never act at all, and more of them sit out as the team grows: from four to 16 agents, the share that ever act falls from 66% to 10% for Sonnet 5 and from 82% to 25% for GPT-5.6-sol. GPT and Qwen agents also cancel or stop other users' jobs without asking, 3.9 to 7.1 times per episode, against 0.59 for Sonnet 5 and never for Opus 5. These unconsented cuts do not lower the group's outcome, since canceling low-value jobs is what the environment requires, but they are still undesirable because they end another user's work without that user's agreement. Episodes in which agents canceled or shrank other users' jobs without asking usually got a higher group score than episodes in the same scenario where they didn't. But that reveals the limitations of the scoring system: it only looks at the total value of the jobs completed, not whether anyone had their work destroyed or whether they agreed to it. Lastly, the agents' implicit priorities differ from model to model. For example, Claude Opus 5 spreads outcomes across users more evenly than Claude Sonnet 5 and the GPT models (Figure 3).</p>
+<figure style="--img-width: 1950px; --fig-width: 100%"><a href="fig3.png"><img src="fig3.png" alt="Three panels with one row per model: Claude Opus 5, Claude Sonnet 5, GPT-5.6-sol, GPT-5.6-terra, and Qwen3.8-max. Left: the share of team agents that ever act falls as teams grow from four to 16 agents, for example from 84 to 57 percent for Opus 5 and from 66 to 10 percent for Sonnet 5. Middle: unconsented cuts per episode are 0 for Opus 5, 0.59 for Sonnet 5, and 3.87 to 7.12 for the GPT and Qwen models. Right: evenness of outcomes across users (Jain index) for the coordinator in brown and the team in purple; Opus 5 is highest at 0.59 and 0.58, and the optimal plan scores 0.47." /></a>
+<figcaption class="text-caption">API key behaviors of five models, one row each: Claude Opus 5, Claude Sonnet 5, GPT-5.6-sol, GPT-5.6-terra, and Qwen3.8-max. As teams grow, fewer agents take any action (left). GPT and Qwen agents also often cancel or stop other users' jobs without asking (middle: unconsented cuts per episode; consent judged by Claude Sonnet 5). Opus 5 spreads outcomes across users more evenly than Sonnet 5 and the GPT models (right: Jain index over the four-user scenarios). Error bars are 95% intervals.</figcaption></figure>
+<h3 id="personal-assistant">Personal Assistant</h3>
+<p>In the personal assistant environment, groups of users delegate a shared planning task to their own assistants: a group food order, a prepaid reservation, or a travel booking, with a shared budget. In each scenario, one user makes a targeted request, which we call the ask: either a safety constraint or an altruistic request. Importantly, these requests require agents to deviate from default behavior in a reasonable way. For example, a user with celiac disease asks for two plain gluten-free sides instead of an entree. We measure success by whether the final order or booking honors the ask. Across the 25 scenarios, the coordinator honors the ask about twice as often as the peer-to-peer team.</p>
+<p>Although the ask usually gets communicated within the group, the main problem is a race condition: the agent that commits the order often does so before it has read every message sent to it. Across all scenarios and models, the ask was sent to the agent that placed the final order or booking in 94–99% of episodes, but it was in that agent's context at the time of the commit in only 47–67% (Figure 4). Interestingly, even when the ask was in context, only 56–68% of episodes honored it, against 19–36% when it was not. Teams also tend to override each other's requests in the shared cart or booking: 65–77% of team episodes included at least one edit against the ask. We include results for GPT-5.6-sol and GPT-5.6-terra in the paper as well.</p>
+<p>Lastly, agents sometimes made claims about other people that their information did not support. Just over half of Claude team episodes contained at least one of these fabrications (58% for Opus 5 and 53% for Sonnet 5, as judged by Claude Opus 5), while a single agent does this in 17–20% of episodes. This follows from how information is split. Each agent sees only its own user's notes but has to talk about everyone's order, so agents fill the gaps: they assume the table wants what their own user wants, attach one user's notes to another, or say a user agreed to something they never said.</p>
+<figure style="--img-width: 1950px; --fig-width: 100%"><a href="fig4.png"><img src="fig4.png" alt="Two panels for Claude Opus 5 and Claude Sonnet 5 teams. Left, horizontal bars as a percentage of committed episodes: the ask was sent to the agent that checked out in 98.6 and 93.6 percent of episodes, but was in its context at checkout in only 65.0 and 47.1 percent; the ask was honored in 67.7 and 58.5 percent of episodes when it was in context, against 18.6 and 21.4 percent when it was not. Right, a histogram of fabricated claims per episode: 42 percent of Opus 5 and 47 percent of Sonnet 5 episodes have none, and most of the rest have one or two." /></a>
+<figcaption class="text-caption">Behaviors of Claude Opus 5 and Claude Sonnet 5 teams over all 25 personal assistant scenarios. The ask almost always reaches the agent that places the order, but agents are too eager and often check out before it is in their context (top two rows). When it isn't, the ask is honored far less often (bottom two rows). Agents also fabricate claims about other agents and their users that their information doesn't support (right; judged by Claude Opus 5). Error bars are 95% confidence intervals.</figcaption></figure>
+<h2 id="mitigations">Mitigations</h2>
+<p>We tested whether targeted changes, such as added instructions or a lead agent with decision authority, close these gaps (Figure 5). In the API key environment, a separate team lead agent, instructed to prioritize high-value jobs and use the budget fully, closes the gap between the coordinator and the peer-to-peer team. A team lead does not help in the personal assistant environment, however. There, our best mitigation is a platform guard that blocks checkout until the committing agent has read all of its pending messages; it recovers 73% (Opus 5) and 62% (Sonnet 5) of failed episodes. The fixes that work differ by environment, which suggests that multi-user, multi-agent failures have diverse causes. We cover mitigations in more depth in the paper.</p>
+<figure style="--img-width: 1950px; --fig-width: 100%"><a href="fig5.png"><img src="fig5.png" alt="Two panels of horizontal bars for Claude Opus 5 and Claude Sonnet 5. API key, as a percentage of the best outcome: coordinator 64 and 32, peer-to-peer team 30 and 12, team with a lead 64 and 37, and team with a prompted lead 71 and 44. Personal assistant, as a percentage of episodes that honor the ask: coordinator 88 and 75, peer-to-peer team 44 and 37, and, on reruns of failed team episodes, lead-only checkout 47.4 and 29.4 and the unread-message guard 73.1 and 62.3." /></a>
+<figcaption class="text-caption">Mitigation results for Claude Opus 5 and Claude Sonnet 5. API key (left): a team lead brings the peer-to-peer team up to the coordinator or above, and three added instructions improve it further: (1) the lead ranks jobs strictly by value, (2) it releases any budget it holds back while there's still time to use it, and (3) every other agent reports its jobs' information and follows the lead's allocation. Personal assistant (right): the bottom two rows rerun failed team episodes. Here, an unread-message guard recovers most of them. Error bars are 95% confidence intervals.</figcaption></figure>
+<h2 id="discussion-and-implications-for-safety">Discussion and Implications for Safety</h2>
+<p>Multi-user, multi-agent systems are already emerging. For example, Instinct recently released its <a href="https://finance.yahoo.com/technology/ai/articles/instinct-raises-1-billion-series-120300548.html">Trusted Person Network</a>, in which each user's assistant can talk to other users' assistants to coordinate plans on their behalf. An analogous coordination problem can arise in single-user settings, when one person delegates different but intersecting tasks to multiple agents, such as running eight Claude sessions to build features in the same codebase. The core of the problem we study is that multiple agents may be pursuing different objectives while interacting through a shared environment or resource.</p>
+<p>Our results, together with prior work, show that multi-user, multi-agent systems carry risks beyond worse group outcomes: an agent acting for one user can harm others who share the system. In our environments, agents from a range of providers (Anthropic, OpenAI, and Alibaba) acted on other users' jobs without consent, overrode a user's request, and made claims about other people that their information did not support. Outside the lab, swarms of agents have already caused real harm, as in the <a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">Hugging Face incident</a> and the hijacking of a German wiki (<a href="https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/">Reuters</a>, <a href="https://www.euronews.com/next/2026/09/09/rogue-openai-agents-hijacked-a-german-wiki-and-it-stayed-secret-for-weeks">Euronews</a>). These cases did not involve agents acting for different users, a setting that remains largely unexplored. While our results show that coordinators can outperform teams, and <a href="https://arxiv.org/abs/2604.10290">previous work</a> finds alignment advantages for single-agent systems, relying on a coordinator is not always feasible or natural for systems with many users. Multi-user, multi-agent risks therefore cannot be addressed simply by centralizing coordination.</p>
+<p>These results suggest concrete next steps. First, evaluations should measure agent behavior alongside group outcomes, since each misses something on its own. For example, an outcome score would not flag GPT and Qwen agents canceling other users' jobs without asking, and conversely a check of actions would not flag Claude Opus 5 teams, whose agents never did so but fell well short of the coordinator. Second, mitigations can come from across the stack, from platform guards that keep agents from stepping on each other's toes, much as a queue keeps a crowd from rushing a box office, to training agents to communicate and reach agreement. People have developed ways to negotiate subtly conflicting goals, and agents will need them too, both for effectiveness and for alignment. We hope that our work will help to inspire further efforts into understanding and preventing failures in multi-user, multi-agent teams.</p>
+</d-article>
+</body>
+</html>
