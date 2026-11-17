@@ -13,7 +13,7 @@ draft.md 格式:
 
   ---
   title: 标题（只进 标题.txt，不上图）
-  headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内；用「|」手动换行，避免一个字落单
+  headline: 它替你订的酒店，是谁出的价      # 可选：首页作者块下面的一行突出标题，20 字以内；用「|」手动换行，避免一个字落单；headline_size: 54 调字号（默认 58），17 字以上要一行放下时用
   hero: quote.png                        # 可选：首页的一张素材图（原文截图、原文配图、后台截图），不用自己画的
   hero_max: 760                          # 首页素材图最高多少 px（默认 480；10-20 起可改）
   hero_after: 3                          # 素材图放在第几段之后（默认 3：先铺垫几句再放图，读者才知道图在讲什么）
@@ -233,10 +233,11 @@ class Pager:
         if not self.pages and not self.has_cover:            # 没有封面时，首页放作者块 + 突出标题 + 素材图
             self.y = author_block(im, d, self.meta, self.avatar) + 40
             if self.meta.get("headline"):
-                fh = font(58, "Semibold")
+                hs = int(self.meta.get("headline_size", 58))      # 可选 headline_size：字号，长标题要一行放下时调小
+                fh = font(hs, "Semibold")
                 for ln in [l for part in self.meta["headline"].split("|") for l in wrap(part.strip(), fh)]:   # 「|」手动换行
                     d.text((L, self.y), ln, font=fh, fill=BLACK)
-                    self.y += 82
+                    self.y += round(hs * 82 / 58)
                 self.y += 14
         else:                                                # 续页：顶栏
             d.line([(72, 52), (48, 77), (72, 102)], fill=(40, 40, 40), width=5, joint="curve")
