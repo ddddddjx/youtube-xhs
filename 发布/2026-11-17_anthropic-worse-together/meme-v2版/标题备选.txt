@@ -1,5 +1,5 @@
 Anthropic：AI越多，结果越差
 Anthropic：AI团队需要一个老大
-Anthropic：AI凑单，忘了过敏的
+Anthropic：AI凑单，忘了忌口的人
 Anthropic：你的AI会编同事的话
 强烈推荐Anthropic这篇多agent实验。
