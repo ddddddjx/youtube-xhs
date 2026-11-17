@@ -7,6 +7,8 @@
 - speaker S_DRo7Kc2k2；语速 25（40 嫌快、15 嫌慢；参数效果不明显，再要快就混音时 atempo）；tone_fidelity 关（开着更平）
 - 语气指令（additions.context_texts）用聊天口吻；「兴奋、惊讶、强调」那条像在表演，AI 感重，用户试听后弃用
 - **按句合成**，每句去掉首尾静音，句间插 0.45 秒停顿（一口气念完的 AI 感最重）；build_timeline 靠这个停顿把字幕对到每句
+- **换火山现成音色（用户 11-17）**：plan.json 的 narration 写 "speaker": "<音色 ID>", "resource": "seed-tts-2.0"（复刻音色是 seed-icl-2.0）。
+  需要账号先开通「豆包语音合成模型 2.0」，没开通时接口报 45000030 requested resource not granted
 - 火山偶尔 502，自动重试 5 次（2/4/8/16/32 秒）
 - **每句单独给情绪（用户 11-17：整条一个语气指令「非常平，没有任何情感和节奏变化」）**：旁白里每句前面写〔情绪指令〕，
   可带语速和句后停顿：〔你可以压低声音、放慢说吗？像在讲悬疑故事｜r=0｜p=0.9〕。没写的句子沿用上一句。
@@ -22,7 +24,7 @@ import base64, json, re, sys, time, uuid, wave, urllib.request
 from pathlib import Path
 import numpy as np
 
-DEF = {"speaker": "S_DRo7Kc2k2", "rate": 25, "fidelity": False, "pause": 0.45,
+DEF = {"speaker": "S_DRo7Kc2k2", "resource": "seed-icl-2.0", "rate": 25, "fidelity": False, "pause": 0.45,
        "ctx": "像在跟朋友聊一件自己觉得有意思的事，语气自然、放松，不要播音腔，也不要刻意兴奋，说到关键处稍微放慢"}
 
 def synth(t, cfg):
@@ -34,7 +36,7 @@ def synth(t, cfg):
         try:
             req = urllib.request.Request("https://openspeech.bytedance.com/api/v3/tts/unidirectional",
                 json.dumps({"user": {"uid": "krypto"}, "req_params": rp}).encode(),
-                {"Content-Type": "application/json", "X-Api-Resource-Id": "seed-icl-2.0", "X-Api-Request-Id": str(uuid.uuid4())})
+                {"Content-Type": "application/json", "X-Api-Resource-Id": cfg.get("resource", "seed-icl-2.0"), "X-Api-Request-Id": str(uuid.uuid4())})
             pcm = bytearray()
             with urllib.request.urlopen(req, timeout=120) as r:
                 for line in r:
