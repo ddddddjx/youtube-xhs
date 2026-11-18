@@ -26,6 +26,8 @@
 | `fold_C/` | C 夜曲 | 不是复刻，自己的题目 | 见上 |
 | `pigeon_B/` | B 寓言 | 不是复刻，自己的题目 | 见上 |
 
+`cine_flashlight/` 是 `engine/vk-cine.js` 的示例（10 秒 3D 镜头，要先 `python engine/get_fonts.py --three`）；`look_cine_flashlight.jpg` 是关 / 开后期的对比。
+
 `look_*.jpg` 是各自的拼图。`fold_old_vs_new.jpg` 是《折叠》两版对照。
 
 ```bash

@@ -263,6 +263,8 @@ function urn(fr, t) {
 **Three.js**：`python engine/get_fonts.py --three` 把 three@0.160.0 的 `three.module.min.js` 放进 `engine/vendor/`（不进仓库）；`new_film.py --three` 会在 `index.html` 里设 `VK_THREE = true` 并用 module 引入，引擎等 `window.THREE` 到了才 READY。
 3D 物体的位置、旋转全部写成 t 的函数；不用 `THREE.Clock`、不用 `requestAnimationFrame`。云端 Chromium 用软件 WebGL，能渲，单帧慢一点。
 
+**3D 镜头的电影感后期（11-18）**：`engine/vk-cine.js`，高度雾、辉光、光柱、调色、柔边尘埃 / 雾团 / 光锥，外加节拍表 `VKCine.beats`、镜头轨 `VKCine.rail`、打击包络 `VKCine.env`（这三样 2D 镜头也能用）。参数和坑见 `references/cine.md`，示例 `examples/cine_flashlight/`。
+
 **逐帧导出**：全片和片段按 jpg（q95）逐帧截图再进 ffmpeg 编码 H.264（crf 14）；`--stills` 仍是 png。
 
 **合成配乐**：`film.js` 的 `meta.music = { bpm: 120, key: 0, sections: [[秒, 强度0..3], …], drop: [揭晓秒] }`。强度 0 只有低音垫，1 加脉冲低音，2 加鼓，3 加钢琴琶音；段落起点吸到小节线；`drop` 前一拍抽空、那一拍重击。

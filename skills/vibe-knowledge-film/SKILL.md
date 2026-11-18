@@ -263,6 +263,7 @@ python scripts/deliver.py <工程目录>      # 查规格（H.264 / AAC / 30fps�
 | `references/prompts.md` | 逆向出的提示词：完整 brief、分步提示词、返工话术 |
 | `references/engine.md` | 引擎 API、命令、写法、坑 |
 | `engine/` | `vk.js` `vk-kit.js` `render.py` `audio.py` `get_fonts.py`；11-03 加 `beat.py`（测配乐节拍、截乐句）、`score.py`（合成配乐） |
+| `engine/vk-cine.js` | 3D 镜头的电影感后期包（11-18）：雾、辉光、光柱、调色、柔边粒子 + 节拍表 / 镜头轨 / 打击包络。见 `references/cine.md` |
 | `scripts/new_film.py` | 建工程：`index.html` + 一份没有画面的 `film.js` 骨架（`--world A/B/C`、`--portrait`、`--dur`、`--three`） |
 | `scripts/deliver.py` | 交付：查规格、成片总览图、源码 zip |
 | `examples/` | 看别人怎么做过一次，不是零件库。`fold_C`（夜曲，《折叠》开头 33 秒）和 `pigeon_B`（寓言，《鸽子的迷信》开头 33 秒）：自己题目的样片，各带分镜表；`fold_old_vs_new.jpg`：同一段内容的两版对照；两段对照参考片做的复刻；一张货架图；`look_*.jpg` 是各自的拼图 |

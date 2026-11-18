@@ -53,7 +53,7 @@ def open_page(p, url):
     pg = b.new_page(viewport={"width": 1920, "height": 1080}, device_scale_factor=1)
     pg.on("console", lambda m: m.type in ("error", "warning") and print("[page]", m.text))
     pg.on("pageerror", lambda e: print("[pageerror]", e))
-    pg.goto(url)
+    pg.goto(url + ("?" + os.environ["VK_QUERY"] if os.environ.get("VK_QUERY") else ""))   # 11-18：VK_QUERY=plain 这类开关透传给页面（vk-cine 前后对比）
     pg.wait_for_function("window.READY === true", timeout=180000)
     w, h = pg.evaluate("[window.W || 1920, window.H || 1080]")   # 11-03：竖屏 1080×1920 时把视口改成画布大小
     if (w, h) != (1920, 1080): pg.set_viewport_size({"width": w, "height": h})
