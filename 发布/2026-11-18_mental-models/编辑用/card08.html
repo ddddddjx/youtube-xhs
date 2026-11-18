@@ -1,0 +1,47 @@
+<html><head><meta charset=utf-8><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1440px;background:#f7f6f3;font-family:"Noto Sans CJK SC","Noto Sans SC",sans-serif;color:#141821;overflow:hidden}
+.page{position:relative;width:1080px;height:1440px;padding:34px 56px 0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:16px;height:76px}
+.top img{width:68px;height:68px;border-radius:50%;border:3px solid #FFE600}
+.top .nm{font-size:32px;font-weight:700;color:#E8833A}
+.top .sl{font-size:22px;color:#9a9a9a;margin-left:4px}
+.top .no{margin-left:auto;font-size:22px;letter-spacing:3px;color:#7d8597}
+.kick{margin-top:26px;font-size:22px;letter-spacing:4px;color:#7d8597}
+h1{font-size:84px;font-weight:900;line-height:1.08;margin-top:6px;letter-spacing:1px}
+h1 small{font-size:30px;font-weight:500;color:#9aa3b5;margin-left:14px;letter-spacing:0}
+.q{font-size:36px;font-weight:700;color:#6f7f9f;margin-top:10px}
+.intro{font-size:27px;line-height:1.6;color:#3d4350;margin-top:16px}
+hl{background:linear-gradient(transparent 55%,#FFE600 55%,#FFE600 92%,transparent 92%);font-weight:700;color:#141821}
+.body{margin-top:20px;flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:30px}
+.box{border-radius:20px;padding:18px 22px}
+.b{background:#e4ecf7}.g{background:#e3f0e5}.o{background:#fbeadb}.p{background:#f8e1e1}.v{background:#ebe7f6}.y{background:#fdf3cf}.w{background:#fff;border:2px solid #e6e3dc}
+.t{font-size:28px;font-weight:800}
+.d{font-size:22px;line-height:1.5;color:#4a5160;margin-top:4px}
+.num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:#141821;color:#FFE600;font-size:20px;font-weight:800;align-items:center;justify-content:center;margin-right:8px;vertical-align:3px}
+.take{margin:0 0 52px;background:#141821;color:#fff;border-radius:24px;padding:26px 32px;display:flex;gap:22px;align-items:center}
+.take .k{font-size:20px;letter-spacing:4px;color:#FFE600;writing-mode:horizontal-tb;white-space:nowrap;border-right:2px solid #555;padding-right:22px}
+.take .s{font-size:30px;font-weight:700;line-height:1.5}
+.take .s b{color:#FFE600}
+.row{display:flex;gap:16px}
+.ph img{display:block;max-width:100%;border-radius:18px}
+.arr{font-size:40px;color:#6f7f9f;font-weight:700}
+.lab{font-size:20px;letter-spacing:3px;color:#7d8597;font-weight:700;margin-bottom:10px}
+.bar{height:16px;border-radius:8px;background:#e3e1db;overflow:hidden;flex:1}
+.bar i{display:block;height:100%;border-radius:8px}
+</style></head><body><div class=page>
+<div class=top><img src="avatar.png"><span class=nm>Krypto说AI</span><span class=sl>AI builder</span><span class=no>08 / 10</span></div>
+<div class=kick>工程师的思维模型</div>
+<h1>数量级估算<small>Order-of-Magnitude</small></h1>
+<div class=q>大概是什么量级？</div>
+<div class=intro>用简单推理和整数，快速得到一个近似答案，<hl>用来判断可行性、发现错误、更快做决定</hl>。</div>
+<div class=body><div class=row style="align-items:stretch"><div style="width:450px;position:relative"><img src="crops/drone8.png" style="width:100%;height:100%;object-fit:cover;border-radius:18px">
+ <div class="box w" style="position:absolute;left:14px;right:14px;bottom:14px;padding:12px 16px"><div class=lab style="margin:0">例子</div><div style="font-size:25px;font-weight:800">飞 1 小时，需要多大的电池？</div></div></div>
+ <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+ <div class="box b" style="padding:10px 16px"><div class=t style="font-size:23px"><span class=num style="width:28px;height:28px;font-size:16px">1</span>功耗</div><div class=d style="font-size:20px">中型无人机约 200 W（10² W 量级）</div></div><div class=arr style="text-align:center;font-size:22px;line-height:.9">↓</div><div class="box b" style="padding:10px 16px"><div class=t style="font-size:23px"><span class=num style="width:28px;height:28px;font-size:16px">2</span>所需能量</div><div class=d style="font-size:20px">E = P × t ≈ 200 W × 1 h = 200 Wh</div></div><div class=arr style="text-align:center;font-size:22px;line-height:.9">↓</div><div class="box b" style="padding:10px 16px"><div class=t style="font-size:23px"><span class=num style="width:28px;height:28px;font-size:16px">3</span>算上损耗</div><div class=d style="font-size:20px">约 20% 损耗：200 Wh × 1.2 ≈ 240 Wh</div></div><div class=arr style="text-align:center;font-size:22px;line-height:.9">↓</div>
+ <div class="box y" style="padding:12px 16px;font-size:26px;font-weight:900">估算 ≈ 250 Wh（10² Wh 量级）</div></div></div>
+ <div class=row style="margin-top:14px"><div class="box w" style="flex:1.15"><div class=lab>用 10 的次方快速想</div>
+ <div style="display:flex;font-size:21px;padding:5px 0;border-top:1px solid #eee"><span style="flex:1.4">人的体重</span><span style="flex:.9;font-weight:800">10² kg</span><span style="flex:1.2;color:#4a5160">≈ 100 kg</span></div><div style="display:flex;font-size:21px;padding:5px 0;border-top:1px solid #eee"><span style="flex:1.4">汽车功率</span><span style="flex:.9;font-weight:800">10⁵ W</span><span style="flex:1.2;color:#4a5160">≈ 100 kW</span></div><div style="display:flex;font-size:21px;padding:5px 0;border-top:1px solid #eee"><span style="flex:1.4">无人机电池</span><span style="flex:.9;font-weight:800">10² Wh</span><span style="flex:1.2;color:#4a5160">≈ 100–300 Wh</span></div><div style="display:flex;font-size:21px;padding:5px 0;border-top:1px solid #eee"><span style="flex:1.4">一栋楼一天用电</span><span style="flex:.9;font-weight:800">10⁵ Wh</span><span style="flex:1.2;color:#4a5160">≈ 100 kWh</span></div></div>
+ <div class="box g" style="flex:1"><div class=lab>为什么有用</div><div style="font-size:21px;line-height:1.75"><b>可行性</b>：很快知道想法现不现实</div><div style="font-size:21px;line-height:1.75"><b>验算</b>：抓出计算和设计里的大错</div><div style="font-size:21px;line-height:1.75"><b>更快决策</b>：设计早期够用了</div><div style="font-size:21px;line-height:1.75"><b>建立直觉</b>：对真实世界的尺度有感觉</div></div></div></div>
+<div class=take><span class=k>一句话记住</span><span class=s>很多时候不需要精确数字，<b>量级对了</b>，就足够做出靠谱的工程决定。</span></div>
+</div></body></html>

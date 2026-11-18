@@ -1,0 +1,48 @@
+<html><head><meta charset=utf-8><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1440px;background:#f7f6f3;font-family:"Noto Sans CJK SC","Noto Sans SC",sans-serif;color:#141821;overflow:hidden}
+.page{position:relative;width:1080px;height:1440px;padding:34px 56px 0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:16px;height:76px}
+.top img{width:68px;height:68px;border-radius:50%;border:3px solid #FFE600}
+.top .nm{font-size:32px;font-weight:700;color:#E8833A}
+.top .sl{font-size:22px;color:#9a9a9a;margin-left:4px}
+.top .no{margin-left:auto;font-size:22px;letter-spacing:3px;color:#7d8597}
+.kick{margin-top:26px;font-size:22px;letter-spacing:4px;color:#7d8597}
+h1{font-size:84px;font-weight:900;line-height:1.08;margin-top:6px;letter-spacing:1px}
+h1 small{font-size:30px;font-weight:500;color:#9aa3b5;margin-left:14px;letter-spacing:0}
+.q{font-size:36px;font-weight:700;color:#6f7f9f;margin-top:10px}
+.intro{font-size:27px;line-height:1.6;color:#3d4350;margin-top:16px}
+hl{background:linear-gradient(transparent 55%,#FFE600 55%,#FFE600 92%,transparent 92%);font-weight:700;color:#141821}
+.body{margin-top:20px;flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:30px}
+.box{border-radius:20px;padding:18px 22px}
+.b{background:#e4ecf7}.g{background:#e3f0e5}.o{background:#fbeadb}.p{background:#f8e1e1}.v{background:#ebe7f6}.y{background:#fdf3cf}.w{background:#fff;border:2px solid #e6e3dc}
+.t{font-size:28px;font-weight:800}
+.d{font-size:22px;line-height:1.5;color:#4a5160;margin-top:4px}
+.num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:#141821;color:#FFE600;font-size:20px;font-weight:800;align-items:center;justify-content:center;margin-right:8px;vertical-align:3px}
+.take{margin:0 0 52px;background:#141821;color:#fff;border-radius:24px;padding:26px 32px;display:flex;gap:22px;align-items:center}
+.take .k{font-size:20px;letter-spacing:4px;color:#FFE600;writing-mode:horizontal-tb;white-space:nowrap;border-right:2px solid #555;padding-right:22px}
+.take .s{font-size:30px;font-weight:700;line-height:1.5}
+.take .s b{color:#FFE600}
+.row{display:flex;gap:16px}
+.ph img{display:block;max-width:100%;border-radius:18px}
+.arr{font-size:40px;color:#6f7f9f;font-weight:700}
+.lab{font-size:20px;letter-spacing:3px;color:#7d8597;font-weight:700;margin-bottom:10px}
+.bar{height:16px;border-radius:8px;background:#e3e1db;overflow:hidden;flex:1}
+.bar i{display:block;height:100%;border-radius:8px}
+</style></head><body><div class=page>
+<div class=top><img src="avatar.png"><span class=nm>Krypto说AI</span><span class=sl>AI builder</span><span class=no>03 / 10</span></div>
+<div class=kick>工程师的思维模型</div>
+<h1>系统思维<small>Systems Thinking</small></h1>
+<div class=q>各部分之间怎么互相影响？</div>
+<div class=intro>把问题当成一个整体来看，弄清楚各部分之间的<hl>相互作用、依赖和反馈</hl>。</div>
+<div class=body><div style="display:grid;grid-template-columns:300px 1fr 300px;grid-template-rows:auto auto auto;gap:14px 16px;align-items:center">
+ <div style="grid-column:2;grid-row:1"><div class="box o"><img src="crops/board.png" style="height:64px;float:right;margin-left:10px;border-radius:10px"><div class=t><span class=num>2</span>控制</div><div class=d>规划动作、发出指令、纠正误差</div></div></div>
+ <div style="grid-column:1;grid-row:2"><div class="box b"><img src="crops/cam.png" style="height:64px;float:right;margin-left:10px;border-radius:10px"><div class=t><span class=num>1</span>感知</div><div class=d>观察环境，比如物体和位置</div></div></div>
+ <div style="grid-column:3;grid-row:2"><div class="box g"><img src="crops/motor.png" style="height:64px;float:right;margin-left:10px;border-radius:10px"><div class=t><span class=num>3</span>执行</div><div class=d>把指令变成实际动作：电机、驱动器</div></div></div>
+ <div style="grid-column:1;grid-row:3"><div class="box v"><img src="crops/cube3.png" style="height:64px;float:right;margin-left:10px;border-radius:10px"><div class=t><span class=num>5</span>环境</div><div class=d>机器人要打交道的外部世界</div></div></div>
+ <div style="grid-column:3;grid-row:3"><div class="box p"><img src="crops/link.png" style="height:64px;float:right;margin-left:10px;border-radius:10px"><div class=t><span class=num>4</span>机械</div><div class=d>传递力和运动的结构</div></div></div>
+ <div style="grid-column:2;grid-row:2/4;text-align:center"><img src="crops/arm.png" style="height:420px"></div></div>
+ <div style="text-align:center;margin-top:16px;font-size:26px"><span class="box b" style="padding:8px 20px;font-weight:800">反馈回路</span>
+ <span style="color:#4a5160;margin-left:12px">感知 → 决策 → 执行 → 观察，循环往复</span></div></div>
+<div class=take><span class=k>一句话记住</span><span class=s>系统的表现来自各部分的相互作用。<b>要优化整体</b>，只盯一个零件没用。</span></div>
+</div></body></html>
