@@ -263,6 +263,8 @@ function urn(fr, t) {
 **Three.js**：`python engine/get_fonts.py --three` 把 three@0.160.0 的 `three.module.min.js` 放进 `engine/vendor/`（不进仓库）；`new_film.py --three` 会在 `index.html` 里设 `VK_THREE = true` 并用 module 引入，引擎等 `window.THREE` 到了才 READY。
 3D 物体的位置、旋转全部写成 t 的函数；不用 `THREE.Clock`、不用 `requestAnimationFrame`。云端 Chromium 用软件 WebGL，能渲，单帧慢一点。
 
+**3D 角色和道具建模（11-18）**：`engine/vk-sdf.js`，用距离场捏形体（球、椭球、胶囊、圆角盒，软并揉在一起），surface nets 抽成网格，带顶点色。`VKSdf.mesh(f, 包围盒下角, 上角, 格子边长, THREE, 上色函数)`。人物分块捏、挂骨架、姿势写成关键帧，范例 `发布/2026-11-18_qin-meng-film/project/chars.js`。
+
 **3D 镜头的电影感后期（11-18）**：`engine/vk-cine.js`，高度雾、辉光、光柱、调色、柔边尘埃 / 雾团 / 光锥，外加节拍表 `VKCine.beats`、镜头轨 `VKCine.rail`、打击包络 `VKCine.env`（这三样 2D 镜头也能用）。参数和坑见 `references/cine.md`，示例 `examples/cine_flashlight/`。
 
 **逐帧导出**：全片和片段按 jpg（q95）逐帧截图再进 ffmpeg 编码 H.264（crf 14）；`--stills` 仍是 png。

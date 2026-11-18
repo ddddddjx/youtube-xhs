@@ -18,3 +18,4 @@
   `engine/get_fonts.py --three`；新文件 `engine/beat.py`、`engine/score.py`、`scripts/deliver.py`；`scripts/new_film.py` 加 `--world A`、`--portrait`、`--dur`、`--three`。文档改了 SKILL.md、`references/worlds.md`、`engine.md`、`script.md`、`prompts.md`。
   `render.py` 现在不设 `VK_CHROME_PATH` 也会自动用 `/opt/pw-browsers` 里的 Chromium。同步上游时这些改动要手动补回。
 - **11-18 加 `engine/vk-cine.js`（本仓库自己写的，上游没有）**：Three.js 镜头的后期包，做法学自 Crimson Loong（纯 three.js 的 90 秒龙片，仓库无开源协议，只学结构、没搬代码）。连带改动：`engine/index.html` 多一行 `<script src="engine/vk-cine.js">`；`engine/render.py` 认环境变量 `VK_QUERY`（透传给页面的查询串，如 `plain`、`fast`）。新文件 `references/cine.md`、`examples/cine_flashlight/`、`examples/look_cine_flashlight.jpg`。云端实测 1920×1080 约 1.1 秒一帧，`--det` 通过。同步上游时这些要手动补回。
+- **11-18 加 `engine/vk-sdf.js`（本仓库自己写的）**：距离场建模 + surface nets，`engine/index.html` 多一行引入。第一次用在 `发布/2026-11-18_qin-meng-film/`。

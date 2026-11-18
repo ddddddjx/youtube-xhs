@@ -1,0 +1,1 @@
+{"end": 10, "fps": 30, "meta": {"title": "一死酬知己，此身寄长城 · 样片", "drone": 0.4, "music": {"bpm": 120, "key": -3, "sections": [[0, 2], [2, 3], [8, 1]], "drop": [6]}}, "events": [[3, "whoosh", {"dur": 0.45}], [5, "ping", {"pitch": 1.4}], [5.5, "whoosh", {"dur": 0.4}], [6, "hit", {}], [6.5, "hit", {}], [7, "hit", {}], [7.9, "whoosh", {"dur": 0.5}]]}
