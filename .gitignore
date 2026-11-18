@@ -9,3 +9,8 @@ dist/
 发布/*/_work/
 发布/*/**/*.mp4
 发布/*/**/*.mov
+
+# 短片工程的中间产物（审片截图、合成音频、源码包）不进仓库，重跑脚本就有
+发布/*/project/review/
+发布/*/project/audio/*.wav
+发布/*/project/*_source.zip
