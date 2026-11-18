@@ -1,5 +1,5 @@
 ---
-title: CMU把课免费放上网，唯独缺这一门
+title: CMU这学期正在上的AI课，免费放出来了
 mode: 观察
 value: 信息 + 行动
 goal: 涨粉
@@ -10,7 +10,7 @@ reader: 收藏夹里躺着好几门名校公开课、每门都只看了第一集
 cost: 无（用户这篇没答代价）
 keyword: CMU
 keywords: CMU, 卡内基梅隆, 公开课, AI Agents, 计算机系统, 15-213, CS Learn
-headline: CMU把课免费放上网，|唯独缺这一门
+headline: CMU这学期正在上的AI课，|免费放出来了
 hero: imgs/hero.jpg
 hero_after: 2
 hero_max: 520
