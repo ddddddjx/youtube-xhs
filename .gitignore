@@ -14,3 +14,9 @@ dist/
 发布/*/project/review/
 发布/*/project/audio/*.wav
 发布/*/project/*_source.zip
+
+# 秦蒙短片：渲染结果、审片截图、合成出来的音频不进仓库（脚本重跑就有）
+发布/2026-11-18_qin-meng-film/animatic/renders/
+发布/2026-11-18_qin-meng-film/animatic/review/
+发布/2026-11-18_qin-meng-film/sound/out/
+发布/2026-11-18_qin-meng-film/sound/vo/*.wav
