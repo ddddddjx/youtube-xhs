@@ -5,7 +5,7 @@
 (function () {
 'use strict';
 const { W, H, clamp, lerp, ss } = VK;
-const K = VKit, C = VKCine; let THREE;
+const K = VKit, C = VKCine; let THREE; const NOFACE = new URLSearchParams(location.search).has('noface');
 const ids = window.RANGE, SH = window.SHOTS.filter(s => ids.includes(s.id));
 let acc = 0; for (const s of SH) { s.a = acc; acc += s.dur; s.b = acc; }
 const END = acc;
@@ -14,7 +14,7 @@ const END = acc;
  * fx(fr, lt, s) 画这一镜自己的叠加特效；post 给着色器的额外量 */
 const M = {
   '05': { z: [1.03, 1.10], pan: [[-0.012, 0.004], [0.012, -0.004]], par: [[0.020, 0], [-0.020, 0.004]], focus: 0.55, motes: 46, glint: 1, glintTop: 0.66 },
-  '06': { z: [1.06, 1.12], pan: [[0.010, 0], [-0.008, 0]], par: [[-0.016, 0], [0.016, 0]], focus: 0.8, motes: 26, glint: 0 },
+  '06': { z: [1.06, 1.12], pan: [[0.010, 0], [-0.008, 0]], par: [[-0.016, 0], [0.016, 0]], focus: 0.8, motes: 26, glint: 0, open: 0.6, dark: 0.0 },   // 四分之三侧脸：远侧嘴角被压扁了，暗影会伸出嘴外，所以只开合、不压暗
   '07': { z: [1.02, 1.08], pan: [[0.008, 0.006], [-0.006, -0.004]], par: [[0.014, 0.004], [-0.016, 0]], focus: 0.6, motes: 40, glint: 1, glintTop: 0.7 },
   '08': { z: [1.10, 1.02], pan: [[0, 0.012], [0, -0.006]], par: [[0.0, 0.012], [0.0, -0.014]], focus: 0.55, motes: 50, glint: 1, glintTop: 0.42, ring: [0.404, 0.372] },
   '09': { z: [1.02, 1.09], pan: [[-0.014, 0], [0.004, 0.004]], par: [[0.026, 0], [-0.012, 0]], focus: 0.6, motes: 30, glint: 0, hit: 0.5, hitAt: [0.50, 0.86] },
@@ -27,20 +27,41 @@ function build() {
   const tex = im => { const t = new THREE.Texture(im); t.colorSpace = THREE.NoColorSpace; t.minFilter = t.magFilter = THREE.LinearFilter; t.generateMipmaps = false; t.wrapS = t.wrapT = THREE.MirroredRepeatWrapping; t.needsUpdate = true; return t; };
   const T = {}; for (const id of ids) T[id] = [tex(window.IMG[id]), tex(window.DEP[id])];
   const U = { tImg: { value: null }, tDep: { value: null }, uZoom: { value: 1 }, uPan: { value: new THREE.Vector2() }, uPar: { value: new THREE.Vector2() }, uFocus: { value: 0.5 }, uTime: { value: 0 },
-    uGlint: { value: 0 }, uGlintTop: { value: 0 }, uRing: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uHit: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uFade: { value: 1 }, uWhite: { value: 0 }, uShake: { value: new THREE.Vector2() }, uBreath: { value: 0 } };
+    uGlint: { value: 0 }, uGlintTop: { value: 0 }, uRing: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uHit: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uFade: { value: 1 }, uWhite: { value: 0 }, uShake: { value: new THREE.Vector2() }, uBreath: { value: 0 },
+    uFace: { value: 0 }, uDarkK: { value: 1 }, uOpen: { value: 0 }, uBlink: { value: 0 }, uMouth: { value: new THREE.Vector4() }, uEyeL: { value: new THREE.Vector4() }, uEyeR: { value: new THREE.Vector4() }, uHeadC: { value: new THREE.Vector4() }, uHeadM: { value: new THREE.Vector3() }, uDown: { value: new THREE.Vector2(0, 1) }, uRight: { value: new THREE.Vector2(1, 0) } };
   const mat = new THREE.ShaderMaterial({ uniforms: U, depthTest: false, depthWrite: false,
     vertexShader: 'varying vec2 vUv; void main(){ vUv = position.xy * 0.5 + 0.5; gl_Position = vec4(position.xy, 0.0, 1.0); }',
     fragmentShader: `uniform sampler2D tImg, tDep; uniform float uZoom, uFocus, uTime, uGlint, uGlintTop, uFade, uWhite, uBreath; uniform vec2 uPan, uPar, uShake; uniform vec4 uRing, uHit; varying vec2 vUv;
+      uniform float uFace, uOpen, uBlink, uDarkK; uniform vec4 uMouth, uEyeL, uEyeR, uHeadC; uniform vec3 uHeadM; uniform vec2 uDown, uRight;
       float h1(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
       float n1(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(h1(i), h1(i + vec2(1, 0)), f.x), mix(h1(i + vec2(0, 1)), h1(i + vec2(1, 1)), f.x), f.y); }
       vec2 warp(vec2 b){ vec2 uv = b; for (int i = 0; i < 4; i++) { float d = texture2D(tDep, uv).r; uv = b + (d - uFocus) * uPar; } return uv; }   // 视差：近处比远处多移一点
-      vec3 shot(vec2 uv0){ vec2 b = (uv0 - 0.5) / uZoom + 0.5 + uPan + uShake; vec2 uv = warp(b);
+      /* 脸：在定帧上做局部形变。全部是「这个像素该去图上哪里取色」的反推，坐标换成高 = 1 再算 */
+      const vec2 ASP = vec2(16.0 / 9.0, 1.0);
+      vec2 eyeWarp(vec2 q, vec4 e){ vec2 v = q - e.xy * ASP; float x = dot(v, uRight) / e.z, y = dot(v, uDown) / e.z, h = e.w / e.z;
+        float w = exp(-x * x / 0.9) * smoothstep(-1.1, -0.5 * h, y) * (1.0 - smoothstep(0.25 * h, 0.55 * h, y));     // 眉下到下眼睑之间：上眼皮往下盖
+        return -uDown * uBlink * e.w * 1.25 * w; }
+      vec2 faceWarp(vec2 uv, out float dark){ dark = 0.0; vec2 q = uv * ASP;
+        /* 头：绕鼻尖转一点、点一点，离脸越远越不动 */
+        vec2 hv = q - uHeadC.xy * ASP; float hw = exp(-dot(hv, hv) / (uHeadC.z * uHeadC.z * 1.6)); float an = -uHeadM.z * hw, cs = cos(an), sn = sin(an);
+        q = uHeadC.xy * ASP + vec2(hv.x * cs - hv.y * sn, hv.x * sn + hv.y * cs) - uHeadM.xy * hw;
+        /* 嘴：唇线以下跟着下巴往下走，上唇略抬；唇缝被拉开的地方压暗当口腔 */
+        vec2 v = q - uMouth.xy * ASP; float x = dot(v, uRight) / uMouth.z, y = dot(v, uDown) / uMouth.z, yc = uMouth.w / uMouth.z;
+        float lens = max(0.0, 1.0 - x * x * 1.25); lens *= lens;
+        float g = smoothstep(0.0, 0.2, y) * (1.0 - smoothstep(yc * 1.0, yc * 1.9, y)) * exp(-x * x / 2.6);
+        float gu = (1.0 - smoothstep(-0.5, 0.0, y)) * smoothstep(-1.2, -0.3, y) * exp(-x * x / 1.4);
+        vec2 off = uDown * uOpen * uMouth.z * (g * 0.27 - gu * 0.05);
+        dark = min(1.0, uOpen * 2.0) * lens * smoothstep(0.0, 0.05, y) * (1.0 - smoothstep(0.05 + 0.12 * uOpen, 0.1 + 0.2 * uOpen, y)) * 0.7 * uDarkK;   // 暗影只在嘴中间，开多大暗多宽
+        q -= off; q += eyeWarp(q, uEyeL) + eyeWarp(q, uEyeR);
+        return q / ASP; }
+      vec3 shot(vec2 uv0){ vec2 b = (uv0 - 0.5) / uZoom + 0.5 + uPan + uShake; vec2 uv = warp(b); float dark = 0.0;
+        if (uFace > 0.5) { vec2 fu = faceWarp(vec2(uv.x, 1.0 - uv.y), dark); uv = vec2(fu.x, 1.0 - fu.y); }
         float d = texture2D(tDep, uv).r;
         /* 风：只动近处的草和发梢这种「细碎的近景」——用景深的局部起伏当遮罩，人身上（景深平）不动 */
         float e = abs(texture2D(tDep, uv + vec2(0.006, 0.0)).r - texture2D(tDep, uv - vec2(0.006, 0.0)).r);
         float m = smoothstep(0.02, 0.12, e) * smoothstep(0.15, 0.5, d);
         uv.x += (n1(vec2(uv.x * 6.0 + uTime * 0.9, uv.y * 4.0)) - 0.5) * 0.004 * m * uBreath;
-        return texture2D(tImg, uv).rgb; }
+        return texture2D(tImg, uv).rgb * (1.0 - clamp(dark, 0.0, 0.8)); }
       void main(){ vec2 uv = vUv; vec2 asp = vec2(16.0 / 9.0, 1.0); vec2 ib = (uv - 0.5) / uZoom + 0.5 + uPan + uShake;   // 图上的坐标：光晕要钉在图里的东西上，跟着镜头走
         /* 冲击：朝冲击点做几次径向取样（瞬间的拉伸感）*/
         vec3 c; float pk = uHit.w;
@@ -94,6 +115,14 @@ function shot(fr, t) {
   if (m.ring) { ring = 0.75 + 0.25 * Math.sin(lt * 9); U.uRing.value.set(m.ring[0], 1 - m.ring[1], 0.046 + 0.003 * Math.sin(lt * 9), ring * ss(lt, 0, 0.3)); } else U.uRing.value.w = 0;
   U.uZoom.value = z; U.uPan.value.set(lerp(m.pan[0][0], m.pan[1][0], e), -lerp(m.pan[0][1], m.pan[1][1], e)); U.uPar.value.set(lerp(m.par[0][0], m.par[1][0], e), -lerp(m.par[0][1], m.par[1][1], e)); U.uShake.value.set(sx, sy);
   if (m.hitAt) U.uHit.value.set(m.hitAt[0], 1 - m.hitAt[1], hit * 0.9, punch); else U.uHit.value.set(0.5, 0.5, 0, 0);
+  /* 脸：嘴跟配音的响度走，眨眼按镜号定时刻，头跟着说话的轻重点一点 */
+  const F = !NOFACE && window.FACES[s.id];
+  if (F) { const ev = (window.VOENV[s.id] || []), vt = (lt - 0.3) * 60, i0 = Math.floor(vt), fr0 = vt - i0, open = vt < 0 ? 0 : lerp(ev[i0] || 0, ev[i0 + 1] || 0, fr0);
+    const r = VK.rng(500 + (+s.id) * 13), b1 = 0.5 + r() * (s.dur - 1.2), bl = Math.max(0, 1 - Math.abs(lt - b1) / 0.09), b2 = b1 + 1.6 + r(), bl2 = Math.max(0, 1 - Math.abs(lt - b2) / 0.09);
+    U.uFace.value = 1; U.uOpen.value = open * (m.open == null ? 1 : m.open); U.uDarkK.value = m.dark == null ? 1 : m.dark; U.uBlink.value = Math.min(1, Math.max(bl, bl2) * 1.3);
+    U.uMouth.value.fromArray(F.mouth); U.uEyeL.value.fromArray(F.eyeL); U.uEyeR.value.fromArray(F.eyeR); U.uHeadC.value.set(F.head[0], F.head[1], F.head[2], 0); U.uDown.value.fromArray(F.down); U.uRight.value.fromArray(F.right);
+    const sp = open * 0.6 + 0.4; U.uHeadM.value.set(Math.sin(lt * 1.3 + 1) * 0.0012, (open * 0.0035 + Math.sin(lt * 2.1) * 0.001) , Math.sin(lt * 1.7) * 0.012 * sp);
+  } else U.uFace.value = 0;
   U.uFade.value = (ss(t, 0, 0.25) * 0.5 + 0.5) * (1 - 0.6 * ss(t, END - 0.35, END)); U.uWhite.value = white;
   R.setRenderTarget(null); R.render(scene, cam); fr.x.drawImage(g3.canvas, 0, 0); fr.look.bloom = 0; fr.look.grain = 0;
   motes(fr, s, lt, m.motes || 0);

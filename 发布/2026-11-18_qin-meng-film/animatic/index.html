@@ -16,6 +16,7 @@ canvas{display:block;margin:0 auto;max-width:100vw;max-height:100vh;width:auto;h
 <body><canvas id="stage"></canvas>
 <script>window.VK_THREE = true; window.VK_SIZE = [1920, 1080];   /* 竖屏改成 [1080, 1920]；要 Three.js 再加 window.VK_THREE = true，并打开下面那行 */</script>
 <script src="shots.js"></script>
+<script src="faces.js"></script>
 <script type="module">
 /* 先把这一段要用的定帧和景深图全部载进来，再放行引擎（READY 要等它们）*/
 import * as THREE from './engine/vendor/three.module.min.js';
