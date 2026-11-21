@@ -10,6 +10,7 @@
     - 中英双语压在原视频画面的底边，居中，半透明深色底框，中文黑体在上、英文小字在下（11-08 起，对标 Better Living）
     - 原视频下方是「章节标题」：两行黑体大字，第一行白（这段在讲什么）、第二行强调色（这段的结论），随 chapters.json 的时间切换
   工作目录里有 chapters.json（或用 --chapters 指定）就画章节层；没有就只压字幕并提醒。
+  解读口播版：工作目录传 narrate.py 出的 _work/narrated/（有 timeline.json 就自动从第 0 秒开始，旁白只有中文字幕）。
 
 版面（和 render_frame.py 共用 TOP_H）:
   0–110      小红书播放页的返回 / 搜索键会盖住，不放字
@@ -128,6 +129,9 @@ def build_ass(work, video_bottom, zh_only, offset=0.0, chapters=None, accent="#F
         for s, e, t in en:
             best = max(zh, key=lambda z: min(e, z[1]) - max(s, z[0]))
             cues.append((s, e, best[2] if min(e, best[1]) - max(s, best[0]) > 0 else "", t))
+        # 解读口播版（narrate.py）：旁白只有中文，没有英文对应，单独补上
+        cues += [(s, e, z, "") for s, e, z in zh if not any(min(e, b) - max(s, a) > 0 for a, b, _ in en)]
+        cues.sort(key=lambda c: c[0])
 
     sub_margin_v = H - video_bottom + 22          # ASS 底对齐时 MarginV 从画布底算起
     video_h = video_bottom - TOP_H
@@ -229,6 +233,8 @@ def main():
     fw, fh = W, round(W * vh / vw / 2) * 2
     if fh > MAX_VH:
         fw, fh = round(MAX_VH * vw / vh / 2) * 2, MAX_VH
+    if a.start == "auto" and os.path.exists(os.path.join(work, "timeline.json")):
+        a.start = "0"   # narrate.py 出的解读口播版第一秒就是旁白，不跳
     start = first_speech(work, ff) if a.start == "auto" else float(a.start)
     if start:
         print(f"成片从 {start:.2f} 秒开始（跳过片头 {start:.1f} 秒；要保留就加 --start 0）")

@@ -1,5 +1,12 @@
 # 火山声音复刻：用户自己的声音做视频旁白（11-02 起）
 
+> **11-21 起合成统一走 `volc_tts.py`**（explainer-film 的 tts.py、youtube-xhs 的 narrate.py 都调它）。音色表 `VOICES`：
+> - `本人`：`S_DRo7Kc2k2`，Resource-Id `seed-icl-2.0`（声音复刻 2.0），要传 `model` 和 `tone_fidelity`
+> - `刘飞2.0`：`zh_male_liufei_uranus_bigtts`，Resource-Id `seed-tts-2.0`（豆包语音合成模型 2.0，官方预置音色，不传 model）
+>
+> 两个音色是两个服务，各自开通。11-21 测：`seed-tts-2.0` 返回 `45000030 [resource_id=volc.seedtts.default] requested resource not granted`，说明这把 Key 还没拿到语音合成 2.0 的权限（复刻那边正常）。
+> 试听：`python3 tools/volc-voice/volc_tts.py 刘飞2.0 "一句话" out.wav`；测流程不扣费：`VOLC_TTS_FAKE=1`。
+
 用户要用自己的声音给解说视频配旁白（对标 `对标/Jim_AI_Notebook/`），走火山引擎「豆包声音复刻模型 2.0」。
 
 ## 已完成（用户在火山控制台做的）

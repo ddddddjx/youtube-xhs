@@ -9,39 +9,20 @@
 - **按句合成**，每句去掉首尾静音，句间插 0.45 秒停顿（一口气念完的 AI 感最重）；build_timeline 靠这个停顿把字幕对到每句
 - 火山偶尔 502，自动重试 5 次（2/4/8/16/32 秒）
 """
-import base64, json, re, sys, time, uuid, wave, urllib.request
+import json, re, sys, wave
 from pathlib import Path
 import numpy as np
 
 DEF = {"speaker": "S_DRo7Kc2k2", "rate": 25, "fidelity": False, "pause": 0.45,
        "ctx": "像在跟朋友聊一件自己觉得有意思的事，语气自然、放松，不要播音腔，也不要刻意兴奋，说到关键处稍微放慢"}
 
-def synth(t, cfg):
-    rp = {"text": t, "speaker": cfg["speaker"], "model": "seed-tts-2.0-expressive", "tone_fidelity": cfg["fidelity"],
-          "audio_params": {"format": "pcm", "sample_rate": 48000, "speech_rate": cfg["rate"]}}
-    if cfg.get("ctx"): rp["additions"] = json.dumps({"context_texts": [cfg["ctx"]]}, ensure_ascii=False)
-    err = None
-    for i in range(5):
-        try:
-            req = urllib.request.Request("https://openspeech.bytedance.com/api/v3/tts/unidirectional",
-                json.dumps({"user": {"uid": "krypto"}, "req_params": rp}).encode(),
-                {"Content-Type": "application/json", "X-Api-Resource-Id": "seed-icl-2.0", "X-Api-Request-Id": str(uuid.uuid4())})
-            pcm = bytearray()
-            with urllib.request.urlopen(req, timeout=120) as r:
-                for line in r:
-                    line = line.strip()
-                    if not line: continue
-                    d = json.loads(line)
-                    if d.get("data"): pcm += base64.b64decode(d["data"])
-                    elif d.get("code") not in (0, 20000000, None): raise RuntimeError(d)
-            return np.frombuffer(bytes(pcm), dtype=np.int16)
-        except Exception as e:
-            err = e; time.sleep(2 ** (i + 1))
-    raise SystemExit(f"tts failed: {err}")
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools" / "volc-voice"))
+import volc_tts  # noqa: E402  公共合成模块（11-21 起，youtube-xhs 也用它）；音色可以是名字（本人 / 刘飞2.0）或 ID
 
-def trim(a, th=300):                     # 去掉每句首尾静音，停顿统一由我们加
-    idx = np.where(np.abs(a) > th)[0]
-    return a[max(0, idx[0] - 1200): idx[-1] + 2400] if len(idx) else a
+def synth(t, cfg):
+    return volc_tts.synth(t, cfg["speaker"], cfg["rate"], cfg.get("ctx"), cfg["fidelity"])
+
+trim = volc_tts.trim
 
 def say(text, out, cfg):
     sents = [s for s in re.split(r"(?<=[。？！])", text) if s.strip()]
