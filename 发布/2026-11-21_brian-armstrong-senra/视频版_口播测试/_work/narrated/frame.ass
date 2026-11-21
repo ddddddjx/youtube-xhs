@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: ZH,Noto Sans CJK SC,52,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,1,0,0,0,100,100,0,0,1,0,0,2,120,120,762,1
+Style: BOX,Noto Sans CJK SC,20,&H6E140A0A&,&H6E140A0A&,&H6E140A0A&,&H6E140A0A&,0,0,0,0,100,100,0,0,1,0,0,2,0,0,744,1
+Style: CH1,Noto Sans CJK SC,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,1,0,0,0,100,100,0,0,1,0,0,7,44,44,1234,1
+Style: CH2,Noto Sans CJK SC,58,&H003BD9FF&,&H00FFFFFF,&H00000000,&H00000000,1,0,0,0,100,100,0,0,1,0,0,7,44,44,1309,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.23,BOX,,0,0,0,,{\an2\pos(540,1176)\bord0\shad0\p1}m 0 0 l 912 0 l 912 146 l 0 146{\p0}
+Dialogue: 1,0:00:00.00,0:00:03.23,ZH,,0,0,0,,Coinbase 创始人手\N下有七八个主 agent
+Dialogue: 0,0:00:03.23,0:00:05.21,BOX,,0,0,0,,{\an2\pos(540,1176)\bord0\shad0\p1}m 0 0 l 912 0 l 912 90 l 0 90{\p0}
+Dialogue: 1,0:00:03.23,0:00:05.21,ZH,,0,0,0,,每个再带三到五个小 agent
+Dialogue: 0,0:00:05.66,0:00:07.92,BOX,,0,0,0,,{\an2\pos(540,1176)\bord0\shad0\p1}m 0 0 l 912 0 l 912 90 l 0 90{\p0}
+Dialogue: 1,0:00:05.66,0:00:07.92,ZH,,0,0,0,,他每天做的事，就是点是或者否
+Dialogue: 0,0:00:08.50,0:00:12.50,BOX,,0,0,0,,{\an2\pos(540,1176)\bord0\shad0\p1}m 0 0 l 912 0 l 912 207 l 0 207{\p0}
+Dialogue: 1,0:00:08.50,0:00:12.50,ZH,,0,0,0,,你可以直接说：是，否，\N否，否，是，这个换个做法\N{\fs28\b0\c&HE6E6E6&}And so you can say like, yes, no, no, no, yes, do\Nthis one a little bit differently.
+Dialogue: 0,0:00:12.90,0:00:15.90,BOX,,0,0,0,,{\an2\pos(540,1176)\bord0\shad0\p1}m 0 0 l 912 0 l 912 207 l 0 207{\p0}
+Dialogue: 1,0:00:12.90,0:00:15.90,ZH,,0,0,0,,一条条把决定处理掉，\N就像清邮箱一样\N{\fs28\b0\c&HE6E6E6&}Just start knocking out decisions, almost like in\Nyour email inbox, right?
+Dialogue: 2,0:00:00.00,0:00:20.90,CH1,,0,0,0,,三四十个 agent
+Dialogue: 2,0:00:00.00,0:00:20.90,CH2,,0,0,0,,他只点是或否

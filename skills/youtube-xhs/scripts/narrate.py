@@ -13,8 +13,8 @@
 narration.json:
 {
   "voice": "刘飞2.0",              # 音色名（tools/volc-voice/volc_tts.py 的 VOICES）或音色 ID；可省，默认刘飞2.0
-  "rate": 0,                       # 语速 -50..100，可省
-  "ctx": "像在跟朋友讲一件……",      # 语气指令，可省
+  "rate": 10,                      # 语速 -50..100（0 = 原速，10 = 快 10%），可省，默认 10（用户 11-21 定）
+  "ctx": "……",                     # 语气指令，可省；默认不加（用户 11-21 试听选了不加指令的 A 版）
   "pause": 0.45,                   # 句间停顿秒数，可省
   "bed": 0,                        # 旁白下面原片声音的音量（0 = 静音，0.1 左右能听到一点现场声）
   "segments": [
@@ -44,6 +44,7 @@ FPS = 30
 CLIP_WARN = 15        # 单段原声超过这么多秒提醒
 SHARE_WARN = 0.5      # 原声占全片超过一半提醒：这就又像整片搬运了
 SUB_MAX = 20          # 旁白字幕一条最多这么多字，长句按逗号拆
+LOUD = "loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000"   # 每段统一响度，旁白和原声不会一段大一段小（11-21 测：不统一时旁白比原声小 4 dB）
 
 
 def ffmpeg():
@@ -89,7 +90,7 @@ def main():
     work = Path(a.work).resolve()
     plan_path = Path(a.plan) if a.plan else work / "narration.json"
     plan = json.loads(plan_path.read_text(encoding="utf-8")) if plan_path.exists() else {}
-    v, rate, ctx = plan.get("voice", "刘飞2.0"), plan.get("rate", 0), plan.get("ctx")
+    v, rate, ctx = plan.get("voice", "刘飞2.0"), plan.get("rate", 10), plan.get("ctx")
     pause, bed = plan.get("pause", 0.45), float(plan.get("bed", 0))
     out = work / "narrated"; (out / "narration").mkdir(parents=True, exist_ok=True); (out / "parts").mkdir(exist_ok=True)
 
@@ -143,8 +144,8 @@ def main():
             chapters.append({"start": round(t, 2), **s["chapter"]})
         if "say" in s:
             L = s["_len"]
-            mix = (f"[0:a]volume={bed}[b];[1:a]aformat=channel_layouts=stereo,apad[n];[n][b]amix=inputs=2:duration=first:normalize=0[a]"
-                   if bed > 0 else "[1:a]aformat=channel_layouts=stereo,apad[a]")
+            mix = (f"[0:a]volume={bed}[b];[1:a]aformat=channel_layouts=stereo,apad[n];[n][b]amix=inputs=2:duration=first:normalize=0,{LOUD}[a]"
+                   if bed > 0 else f"[1:a]aformat=channel_layouts=stereo,apad,{LOUD}[a]")
             cmd = [ff, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(s["over"]), "-t", str(L), "-i", str(src),
                    "-i", str(s["_wav"]), "-filter_complex", f"[0:v]{vf}[v];{mix}", "-map", "[v]", "-map", "[a]",
                    "-t", str(L), *enc, str(part)]
@@ -154,7 +155,7 @@ def main():
         else:
             c0, c1 = map(float, s["clip"]); L = c1 - c0
             cmd = [ff, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(c0), "-t", str(L), "-i", str(src),
-                   "-vf", vf, "-af", f"afade=t=in:d=0.06,afade=t=out:st={max(0, L - 0.08)}:d=0.08",
+                   "-vf", vf, "-af", f"{LOUD},afade=t=in:d=0.06,afade=t=out:st={max(0, L - 0.08)}:d=0.08",
                    *enc, str(part)]
             for cues, bucket in ((zh, subs_zh), (en, subs_en)):
                 for x, y, z in cues:

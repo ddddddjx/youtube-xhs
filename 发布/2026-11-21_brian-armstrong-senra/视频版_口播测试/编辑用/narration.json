@@ -1,0 +1,9 @@
+{
+ "voice": "刘飞2.0",
+ "rate": 10,
+ "segments": [
+  {"say": "Coinbase 创始人手下有七八个主 agent，每个再带三到五个小 agent。他每天做的事，就是点是或者否。",
+   "chapter": {"line1": "三四十个 agent", "line2": "他只点是或否"}},
+  {"clip": [97.5, 105.2]}
+ ]
+}

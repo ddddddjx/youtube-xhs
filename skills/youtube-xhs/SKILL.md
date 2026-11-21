@@ -159,6 +159,7 @@ python3 $Y/scripts/compose_frame.py "<输出目录>/_work" "<输出目录>/视�
 4. 照步骤 2 出预览和成片，工作目录换成 `"<输出目录>/_work/narrated"`（自动从第 0 秒开始，不跳片头）。`视频版/章节.txt` 用 `narrated/chapters.json` 的时间
 5. 交付时在对话里写：音色、旁白 / 原声秒数、每段原声取自原片哪几秒
 
+- 默认（用户 11-21 试听定）：刘飞 2.0、不加语气指令、语速 `rate: 10`（快 10%）；每段音频统一到 -16 LUFS，旁白和原声一样响。第一条测试片在 `发布/2026-11-21_brian-armstrong-senra/视频版_口播测试/`
 - 音色和接口：`tools/volc-voice/volc_tts.py`（`VOICES` 里有 `刘飞2.0` 和 `本人`），narration.json 的 `voice` 可以换；`rate` 是语速，`ctx` 是语气指令。Key 由云端代理加，见 `tools/volc-voice/README.md`
 - 不调接口测剪辑：在命令前加 `VOLC_TTS_FAKE=1`（按字数出一段正弦波，不扣费）
 - 旁白下面想留一点现场声就加 `"bed": 0.1`，默认静音
