@@ -1,0 +1,1894 @@
+
+ 小工具容器能力清单 · 小红书
+ 小红书 · 小工具开发者文档
+ 小工具容器 · 能力清单
+ 面向小工具开发者，说明小红书小工具容器内
+ 哪些 Web 能力可用、哪些不可用，以及容器提供的
+ 平台 JS API（AI 文本生成 / 发笔记 / 关注作者 / 存相册 / 本地缓存 / 文件系统 / 评论区 /
+ 云存储 / 排行榜 / 窗口信息 / 定位 / 振动 / 陀螺仪）。
+ 创作或改写小工具时，请先复制小工具上传页提供的完整改写口令，交给 AI 助手按口令执行。
+ 适用 iOS / Android 双端，具体版本与使用条件见各节 · 最后更新 2026-11-19
+ 目 录
+ 1. 运行环境
+ 1.1 第三方 AI 工具开发指南
+ 2. 可用能力
+ 2.1 页面与渲染
+ 2.2 JS / CSS 兼容基线
+ 2.3 媒体与文件
+ 2.4 数据存储
+ 2.5 交互
+ 2.6 资源加载规则
+ 2.7 静态资源优化策略
+ 2.8 Worker
+ 3. 平台 JS API
+ 3.1 调用约定
+ 3.2 API 一览
+ 3.3 发布笔记
+ 3.4 保存图片到相册
+ 3.5 临时文件
+ 3.6 客户端版本判断
+ 3.7 小工具本地缓存
+ 3.8 文件系统
+ 3.9 发布评论
+ 3.10 AI 文本生成
+ 3.11 窗口信息
+ 3.12 定位
+ 3.13 振动反馈
+ 3.14 陀螺仪
+ 3.15 关注作者
+ 3.16 云存储（内测）
+ 3.17 排行榜（内测）
+ 3.18 分享
+ 3.19 赞赏（内测）
+ 3.20 赞赏挽留开关（内测）
+ 4. 不可用能力
+ 4.1 禁用 Web API
+ 4.2 禁用行为
+ 4.3 移动端不支持
+ 5. WebGL / 图形计算边界
+ 6. 常见问题 FAQ
+ 7. 离线 H5 性能优化
+ 7.1 首屏与分阶段启动
+ 7.2 资源体积、平台托管与 OSS
+ 7.3 工程构建与产物治理
+ 7.4 第三方框架、组件库与游戏引擎
+ 7.5 DOM 与 CSS 渲染
+ 7.6 游戏与 WebGL 优化
+ 7.7 指标与验收
+ 01运行环境
+ 小工具是运行在受限沙箱环境里的纯 Web 应用（HTML / CSS / JS），请把它当作一个"能力受限的浏览器页面"来开发。
+ 📋
+ 创作入口：使用小工具上传页的改写口令。
+ 通过上传页手动上传时，无论从零创作还是改写现有 H5，都应在“第一步：调整为符合小红书规范的代码格式”中
+ 完整复制当前口令并发送给工作区内的 AI 助手。AI 助手须按口令下载对应版本 Skill、
+ 解压到指定目录、读取 SKILL.md，再对当前产物进行校验、修复和打包；完成后将生成的 zip
+ 用于上传页第二步。本能力清单用于解释容器边界，不能代替上传页口令，也不要沿用手工保存的旧口令。
+ 如需由第三方 Agent 管理小工具，请参照下方第三方 AI 工具开发指南。
+ 技术栈
+ 标准 Web 技术栈
+ 使用容器允许的 HTML / CSS / JS 与 Web API 开发；Android 最终产物须同时满足 ES2017 与 Chrome / WebView 61 兼容要求。
+ 兼容性
+ Android 10+ / iOS 18.4+
+ Android 产物仍须兼容 Chrome / WebView 61；系统门槛、内核门槛与客户端接口版本分别判断。
+ 平台能力
+ JS API（window.xhs）
+ 容器自动注入 JS API SDK，可调用 AI 文本生成、发布笔记、关注作者、保存相册、
+ 云存储、排行榜、窗口信息、定位、振动和陀螺仪等能力；各能力须满足对应客户端版本、开放范围与授权条件，
+ 详见 §3。无需自行引入脚本。
+ 沙箱
+ 安全沙箱
+ 容器对部分敏感 Web 能力做了限制（详见下文），并对文件选择、页面跳转等做了统一管控。
+ 隔离
+ 独立隔离
+ 每个小工具拥有独立的存储与运行环境，小工具之间互相隔离、无法访问彼此数据，也无法互相通信。
+ 网络边界
+ 页面不能主动联网
+ 页面、脚本、图片、字体等资源必须完整放入上传包，网页不能直接请求外部服务。
+ 平台管理的静态资源分发见 §2.7，可用平台能力见 §3。
+ 1.1 第三方 AI 工具开发指南
+ 你可以将自己小红书账号的小工具管理权限开放给第三方 Agent，
+ 在自己的 Agent 中完成开发、测试、真机预览、上传和查询审核状态的全流程。
+ 进入小红书创作服务平台，
+ 登录自己的小红书账号，找到 Builder Hub → 小工具页面。
+ 点击页面上的“用agent创作”。
+ 勾选弹窗中的“让agent帮我管理小工具”，复制开发口令并发送给自己的 Agent，
+ 按照 Agent 的提示完成后续操作即可。
+ ⚠️
+ 注意事项：若小工具需要使用正在内测的 AI 接口能力，尚无法通过第三方 Agent 上传。
+ 02可用能力
+ 2.1 页面与渲染
+ 能力
+ 说明
+ | HTML / CSS / JS
+ | 可使用兼容目标内且容器允许的能力；语法转译、API 检测与 CSS 增强须分别处理，详见 §2.2
+ | 内联样式
+ | <style> 与 style="" 均可用
+ | 页面内脚本
+ | 页面自带的脚本可正常执行
+ | Canvas 2D
+ | canvas.getContext('2d')，完整支持
+ | WebGL
+ | 
+ getContext('webgl' / 'webgl2')，纯渲染可用（能力边界见 §5）
+ | 文本选择
+ | 不限制
+ 2.2 JS / CSS 兼容基线
+ 系统支持 Android 10 及以上、iOS 18.4 及以上；
+ Android 产物的最低兼容内核仍为 Chrome / WebView 61。
+ 系统门槛与内核门槛同时保留；不能把 61 当作 Android 10 的出厂内核，也不能由系统或内核版本保证 WebGL2 或具体 API 可用。
+ JavaScript：最终交付代码须编译到 ES2017 / Chrome 61；更高版本语法由构建工具转译。
+ CSS：最终样式须兼容 Chrome 61；更高版本 CSS 只能作为增强，并保留基础样式。
+ 能力检测：使用 Chrome 61 基线外的高级 Web API 或 CSS 能力前，必须先检测是否支持；
+ 支持时启用增强，不支持时走降级路径。
+ 开发方式：请复制小工具上传页提供的完整改写口令，让 AI 助手加载对应版本 Skill，
+ 并严格按照 SKILL.md 完成开发、兼容处理、校验和打包。具体开发规则以 Skill 为准。
+ 2.3 媒体与文件
+ 能力
+ 用法
+ 说明
+ | 摄像头
+ | getUserMedia({ video })
+ | 需用户在系统弹窗中授权
+ | 麦克风
+ | getUserMedia({ audio })
+ | 需用户在系统弹窗中授权
+ | 选择图片 / 拍照
+ | <input type="file">
+ | 系统选择器接管，仅支持选择图片和视频（无论 accept 如何设置）
+ | 音视频播放
+ | <video> / <audio>
+ | 支持内联播放
+ 2.4 数据存储
+ 能力
+ 说明
+ | Storage JS API
+ | 
+ 正常业务的本地键值数据统一使用容器 Storage；最低客户端 9.46.0，版本判断见
+ §3.6，API 见 §3.7
+ | 文件系统 JS API
+ | 
+ 用于持久文件和二进制数据；客户端 9.49+ 可用，API 见
+ §3.8
+ | 云存储 JS API
+ | 
+ 同账号跨设备恢复的个人数据（存档、草稿等，内测）；客户端 9.51+ 可用，
+ API 见 §3.16
+ | localStorage / sessionStorage / IndexedDB / Cookie / Cache API
+ | 仅在明确低于 Storage 最低客户端版本且确需兼容时使用；历史数据迁移另见 §3.7。版本未知、SDK / 方法缺失及调用失败均不能触发回退
+ ⚠️
+ 正常业务统一读写容器存储，兼容和迁移分开实现。
+ 只有明确低于对应版本要求的客户端才可进入必要兼容路径。版本未知、缺 SDK、
+ 新客户端缺方法、权限拒绝、超额或调用失败，都不能触发浏览器存储回退。
+ 浏览器存储不保证可用或长期保留，必要兼容路径须处理读写异常、数据缺失与清理。
+ 更新已有工具时必须调查历史数据，并按 §3.7 完成数据衔接。
+ 数据仅属于当前小工具，其他小工具与外部无法访问。请勿假设数据永久持久化。
+ 2.5 交互
+ 能力
+ 说明
+ | alert() / confirm()
+ | 可用，以原生 UI 展示
+ | 振动反馈
+ | 
+ 使用平台 JS API vibrateShort / vibrateLong，
+ 参数与设备差异见 §3.13
+ 2.6 资源加载规则
+ 小工具页面不能直接访问外网，容器对页面如何加载各类资源有明确约束（对应浏览器
+ CSP 限制）。所有静态资源须完整放入上传包；下表“包内资源”按小工具同源路径引用，
+ 启用 §2.7 静态资源优化策略时，由容器透明处理外移资源的取回。
+ 另按类型额外允许 data: / blob: 等内存来源。
+ 资源类型
+ 允许的加载方式
+ 不允许
+ | 脚本 <script>
+ | 
+ ✅ 引用包内脚本
+ <script src="./app.js">（同源外链）
+ | 
+ 🔴 内联 <script>...</script>
+ 🔴 行内事件 onclick="..." 等、javascript: URI
+ 🔴 eval() / new Function()、WebAssembly
+ 🔴 外部域名脚本、data: / blob: 脚本
+ | Worker 入口脚本
+ | ✅ 客户端 9.53 及以上，可引用上传包内的 classic Worker 脚本，接入方式见 §2.8。
+ | 🔴 module Worker、外部域名、data: / blob: 和运行时生成的临时脚本
+ | 样式 <style> / <link>
+ | 
+ ✅ 内联 <style>、style="..." 行内样式
+ ✅ 引用包内样式表
+ | 
+ 🔴 外部域名样式表
+ | 图片 <img> / CSS 背景图
+ | 
+ ✅ 包内图片
+ <img src="./a.png">
+ ✅ data: URI（base64 内嵌）
+ ✅ blob:（createObjectURL 内存对象，如选图预览）
+ | 
+ 🔴 外部域名图片
+ | 字体 @font-face
+ | ✅ 包内字体文件
+ | 🔴 外部域名字体
+ | iframe / object
+ | 🔴 全部禁止
+ | —
+ 支持的文件类型
+ 小工具包内仅支持以下文件类型：
+ 文件类型
+ 原因
+ | .html
+ | 小工具主体，必须有且只有一个入口文件
+ | .css
+ | 样式文件，可内联，也可用包内样式表引用
+ | .js
+ | 脚本文件，必须外置并通过包内路径引用，不允许内联脚本
+ | .png / .jpg / .jpeg / .gif / .webp / .svg
+ | 图片资源；需要参与静态资源外移时，以独立文件放入 assets/，不要 base64 内联
+ | .woff / .woff2
+ | 字体文件，本地字体场景
+ | .json
+ | 静态数据文件，部分小工具需要读取本地配置数据
+ 实践要点
+ 脚本必须外置：容器禁止内联脚本与行内事件处理器，请把 JS
+ 写进包内 .js 文件用 <script src>
+ 引入，事件绑定改用 addEventListener（不要用
+ onclick= 属性）。
+ 样式可内联：<style> 和
+ style="..." 都能用，无需外置。
+ 选图预览用 <img src> 配 data: 或
+ blob: 均可显示（如
+ FileReader.readAsDataURL 或
+ URL.createObjectURL）。
+ 💡
+ 页面不能直连外部 CDN。请将资源完整放入上传包并使用小工具同源路径；
+ 平台如何分发 assets/ 资源，见下节。
+ 2.7 静态资源优化策略
+ 按加载需求选择参与优化的静态资源，将它们作为独立文件放进 assets/ 目录，使用本地路径引用并完整打包上传，
+ 即可在平台启用该策略的范围内享受主包体积优化，减少打开小工具时需要随主包下载的内容。
+ 不要求把所有资源都放进 assets/：应综合首屏依赖、资源重要性、体积与实际加载表现，兼顾主包大小和首屏体验。
+ 开发者按正常流程上传发布即可，无需额外接入。
+ 💡
+ 最低支持客户端 9.53.3。适用范围以平台发布通知为准。
+ 该策略仅对新发布生效，存量作品需重新发布后才能参与优化。
+ 资源文件类型仍须符合 §2.6，页面仍不能直接访问外部服务或 CDN。
+ 按这四步准备上传包
+ 先判断哪些资源适合参与优化，再决定存放位置。
+ 首屏强依赖、非常重要且体积小的资源，可以放在 assets/ 之外随主包下发，
+ 不参与这项优化，减少首屏等待资源取回的影响。
+ 体积较大、非首屏或可延后加载的图片、字体等资源，可优先考虑放进包根目录的 assets/，并按需分子目录。
+ 对首屏必需但体积较大的资源，也应结合实际加载表现权衡，不能仅凭体积或文件类型决定位置。
+ 入口 HTML、入口 JS / CSS 仍放在该目录之外。
+ 参与优化的资源使用独立文件，不做 base64 内联。
+ 不把这些待优化的静态资源嵌进 HTML、CSS 或 JS；内联资源不参与这项优化。
+ 选择随主包下发的资源可继续使用包内文件路径，无需为了不参与优化而改成内联。
+ 运行时选图预览、Canvas 导出等场景仍可使用 §2.6 允许的 data: / blob:。
+ 按本地路径引用，不替换成网络地址。
+ 例如随主包下发的资源使用 ./critical/logo.svg，参与优化的资源使用
+ ./assets/detail.webp 或 /assets/detail.webp；
+ CSS 中的相对路径按样式表所在位置填写。
+ 动态拼接路径（如 image.src = "/assets/" + i + ".png"）也可以，
+ 但必须确保对应文件实际进入最终上传包。
+ 完整打包，再按正常流程上传发布。
+ 上传 zip 中必须包含全部资源，不能自行删掉 assets/。
+ 上传包示例：假设 logo.svg 是首屏强依赖、重要且体积小的标识，选择随主包下发；
+ 详情页大图 detail.webp 和非首屏装饰字体 decoration.woff2 选择参与优化。
+ critical/ 只是示例中的自定义目录名，也可使用其他位于 assets/ 之外的包内路径。
+ 小工具上传包根目录/
+├── index.html
+├── app.js
+├── style.css
+├── critical/
+│ └── logo.svg
+└── assets/
+ ├── detail.webp
+ └── fonts/
+ └── decoration.woff2
+ <!-- index.html -->
+<link rel="stylesheet" href="./style.css">
+<!-- 首屏关键小图标：随主包下发 -->
+<img src="./critical/logo.svg" alt="标识">
+<!-- 详情页大图的引用路径：参与优化 -->
+<img src="./assets/detail.webp" alt="详情图">
+<script src="./app.js"></script>
+ 参与优化的资源不保证全部离线可用。页面应为资源加载失败准备占位提示或重试入口，
+ 不要依赖用户曾经打开过小工具就一定能再次离线加载全部资源。
+ 2.8 Worker
+ 最低支持客户端 9.53。仅支持 Dedicated Worker（new Worker()），
+ 不支持 SharedWorker 和 Service Worker。与标准 Web Worker 的差异如下。
+ 项目小工具容器约束
+ | 脚本入口
+ | 仅支持上传包内的 classic .js 脚本。module Worker、外部 URL、blob: / data: 和运行时生成的临时脚本不可用。
+ | 实例配额
+ | 每个页面同时最多一个 Worker，超出时抛出 QuotaExceededError。调用 terminate() 或平台回收后释放名额。error 和 self.close() 后仍需由页面调用 terminate() 释放。
+ | CSP 策略
+ | Worker 的 CSP 策略与容器一致，网络请求、脚本加载及动态代码执行受容器限制，见本文“资源加载规则”和“禁用行为”。依赖需预先打包进入口脚本，禁止追加脚本或创建子 Worker。
+ | 后台回收
+ | 页面连续隐藏 30 秒后回收 Worker，提前返回会取消计时，期间新建实例沿用本轮期限。到期仍隐藏时创建会抛出 SecurityError。返回页面后需重新创建实例、恢复任务数据。
+ | worker.onTerminate(callback)
+ | 新增终止通知，名额释放后异步回调。参数 "主动" 表示页面调用了 terminate()，"system" 表示平台回收。同一回调对同一实例只通知一次。
+ | worker.offTerminate(callback)
+ | 注销指定终止回调，省略参数时清理本实例全部终止监听。
+ 回收通知可能延后执行，页面或进程销毁时不保证收到通知。
+ 03平台 JS API
+ 除标准 Web 能力外，容器会自动注入 JS API SDK，小工具可通过
+ window.xhs.miniTool.* 调用 App 原生能力：发布笔记、保存图片到相册、
+ 本地缓存、文件读写、发布评论、关注作者、分享、赞赏、赞赏挽留设置、云存储、排行榜、窗口信息、定位、振动和陀螺仪；
+ 通过 window.xhs.AI 调用平台对话模型。
+ 无需在包内引入任何 SDK 脚本。
+ 3.1 miniTool 调用约定
+ 调用前须按 §3.6 核对已注明的最低客户端版本，逐级检查命名空间与目标方法，
+ 再满足该 API 已注明的容器、登录和授权条件。版本达标或方法存在都不保证调用成功；
+ 未注明最低版本的 API 不得自行推定“所有版本支持”。存储失败不得触发浏览器存储回退，具体规则见
+ §3.7。
+ 项
+ 规则
+ | 唯一入口
+ | 
+ 端能力只能通过本文公开的
+ window.xhs.miniTool 方法调用，参数形式见各节；未列出的能力不受支持
+ | 一次性异步调用
+ | 
+ 通过 <apiName>(options) 调用。
+ 传入 success / fail /
+ complete 任一回调时返回 undefined；都不传则返回
+ Promise
+ | 异步调用成功
+ | 
+ resolve / success 收到结果对象，含
+ errMsg: "<api>:ok" 及该 API 的业务字段
+ | 异步调用失败
+ | 
+ reject / fail 收到
+ { errMsg: "<api>:fail ...", errCode? }；参数不合法时会在本地直接失败，不上行
+ | 事件监听
+ | 
+ onGyroscopeChange(callback) /
+ offGyroscopeChange(callback?) 直接接收监听函数，同步返回
+ undefined，不接受 success / fail /
+ complete。数据回调收到 { x, y, z }，不带
+ errMsg；生命周期见 §3.14
+ | 参数校验
+ | 
+ 按各接口声明传入字段、类型和枚举值，表中未声明的字段不要传。
+ 事件监听方法传入非法回调参数时会同步抛出 TypeError
+ | 可用性判断
+ | 
+ 调用前用 window.xhs && window.xhs.miniTool 判空，
+ 核对已注明的最低客户端版本，再检查具体方法是否为函数；
+ 方法存在时仍需处理调用失败。存储能力不可用时按 §3.7 处理，
+ 不因版本未知或 SDK / 方法缺失而切换浏览器存储
+ // Promise 形态
+async function saveImage(filePath) {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.saveImageToPhotosAlbum !== "function") return;
+ try {
+ await miniTool.saveImageToPhotosAlbum({ filePath });
+ } catch (err) {
+ console.log(err.errMsg); // "saveImageToPhotosAlbum:fail ..."
+ }
+}
+// 回调形态（返回 undefined）
+function saveImageWithCallbacks(filePath) {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.saveImageToPhotosAlbum !== "function") return;
+ miniTool.saveImageToPhotosAlbum({
+ filePath,
+ success: (res) => console.log(res.errMsg),
+ fail: (err) => console.log(err.errMsg),
+ complete: () => {},
+ });
+}
+ 3.2 API 一览
+ API
+ 能力
+ 可替代 / 适用场景
+ 形态
+ | postNote
+ | 唤起笔记发布页，带入标题 / 正文 / 图片 / 视频
+ | 网页无法直接发布笔记时使用
+ | 异步
+ | saveImageToPhotosAlbum
+ | 保存图片到系统相册
+ | 替代 <a download> / Blob 下载保存图片
+ | 异步
+ | writeTempFile
+ | 把 base64 数据写成容器内临时文件，换取 filePath
+ | 需要向其他端 API 传本地路径时使用
+ | 异步
+ | getLaunchOptions
+ | 异步获取客户端启动参数
+ | 读取 miniToolEnv.buildVersion 做客户端版本判断
+ | 异步
+ | 
+ setStorage / getStorage /
+ getStorageInfo / removeStorage / clearStorage
+ | 小工具本地缓存（版本要求见 §3.6）
+ | 替代 localStorage / IndexedDB / Cookie / Cache API
+ | 异步
+ | 
+ saveFile / writeFile /
+ appendFile / readFile / readDir /
+ statFile / unlink / mkdir /
+ getFileStorageInfo
+ | 小工具本地文件的保存、读写、查询与管理
+ | 持久文件、二进制数据和大文件分片读写（客户端 9.49+）
+ | 异步
+ | interactionOpenApi
+ | 携带评论草稿打开评论编辑器
+ | 分享小工具生成的文本或图片（客户端 9.49+）
+ | 异步
+ | AI.createModel(...).generateText(...)
+ | 调用平台对话模型生成文本
+ | AI 对话、文案生成、灵感辅助与个性化解读（内测加白）
+ | Promise / 非流式
+ | rewardAuthor
+ | 调起当前小工具的赞赏流程
+ | 用户主动点击自定义赞赏入口时使用
+ | 异步
+ | setCloseRetentionEnabled
+ | 设置关闭当前容器时是否允许拉起赞赏挽留
+ | 需配合赞赏使用，无法单独使用
+ | 异步
+ | getWindowInfo
+ | 获取容器窗口尺寸、安全区和顶部按钮位置
+ | 页面布局与原生按钮避让（客户端 9.49+；胶囊避让信息 9.55+）
+ | 异步
+ | getLocation
+ | 获取单次定位
+ | 替代网页 navigator.geolocation（客户端 9.49+）
+ | 异步
+ | vibrateShort
+ | 触发短振动，指定轻 / 中 / 重强度
+ | 点击等操作的触感反馈（客户端 9.50+）
+ | 异步
+ | vibrateLong
+ | 触发长振动
+ | 需要长振动的交互反馈（客户端 9.50+）
+ | 异步
+ | startGyroscope
+ | 开始陀螺仪采集
+ | 获取角速度前启动采集（客户端 9.50+）
+ | 异步
+ | stopGyroscope
+ | 停止陀螺仪采集
+ | 结束使用时停止采集（客户端 9.50+）
+ | 异步
+ | onGyroscopeChange
+ | 注册角速度数据监听
+ | 接收 x / y / z 数据（客户端 9.50+）
+ | 同步注册监听
+ | offGyroscopeChange
+ | 移除角速度数据监听
+ | 解除指定或全部监听（客户端 9.50+）
+ | 同步移除监听
+ | followAuthor
+ | 引导关注当前小工具作者
+ | 关注作者及刷新关注按钮状态（客户端 9.51+）
+ | 异步
+ | getFollowStatus
+ | 查询当前用户与小工具作者的关注状态
+ | 渲染关注 / 已关注状态（客户端 9.51+）
+ | 异步
+ | share
+ | 拉起小工具分享面板
+ | 分享小工具卡片或指定图片，仅全屏容器可用（客户端 9.53+）
+ | 异步
+ | 
+ addCloudStorage /
+ updateCloudStorage /
+ queryCloudStorage /
+ removeCloudStorage
+ | 云存储：同账号跨设备恢复的个人数据
+ | 替代浏览器本地存储做存档、草稿跨设备同步（客户端 9.51+，内测）
+ | 异步
+ | 
+ submitScore /
+ getRankList /
+ getMyRank
+ | 排行榜：公开成绩榜单与本人排名
+ | 游戏计分与排行榜展示（客户端 9.51+，内测）
+ | 异步
+ 💡
+ 媒体类字段（图片 / 视频 / 封面）只接受 data: base64
+ 或本地文件路径（这些媒体字段不接受网络地址）。体积较大的 base64
+ 建议先用 writeTempFile 换成 filePath 再传。
+ 3.3 postNote — 发布笔记
+ 唤起 App 笔记发布页，并带入小工具产出的内容与媒体。用户在发布页可继续编辑或取消。
+ 字段
+ 类型
+ 必填
+ 说明
+ | title
+ | string
+ | 否
+ | 标题，最长 20 字
+ | content
+ | string
+ | 否
+ | 正文，最长 1000 字
+ | pageType
+ | string
+ | 否
+ | 
+ 页面类型：video_publish / photo_publish /
+ slides_edit（客户端 9.43+）
+ | mediaInfo
+ | object
+ | 是
+ | 媒体信息，下列三种资源至少传一种，可同时传
+ | mediaInfo.image_resources
+ | { url }[]
+ | 否
+ | 图片，1–18 张；url 为 base64 或本地路径
+ | mediaInfo.video_resources
+ | { video_url, cover_url? }
+ | 否
+ | 单个视频，cover_url 为可选封面
+ | mediaInfo.live_photo_resources
+ | { url, video_url }[]
+ | 否
+ | 
+ 实况照片，1–18 组；url 为封面，video_url
+ 为视频（客户端 9.43+）
+ // 图文笔记
+await window.xhs.miniTool.postNote({
+ title: "我的作品",
+ content: "用小工具生成的",
+ pageType: "photo_publish",
+ mediaInfo: {
+ image_resources: [{ url: "data:image/png;base64,iVBORw0KGgo..." }],
+ },
+});
+// 视频笔记
+await window.xhs.miniTool.postNote({
+ pageType: "video_publish",
+ mediaInfo: {
+ video_resources: { video_url: videoPath, cover_url: coverPath },
+ },
+});
+// 实况笔记（客户端 9.43+）
+await window.xhs.miniTool.postNote({
+ pageType: "slides_edit",
+ mediaInfo: {
+ live_photo_resources: [{ url: coverPath, video_url: videoPath }],
+ },
+});
+ ⚠️
+ 成功回调只代表发布页已被唤起并由用户点击发布，不代表笔记最终审核通过。请勿依赖它做强一致的业务状态。
+ 3.4 saveImageToPhotosAlbum — 保存图片到相册
+ 💡
+ saveImageToPhotosAlbum API 需要客户端 9.42+。可复用
+ §3.6 的 getBuildVersion 与
+ isClientVersionAtLeast，以 9420 作为最低客户端版本判断。
+ 字段
+ 类型
+ 必填
+ 说明
+ | filePath
+ | string
+ | 是
+ | 
+ 本地图片：data: base64 或
+ writeTempFile 返回的路径；不支持
+ http(s):// 网络地址
+ // Canvas 导出直接保存
+const dataUrl = canvas.toDataURL("image/png");
+await window.xhs.miniTool.saveImageToPhotosAlbum({ filePath: dataUrl });
+ 需由用户主动操作（点击等）触发，首次调用可能弹出系统相册权限弹窗；用户拒绝授权会走失败回调。
+ 大图建议先 writeTempFile 落成文件再保存，避免超长 base64 上行。
+ 3.5 writeTempFile — base64 转临时文件
+ 把内存里的 base64（Canvas 导出、选图预览结果等）写成容器内的临时文件，换取可传给其他 JS API 的
+ filePath。
+ 字段
+ 类型
+ 必填
+ 说明
+ | data
+ | string
+ | 是
+ | base64 数据（支持带 data: 前缀的 data URI）
+ | filePath（返回）
+ | string
+ | —
+ | 写入后的临时文件路径
+ const { filePath } = await window.xhs.miniTool.writeTempFile({
+ data: canvas.toDataURL("image/png"),
+});
+await window.xhs.miniTool.saveImageToPhotosAlbum({ filePath });
+// 或带入发布页
+await window.xhs.miniTool.postNote({
+ mediaInfo: { image_resources: [{ url: filePath }] },
+});
+ 返回的是临时文件，不保证长期有效，请即用即弃，不要持久化保存该路径。
+ 仅支持常见图片 / 视频类型（png、jpeg、webp、gif、mp4），其他类型会失败。
+ 3.6 客户端版本判断
+ 💡
+ buildVersion 的末 3 位是编译 / 打包序号，判断客户端版本时必须忽略。
+ 例如 9462004 表示客户端 9.46.2、编译序号 004。
+ window.xhs、launchOptions、miniToolEnv 和
+ buildVersion 都可能缺失，同步读取时必须逐级判空。同步值不存在时，
+ 在确认 window.xhs.miniTool.getLaunchOptions 是函数后，再异步获取客户端值。
+ 两种方式都无法取得有效版本号时，状态为版本未知：不得按低版本进入浏览器存储兼容路径。
+ 客户端版本仅用于对应原生接口的版本判断，不能代替操作系统、实际 WebView 内核或权限检查。
+ function readBuildVersion(launchOptions) {
+ const miniToolEnv = launchOptions && launchOptions.miniToolEnv;
+ const value = miniToolEnv && miniToolEnv.buildVersion;
+ if (typeof value !== "number" && typeof value !== "string") return null;
+ if (!/^[1-9]\d{6,}$/.test(String(value))) return null;
+ const version = Number(value);
+ return Number.isSafeInteger(version) ? version : null;
+}
+async function getBuildVersion() {
+ const xhs = window.xhs;
+ const syncBuildVersion = readBuildVersion(xhs && xhs.launchOptions);
+ if (syncBuildVersion !== null) return syncBuildVersion;
+ const miniTool = xhs && xhs.miniTool;
+ if (!miniTool || typeof miniTool.getLaunchOptions !== "function") return null;
+ try {
+ const launchOptions = await miniTool.getLaunchOptions();
+ return readBuildVersion(launchOptions);
+ } catch (error) {
+ console.warn("getLaunchOptions failed; client version remains unknown");
+ return null;
+ }
+}
+function getClientVersion(buildVersion) {
+ // 例如 9462004 / 1000 取整后为 9462，即客户端 9.46.2
+ return Number.isSafeInteger(buildVersion) && buildVersion > 0
+ ? Math.floor(buildVersion / 1000) : null;
+}
+function isClientVersionAtLeast(buildVersion, minimumClientVersion) {
+ const clientVersion = getClientVersion(buildVersion);
+ return clientVersion !== null && clientVersion >= minimumClientVersion;
+}
+async function getMiniToolForClient(minimumClientVersion, methodNames) {
+ const buildVersion = await getBuildVersion();
+ if (!isClientVersionAtLeast(buildVersion, minimumClientVersion)) {
+ console.warn("Capability unavailable: client version unknown or too old");
+ return null;
+ }
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || !methodNames.every((name) => typeof miniTool[name] === "function")) {
+ console.warn("Capability unavailable: SDK or method missing");
+ return null;
+ }
+ return miniTool;
+}
+ 3.7 Storage — 小工具本地缓存
+ 💡
+ 最低客户端 9.46.0；正常业务统一使用容器 Storage。
+ 明确低于该版本时可提示升级；确需兼容时须单独实现必要兼容路径，并处理浏览器存储不可用或被清理。
+ 版本未知、SDK / 方法缺失、权限拒绝、超额和调用失败均不得回退到
+ localStorage、sessionStorage、IndexedDB、Cookie 或 Cache API。
+ 历史数据迁移只读取旧数据，不继续向旧存储双写；完成迁移后业务只读写容器存储。
+ const STORAGE_MIN_CLIENT_VERSION = 9460; // 客户端 9.46.0
+async function setLocalData(key, data) {
+ let serializedData;
+ try {
+ serializedData = JSON.stringify(data);
+ } catch (error) {
+ console.warn("Storage data serialization failed");
+ return false;
+ }
+ if (typeof serializedData !== "string") return false;
+ const buildVersion = await getBuildVersion();
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (buildVersion === null) {
+ console.warn("Storage unavailable: client version unknown");
+ return false;
+ }
+ if (!isClientVersionAtLeast(buildVersion, STORAGE_MIN_CLIENT_VERSION)) {
+ console.warn("Storage requires client 9.46.0 or later");
+ return false;
+ }
+ if (!miniTool || typeof miniTool.setStorage !== "function") {
+ console.warn("Storage unavailable: SDK or method missing");
+ return false;
+ }
+ try {
+ const result = await miniTool.setStorage({ key, data: serializedData });
+ const saved = !!result && result.errMsg === "setStorage:ok";
+ if (!saved) console.warn("Storage did not confirm a successful write");
+ return saved;
+ } catch (error) {
+ console.warn("Storage write failed; save was not confirmed");
+ return false;
+ }
+}
+ 调用方必须处理 setLocalData 返回 false 的情况，
+ 保留当前输入并提示未保存；不能假设数据已成功持久化。该示例只包含正常写入路径；
+ 必要兼容路径必须先取得有效版本并确认 clientVersion !== null && clientVersion < 9460
+ （clientVersion = getClientVersion(buildVersion)），
+ 不得从通用 catch、版本未知或方法缺失分支进入。
+ 已有工具的数据衔接
+ 先调查历史版本的存储位置、key、数据结构、账号归属和有效期；未读到数据不能直接认定用户从未保存。
+ 在支持容器 Storage 的客户端中，以容器数据为准；仅对尚未迁移的历史记录读取旧存储。两处都有数据时须先确定冲突规则，不能用旧值覆盖用户的新修改。
+ 按业务数据版本转换并校验旧数据，逐项写入容器 Storage，再读回核对；全部待迁移记录确认成功后才能记录迁移完成。
+ 迁移须可重试且重复执行不覆盖新数据。读取、解析、写入或校验失败时保留旧数据，不标记完成，也不删除唯一副本。
+ 迁移完成后停止业务对旧存储的读写；只按已确认的迁移范围清理本工具旧 key，不调用全量清理破坏无关数据。历史数据已被清理时应如实提示，不能承诺可恢复。
+ API
+ 参数
+ 结果 / 说明
+ | setStorage
+ | key: string、data: string、encrypt?: boolean
+ | 写入或覆盖缓存；data 必须是 JSON 字符串
+ | getStorage
+ | key: string、encrypt?: boolean
+ | 返回 { data }；data 为 JSON 字符串，encrypt 须与写入时一致
+ | getStorageInfo
+ | 无
+ | 返回 { keys, usedBytes, limitBytes }；usedBytes 为已用容量，limitBytes 为容量上限，单位均为字节
+ | removeStorage
+ | key: string
+ | 删除指定缓存
+ | clearStorage
+ | 无
+ | 清空当前小工具的全部缓存
+ 单个 key 最大 1 MB，当前小工具全部缓存最大 10 MB。
+ data 只支持 JSON 字符串。对象、数组等数据必须先用 JSON.stringify 序列化；读取后再用 JSON.parse 解析。
+ 读取失败或 JSON 解析失败不代表没有历史数据；保留现有状态并提示读取失败，不得直接用默认值覆盖或改读浏览器存储。存储接口调用失败也不等于写入一定未发生。
+ encrypt 默认为 false；读取时必须与写入时保持一致。
+ 这些 API 同时支持 Promise 与 success / fail / complete 回调。
+ const miniTool = await getMiniToolForClient(9460, [
+ "setStorage", "getStorage", "getStorageInfo", "removeStorage", "clearStorage",
+]);
+if (!miniTool) return; // 提示存储不可用；不能进入浏览器存储回退。
+await miniTool.setStorage({
+ key: "profile",
+ data: JSON.stringify({ nickname: "小红薯" }),
+});
+const { data } = await miniTool.getStorage({ key: "profile" });
+const profile = data === null ? null : JSON.parse(data);
+const { keys, usedBytes, limitBytes } = await miniTool.getStorageInfo();
+await miniTool.removeStorage({ key: "profile" });
+await miniTool.clearStorage();
+ 3.8 文件系统
+ 💡
+ 文件系统 API 需要客户端 9.49+。可复用 §3.6 的
+ getBuildVersion 与 isClientVersionAtLeast，以
+ 9490 作为最低客户端版本判断。
+ 文件和二进制数据使用文件系统保存。持久目录根路径由
+ launchOptions.miniToolEnv.userDataPath 提供；请只在该路径后拼接相对路径，
+ 不要硬编码、解析或改写端上返回的文件句柄。
+ API
+ 参数
+ 结果 / 说明
+ | saveFile
+ | tempFilePath: string、filePath?: string | null
+ | 将临时文件移动到持久目录，返回 { savedFilePath }
+ | writeFile
+ | filePath: string、data: string、encoding: "utf8" | "base64"
+ | 覆盖写入，返回 { writtenBytes }
+ | appendFile
+ | filePath: string、data: string、encoding: "utf8" | "base64"
+ | 向文件末尾追加，返回 { writtenBytes }
+ | readFile
+ | filePath: string、encoding: "utf8" | "base64"、position?: number、length?: number
+ | 读取一个文件分片，返回 { data, bytesRead, eof }
+ | readDir
+ | dirPath: string
+ | 读取目录直接子项，返回 { files, truncated }
+ | statFile
+ | filePath: string
+ | 读取文件或目录信息，返回 { size, lastModified, isDir }
+ | unlink
+ | filePath: string
+ | 删除持久目录中的文件
+ | mkdir
+ | dirPath: string、recursive?: boolean
+ | 创建持久文件目录
+ | getFileStorageInfo
+ | 无
+ | 返回 { usedBytes, limitBytes, fileCount, tmpUsedBytes, writeChunkMaxBytes, readChunkMaxBytes }
+ const miniTool = window.xhs && window.xhs.miniTool;
+const launchOptions = await miniTool.getLaunchOptions();
+const userDataPath = launchOptions.miniToolEnv.userDataPath;
+const filePath = userDataPath + "/drafts/note.json";
+await miniTool.writeFile({
+ filePath,
+ data: JSON.stringify({ title: "草稿" }),
+ encoding: "utf8",
+});
+const { data } = await miniTool.readFile({
+ filePath,
+ encoding: "utf8",
+});
+ writeFile 覆盖写入，appendFile 追加写入。大文件由业务自行分片：第一片用 writeFile，后续片串行调用 appendFile。
+ 分片大小以 getFileStorageInfo 返回的 writeChunkMaxBytes 和 readChunkMaxBytes 为准，不要硬编码。
+ 图片和视频渲染时直接使用文件句柄作为 img.src、video.src 或 CSS 资源；需要文件字节时才使用 readFile。
+ usr 是本地工作区而非备份空间。它不随容器关闭清空，但卸载、清数据或包清理后仍可能丢失，重要数据应可重建或引导用户导出。
+ 3.9 interactionOpenApi — 发布评论
+ 💡
+ 评论区能力需要客户端 9.49+，并应由用户点击等主动操作触发。
+ 用于唤起评论区并携带评论草稿；草稿字段遵循评论侧契约。容器会统一关闭小工具后再拉起评论区。
+ 字段
+ 类型
+ 必填
+ 说明
+ | payload | object | 是 | 评论草稿；由评论侧定义字段
+ | payload.action | string | 按评论侧契约 | 发布评论时使用 post_comment
+ | payload.content | string | 否 | 评论文本
+ | payload.media_bean | array | 否 | 有序图片列表；媒体路径使用本地文件句柄
+ | payload.miniToolSnapshotInfo | string | 否 | 小工具附加状态的 JSON 字符串，最大 2KB；超限时该字段无效
+ | saveToAlbum | boolean | 否 | 是否将 payload 中的图片同步保存到相册，默认 true
+ const result = await window.xhs.miniTool.interactionOpenApi({
+ payload: {
+ action: "post_comment",
+ content: "快来和我 PK！",
+ media_bean: [{
+ media_type: "image",
+ cover_image_url: imageFilePath,
+ }],
+ miniToolSnapshotInfo: JSON.stringify({ page: "result" }),
+ },
+ saveToAlbum: true,
+});
+// { routed, savedToAlbum, albumFailReason? }
+ 目前仅支持图片，使用 { media_type: "image", cover_image_url }；视频和实况图不支持。
+ 媒体路径必须是容器可访问的本地文件句柄；网络 URL、data: URI 和绝对路径不可用。
+ miniToolSnapshotInfo 有效时，用户从评论区重新打开小工具可读取该数据，用于恢复对应业务状态；恢复逻辑由开发者自行实现。
+ routed 表示评论侧路由是否成功。请求保存相册但失败时，失败原因会通过可选字段 albumFailReason 返回。
+ 3.10 AI 文本生成（内测）
+ ✨
+ 平台已提供对话模型。无需 API key、自定义模型服务地址或 token 费用。
+ AI 能力仅在小红书 App 小工具容器中有效；内测阶段需先在群内提交 uid，由平台为对应 appId 加白。
+ 未加白时调用会返回 AI_NOT_ALLOWED。
+ 经典脚本通过 window.xhs.AI 创建模型，再调用
+ generateText()。本期仅支持非流式文本生成，回复会整段一次性返回。
+ const ai = window.xhs && window.xhs.AI;
+if (!ai) {
+ // 提示用户在支持该能力的小红书 App 中打开
+ return;
+}
+const model = ai.createModel("deepseek-v4-flash");
+const result = await model.generateText({
+ messages: [
+ { role: "system", content: "你是一位简洁、友好的灵感助手。" },
+ { role: "user", content: userInput },
+ ],
+});
+const text = (result.choices &&
+ result.choices[0] &&
+ result.choices[0].message &&
+ result.choices[0].message.content) || "";
+ 模型与参数
+ 项说明
+ | deepseek-v4-flash | 默认推荐；通用对话能力，遵循人设指令，表现稳定
+ | dots-3-note-prev | 小红书自研“点点”模型，自带点点人格和小红书调性
+ | messages | 最多 40 条、总计最多 12000 字符；role 使用 system / user / assistant
+ | max_output_tokens | 最大 2048；超出时自动收敛
+ | temperature | 范围 0–1.5
+ 有记忆的对话页
+ 平台不会保存会话上下文。页面内用数组维护 messages，每次调用全量传入；
+ 只保留 system prompt 和最近十几轮。需要下次打开继续聊时，使用 §3.7 的
+ setStorage / getStorage 保存裁剪后的历史。
+ const messages = [
+ { role: "system", content: "你是一位小红书文案灵感助手。" },
+];
+const model = window.xhs.AI.createModel("deepseek-v4-flash");
+async function sendMessage(content) {
+ messages.push({ role: "user", content });
+ sendButton.disabled = true;
+ loadingBubble.hidden = false;
+ try {
+ const result = await model.generateText({
+ messages: [messages[0]].concat(messages.slice(1).slice(-20)),
+ max_output_tokens: 800,
+ temperature: 0.8,
+ });
+ const reply = (result.choices &&
+ result.choices[0] &&
+ result.choices[0].message &&
+ result.choices[0].message.content) || "";
+ messages.push({ role: "assistant", content: reply });
+ answerElement.textContent = reply; // 模型输出仅按纯文本渲染
+ await window.xhs.miniTool.setStorage({
+ key: "ai-chat-history",
+ data: JSON.stringify([messages[0]].concat(messages.slice(1).slice(-20))),
+ });
+ console.log("AI request_id:", result.request_id);
+ } finally {
+ loadingBubble.hidden = true;
+ sendButton.disabled = false;
+ }
+}
+ ⚠️
+ 配额与内容安全：内测期每个用户每天最多调用 100 次；次数用完返回
+ AI_QUOTA_EXCEEDED。system prompt、用户输入和模型输出都会经过内容审核，命中时返回
+ AI_CONTENT_BLOCKED。成功响应包含 request_id，排查问题时请一并提供。
+ choices 可能为空，业务必须处理空结果。
+ 已有外部模型怎么迁移
+ 移除小工具包内的 API key 和自定义模型 URL，避免密钥泄漏。
+ 保留现有 prompt、人设、交互和消息裁剪，只把模型调用替换为 window.xhs.AI。
+ 真机调用后检查成功响应的 request_id，或确认收到平台 AI 错误码，以判断链路已经接通。
+ 3.11 getWindowInfo — 获取窗口信息
+ 💡
+ 需要客户端 9.49+，以 9490 作为最低客户端版本判断，方法见
+ §3.6。
+ 只有客户端达到 9.55（版本值 9550）且当前小工具使用胶囊新容器，
+ 才会返回 menuButtons.capsule。布局时请使用实际返回的按钮矩形。
+ iOS 和 Android 客户端（9.55+）使用胶囊新容器时，均默认禁用从左边缘侧滑关闭小工具的手势。
+ 禁用时，getWindowInfo() 返回的 gestureArea 是各字段均为
+ 0 的矩形。页面无需为该手势预留左侧空间，顶部仍按 menuButtons.capsule 避让。
+ 获取容器当前的窗口尺寸、安全区和顶部按钮位置，用于页面布局与原生按钮避让。
+ 调用：getWindowInfo(options?)。参数：无。
+ 这是异步接口，Promise / 回调与通用结果遵循 §3.1。
+ 成功结果
+ 💡
+ 尺寸与坐标使用逻辑像素（Android 为 dp，iOS 为 pt），保留小数。
+ pixelRatio 是无单位的像素比。
+ 字段
+ 类型
+ 说明
+ | pixelRatio
+ | number
+ | 设备像素比 DPR，无单位
+ | screenWidth / screenHeight
+ | number
+ | 屏幕或当前承载窗口的逻辑宽高；分屏、折叠屏下不能假定为整块物理屏尺寸
+ | windowWidth / windowHeight
+ | number
+ | 容器实际页面视口的逻辑宽高
+ | statusBarHeight
+ | number
+ | 状态栏的逻辑高度
+ | screenTop
+ | number
+ | 容器顶部相对所在屏幕或承载窗口原点的 y 坐标
+ | safeArea
+ | object
+ | 系统安全区域矩形，结构见下文；顶部按钮的遮挡区域需结合 menuButtons 单独避让
+ | gestureArea
+ | object
+ | 
+ 容器的左边缘侧滑关闭热区。iOS 和 Android 客户端（9.55+）使用胶囊新容器时均默认禁用该手势，此时返回
+ { left: 0, top: 0, right: 0, bottom: 0, width: 0, height: 0 }。
+ 使用独立按钮的容器时，请按实际返回的热区矩形布局。
+ | menuButtons
+ | object
+ | 
+ 顶部按钮避让信息，始终存在。包含 back / me /
+ share；客户端 9.55+ 的胶囊容器还提供 capsule，各字段说明见下表
+ 矩形对象包含 left / top / right /
+ bottom / width / height，
+ 均为 number，使用上述逻辑像素单位。safeArea、gestureArea 和按钮矩形均使用
+ 容器坐标系，以容器左上角为原点。right /
+ bottom 表示坐标，满足 left + width = right、
+ top + height = bottom。
+ 顶部按钮与胶囊避让
+ 胶囊包含“更多”和“关闭”两个操作，capsule 描述整个胶囊的位置和大小。
+ 页面标题、操作按钮等交互内容应避开完整胶囊区域。
+ menuButtons 字段
+ 类型
+ 说明
+ | capsule
+ | object | null（可选）
+ | 
+ 客户端 9.55+ 支持。胶囊容器返回完整胶囊矩形；胶囊不可见、尚未布局或当前无法取得有效度量时为
+ null。使用独立按钮的容器仅返回 back、me 和 share
+ | back
+ | object | null
+ | 返回按钮矩形；不可见时为 null。胶囊容器中为 null
+ | me
+ | object | null
+ | 作者按钮矩形；不可见时为 null。胶囊容器中为 null
+ | share
+ | object | null
+ | 分享按钮矩形；不可见时为 null。胶囊容器中为 null
+ 优先使用有效的 capsule 矩形；没有有效胶囊矩形时，按实际返回的
+ back / me / share 矩形避让。
+ safeArea.top 与胶囊的 bottom 都是容器内坐标，
+ 将内容整体放在胶囊下方时取两者的较大值，无需再叠加 statusBarHeight。
+ 顶部避让示例
+ 以下示例为 .page-content 设置顶部留白，让内容从系统安全区与可见顶部按钮下方开始。
+ 8px 是页面自行设置的内容间距，按钮尺寸和位置使用接口实测值。
+ .page-content {
+ padding-top: var(--content-top, 0px);
+}
+ async function readWindowInfo() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.getWindowInfo !== "function") return;
+ try {
+ const info = await miniTool.getWindowInfo();
+ console.log("容器逻辑尺寸", info.windowWidth, info.windowHeight);
+ console.log("安全区域", info.safeArea);
+ const menuButtons = info.menuButtons || {};
+ const capsule = menuButtons.capsule;
+ const isVisibleRect = (rect) => rect && rect.width > 0 && rect.height > 0;
+ const buttonRects = isVisibleRect(capsule)
+ ? [capsule]
+ : [menuButtons.back, menuButtons.me, menuButtons.share].filter(isVisibleRect);
+ const contentTop = buttonRects.reduce(
+ (top, rect) => Math.max(top, rect.bottom),
+ info.safeArea.top,
+ );
+ document.documentElement.style.setProperty("--content-top", `${contentTop + 8}px`);
+ return info;
+ } catch (err) {
+ console.log(err.errMsg || err.message);
+ }
+}
+readWindowInfo();
+ 按返回的容器尺寸和矩形布局，避免硬编码状态栏高度、安全区或按钮位置。
+ 读取 capsule 前检查字段是否存在；仅对非空且宽高大于 0 的按钮矩形做避让。
+ 启动参数中的 launchOptions.miniToolEnv.windowInfo（若提供）与本接口的窗口信息结构一致，
+ 可用于首帧布局。它是启动时快照，按钮可能尚未完成布局；页面布局完成后可调用本接口获取实测值。
+ 接口返回调用时的快照；窗口形态、尺寸或顶部按钮可见性变化后，需要最新值时再次调用。
+ 3.12 getLocation — 获取单次定位
+ 💡
+ 需要客户端 9.49+，以 9490 作为最低客户端版本判断，方法见
+ §3.6。
+ 通过客户端获取一次定位。调用：getLocation(options?)，
+ Promise / 回调与通用结果遵循 §3.1。
+ 字段
+ 类型
+ 必填
+ 说明
+ | type
+ | string
+ | 否
+ | 
+ wgs84（GPS 坐标）或 gcj02（地图坐标）；
+ 未传由客户端默认行为决定，地图场景显式传 gcj02
+ 成功结果
+ 除通用 errMsg 外，以下业务字段均可选，使用前先检查是否返回。
+ 字段
+ 类型
+ 必有
+ 说明
+ | latitude | number | 否 | 纬度，范围 [-90, 90]
+ | longitude | number | 否 | 经度，范围 [-180, 180]
+ | speed | number | 否 | 速度，单位 m/s
+ | accuracy | number | 否 | 位置精确度，单位 m
+ | altitude | number | 否 | 高度，单位 m
+ | verticalAccuracy | number | 否 | 垂直精度，单位 m；未返回时本次无该精度信息
+ | horizontalAccuracy | number | 否 | 水平精度，单位 m；未返回时本次无该精度信息
+ 💡
+ 双端均需兼容字段缺失：未返回的字段读取为 undefined，SDK 不会补齐为
+ 0。精度字段返回 0，也不能据此认定定位完全精确。
+ async function locateOnce() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.getLocation !== "function") return;
+ try {
+ const location = await miniTool.getLocation({ type: "gcj02" });
+ if (!Number.isFinite(location.latitude) ||
+ !Number.isFinite(location.longitude)) {
+ console.log("本次定位未返回完整经纬度");
+ return;
+ }
+ if (!Number.isFinite(location.verticalAccuracy)) {
+ console.log("本次无垂直精度信息");
+ }
+ if (!Number.isFinite(location.horizontalAccuracy)) {
+ console.log("本次无水平精度信息");
+ }
+ // 精度字段不补成 0，返回 0 也不代表完全精确。
+ // 在业务内存中使用原始结果，不打印精确坐标。
+ return location;
+ } catch (err) {
+ console.log(err.errMsg || err.message, err.errCode);
+ }
+}
+// 由用户发起定位的交互调用 locateOnce()，接收结果后交给业务使用。
+ 授权、系统定位开关和相关失败由客户端处理，调用方需处理权限拒绝、定位失败等情况。
+ 经纬度可能合法地为 0，用有限数检查，避免用真假值判断字段是否存在。
+ 仅获取单次定位，不提供持续定位、后台定位或轨迹监听，避免轮询调用。
+ 精确坐标只交给需要它的业务使用，不写入日志或埋点。
+ 3.13 振动反馈
+ 💡
+ vibrateShort / vibrateLong 需要客户端 9.50+，
+ 以 9500 作为最低客户端版本判断，方法见 §3.6。
+ 通过 vibrateShort / vibrateLong 提供触感反馈。
+ 两者均为异步调用，遵循 §3.1；成功结果无额外业务字段。
+ API
+ 参数
+ 成功含义
+ | vibrateShort({ type })
+ | type 必填，指定短振动强度
+ | 已触发反馈，不表示振动已经结束
+ | vibrateLong(options?)
+ | 无
+ | 已触发反馈，不表示振动已经结束
+ 短振动参数
+ 字段
+ 类型
+ 必填
+ 说明
+ | type
+ | string
+ | 是
+ | 
+ heavy 重 / medium 中 / light 轻；
+ 无默认值
+ async function shortFeedback() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.vibrateShort !== "function") return;
+ try {
+ await miniTool.vibrateShort({ type: "medium" });
+ // 调用成功不表示振动已经结束。
+ } catch (err) {
+ console.log(err.errMsg || err.message);
+ }
+}
+async function longFeedback() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.vibrateLong !== "function") return;
+ try {
+ await miniTool.vibrateLong();
+ // 调用成功不表示振动已经结束。
+ } catch (err) {
+ console.log(err.errMsg || err.message);
+ }
+}
+// 短振、长振分别由相应的用户交互调用 shortFeedback() / longFeedback()。
+ 无需申请运行时系统权限，建议结合用户交互使用并避免高频触发。
+ 无马达或系统关闭触感反馈时，调用可能成功但无体感；不同强度的实际效果也受设备影响。
+ 不支持自定义时长、波形或数值强度，长振动不承诺精确持续时长。
+ 3.14 陀螺仪
+ 💡
+ 陀螺仪采集与监听接口均需要客户端 9.50+，以 9500
+ 作为最低客户端版本判断，方法见 §3.6。
+ 获取设备绕各轴旋转的角速度。采集启停与数据监听各自独立：先注册监听，再开始采集；
+ 业务结束时停止采集并解除监听。
+ API
+ 参数
+ 返回与职责
+ | startGyroscope(options?)
+ | interval 可选，见下表
+ | 异步开始采集，遵循 §3.1
+ | stopGyroscope(options?)
+ | 无
+ | 异步停止采集，遵循 §3.1，保留监听
+ | onGyroscopeChange(callback)
+ | 必填函数
+ | 同步注册监听，返回 undefined；不启动采集
+ | offGyroscopeChange(callback?)
+ | 可选函数
+ | 同步解除监听，返回 undefined；不停止采集
+ 采样参数
+ startGyroscope 的 interval 为可选 string，
+ 默认 normal。以下为采样档位，实际事件到达间隔受设备和运行状态影响。
+ interval
+ 采样间隔
+ 默认
+ | ui | 60 ms | 否
+ | normal | 200 ms | 是
+ 监听数据
+ callback(frame) 每次收到一帧 { x, y, z }，
+ 不带 errMsg；各字段表示角速度，不是姿态角。
+ startGyroscope / stopGyroscope 的成功结果无额外业务字段。
+ 字段
+ 类型
+ 单位
+ 说明
+ | x | number | rad/s | 绕 X 轴的角速度
+ | y | number | rad/s | 绕 Y 轴的角速度
+ | z | number | rad/s | 绕 Z 轴的角速度
+ function handleGyroscopeChange(frame) {
+ // frame.x / frame.y / frame.z：角速度，单位 rad/s。
+ // 在此更新业务状态，避免逐帧执行重任务。
+}
+function hasGyroscopeApi() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ return !!miniTool &&
+ ["startGyroscope", "stopGyroscope",
+ "onGyroscopeChange", "offGyroscopeChange"].every(function (name) {
+ return typeof miniTool[name] === "function";
+ });
+}
+async function startMotion() {
+ if (!hasGyroscopeApi()) return;
+ try {
+ miniTool.onGyroscopeChange(handleGyroscopeChange);
+ await miniTool.startGyroscope({ interval: "ui" });
+ } catch (err) {
+ miniTool.offGyroscopeChange(handleGyroscopeChange);
+ console.log(err.errMsg || err.message);
+ }
+}
+async function stopMotion() {
+ if (!hasGyroscopeApi()) return;
+ try {
+ await miniTool.stopGyroscope();
+ } catch (err) {
+ console.log(err.errMsg || err.message);
+ } finally {
+ miniTool.offGyroscopeChange(handleGyroscopeChange);
+ }
+}
+ 由单一业务管理上述示例的启停，按交互串行调用 startMotion() /
+ stopMotion()，前一次操作结束后再执行下一次。业务结束时主动清理，
+ 不依赖页面卸载阶段的异步调用完成。
+ stopGyroscope() 只停止采集，保留已注册的监听，再次开始后原监听继续收帧；
+ 未开始时调用停止可正常成功。
+ 同一函数引用重复注册会去重；offGyroscopeChange(callback) 移除对应监听，
+ offGyroscopeChange() 清空全部监听。
+ on/off 不接受 success / fail /
+ complete，不返回 Promise；非法回调参数会同步抛出 TypeError。
+ 设备无陀螺仪等不支持情况通过开始采集失败暴露，errCode 为 10002。
+ 已启动的采集在后台或页面隐藏时暂停，回前台自动续采。
+ 多个组件共享陀螺仪时，统一协调采集启停，各组件只移除自己的监听。
+ 3.15 关注作者
+ 💡
+ 关注 API 需要客户端 9.51+，可复用 §3.6 的版本判断方式，
+ 以 9510 作为最低客户端版本判断值。
+ 通过 window.xhs.miniTool 上的
+ followAuthor 引导关注当前小工具作者，并用
+ getFollowStatus 查询关注关系。两个方法都没有业务入参，
+ 关注对象由平台绑定当前小工具作者，不能指定其他用户 ID。成功结果遵循
+ §3.1 的 Promise / 回调约定，并通过
+ follow_status 表达关注状态。
+ API
+ 参数
+ 结果与说明
+ | followAuthor(options?)
+ | 无业务参数；options 可省略，用于传入可选回调
+ | 
+ 拉起平台关注确认流程。成功时返回 follow_status：
+ 1 已关注、2 作者本人、-1 操作失败；
+ 已关注或当前用户是作者本人时可直接返回状态，不一定弹窗。
+ | getFollowStatus(options?)
+ | 无业务参数；options 可省略，用于传入可选回调
+ | 
+ 幂等查询当前用户与作者的关注关系。查询失败通过
+ follow_status: -1 返回，不走 fail / reject；失败结果不缓存，
+ 后续调用会重新查询。
+ follow_status
+ 说明
+ | -1 | 接口失败（关注操作失败或查询失败）
+ | 0 | 未关注（包括未登录）
+ | 1 | 已关注，互相关注也归为此状态
+ | 2 | 当前用户是小工具作者本人
+ followAuthor 在交互取消或受频控限制时会 reject / 触发
+ fail：errCode: 20002 表示用户关闭确认框（包括点击蒙层）
+ 或放弃登录，
+ 15404 表示关注引导达到频次上限：同一账号对同一工具每天最多展示
+ 10 次确认框，第 11 次调用会被频控拦截，次数按自然日重置；已关注或作者本人等不弹窗的调用不计数。
+ 确认流程尚未结束时重复调用，会以 10003 失败。关注接口本身执行失败则 resolve，
+ 通过 follow_status: -1 表达。使用
+ getFollowStatus 时，查询业务失败同样 resolve 为
+ follow_status: -1。
+ 以下示例用两个页面元素显示状态并触发关注，可按页面结构调整：
+ <button id="followButton" type="button">关注作者</button>
+<span id="followStatus" aria-live="polite"></span>
+ const followButton = document.getElementById("followButton");
+const followStatusText = document.getElementById("followStatus");
+let currentFollowStatus = -1;
+let followPending = false;
+function renderFollowStatus(status) {
+ currentFollowStatus = status;
+ if (followStatusText) {
+ const labels = {
+ "-1": "暂时无法获取关注状态",
+ "0": "未关注",
+ "1": "已关注",
+ "2": "作者本人",
+ };
+ followStatusText.textContent = labels[String(status)] || "未知状态";
+ }
+ if (followButton) {
+ followButton.disabled = followPending || (status === 1 || status === 2);
+ }
+}
+async function refreshFollowStatus() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.getFollowStatus !== "function") return;
+ try {
+ const result = await miniTool.getFollowStatus();
+ // -1 查询失败；0 未关注；1 已关注（含互关）；2 作者本人。
+ renderFollowStatus(result.follow_status);
+ } catch (err) {
+ // 处理调用层异常；查询业务失败会通过 follow_status = -1 返回。
+ console.log(err.errMsg || err.message);
+ }
+}
+async function onFollowClick() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.followAuthor !== "function" || followPending) return;
+ let followNotice = "";
+ followPending = true;
+ renderFollowStatus(currentFollowStatus);
+ try {
+ const result = await miniTool.followAuthor();
+ renderFollowStatus(result.follow_status);
+ } catch (err) {
+ if (err.errCode === 20002) return; // 用户关闭确认框或拒绝授权。
+ if (err.errCode === 15404) {
+ followNotice = "今日关注引导次数已达上限";
+ return;
+ }
+ if (err.errCode === 10003) return; // 关注确认流程仍在进行。
+ console.log(err.errMsg || err.message);
+ } finally {
+ followPending = false;
+ renderFollowStatus(currentFollowStatus);
+ if (followNotice && followStatusText) {
+ followStatusText.textContent = followNotice;
+ }
+ }
+}
+if (followButton) {
+ followButton.addEventListener("click", onFollowClick);
+}
+refreshFollowStatus();
+ 两个方法均只针对当前小工具作者；不能通过传入用户 ID 改为关注或查询其他用户。
+ 查询关注状态可用于刷新自绘关注按钮；follow_status: -1
+ 表示暂时无法确认状态，可由后续查询重试。
+ 未登录时查询返回 follow_status: 0。已登录用户在小红书 App
+ 的其他入口取关后，进程内缓存可能使查询暂时返回旧状态；App 重启后再查会读取更新后的关注状态。
+ 3.16 云存储（内测）
+ 💡
+ 云存储为内测能力，尚未正式开放。内测阶段能力与限制可能随版本调整，
+ 请勿将其作为核心功能的唯一依赖。云存储 API 需要客户端 9.51+，
+ 可复用 §3.6 的版本判断方式，以 9510
+ 作为最低客户端版本判断值；调用前先做方法存在性探测，未授权（errCode 1006）时隐藏入口并降级。
+ 云存储提供「用户 × 小工具」隔离的个人数据：同账号换设备后数据可恢复，
+ 创作者不可见用户存储内容。collection 为业务分类（相当于数据表名，如
+ todos）；content 为完整业务 JSON 对象，不是字符串。
+ 逐项写入结果的 status 为三态：SUCCESS 已完成 /
+ FAILED 确认失败 / UNKNOWN 结果不确定。
+ API
+ 参数
+ 结果 / 说明
+ | addCloudStorage
+ | collection: string、items: { content }[]（非空数组；每项 content 必须为对象，传字符串会在本地报错）
+ | 
+ 批量新增，返回 { data: [{ id, status }] }；id 为服务端生成的
+ 24 位十六进制。逐项结果按位置与输入一一对应，不要用返回 id 做对应；
+ UNKNOWN 且后端未返回 id 时该项 id 为空串
+ | updateCloudStorage
+ | collection: string、items: { id, content }[]（非空数组，同批不允许重复 id）
+ | 
+ 批量整行覆盖（非字段合并）：未提交字段不保留，要保留的字段必须一起提交。
+ 返回逐项 { id, status }（后端未返回 id 时回退输入 id）
+ | queryCloudStorage
+ | collection?、ids?、limit?、cursor?
+ | 
+ 统一查询，返回 { items: [{ id, collection, content }], nextCursor?, hasMore? }。
+ 传 ids（非空、不重复）为点查，此时 collection 必填，
+ 只返回命中记录、不返回分页字段；只传 collection 为分类分页；
+ 都不传为跨全部分类分页
+ | removeCloudStorage
+ | collection: string、ids: string[]（非空、不重复）
+ | 
+ 按 id 批量硬删；重复 id 在 SDK 本地直接拒绝（errCode 10001，请求未发出）；
+ 幂等（目标不存在也成功）。返回逐项 { id, status }
+ const miniTool = window.xhs && window.xhs.miniTool;
+const res = await miniTool.addCloudStorage({
+ collection: "todos",
+ items: [{ content: { text: "买菜", done: false } }],
+});
+// res.data[0]: { id, status }
+const page = await miniTool.queryCloudStorage({ collection: "todos" });
+// page: { items: [{ id, collection, content }], nextCursor?, hasMore? }，limit 默认 20
+await miniTool.updateCloudStorage({
+ collection: "todos",
+ items: [{ id, content: { ...old.content, done: true } }], // 整行覆盖，要保留的字段必须一起提交
+});
+await miniTool.removeCloudStorage({ collection: "todos", ids: [id] });
+ 批量写非事务：顶层成功（含部分成功）不等于每条成功，必须逐项判 status；FAILED 可重放，UNKNOWN 走 queryCloudStorage 对账。
+ updateCloudStorage 无版本校验：多端并发编辑同一记录时，以后生效的写入为准。
+ 分页以 nextCursor 逐页翻取，末页不返回该字段；limit 须为正整数（默认 20），翻页时查询参数保持一致。翻页不保证跨页快照一致，期间的新增和删除可能影响后续页；游标版本变更后旧游标失效，需从首页重查。
+ 读取失败整次 reject，items: [] 才代表「确实没有」；不得把读失败当无数据渲染。
+ 删除不可恢复；删除后如有在途延迟写请求，可能重建同 id 记录。
+ 配额上限：单批最多 100 条（items / ids，超限返回 1002）；单条 content 经 JSON 序列化（UTF-8）后不超过 64KB（65536 字节），超限返回 1003。存档类数据只存必要字段、剔除静态配置；超大存档自行分条拆分（主记录 + 分段记录）。
+ 接口限频：云存储 / 排行榜全部接口按「小工具 × 接口」维度限频，默认每个小工具每个接口 150 QPS（一次调用消耗一次额度，批量条数不额外拆分），超限返回 2009 且发生在鉴权之前。请勿在游戏循环 / 高频定时器里直接调用：写入先在本地节流合并（如分钟级落一次云），榜单结果做本地缓存（30s ~ 60s）后再展示。
+ 3.17 排行榜（内测）
+ 💡
+ 排行榜为内测能力，尚未正式开放。内测阶段能力与限制可能随版本调整，
+ 请勿将其作为核心功能的唯一依赖。排行榜 API 需要客户端 9.51+，
+ 以 9510 作为最低客户端版本判断值，判断方式见 §3.6；
+ 未授权（errCode 1005）时隐藏排行榜入口并降级。
+ 排行榜提供公开成绩榜单与本人排名。board 为榜位整数 1–5（默认 1）；
+ period 为周期枚举 "all" | "month" | "week" | "day"（默认
+ "all"），非法值会在本地直接报错（errCode 10001，请求未发出）。
+ 昵称由平台填充并仅在返回值中出现，不得自行采集或存储用户小红书资料。
+ API
+ 参数
+ 结果 / 说明
+ | submitScore
+ | board?、score: number
+ | 
+ 提交成绩（绝对分数，原值不缩放、不取整，须在 -1,000,000 ~ 1,000,000
+ 区间内，超出返回 1004）。返回 { score }：总榜历史最高分（已合并本次提交）
+ | getRankList
+ | board?、period?
+ | 
+ 返回 { data: [{ rank, score, nickname }] }：前 100 名，
+ 按分数降序；limit 不开放，固定返回 100 条
+ | getMyRank
+ | board?、period?
+ | 返回 { status, rank, score }；先判 status 再消费 rank / score
+ const miniTool = window.xhs && window.xhs.miniTool;
+const mine = await miniTool.submitScore({ board: 1, score: 96.8 });
+// mine: { score } —— 总榜历史最高分
+const list = await miniTool.getRankList({ board: 1, period: "day" });
+// list.data: [{ rank, score, nickname }]
+const my = await miniTool.getMyRank({ board: 1, period: "day" });
+// my: { status, rank, score }
+ ⚠️
+ 上传授权：使用 submitScore 的小工具，上传至创服平台时必须勾选「用户头像昵称授权」，
+ 榜单展示的用户昵称依赖该授权；未勾选时排行榜调用会按未授权失败处理（errCode 1005，见下方错误码表），
+ 应隐藏排行榜入口并降级。
+ getMyRank 的 status 取值（SDK 原样透传后端状态值，
+ 均为查询成功的业务状态，不是错误）：
+ status
+ 含义
+ rank / score
+ | EXACT | 前 500 名内，精确名次 | rank 为 1–500；score 为本人最好成绩
+ | OVER_LIMIT | 有成绩但在 500 名外 | rank 与 score 均为 null，建议展示「500+」
+ | NO_SCORE | 已参与但本期无成绩 | 均为 null
+ | NOT_PARTICIPATING | 未参与 | 均为 null
+ 各周期只保留最好成绩，更低分提交也算成功（返回历史最高分）；同分先写入者靠前，名次唯一不并列。
+ score 须为有限数值且在 -1,000,000 ~ 1,000,000 区间内，超出返回 1004。数值量级大的游戏（挂机 / 养成 / 经营类）先换算单位（如以「万」计）再提交，同一榜单内保持单位一致即可比较。
+ 接口限频同云存储：默认每个小工具每个接口 150 QPS，超限返回 2009；勿在游戏循环 / 高频定时器里密集调用，榜单结果做本地缓存（30s ~ 60s）后再展示。
+ 一次提交在服务端事务内拆总 / 月 / 周 / 日四榜；周期按北京时间 0 点重置（每周一、每月 1 日），新一期不沿用上期成绩，不提供历史榜单查询。
+ 榜单缓存未就绪返回 2002，不能当空榜或榜外渲染，应显示加载态并做有限次退避（如 500ms / 1s / 2s / 4s）；data: [] 才是真实空榜（确实没人上榜）。
+ nickname 用户资料暂缺时为 null，渲染自行兜底。
+ 云存储与排行榜错误码
+ 失败对象为 { errMsg, errCode? }，判码用 errCode 整数：
+ 后端业务失败为后端整数码原值透传；10001 为本地参数错；10003 为容器白名单拒绝；
+ 网关层失败不带 errCode。
+ errCode
+ 含义
+ 处理
+ | 1001 / 10001 | 参数不合法（后端 / 本地） | 修正参数，重试无意义
+ | 1002 | 批量条数超限 | 拆批后重试
+ | 1003 | 单条内容过大（content 超过 64KB） | 精简 content
+ | 1004 | 分数超出 ±1,000,000 / 非有限值 | 修计分逻辑 / 换算单位
+ | 1005 / 1006 | 排行榜 / 云存储未授权 | 隐藏入口，降级
+ | 2001 | 存储读写失败 | 常规错误处理，勿伪装成「无数据」
+ | 2002 | 榜单未就绪 | 有限次退避，勿当空榜
+ | 2003 | 批量部分成功 | 走成功路径，逐项判 status
+ | 2004 | 写入结果未知 | 标记待确认，query 对账，禁止重发
+ | 2005 | 存储记录唯一键冲突 | 核对冲突来源后再决定重试策略
+ | 2008 | 授权服务不可用 | 稍后重试一次，仍失败则降级
+ | 2009 | 该应用调用此接口过于频繁（按「小工具 × 接口」限频，默认每个小工具每个接口 150 QPS） | 降低调用频率，勿密集轮询
+ | 2999 | 内部错误 | 可重试一次并控制频率
+ | 10003 | 容器白名单拒绝 | 反馈平台开通
+ 3.18 share — 分享
+ 💡
+ 分享 API 需要客户端 9.53+，可复用 §3.6 的版本判断方式，
+ 以 9530 作为最低客户端版本判断值。
+ 分享当前小工具卡片或小工具生成的指定图片。小工具身份由容器提供，无需传入工具 ID。
+ 调用遵循 §3.1 的 Promise / 回调约定。
+ 参数
+ 字段
+ 类型
+ 必填
+ 说明
+ | type
+ | string
+ | 是
+ | card 分享小工具卡片；image 分享指定图片
+ | image_resource
+ | string
+ | type=image 时必填
+ | 图片引用，支持 base64 图片 Data URI、本地文件路径；
+ 调用示例
+ 在用户点击按钮时调用；图片示例使用 Canvas 导出的 PNG，也可传入临时文件引用：
+ async function shareMiniTool(options) {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.share !== "function") {
+ console.log("请在支持分享功能的小红书 App 中打开");
+ return;
+ }
+ try {
+ await miniTool.share(options);
+ // 分享任务已启动或用户取消，不代表消息已送达。
+ } catch (err) {
+ console.error("无法发起分享", err.errCode, err.errMsg);
+ }
+}
+document.getElementById("shareCardButton").addEventListener("click", function () {
+ shareMiniTool({ type: "card" });
+});
+document.getElementById("shareImageButton").addEventListener("click", function () {
+ const canvas = document.getElementById("resultCanvas");
+ shareMiniTool({
+ type: "image",
+ image_resource: canvas.toDataURL("image/png"),
+ });
+});
+ 错误码
+ 失败时 reject / 触发 fail，通过 errCode 判断错误类型：
+ errCode
+ 说明
+ | 10001 | 参数错误，如 type 缺失或非法，或图片模式未传入字符串类型的 image_resource
+ | 15501 | 图片解析、格式、文件、路径权限或大小校验失败，或图片来源不支持（包括网络 URL）
+ | 15502 | 面板展示 / 本地分发失败、模拟器不支持、非全屏容器调用，或分享流程尚未结束时重复调用
+ | 15503 | 达到分享频次上限，或频控记录校验失败
+ 注意事项
+ 仅全屏容器可用；半屏调用不会展示分享面板。分享流程尚未结束时避免重复调用。
+ type=image 的指定图片仅用于站内私信；站外渠道使用当前小工具页面截图生成的 H5 海报，不使用 image_resource。
+ 每天每一位用户，一个小工具最多拉起10次分享。
+ 用户触发分享行为即回调成功，不代表最终分享结果。
+ 3.19 rewardAuthor — 赞赏（内测）
+ 💡
+ 需要客户端 9.53.3+（iOS / Android），以 9533
+ 作为最低客户端版本判断值，判断方式见 §3.6。
+ 低于该版本时隐藏赞赏入口。
+ 调起当前小工具的赞赏流程。赞赏对象由客户端根据当前小工具上下文确定，
+ 赞赏开关校验、面板、协议、充值支付与平台频控由客户端处理。
+ 如需在用户关闭小工具时拉起赞赏挽留，可配合 §3.20 赞赏挽留开关 使用。
+ 请求参数
+ 无业务参数，直接调用 rewardAuthor()；
+ 也可仅传入通用回调 success / fail / complete
+ （见 §3.1）。
+ 成功返回
+ 字段类型说明
+ | errMsg
+ | string
+ | rewardAuthor:ok；无额外业务数据
+ 成功结果不包含赞赏金额或是否支付等业务字段，不应据此判断实际支付金额。
+ 调用示例
+ // 在用户点击赞赏入口时调用
+async function rewardAuthor() {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.rewardAuthor !== "function") {
+ console.log("当前环境暂不支持赞赏");
+ return;
+ }
+ try {
+ const result = await miniTool.rewardAuthor();
+ console.log(result.errMsg); // "rewardAuthor:ok"
+ } catch (error) {
+ console.log(error.errCode, error.errMsg);
+ }
+}
+ 💡
+ 入口展示与兼容：接入方应在展示自定义入口前通过发布配置查询赞赏开关，
+ 并仅在客户端 9.53.3+ 展示入口。SDK 方法存在不代表客户端已支持；
+ 旧客户端静默忽略未知事件时，调用可能持续等待。
+ 客户端兼容与失败降级由小工具开发者处理，应保证核心功能可用，
+ 并分别验证 Android / iOS 支持与不支持的场景。
+ 3.20 setCloseRetentionEnabled — 赞赏挽留开关（内测）
+ 💡
+ 需要客户端 9.53.3+（iOS / Android），以 9533
+ 作为最低客户端版本判断值，判断方式见 §3.6。
+ 低于该版本时跳过赞赏挽留设置，保证核心功能可用。
+ 赞赏挽留必须配合 §3.19 赞赏 使用，无法单独使用。
+ 开启后，用户关闭当前小工具容器时，客户端可拉起赞赏挽留，引导用户赞赏当前小工具。
+ 接入前需先开通当前小工具的赞赏能力。此接口设置是否允许拉起赞赏挽留，开关默认 false，
+ 重复设置以最后一次为准；状态仅属于当前容器，不跨容器或跨次打开保留，
+ 容器关闭后释放，再次打开恢复默认值。
+ 请求参数
+ 字段类型必填说明
+ | enabled
+ | boolean
+ | 是
+ | true 允许关闭容器时拉起赞赏挽留；false 关闭赞赏挽留。需配合赞赏使用，必须显式传入布尔值，不接受数字或字符串
+ 成功返回
+ 字段类型说明
+ | errMsg
+ | string
+ | setCloseRetentionEnabled:ok；无额外业务数据
+ 成功仅表示开关已更新；关闭容器时实际是否拉起赞赏挽留、后续赞赏流程及容器关闭由客户端处理。
+ 设置 enabled: true 不会立即拉起赞赏挽留，也不会单独开通赞赏能力。
+ 错误码
+ errCode说明
+ | 10001 | 缺少 enabled 或值不是布尔类型
+ | 10002 | 当前调用上下文没有可用的小工具容器
+ 其他客户端错误通过 errCode 与 errMsg 返回，遵循 §3.1 的失败约定。
+ 调用示例
+ // 前提：当前小工具已开通赞赏能力，客户端版本为 9.53.3+
+async function setCloseRetentionEnabled(enabled) {
+ const miniTool = window.xhs && window.xhs.miniTool;
+ if (!miniTool || typeof miniTool.setCloseRetentionEnabled !== "function") {
+ console.log("当前环境暂不支持赞赏挽留设置");
+ return;
+ }
+ try {
+ const result = await miniTool.setCloseRetentionEnabled({ enabled });
+ console.log(result.errMsg); // "setCloseRetentionEnabled:ok"
+ } catch (error) {
+ console.log(error.errCode, error.errMsg);
+ }
+}
+await setCloseRetentionEnabled(true); // 允许用户关闭当前容器时拉起赞赏挽留
+await setCloseRetentionEnabled(false); // 关闭当前容器的赞赏挽留
+ 接入方应在客户端 9.53.3+ 调用并处理失败，方法存在不代表客户端已支持。
+ 小工具 JSAPI 公共拦截规则仍由客户端执行。
+ 04不可用能力
+ 以下 Web API 与行为在容器内已被禁用，调用会失败（抛出异常、返回空值或被拦截），请勿使用。
+ 定位、陀螺仪可使用 §3 列出的平台 JS API。
+ 4.1 已禁用的 Web API
+ 分类
+ 能力
+ | 定位
+ | 
+ Web 地理定位 navigator.geolocation；
+ 单次定位使用平台 getLocation
+ | 剪贴板
+ | 
+ navigator.clipboard、execCommand('copy'/'cut'/'paste')
+ | 硬件连接
+ | 蓝牙、USB、HID、串口
+ | 传感器
+ | 
+ Web 加速度计、陀螺仪、磁力计、环境光、设备运动 / 朝向；
+ 陀螺仪角速度使用 平台陀螺仪 API
+ | 实时通信
+ | WebRTC、WebSocket、EventSource（SSE）
+ | 共享 / 持久后台线程
+ | SharedWorker、Service Worker。classic Dedicated Worker 支持客户端 9.53 及以上，见 §2.8。
+ | 屏幕
+ | 屏幕共享、全屏 requestFullscreen（全屏由容器统一管理）
+ | 设备信息
+ | 电池状态、网络信息、媒体设备枚举
+ | 存储进阶
+ | 浏览器持久化授权 / 跨域存储访问；正常业务持久数据使用容器 Storage，已知旧版本必要兼容按 §3.7 单独实现
+ | 凭据
+ | WebAuthn / navigator.credentials、Web Locks
+ | 窗口
+ | 
+ window.open（弹新窗口）、window.prompt
+ 4.2 已禁用的行为
+ 行为
+ 说明
+ | 网络请求
+ | 
+ fetch / XMLHttpRequest、加载外部图片 /
+ 字体 / 媒体等网页对外联网请求。资源须完整放入上传包；
+ §2.7 的资源外移与取回由平台和容器处理，不开放页面直连 CDN
+ | 动态执行代码
+ | eval()、new Function()
+ | WebAssembly
+ | WASM 编译执行（依赖 WASM 的库无法运行，见 §5）
+ | iframe
+ | 页面内嵌 iframe / 被外部页面嵌入
+ | 表单跳转提交
+ | <form> 提交跳转
+ | 插件
+ | Flash 等浏览器插件
+ | 文件下载
+ | 
+ a[download]、blob 下载等；保存图片请用
+ saveImageToPhotosAlbum（见 §3.4）
+ | 打开外链 / 新窗口
+ | target="_blank"、跳转站外
+ | 跳转其他小工具
+ | 小工具间互相跳转
+ | 长按菜单
+ | 已禁用
+ 4.3 移动端不支持
+ 以下能力移动端 WebView 本身不支持，无法使用：支付
+ PaymentRequest、系统通知 / 推送、NFC、MIDI、XR / AR /
+ VR、后台同步 / 下载、PWA 安装、窗口管理、指针 / 键盘锁定等。
+ 05WebGL / 图形计算边界
+ 纯 WebGL 渲染可用，但组合能力受限：
+ 场景
+ 是否可用
+ | 本地资源 / Canvas / 内存对象作为纹理
+ | ✅ 可用
+ | 外部域名图片作为纹理
+ | 
+ 🔴 不可用（页面不能直连外网，纹理须放入上传包并以同源路径加载）
+ | 依赖 WASM 的加速库（如 Draco / Basis / ONNX / 抠图算法库）
+ | 🔴 不可用
+ | 依赖 Worker 的离屏渲染（OffscreenCanvas + Worker）
+ | 需客户端 9.53+，且目标内核支持 OffscreenCanvas / WebGL。客户端门槛与实际内核能力须分别判断；Android 产物仍须兼容 Chrome / WebView 61 + ES2017。Worker 限制见 §2.8。
+ | SharedArrayBuffer 多线程
+ | 🔴 不可用
+ WebGL 适合用上传包提供、以小工具同源路径加载的资源做本地渲染。§3.10 的平台 AI 仅提供文本生成；
+ AI 图像处理等重计算场景仍无法支持（既不能联网调用外部模型，也不能运行 WASM 模型）。
+ 06常见问题 FAQ
+ 创作或改写小工具应该从哪里开始？
+ 从小工具上传页开始。在“第一步：调整为符合小红书规范的代码格式”中完整复制改写口令，
+ 发送给工作区内的 AI 助手执行。口令会指导 AI 下载当前版本 Skill、读取
+ SKILL.md、校验和修复代码并打包；不要只把本页能力清单当作改写提示词。
+ <input type="file" accept="video/*"> 为什么只能选图片？
+ 出于安全考虑，文件选择仅支持图片和视频，无论 accept 如何设置，此限制不可更改。
+ 页面里的 <script> 不执行 / 报 CSP 错误？
+ 容器禁止内联脚本与行内事件处理器（onclick="..."）。请把 JS
+ 放进包内 .js 文件用
+ <script src="./app.js"> 引入，事件用
+ addEventListener 绑定。详见 §2.6。
+ 能不能请求我自己的服务端接口 / 加载线上图片？
+ 网页不能通过 fetch、XMLHttpRequest 等方式请求外部服务，线上资源也不能直接加载。
+ 页面、脚本、图片、字体和静态数据必须完整放入上传包。
+ §2.7 静态资源优化策略由容器透明取回平台管理的资源，页面仍使用同源路径，不能直连 CDN。
+ 需要服务端实时推送怎么办？
+ 不支持 WebSocket / SSE / WebRTC 或通过 fetch 轮询自建服务。
+ 当前平台 AI 仅支持 §3.10 的非流式文本生成。
+ 第三方库报安全错误 / 无法运行？
+ 请排查 §4 中的动态执行、WebAssembly 和网络请求限制。使用 Worker 的库还需符合 §2.8 的脚本、配额和运行限制。
+ 怎么把小工具生成的图片保存到相册 / 发成笔记？
+ 用容器注入的 JS API：writeTempFile 把 base64 换成
+ filePath，再传给 saveImageToPhotosAlbum 或
+ postNote。详见 §3。
+ 小工具能不能直接做 AI 对话、文案生成或灵感助手？
+ 可以。使用 window.xhs.AI 调用平台对话模型，无需 API key 或自建服务。
+ 当前是非流式文本生成，内测阶段需先完成 appId 加白；接入与限制见 §3.10。
+ window.xhs 是 undefined？
+ 说明当前环境未注入平台能力（如在普通浏览器中预览）。请按需检查
+ window.xhs && window.xhs.miniTool 或
+ window.xhs && window.xhs.AI。原生 API 还需独立核对有效客户端最低版本、方法存在、容器开放与权限；
+ 不可用时停用功能、提示或只在内存保留未保存内容，不伪造成功。
+ 版本未知、缺 SDK / 方法、拒绝、超额或失败不得回退浏览器存储、私有 bridge 或外部请求；已知低版本必要兼容按 §3.7 单独实现。
+ JS API 传网络图片地址为什么失败？
+ 这些媒体字段不接受网络地址，只接受 data: base64 或
+ writeTempFile 返回的本地路径。
+ 能不能调用文档里没列出的其他原生能力？
+ 不能。§3.2 列出的即为全部可用 JS API，未列出的能力不受支持。
+ 07离线 H5 性能优化
+ 小工具启动包含容器准备、WebView 绘制和业务初始化。先定位用户等在哪一段，再选择优化措施。
+ 普通工具优先尽快呈现内容并开放核心操作，复杂业务和游戏另设首关可玩及后续资源就绪指标。
+ 出码和打包时使用上传页口令加载当前版本 Skill，其中包含完整配置、示例代码与检查清单。
+ 7.1 首屏与分阶段启动
+ WebView 从 index.html 解析内容。把标题、用途和可预先确定的结构直接写进入口，使用少量关键 CSS
+ 和系统字体。明确哪些资源必须等、哪些功能可以晚些初始化。经典外置脚本可用
+ defer 避免阻塞 HTML 解析，但其执行仍会占用主线程，重任务应分批并让出主线程。
+ 案例：拼图小游戏先显示规则，再开放第一关
+ 初始 HTML 显示规则、状态文案和棋盘占位。入口脚本先绑定交互，再分批准备第一关，真正可操作时更新状态。
+ 启动失败保留规则并给出重试，后续关卡按需加载。进度未知时显示具体阶段，只有总量可计算时才显示百分比。
+ 延迟或禁用入口脚本检查静态首屏，正常运行时再录屏验证首次内容和首关可玩。
+ <h1>拼图练习</h1>
+<p>移动拼块，完成第一张图。</p>
+<div id="board" aria-busy="true"></div>
+<p id="status" role="status">正在准备第一关…</p>
+<script defer src="./bootstrap.js"></script>
+ Chrome 团队 · 关键渲染路径 ·
+ WHATWG · 脚本执行顺序 ·
+ Chrome 团队 · 拆分长任务
+ 7.2 资源体积、平台托管与 OSS
+ 案例：首屏标识随主包，详情大图按需取回
+ 将小型关键标识放在 critical/，将可延后的详情图独立放入 assets/，
+ 用户打开详情时再加载。完整 ZIP 同时包含两类文件。符合条件时由平台透明分发，页面始终引用包内路径。
+ 对比原方案与外移方案的主包耗时（可观测时）、核心就绪、详情首次打开和弱网回退。
+ §2.7 平台策略、适用版本及示例
+ 案例：大型游戏美术源文件用 OSS 管理
+ 设计原件可放在团队授权的 OSS。构建环境下载锁定版本并校验哈希，按显示尺寸转码，只把所需的白名单素材装进 ZIP。
+ 首关离线必需素材随主包，后续关卡图片可参与平台优化。小工具运行时继续使用包内路径，
+ OSS 管理和平台外移都遵循 §2.6 资源加载规则。
+ 分别检查上传 ZIP、解压后的文本和首屏解码成本。以 RGBA8 为例，2048 × 2048 的单份像素数据约占
+ 16 MiB，实际还可能有额外拷贝或 GPU 资源。先裁尺寸、去重，再评估压缩和分发。
+ MDN · 纹理与显存预算 ·
+ 阿里云 OSS · 受控素材上传
+ 7.3 工程构建与产物治理
+ 先确认目标 WebView、现有工具链和包内路径，再决定转译、分片和压缩方案。以下配置仅供参考，
+ 应按项目锁定版本与实测选择。最终产物须满足 §2.2 兼容基线 和
+ §2.6 CSP 与资源规则。
+ 从源码到最终 ZIP 的四个检查点
+ 入口与依赖。 保留静态首屏和关键 CSS。列出入口必需模块、桥接能力、后续场景及其资源。检查依赖和插件是否引入外域请求、动态代码执行、WASM 或不支持的 Worker。
+ 语法与 API。 分别核对业务 JS、第三方依赖、打包器运行时和延迟分片。转译新语法之后，仍要检查运行期 API、CSS 回退和经典脚本执行方式。
+ 生产优化。 先删除未用依赖、重复语言包和素材，再做 tree shaking、常规压缩及局部变量改名。保留注册逻辑、样式等副作用和公开桥接字段，关闭属性混淆等高风险选项。
+ 打包与复现。 清理专用输出目录再构建，补齐 HTML 与静态文件，检查 ZIP 根入口、文件白名单和分片路径。调试映射保留在开发侧，交付包排除 .map。同一包完成浏览器、模拟器与真机验收。
+ webpack 5：将重功能编译为包内经典分片
+ 将编辑器等低频功能设为动态导入边界。应用入口继续使用外置经典脚本，webpack 运行时从包内加载异步分片。
+ 下面只展示输出和预算片段。项目仍需配置源码与必要依赖的转译，例如用 Babel 面向 Chrome 61。
+ module.exports = {
+ mode: 'production',
+ target: ['web', 'es2017'],
+ devtool: false,
+ output: {
+ filename: 'app.js',
+ chunkFilename: 'chunks/[name].[contenthash].js',
+ publicPath: './',
+ chunkLoading: 'jsonp',
+ iife: true
+ },
+ performance: { hints: 'warning', maxEntrypointSize: 300 * 1024 }
+};
+ 300 KiB 是示例预算。入口告警按 webpack 产物计量，手工复制的资源和最终 ZIP 另行审计。
+ 对需要独立文件的图片可考虑 asset/resource，按依赖决定留主包还是输出到 assets/。
+ 如果增加 runtime 或入口 vendor chunk，按生成顺序加载完整入口集合。
+ webpack · 分片 ·
+ 运行时目标 ·
+ 资源模块
+ Vite 6：小型入口的 IIFE 构建
+ 已用 Vite 的轻量项目可评估单入口 IIFE，并保留自定义 index.html。
+ 库模式合并后的启动脚本仍需整体读取和解析。需要大型功能独立加载时，先实测当前入口，
+ 再评估独立经典入口或支持经典分片的构建流程。
+ import { defineConfig } from 'vite';
+export default defineConfig({
+ base: './',
+ build: {
+ target: ['es2017', 'chrome61'],
+ cssTarget: 'chrome61',
+ sourcemap: false,
+ lib: {
+ entry: 'src/app.js',
+ formats: ['iife'],
+ name: 'MiniToolApp',
+ fileName: () => 'app.js',
+ cssFileName: 'style'
+ }
+ }
+});
+ 构建后将入口模板复制到 ZIP 根，按实际产物引用 app.js 和生成的样式。
+ Vite 6 库模式会内联导入的静态资源，assetsInlineLimit: 0 在该模式下不生效。
+ 要保留平台可外移的素材，应复制独立文件并使用包内路径。换 Vite 主版本时核对对应版本的选项和构建后端。
+ Vite 6 · Build Options
+ 检查最终目录和加载关系
+ tool.zip
+├── index.html # 静态首屏与经典入口引用
+├── app.js # 主包入口
+├── style.css # 若构建有独立的首屏样式
+├── chunks/editor.[hash].js # 用户触发后按需加载
+├── critical/logo.svg # 主包首屏资源
+└── assets/detail.webp # 可参与平台静态资源优化
+ 检查分片名大小写、CSS 相对路径、缺资源时的回退，以及重复构建是否留下旧分片。
+ 将上传 ZIP 大小、解压后总量、入口及延迟分片大小分别记录。构建告警用于定位，ZIP 规范和运行验证用于交付。
+ 案例：图片工具的高级编辑器延后加载
+ 先保留选图、预览与基础操作。用户打开编辑器时加载分片和专用样式，失败允许重试并保留当前图片。
+ 比较拆分前后的入口 JS 字节、解析和执行耗时、预览可用时间，以及编辑器首次打开耗时。
+ 若首用等待增加，再评估核心就绪后有限预热或合并小分片。
+ 7.4 第三方框架、组件库与游戏引擎
+ 先用最小真实场景验证所选版本和依赖组合。检查首屏成本、最终脚本格式、运行期 API、资产格式和关闭页面后的清理。
+ 已有框架优先减少依赖和启动工作，迁移应有可测的收益。
+ React。 静态标题与说明可以放在应用挂载点外。已有构建期预渲染时，再考虑用 hydrateRoot 复用对应标记。
+ 保证初次输出一致，避免挂载时清空首屏、重复渲染或丢失输入。
+ React · hydrateRoot
+ Vue。 优先使用构建期模板编译、按需导入和稳定的 props。对大列表先分页或虚拟化。
+ 重视视图挂载和响应式更新的实际成本，避免每次输入触发全列表计算。
+ Vue · 性能指南
+ 组件库与工具包。 只引入实际用到的组件、图标、语言和主题。
+ 从产物核对按需导入是否生效，以及主题、运行时和 polyfill 是否重复。测试动态类名和按需样式是否保留。
+ PixiJS 等 2D 引擎。 对重复精灵评估图集和批处理，控制滤镜范围、混合状态切换和动态文字更新。
+ 锁定引擎版本并检查真实渲染后端与加载器行为。可用的引擎 API 仍受容器的请求和文件规则约束。
+ PixiJS · 性能实践
+ Three.js 等 3D 引擎。 按锁定版本核对渲染器、材质、加载器及扩展。Three.js 的 WebGLRenderer 自 r163 起仅支持 WebGL 2，
+ 需要兼容方案时应独立验证核心功能与真实绘制。纹理、模型、解码器与 WASM 须分别符合容器能力。
+ Three.js · WebGLRenderer ·
+ §5 图形能力及降级
+ 依赖升级前后的验收顺序
+ 在目标容器跑最小功能，检查外置经典脚本、控制台 CSP 错误和资源缺失。把运行时、插件、渲染后端和资源格式记录成同一组版本。
+ 加入真实首屏与主要操作，检查运行库是否把资源交给受限的请求接口，或默认从 CDN 加载解码器、字体和其他依赖。按已支持的来源改写。
+ 分别测首次挂载、重复进入、切换场景与退出，检查监听、计时器、渲染循环和 GPU 资源是否按所有权释放。
+ 案例：组件库拖慢首屏
+ 保持同样的表单和搜索功能，比较全量注册与按需引入。先看入口产物中是否仍有未使用的主题、图标和组件，
+ 再对比首屏绘制、首次输入响应与页面切换。若差异主要出在列表更新，再减少节点和重复计算。
+ 7.5 DOM 与 CSS 渲染
+ 长列表滚动卡顿。 只渲染当前页或可见项，先读布局再批量写 DOM。
+ 对比强制布局次数、滚动帧间隔和焦点保留。
+ Chrome 团队 · 布局抖动
+ 动画频繁重绘。 位移和透明变化优先用 transform 与 opacity。
+ 为图片和占位预留尺寸，结合性能记录检查大面积滤镜与透明叠加。
+ Chrome 团队 · 高性能 CSS 动画
+ 7.6 游戏与 WebGL 优化
+ 按「场景准备 → CPU 提交 → GPU 绘制 → 资源回收」找瓶颈。首关只准备必要模型、纹理、Shader 和输入，
+ 后续关卡及高画质资源按需加载。普通静态场景按需绘制，连续动画在页面隐藏时暂停。
+ 案例一：CPU 提交跟不上大量重复物体
+ 固定关卡与可见物体数量，比较逐对象提交和按材质分组后的批处理。WebGL 2 可用实例化，
+ WebGL 1 先检测 ANGLE_instanced_arrays，缺失时保留普通绘制或静态合并。
+ 按空间区块拆批以维持裁剪效果，透明物体保留需要的排序。记录 draw call、三角形数及 CPU 提交耗时。
+ MDN · 批处理绘制 ·
+ Khronos · WebGL 1 实例化
+ 案例二：高 DPR 和后处理导致 GPU 绘制超预算
+ 保持 CSS 画布尺寸不变。400 × 800 CSS 像素的场景从 DPR 3 调到 1.5，绘制缓冲区从 288 万降到 72 万像素。
+ 用同一镜头比较帧间隔与清晰度，确认点击坐标仍正确。再逐项关闭全屏滤镜、实时阴影和透明层，
+ 区分像素填充、额外渲染通道及画质影响。
+ // 示例按绘制缓冲区像素预算估算比例。CSS 尺寸须大于 0。
+const pixelRatio = Math.min(
+ window.devicePixelRatio || 1,
+ 1.5,
+ Math.sqrt(2000000 / (cssWidth * cssHeight))
+);
+ 以上为起点值，按真机和设备能力调整。调整画布后同步更新 viewport、相机和关联渲染目标。
+ MDN · 绘制缓冲区
+ 案例三：首次切换材质卡顿
+ 先准备首关必要材质，把高画质和后续关卡变体移出关键路径。
+ 支持 KHR_parallel_shader_compile 时跨帧查询完成状态，再检查链接结果并实际绘制。
+ 扩展缺失时减少变体并分批准备。记录首次材质切换长帧、首关可玩时间和失败日志。
+ Khronos · Shader 编译扩展
+ 质量档与降级策略
+ 从经过验证的低档或中档起步，控制画布像素、纹理、粒子与后处理。连续渲染时用前台稳定窗口观察帧间隔，
+ 排除启动编译、页面隐藏和按需绘制空闲期。以 30 FPS 为目标时一帧约 33.3 ms，仍需为输入、业务逻辑和渲染共同留出预算。
+ 多个窗口持续超预算时逐档降低画质，避免按单帧抖动频繁切换。能力检测失败或 Shader 无法绘制时，直接尝试兼容实现。
+ 纹理、内存和前后台切换
+ 按显示尺寸导出纹理，计算解码、GPU 副本、mipmap 和渲染目标。压缩文件字节数与运行时显存分开记录。
+ 按资源所有权释放纹理、几何和渲染目标。反复切场景，记录资源数量变化并确认仍在使用的共享素材可用。
+ 前台恢复时重置帧间隔，只恢复一条渲染循环。上下文丢失时保留游戏状态并有限恢复，失败后走可操作的降级路径。
+ 生产帧循环避免同步回读和频繁 GPU 状态查询。诊断时可在支持的端少量采样 GPU timer query，跨帧读取并丢弃 disjoint 样本。
+ Khronos · GPU 计时
+ 完整的设备能力判断、故障恢复和降级要求见 §5 WebGL / 图形计算边界。
+ 7.7 指标与验收
+ 版本记录。 分别记录操作系统（Android 10+ / iOS 18.4+）、实际 WebView 内核与客户端版本；Android 产物仍须兼容 Chrome / WebView 61 + ES2017。系统或客户端版本不能代替内核兼容性，原生能力按各 API 最低客户端版本判断。
+ 启动。 分别记录打开到页面可见、FP / FCP、核心操作可用或首关可玩。容器准备耗时只有在宿主有数据时单列。
+ 交互与渲染。 固定操作与画质，记录点击响应、前台帧间隔 p95 和降档。应用帧提交次数与屏幕实际呈现分开记录。
+ 对照。 同一设备、容器版本、网络与缓存条件下比较前后产物，覆盖冷启动、暖启动、弱网、离线和前后台切换。
+ 标明样本量、包版本和未实测项。浏览器、模拟器与真机结果分别记录。
+ W3C · Paint Timing ·
+ W3C · User Timing ·
+ Chrome 团队 · Web Vitals
+ © 小红书 · 小工具容器 · 能力清单
