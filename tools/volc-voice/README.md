@@ -4,7 +4,7 @@
 > - `本人`：`S_DRo7Kc2k2`，Resource-Id `seed-icl-2.0`（声音复刻 2.0），要传 `model` 和 `tone_fidelity`
 > - `刘飞2.0`：`zh_male_liufei_uranus_bigtts`，Resource-Id `seed-tts-2.0`（豆包语音合成模型 2.0，官方预置音色，不传 model）
 >
-> 两个音色是两个服务，各自开通。11-21 测：`seed-tts-2.0` 返回 `45000030 [resource_id=volc.seedtts.default] requested resource not granted`，说明这把 Key 还没拿到语音合成 2.0 的权限（复刻那边正常）。
+> 两个音色是两个服务，各自开通。11-21 一开始 `seed-tts-2.0` 返回 `45000030 [resource_id=volc.seedtts.default] requested resource not granted`：Key 没问题（Default 项目只有一把「默认体验中心使用」，没有按服务分权限），是语音合成 2.0 在 Default 项目下没正式开通；用户在控制台开通后当场就通了（同一把 Key，代理加头，不用改配置）。以后再报 45000030 先查服务开通状态，不查 Key。
 > 试听：`python3 tools/volc-voice/volc_tts.py 刘飞2.0 "一句话" out.wav`；测流程不扣费：`VOLC_TTS_FAKE=1`。
 
 用户要用自己的声音给解说视频配旁白（对标 `对标/Jim_AI_Notebook/`），走火山引擎「豆包声音复刻模型 2.0」。
